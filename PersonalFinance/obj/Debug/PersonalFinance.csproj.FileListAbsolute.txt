@@ -244,3 +244,13 @@ C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Mic
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\System.Diagnostics.DiagnosticSource.dll
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Microsoft.IdentityModel.Logging.dll
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Twilio.dll
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Microsoft.IdentityModel.Logging.xml
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Microsoft.IdentityModel.Tokens.xml
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Twilio.xml
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Twilio.AspNet.Common.dll
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Twilio.AspNet.Mvc.dll

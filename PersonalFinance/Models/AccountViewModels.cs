@@ -81,11 +81,6 @@ namespace PersonalFinance.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
-        [DataType(DataType.PhoneNumber)]
-        [Display(Name = "Phone")]
-        public string Phone { get; set; }
-
         public bool FirstLogin = true;
 
         [Required]

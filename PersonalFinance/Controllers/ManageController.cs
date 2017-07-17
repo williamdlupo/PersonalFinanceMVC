@@ -98,7 +98,7 @@ namespace PersonalFinance.Controllers
             }
             return RedirectToAction("ManageLogins", new { Message = message });
         }
-
+                
         //
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber()
@@ -132,8 +132,7 @@ namespace PersonalFinance.Controllers
 
         //
         // POST: /Manage/EnableTwoFactorAuthentication
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
         {
             await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), true);
@@ -144,11 +143,9 @@ namespace PersonalFinance.Controllers
             }
             return RedirectToAction("Index", "Manage");
         }
-
         //
         // POST: /Manage/DisableTwoFactorAuthentication
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
         {
             await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), false);
@@ -187,7 +184,7 @@ namespace PersonalFinance.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
+                return RedirectToAction("Onboarding","Account", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "Failed to verify phone");

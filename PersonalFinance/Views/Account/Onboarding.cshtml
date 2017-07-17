@@ -1,8 +1,10 @@
-﻿@model PersonalFinance.Models.RegisterViewModel
+﻿@model PersonalFinance.Models.AddPhoneNumberViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Getting Started";
 }
+
+<h5 class="text-success">@ViewBag.StatusMessage</h5>
 
 <div class="container">
         <div class="stepwizard">
@@ -36,6 +38,7 @@
                     <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
                 </div>
             </div>
+
             <div class="panel panel-primary setup-content" id="step-2">
                 <div class="panel-heading">
                     <h3 class="panel-title">Set Up Two Factor Authentication</h3>

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -14,6 +10,10 @@ using PersonalFinance.Models;
 using System.Web.Configuration;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
+using System.Diagnostics;
 
 namespace PersonalFinance
 {
@@ -42,8 +42,17 @@ namespace PersonalFinance
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your SMS service here to send a text message.
-            return Task.FromResult(0);
+           TwilioClient.Init(
+              System.Configuration.ConfigurationManager.AppSettings["SMSAccountIdentification"],
+              System.Configuration.ConfigurationManager.AppSettings["SMSAccountPassword"]);
+            var msg = MessageResource.Create(to: new PhoneNumber(message.Destination), 
+                                            from: new PhoneNumber(System.Configuration.ConfigurationManager.AppSettings["SMSAccountFrom"]), 
+                                            body: message.Body);
+
+             //Status is one of Queued, Sending, Sent, Failed or null if the number is not valid
+             Trace.TraceInformation(msg.Status.ToString());
+            //Twilio doesn't currently have an async API, so return success.
+             return Task.FromResult(0);
         }
     }
 

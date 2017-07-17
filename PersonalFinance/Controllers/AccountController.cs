@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PersonalFinance.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using static PersonalFinance.Controllers.ManageController;
 
 namespace PersonalFinance.Controllers
 {
@@ -103,38 +104,7 @@ namespace PersonalFinance.Controllers
                     return View(model);
             }
         }
-
-        //
-        // GET: /Account/Onboarding
-        [AllowAnonymous]
-        public ActionResult Onboarding()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/Onboarding
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Onboarding(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.Phone, FirstLoginFlag = model.FirstLogin, GoaltrackID = model.GoalID };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    //code here once goals have been selected 
-                    return View("ValidateEmail");
-                }
-                AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-
+                
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -179,6 +149,41 @@ namespace PersonalFinance.Controllers
         }
 
         //
+        // GET: /Account/Onboarding
+        public ActionResult Onboarding(ManageMessageId? message)
+        {
+            ViewBag.StatusMessage =
+                message == ManageMessageId.Error ? "An error has occurred."
+                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
+                : "";
+            return View();
+        }
+
+        //
+        // POST: /Account/Onboarding
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Onboarding(AddPhoneNumberViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            // Generate the token and send it
+            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
+            if (UserManager.SmsService != null)
+            {
+                var message = new IdentityMessage
+                {
+                    Destination = model.Number,
+                    Body = "Your security code is: " + code
+                };
+                await UserManager.SmsService.SendAsync(message);
+            }
+            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
+        }
+
+        //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -195,7 +200,7 @@ namespace PersonalFinance.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.Phone, FirstLoginFlag = model.FirstLogin };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstLoginFlag = model.FirstLogin };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
