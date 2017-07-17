@@ -199,7 +199,6 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OnboardingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -323,9 +322,8 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Dashboard\Main.cshtml" />
-    <Content Include="Views\Onboarding\Goals.cshtml" />
+    <Content Include="Views\Account\Onboarding.cshtml" />
     <Content Include="Views\Dashboard\Reports.cshtml" />
-    <Content Include="Views\Onboarding\LoadAccounts.cshtml" />
     <Content Include="Views\Account\UnconfirmedLoginError.cshtml" />
     <Content Include="Views\Account\ValidateEmail.cshtml" />
   </ItemGroup>

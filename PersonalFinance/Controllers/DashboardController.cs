@@ -26,15 +26,25 @@ namespace PersonalFinance.Controllers
             user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
-        //Home dashboard
+        //
+        // GET: Dashboard/Main
         public ActionResult Main()
         {
+            //move to goal selection controller when post methods created
+            //user.FirstLoginFlag = false;
+            //await UserManager.UpdateAsync(user);
+
+            if (user.FirstLoginFlag == true) { return RedirectToAction("Onboarding","Account");}
+
             return View();
         }
 
-        //Reports view and download
+        //
+        //GET:  Dashboard/Reports
         public ActionResult Reports()
         {
+            if (user.FirstLoginFlag == true) { return RedirectToAction("Onboarding", "Account");}
+
             return View();
         }
     }

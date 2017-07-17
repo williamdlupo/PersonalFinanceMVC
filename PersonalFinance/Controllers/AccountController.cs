@@ -92,15 +92,6 @@ namespace PersonalFinance.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    //if user is logging in for first time we switch the flag and redirect to onboarding, else direct to main dashboard
-                    if (user.FirstLoginFlag == true)
-                    {
-                        //move to goal selection controller when post methods created
-                        //user.FirstLoginFlag = false;
-                        //await UserManager.UpdateAsync(user);
-
-                        return RedirectToAction("Goals", "Onboarding" );
-                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -112,6 +103,37 @@ namespace PersonalFinance.Controllers
                     return View(model);
             }
         }
+
+        //
+        // GET: /Account/Onboarding
+        [AllowAnonymous]
+        public ActionResult Onboarding()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Onboarding
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Onboarding(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.Phone, FirstLoginFlag = model.FirstLogin, GoaltrackID = model.GoalID };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    //code here once goals have been selected 
+                    return View("ValidateEmail");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
 
         //
         // GET: /Account/VerifyCode

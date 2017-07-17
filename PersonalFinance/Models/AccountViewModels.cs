@@ -88,6 +88,10 @@ namespace PersonalFinance.Models
 
         public bool FirstLogin = true;
 
+        [Required]
+        [Display(Name = "Select a Goal Track")]
+        public int GoalID { get; set; }
+
     }
 
     public class ResetPasswordViewModel
