@@ -83,10 +83,6 @@ namespace PersonalFinance.Models
 
         public bool FirstLogin = true;
 
-        [Required]
-        [Display(Name = "Select a Goal Track")]
-        public int GoalID { get; set; }
-
     }
 
     public class ResetPasswordViewModel
@@ -116,5 +112,12 @@ namespace PersonalFinance.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+    }
+
+    public class UpdateGoalIDModel
+    {
+        [Required]
+        [Display(Name = "Select a Goal Track")]
+        public int GoalID { get; set; }
     }
 }

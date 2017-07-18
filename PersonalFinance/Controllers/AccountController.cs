@@ -149,13 +149,16 @@ namespace PersonalFinance.Controllers
         }
 
         //
-        // GET: /Account/Onboarding
-        public ActionResult Onboarding(ManageMessageId? message)
+        // GET: /Account/GetStarted
+        public ActionResult GetStarted()
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : "";
+            return View();
+        }
+
+        //
+        // GET: /Account/Onboarding
+        public ActionResult Onboarding()
+        {
             return View();
         }
 
@@ -163,24 +166,31 @@ namespace PersonalFinance.Controllers
         // POST: /Account/Onboarding
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Onboarding(AddPhoneNumberViewModel model)
+        public async Task<ActionResult> Onboarding(UpdateGoalIDModel model)
         {
-            if (!ModelState.IsValid)
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            if (ModelState.IsValid)
             {
-                return View(model);
-            }
-            // Generate the token and send it
-            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
-            if (UserManager.SmsService != null)
-            {
-                var message = new IdentityMessage
+                user.GoaltrackID = model.GoalID ;
+                var result = await UserManager.UpdateAsync(user);
+
+                if (result.Succeeded)
                 {
-                    Destination = model.Number,
-                    Body = "Your security code is: " + code
-                };
-                await UserManager.SmsService.SendAsync(message);
+                    return View("AccountSync");
+                }
+                AddErrors(result);
             }
-            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
+
+            // If we got this far, something failed, redisplay form
+            return View();
+        }
+
+        //
+        // GET: /Account/GetStarted
+        public ActionResult AccountSync()
+        {
+            return View();
         }
 
         //

@@ -35,7 +35,7 @@ namespace PersonalFinance.Controllers
             //await UserManager.UpdateAsync(user);
 
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber","Manage");}
-            if (user.FirstLoginFlag == true) { return RedirectToAction("Onboarding", "Account"); }
+            if (user.FirstLoginFlag == true) { return RedirectToAction("GetStarted", "Account"); }
 
             return View();
         }
@@ -45,7 +45,7 @@ namespace PersonalFinance.Controllers
         public ActionResult Reports()
         {
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
-            if (user.FirstLoginFlag == true) { return RedirectToAction("Onboarding", "Account"); }
+            if (user.FirstLoginFlag == true) { return RedirectToAction("GetStarted", "Account"); }
 
             return View();
         }

@@ -1,142 +1,71 @@
-﻿@model PersonalFinance.Models.AddPhoneNumberViewModel
+﻿@model PersonalFinance.Models.UpdateGoalIDModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Getting Started";
 }
 
-<h5 class="text-success">@ViewBag.StatusMessage</h5>
-
 <div class="container">
-        <div class="stepwizard">
-            <div class="stepwizard-row setup-panel">
-                <div class="stepwizard-step col-xs-3">
-                    <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>
-                    <p><small>Getting Started</small></p>
-                </div>
-                <div class="stepwizard-step col-xs-3">
-                    <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                    <p><small>Additional Security</small></p>
-                </div>
-                <div class="stepwizard-step col-xs-3">
-                    <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                    <p><small>Goals</small></p>
-                </div>
-                <div class="stepwizard-step col-xs-3">
-                    <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-                    <p><small>Sync Your Accounts</small></p>
-                </div>
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step col-xs-4">
+                <a href="@Url.Action("GetStarted", "Account")" role="button" class="btn btn-default btn-circle">1</a>
+                <p><small>Getting Started</small></p>
+            </div>
+            <div class="stepwizard-step col-xs-4">
+                <a href="@Url.Action("Onboarding", "Account")" role="button" class="btn btn-success btn-circle">2</a>
+                <p><small>Goals</small></p>
+            </div>
+            <div class="stepwizard-step col-xs-4">
+                <a href="@Url.Action("AccountSync", "Account")" role="button" class="btn btn-default btn-circle">3</a>
+                <p><small>Account Sync</small></p>
             </div>
         </div>
-
-        <form role="form">
-            <div class="panel panel-primary setup-content" id="step-1">
-                <div class="panel-heading">
-                    <h3 class="panel-title"></h3>
-                </div>
-                <div class="panel-body">
-                   <h3>How it Works...</h3>
-                    <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
-                </div>
-            </div>
-
-            <div class="panel panel-primary setup-content" id="step-2">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Set Up Two Factor Authentication</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="control-label">Company Name</label>
-                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Company Address</label>
-                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />
-                    </div>
-                    <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
-                </div>
-            </div>
-
-            <div class="panel panel-primary setup-content" id="step-3">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Select Financial Goals</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="control-label">Company Name</label>
-                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Company Address</label>
-                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />
-                    </div>
-                    <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
-                </div>
-            </div>
-
-            <div class="panel panel-primary setup-content" id="step-4">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Sync Up Your Accounts</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="control-label">Company Name</label>
-                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Company Address</label>
-                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />
-                    </div>
-                    <button class="btn btn-success pull-right" type="submit">Finish!</button>
-                </div>
-            </div>
-        </form>
     </div>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title"></h3>
+    </div>
+    <div class="panel-body">
+        <h3>Goal Selection</h3>
+        <br />
+        @using (Html.BeginForm("Onboarding", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group col-md-4 col-sm-offset-1">
+                <label>Track A</label>
+                <p> A list of potential things that fall under this goal track</p>
+                <div class="col-md-2">
+                    @Html.RadioButtonFor(m => m.GoalID, 1)
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label>Track B</label>
+                <p> A list of potential things that fall under this goal track</p>
+                <div class=" col-sm-offset-1">
+                    @Html.RadioButtonFor(m => m.GoalID, 2)
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label>Track C</label>
+                <p> A list of potential things that fall under this goal track</p>
+                <div class=" col-sm-offset-1">
+                    @Html.RadioButtonFor(m => m.GoalID, 3)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-success pull-right" value="Submit" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
-    $(document).ready(function () {
-
-        var navListItems = $('div.setup-panel div a'),
-            allWells = $('.setup-content'),
-            allNextBtn = $('.nextBtn');
-
-        allWells.hide();
-
-        navListItems.click(function (e) {
-            e.preventDefault();
-            var $target = $($(this).attr('href')),
-                $item = $(this);
-
-            if (!$item.hasClass('disabled')) {
-                navListItems.removeClass('btn-success').addClass('btn-default');
-                $item.addClass('btn-success');
-                allWells.hide();
-                $target.show();
-                $target.find('input:eq(0)').focus();
-            }
-        });
-
-        allNextBtn.click(function () {
-            var curStep = $(this).closest(".setup-content"),
-                curStepBtn = curStep.attr("id"),
-                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                curInputs = curStep.find("input[type='text'],input[type='url']"),
-                isValid = true;
-
-            $(".form-group").removeClass("has-error");
-            for (var i = 0; i < curInputs.length; i++) {
-                if (!curInputs[i].validity.valid) {
-                    isValid = false;
-                    $(curInputs[i]).closest(".form-group").addClass("has-error");
-                }
-            }
-
-            if (isValid) nextStepWizard.removeAttr('disabled').trigger('click');
-        });
-
-        $('div.setup-panel div a.btn-success').trigger('click');
-    });
-    </script>
 }
