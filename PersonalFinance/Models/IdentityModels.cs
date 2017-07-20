@@ -15,6 +15,8 @@ namespace PersonalFinance.Models
         public int GoaltrackID { get; set; }
         public bool MasterUser { get; set; }
         public bool FirstLoginFlag { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int TableId { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

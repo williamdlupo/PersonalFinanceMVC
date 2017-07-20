@@ -117,7 +117,6 @@ namespace PersonalFinance.Models
     public class UpdateGoalIDModel
     {
         [Required]
-        [Display(Name = "Select a Goal Track")]
         public int GoalID { get; set; }
     }
 }

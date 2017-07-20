@@ -254,3 +254,4 @@ C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Sys
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Twilio.xml
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Twilio.AspNet.Common.dll
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\bin\Twilio.AspNet.Mvc.dll
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\obj\Debug\PersonalFinance.Migrations.TableID.resources
