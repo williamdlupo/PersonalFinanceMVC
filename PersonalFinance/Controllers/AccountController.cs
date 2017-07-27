@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -9,8 +6,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PersonalFinance.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
-using static PersonalFinance.Controllers.ManageController;
 
 namespace PersonalFinance.Controllers
 {
@@ -187,9 +182,29 @@ namespace PersonalFinance.Controllers
         }
 
         //
-        // GET: /Account/GetStarted
+        // GET: /Account/AccountSync
         public ActionResult AccountSync()
+        {  
+            return View();
+        }
+
+        //
+        // POST: /Account/AccountSync
+        [HttpPost]
+        public ActionResult Get_Access_Token(PublicToken token)
         {
+            if (ModelState.IsValid)
+            {
+                string _token = token.public_token;
+                AccountSyncModel async = new AccountSyncModel();
+                async.AuthConnect(_token);
+
+                return View("AccountSync");
+            }
+
+
+
+            // If we got this far, something failed, redisplay form
             return View();
         }
 

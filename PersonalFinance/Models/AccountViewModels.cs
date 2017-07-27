@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Net.Http;
+using System.Web.Configuration;
 
 namespace PersonalFinance.Models
 {
@@ -118,5 +122,40 @@ namespace PersonalFinance.Models
     {
         [Required]
         public int GoalID { get; set; }
+    }
+
+    public class AccountSyncModel
+    {
+        private static string _clientid = WebConfigurationManager.AppSettings["client_id"];
+        private static string _secret = WebConfigurationManager.AppSettings["secret"];
+        private static string _baseurl = "https://sandbox.plaid.com";
+
+        private static HttpClient client = new HttpClient();
+        private static string _accesstoken;
+
+        public void AuthConnect(string public_token)
+        {
+            client.BaseAddress = new Uri(_baseurl);
+
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("client_id",_clientid),
+                new KeyValuePair<string, string>("secret", _secret ),
+                new KeyValuePair<string, string>("public_token", public_token )
+            });
+
+            var result = client.PostAsync("/item/public_token/exchange", content).Result;
+            var contents = result.Content.ReadAsStringAsync().Result;
+
+            var obj = JObject.Parse(contents);
+            var url = (string)obj["access_token"];
+            _accesstoken = url.ToString();
+            
+        }
+    }
+
+    public class PublicToken
+    {
+        public string public_token { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace PersonalFinance
         {
             var apiKey = WebConfigurationManager.AppSettings["SendGrid"];
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("support@datahiveanalytics.com", "DataHive iCFP");
+            var from = new EmailAddress("support@datahiveanalytics.com", "DataHive Account Support");
             var subject = message.Subject;
             var to = new EmailAddress(message.Destination, "User");
             var plainTextContent = message.Body;
