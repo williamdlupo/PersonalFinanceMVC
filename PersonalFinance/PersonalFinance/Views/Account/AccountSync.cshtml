@@ -29,10 +29,8 @@
     <div class="panel-body">
         <h3>Sync Up Your Accounts</h3>
         
-
         <button class="btn btn-primary" id="link-button">Launch Plaid Link</button>
 
-        
         <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-success pull-right">Let's Go!</a>
     </div>
 </div>
@@ -50,7 +48,7 @@
                 // Send the public_token to your app server.
                 // The metadata object contains info about the institution the
                 // user selected and the account ID, if `selectAccount` is enabled.
-                $.post('/Account/Get_Access_Token', {
+                $.post('/Account/AccountSync', {
                     public_token: public_token,
                 });
             },

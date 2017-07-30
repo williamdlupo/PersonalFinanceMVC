@@ -189,9 +189,9 @@ namespace PersonalFinance.Controllers
         }
 
         //
-        // POST: /Account/AccountSync
+        // POST: /Account/Get_Access_Token
         [HttpPost]
-        public ActionResult Get_Access_Token(PublicToken token)
+        public ActionResult AccountSync(PublicToken token)
         {
             if (ModelState.IsValid)
             {
@@ -199,10 +199,8 @@ namespace PersonalFinance.Controllers
                 AccountSyncModel async = new AccountSyncModel();
                 async.AuthConnect(_token);
 
-                return View("AccountSync");
+                return View();
             }
-
-
 
             // If we got this far, something failed, redisplay form
             return View();

@@ -133,11 +133,14 @@ namespace PersonalFinance.Models
         private static string _secret = WebConfigurationManager.AppSettings["secret"];
         private static string _baseurl = "https://sandbox.plaid.com";
 
-        private static HttpClient client = new HttpClient();
-        private static string _accesstoken;
-        private static string _item_id;
+        private HttpClient client = new HttpClient();
+        private string _accesstoken;
+        private string _item_id;
+        private string _public_token;
 
-        public void AuthConnect(string public_token)
+        public string test { get; set; }
+
+        private void AuthConnect()
         {
             client.BaseAddress = new Uri(_baseurl);
 
@@ -145,7 +148,7 @@ namespace PersonalFinance.Models
 
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/item/public_token/exchange");
 
-            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"public_token\":\""+public_token+"\" }";
+            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"public_token\":\""+_public_token+"\" }";
             request.Content = new StringContent(data, Encoding.UTF8, "application/json");
 
             var result = client.SendAsync(request).Result;
@@ -156,6 +159,27 @@ namespace PersonalFinance.Models
             _accesstoken = url.ToString();
             url = (string)obj["item_id"];
             _item_id = url.ToString();
+        }
+
+        public void AuthConnect(string public_token)
+        {
+            _public_token = public_token;
+            this.AuthConnect();
+            this.GetTransactions();
+        }
+
+        private void GetTransactions()
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
+
+            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + _accesstoken + "\" , \"start_date\": \"2017-06-28\" , \"end_date\": \"2017-07-27\" }";
+            request.Content = new StringContent(data, Encoding.UTF8, "application/json");
+
+            var result = client.SendAsync(request).Result;
+            var contents = result.Content.ReadAsStringAsync().Result;
+
+            var obj = JObject.Parse(contents);
+            test = obj.ToString();
         }
     }
 
