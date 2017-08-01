@@ -19,7 +19,7 @@ namespace PersonalFinance.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -31,9 +31,9 @@ namespace PersonalFinance.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -99,7 +99,7 @@ namespace PersonalFinance.Controllers
                     return View(model);
             }
         }
-                
+
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -129,7 +129,7 @@ namespace PersonalFinance.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -167,7 +167,7 @@ namespace PersonalFinance.Controllers
 
             if (ModelState.IsValid)
             {
-                user.GoaltrackID = model.GoalID ;
+                user.GoaltrackID = model.GoalID;
                 var result = await UserManager.UpdateAsync(user);
 
                 if (result.Succeeded)
@@ -183,8 +183,9 @@ namespace PersonalFinance.Controllers
 
         //
         // GET: /Account/AccountSync
+
         public ActionResult AccountSync()
-        {  
+        {
             return View();
         }
 
@@ -195,8 +196,10 @@ namespace PersonalFinance.Controllers
         {
             if (ModelState.IsValid)
             {
+                ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
                 string _token = token.public_token;
                 AccountSyncModel async = new AccountSyncModel();
+                async.user = user;
                 async.AuthConnect(_token);
 
                 return View();

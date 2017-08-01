@@ -138,7 +138,7 @@ namespace PersonalFinance.Models
         private string _item_id;
         private string _public_token;
 
-        public string test { get; set; }
+        public ApplicationUser user { private get; set; }
 
         private void AuthConnect()
         {
@@ -148,7 +148,7 @@ namespace PersonalFinance.Models
 
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/item/public_token/exchange");
 
-            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"public_token\":\""+_public_token+"\" }";
+            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"public_token\":\"" + _public_token + "\" }";
             request.Content = new StringContent(data, Encoding.UTF8, "application/json");
 
             var result = client.SendAsync(request).Result;
@@ -179,7 +179,39 @@ namespace PersonalFinance.Models
             var contents = result.Content.ReadAsStringAsync().Result;
 
             var obj = JObject.Parse(contents);
-            test = obj.ToString();
+
+            //check that the item ID's match before continuing on
+            if(((string)obj["item"]["item_id"]).Equals(_item_id))
+            {
+                //code here if item id's match
+                this.UpdateDataBase(obj);
+            }
+
+            //if we got this far, something went wrong - send error and bomb out
+        }
+
+        private void UpdateDataBase(JObject obj)
+        {
+            using (var context = new PersonalFinanceAppEntities())
+            {
+                foreach (var account in obj["accounts"])
+                {
+                    User_Accounts accounts_db = new User_Accounts();
+                    accounts_db.AccountID = (string)account["account_id"];
+                    accounts_db.UserID = user.Id;
+                    accounts_db.AccountName = (string)account["official_name"];
+                    accounts_db.Balance = (decimal)account["balances"]["current"];
+
+                    context.User_Accounts.Add(accounts_db);
+                    context.SaveChanges();
+                }
+
+                foreach (var transaction in obj["transactions"])
+                {
+                    User_Transactions transaction_db = new User_Transactions();
+                    var test = transaction;
+                }
+            }
         }
     }
 

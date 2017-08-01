@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PersonalFinanceAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PersonalFinanceAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="User_Accounts">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -51,6 +51,27 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Insert_UserAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AccountID" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserID" Type="nvarchar" Mode="In" />
+          <Parameter Name="AccountName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Balance" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="Insert_UserItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Access_Token" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Item_ID" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="Insert_UserTransaction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TransactionID" Type="nvarchar" Mode="In" />
+          <Parameter Name="AccountID" Type="nvarchar" Mode="In" />
+          <Parameter Name="CategoryID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Date" Type="date" Mode="In" />
+          <Parameter Name="Location_Name" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Location_City" Type="varchar" Mode="In" />
+          <Parameter Name="Location_State" Type="varchar" Mode="In" />
+          <Parameter Name="Amount" Type="decimal" Mode="In" />
+        </Function>
         <EntityContainer Name="PersonalFinanceAppModelStoreContainer">
           <EntitySet Name="User_Accounts" EntityType="Self.User_Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Transactions" EntityType="Self.User_Transactions" Schema="dbo" store:Type="Tables" />
@@ -66,8 +87,7 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             <End Role="User_Transactions" EntitySet="User_Transactions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PersonalFinanceAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -125,6 +145,27 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             <End Role="User_Accounts" EntitySet="User_Accounts" />
             <End Role="User_Transactions" EntitySet="User_Transactions" />
           </AssociationSet>
+          <FunctionImport Name="Insert_UserAccount">
+            <Parameter Name="AccountID" Mode="In" Type="String" />
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="AccountName" Mode="In" Type="String" />
+            <Parameter Name="Balance" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Insert_UserItems">
+            <Parameter Name="ID" Mode="In" Type="String" />
+            <Parameter Name="Access_Token" Mode="In" Type="String" />
+            <Parameter Name="Item_ID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Insert_UserTransaction">
+            <Parameter Name="TransactionID" Mode="In" Type="String" />
+            <Parameter Name="AccountID" Mode="In" Type="String" />
+            <Parameter Name="CategoryID" Mode="In" Type="String" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="Location_Name" Mode="In" Type="String" />
+            <Parameter Name="Location_City" Mode="In" Type="String" />
+            <Parameter Name="Location_State" Mode="In" Type="String" />
+            <Parameter Name="Amount" Mode="In" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -141,6 +182,16 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
               </MappingFragment>
             </EntityTypeMapping>
+            <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Accounts">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserAccount">
+                  <ScalarProperty Name="Balance" ParameterName="Balance" />
+                  <ScalarProperty Name="AccountName" ParameterName="AccountName" />
+                  <ScalarProperty Name="UserID" ParameterName="UserID" />
+                  <ScalarProperty Name="AccountID" ParameterName="AccountID" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User_Transactions">
             <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Transactions">
@@ -155,6 +206,20 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
               </MappingFragment>
             </EntityTypeMapping>
+            <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Transactions">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserTransaction">
+                  <ScalarProperty Name="Amount" ParameterName="Amount" />
+                  <ScalarProperty Name="Location_State" ParameterName="Location_State" />
+                  <ScalarProperty Name="Location_City" ParameterName="Location_City" />
+                  <ScalarProperty Name="Location_Name" ParameterName="Location_Name" />
+                  <ScalarProperty Name="Date" ParameterName="Date" />
+                  <ScalarProperty Name="CategoryID" ParameterName="CategoryID" />
+                  <ScalarProperty Name="AccountID" ParameterName="AccountID" />
+                  <ScalarProperty Name="TransactionID" ParameterName="TransactionID" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User_Items">
             <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Items">
@@ -164,7 +229,19 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
                 <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
               </MappingFragment>
             </EntityTypeMapping>
+            <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Items">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserItems">
+                  <ScalarProperty Name="Item_ID" ParameterName="Item_ID" />
+                  <ScalarProperty Name="Access_Token" ParameterName="Access_Token" />
+                  <ScalarProperty Name="ID" ParameterName="ID" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Insert_UserAccount" FunctionName="PersonalFinanceAppModel.Store.Insert_UserAccount" />
+          <FunctionImportMapping FunctionImportName="Insert_UserItems" FunctionName="PersonalFinanceAppModel.Store.Insert_UserItems" />
+          <FunctionImportMapping FunctionImportName="Insert_UserTransaction" FunctionName="PersonalFinanceAppModel.Store.Insert_UserTransaction" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
