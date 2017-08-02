@@ -32,7 +32,7 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
           </Key>
           <Property Name="TransactionID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="AccountID" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="CategoryID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CategoryID" Type="nvarchar" MaxLength="50" />
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Location_Name" Type="varchar(max)" />
           <Property Name="Location_City" Type="varchar" MaxLength="50" />
@@ -99,21 +99,7 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
           <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Balance" Type="Decimal" Precision="10" Scale="2" />
-          <NavigationProperty Name="User_Transactions" Relationship="Self.FK_User_Transactions_User_Accounts" FromRole="User_Accounts" ToRole="User_Transactions" />
-        </EntityType>
-        <EntityType Name="User_Transactions">
-          <Key>
-            <PropertyRef Name="TransactionID" />
-          </Key>
-          <Property Name="TransactionID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="AccountID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CategoryID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Location_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Location_City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Location_State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="Amount" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
-          <NavigationProperty Name="User_Accounts" Relationship="Self.FK_User_Transactions_User_Accounts" FromRole="User_Transactions" ToRole="User_Accounts" />
+          <NavigationProperty Name="User_Transactions" Relationship="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts" FromRole="User_Accounts" ToRole="User_Transactions" />
         </EntityType>
         <EntityType Name="User_Items">
           <Key>
@@ -125,26 +111,9 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
           <Property Name="Access_Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Item_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <Association Name="FK_User_Transactions_User_Accounts">
-          <End Role="User_Accounts" Type="Self.User_Accounts" Multiplicity="1" />
-          <End Role="User_Transactions" Type="Self.User_Transactions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User_Accounts">
-              <PropertyRef Name="AccountID" />
-            </Principal>
-            <Dependent Role="User_Transactions">
-              <PropertyRef Name="AccountID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="PersonalFinanceAppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="User_Accounts" EntityType="Self.User_Accounts" />
-          <EntitySet Name="User_Transactions" EntityType="Self.User_Transactions" />
           <EntitySet Name="User_Items" EntityType="Self.User_Items" />
-          <AssociationSet Name="FK_User_Transactions_User_Accounts" Association="Self.FK_User_Transactions_User_Accounts">
-            <End Role="User_Accounts" EntitySet="User_Accounts" />
-            <End Role="User_Transactions" EntitySet="User_Transactions" />
-          </AssociationSet>
           <FunctionImport Name="Insert_UserAccount">
             <Parameter Name="AccountID" Mode="In" Type="String" />
             <Parameter Name="UserID" Mode="In" Type="String" />
@@ -166,7 +135,38 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             <Parameter Name="Location_State" Mode="In" Type="String" />
             <Parameter Name="Amount" Mode="In" Type="Decimal" />
           </FunctionImport>
+          <EntitySet Name="User_Transactions" EntityType="PersonalFinanceAppModel.User_Transactions" />
+          <AssociationSet Name="FK_User_Transactions_User_Accounts" Association="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts">
+            <End Role="User_Accounts" EntitySet="User_Accounts" />
+            <End Role="User_Transactions" EntitySet="User_Transactions" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="User_Transactions">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AccountID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Location_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Location_City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Location_State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <NavigationProperty Name="User_Accounts" Relationship="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts" FromRole="User_Transactions" ToRole="User_Accounts" />
+        </EntityType>
+        <Association Name="FK_User_Transactions_User_Accounts">
+          <End Type="PersonalFinanceAppModel.User_Accounts" Role="User_Accounts" Multiplicity="1" />
+          <End Type="PersonalFinanceAppModel.User_Transactions" Role="User_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Accounts">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="User_Transactions">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -193,34 +193,6 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
               </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User_Transactions">
-            <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Transactions">
-              <MappingFragment StoreEntitySet="User_Transactions">
-                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
-                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Location_Name" ColumnName="Location_Name" />
-                <ScalarProperty Name="Location_City" ColumnName="Location_City" />
-                <ScalarProperty Name="Location_State" ColumnName="Location_State" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Transactions">
-              <ModificationFunctionMapping>
-                <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserTransaction">
-                  <ScalarProperty Name="Amount" ParameterName="Amount" />
-                  <ScalarProperty Name="Location_State" ParameterName="Location_State" />
-                  <ScalarProperty Name="Location_City" ParameterName="Location_City" />
-                  <ScalarProperty Name="Location_Name" ParameterName="Location_Name" />
-                  <ScalarProperty Name="Date" ParameterName="Date" />
-                  <ScalarProperty Name="CategoryID" ParameterName="CategoryID" />
-                  <ScalarProperty Name="AccountID" ParameterName="AccountID" />
-                  <ScalarProperty Name="TransactionID" ParameterName="TransactionID" />
-                </InsertFunction>
-              </ModificationFunctionMapping>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="User_Items">
             <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Items">
               <MappingFragment StoreEntitySet="User_Items">
@@ -242,6 +214,34 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
           <FunctionImportMapping FunctionImportName="Insert_UserAccount" FunctionName="PersonalFinanceAppModel.Store.Insert_UserAccount" />
           <FunctionImportMapping FunctionImportName="Insert_UserItems" FunctionName="PersonalFinanceAppModel.Store.Insert_UserItems" />
           <FunctionImportMapping FunctionImportName="Insert_UserTransaction" FunctionName="PersonalFinanceAppModel.Store.Insert_UserTransaction" />
+          <EntitySetMapping Name="User_Transactions">
+            <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Transactions">
+              <MappingFragment StoreEntitySet="User_Transactions">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Location_State" ColumnName="Location_State" />
+                <ScalarProperty Name="Location_City" ColumnName="Location_City" />
+                <ScalarProperty Name="Location_Name" ColumnName="Location_Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Transactions">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserTransaction">
+                  <ScalarProperty Name="Amount" ParameterName="Amount" />
+                  <ScalarProperty Name="Location_State" ParameterName="Location_State" />
+                  <ScalarProperty Name="Location_City" ParameterName="Location_City" />
+                  <ScalarProperty Name="Location_Name" ParameterName="Location_Name" />
+                  <ScalarProperty Name="Date" ParameterName="Date" />
+                  <ScalarProperty Name="CategoryID" ParameterName="CategoryID" />
+                  <ScalarProperty Name="AccountID" ParameterName="AccountID" />
+                  <ScalarProperty Name="TransactionID" ParameterName="TransactionID" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

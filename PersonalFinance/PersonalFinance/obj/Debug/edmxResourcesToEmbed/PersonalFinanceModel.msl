@@ -21,34 +21,6 @@
         </ModificationFunctionMapping>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="User_Transactions">
-      <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Transactions">
-        <MappingFragment StoreEntitySet="User_Transactions">
-          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
-          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
-          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Location_Name" ColumnName="Location_Name" />
-          <ScalarProperty Name="Location_City" ColumnName="Location_City" />
-          <ScalarProperty Name="Location_State" ColumnName="Location_State" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Transactions">
-        <ModificationFunctionMapping>
-          <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserTransaction">
-            <ScalarProperty Name="Amount" ParameterName="Amount" />
-            <ScalarProperty Name="Location_State" ParameterName="Location_State" />
-            <ScalarProperty Name="Location_City" ParameterName="Location_City" />
-            <ScalarProperty Name="Location_Name" ParameterName="Location_Name" />
-            <ScalarProperty Name="Date" ParameterName="Date" />
-            <ScalarProperty Name="CategoryID" ParameterName="CategoryID" />
-            <ScalarProperty Name="AccountID" ParameterName="AccountID" />
-            <ScalarProperty Name="TransactionID" ParameterName="TransactionID" />
-          </InsertFunction>
-        </ModificationFunctionMapping>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="User_Items">
       <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Items">
         <MappingFragment StoreEntitySet="User_Items">
@@ -70,5 +42,33 @@
     <FunctionImportMapping FunctionImportName="Insert_UserAccount" FunctionName="PersonalFinanceAppModel.Store.Insert_UserAccount" />
     <FunctionImportMapping FunctionImportName="Insert_UserItems" FunctionName="PersonalFinanceAppModel.Store.Insert_UserItems" />
     <FunctionImportMapping FunctionImportName="Insert_UserTransaction" FunctionName="PersonalFinanceAppModel.Store.Insert_UserTransaction" />
+    <EntitySetMapping Name="User_Transactions">
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Transactions">
+        <MappingFragment StoreEntitySet="User_Transactions">
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Location_State" ColumnName="Location_State" />
+          <ScalarProperty Name="Location_City" ColumnName="Location_City" />
+          <ScalarProperty Name="Location_Name" ColumnName="Location_Name" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Transactions">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserTransaction">
+            <ScalarProperty Name="Amount" ParameterName="Amount" />
+            <ScalarProperty Name="Location_State" ParameterName="Location_State" />
+            <ScalarProperty Name="Location_City" ParameterName="Location_City" />
+            <ScalarProperty Name="Location_Name" ParameterName="Location_Name" />
+            <ScalarProperty Name="Date" ParameterName="Date" />
+            <ScalarProperty Name="CategoryID" ParameterName="CategoryID" />
+            <ScalarProperty Name="AccountID" ParameterName="AccountID" />
+            <ScalarProperty Name="TransactionID" ParameterName="TransactionID" />
+          </InsertFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

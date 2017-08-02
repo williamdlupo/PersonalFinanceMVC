@@ -159,6 +159,17 @@ namespace PersonalFinance.Models
             _accesstoken = url.ToString();
             url = (string)obj["item_id"];
             _item_id = url.ToString();
+
+            using (var context = new PersonalFinanceAppEntities())
+            {
+                User_Items item_db = new User_Items();
+                item_db.Access_Token = _accesstoken;
+                item_db.Item_ID = _item_id;
+                item_db.ID = user.Id;
+
+                context.User_Items.Add(item_db);
+                context.SaveChanges();
+            }
         }
 
         public void AuthConnect(string public_token)
@@ -205,12 +216,25 @@ namespace PersonalFinance.Models
                     context.User_Accounts.Add(accounts_db);
                     context.SaveChanges();
                 }
-
+            }
+            using (var context = new PersonalFinanceAppEntities())
+            {
                 foreach (var transaction in obj["transactions"])
                 {
                     User_Transactions transaction_db = new User_Transactions();
-                    var test = transaction;
+                    transaction_db.AccountID = (string)transaction["account_id"];
+                    transaction_db.Amount = (decimal)transaction["amount"];
+                    transaction_db.CategoryID = (string)transaction["category_id"];
+                    transaction_db.Date = (DateTime)transaction["date"];
+                    transaction_db.Location_City = (string)transaction["location"]["city"];
+                    transaction_db.Location_Name = (string)transaction["name"];
+                    transaction_db.Location_State = (string)transaction["location"]["state"];
+                    transaction_db.TransactionID = (string)transaction["transaction_id"];
+
+                    context.User_Transactions.Add(transaction_db);
+                    context.SaveChanges();
                 }
+
             }
         }
     }

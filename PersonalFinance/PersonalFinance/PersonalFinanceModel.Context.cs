@@ -28,8 +28,8 @@ namespace PersonalFinance
         }
     
         public virtual DbSet<User_Accounts> User_Accounts { get; set; }
-        public virtual DbSet<User_Transactions> User_Transactions { get; set; }
         public virtual DbSet<User_Items> User_Items { get; set; }
+        public virtual DbSet<User_Transactions> User_Transactions { get; set; }
     
         public virtual int Insert_UserAccount(string accountID, string userID, string accountName, Nullable<decimal> balance)
         {

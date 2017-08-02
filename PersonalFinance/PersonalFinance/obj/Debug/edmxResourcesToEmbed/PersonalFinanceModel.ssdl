@@ -27,7 +27,7 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
     </Key>
     <Property Name="TransactionID" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="AccountID" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="CategoryID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CategoryID" Type="nvarchar" MaxLength="50" />
     <Property Name="Date" Type="date" Nullable="false" />
     <Property Name="Location_Name" Type="varchar(max)" />
     <Property Name="Location_City" Type="varchar" MaxLength="50" />
