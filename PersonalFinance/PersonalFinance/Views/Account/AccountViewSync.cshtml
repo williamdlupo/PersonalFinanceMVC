@@ -1,4 +1,4 @@
-﻿
+﻿@model PersonalFinance.Models.Plaid
 @{
     ViewBag.Title = "Account Sync - Onboarding";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -28,10 +28,18 @@
     </div>
     <div class="panel-body">
         <h3>Sync Up Your Accounts</h3>
+        @if (Model.has_accounts)
+        {
+            foreach (var account in Model.account_list)
+            {
+                <ul>Name: @account.AccountName Balance: @account.Balance </ul>
+            }
+        }
+        else
+        {
+            <p>You have no accounts synced! </p>
+        }
 
-        <p>You have no accounts synced! </p>
-
-        
         <button class="btn btn-primary" id="link-button">Add An Account</button>
 
         <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-success pull-right">Let's Go!</a>

@@ -30,10 +30,6 @@ namespace PersonalFinance.Controllers
         // GET: Dashboard/Main
         public ActionResult Main()
         {
-            //move to goal selection controller when post methods created
-            //user.FirstLoginFlag = false;
-            //await UserManager.UpdateAsync(user);
-
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber","Manage");}
             if (user.FirstLoginFlag == true) { return RedirectToAction("GetStarted", "Account"); }
 

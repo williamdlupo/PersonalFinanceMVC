@@ -183,26 +183,41 @@ namespace PersonalFinance.Controllers
 
         //
         // GET: /Account/AccountSync
-
         public ActionResult AccountSync()
         {
             return View();
         }
 
         //
-        // POST: /Account/Get_Access_Token
-        [HttpPost]
-        public ActionResult AccountSync(PublicToken token)
+        // GET: /Account/AccountViewSync
+        public ActionResult AccountViewSync(Plaid aPlaid)
+        {
+            if (ModelState.IsValid)
+            {
+                return View(aPlaid);
+            }
+
+            return View("Error");
+           
+        }
+
+        //
+        // POST: /Account/AccountSyncAsync
+        public async Task<ActionResult> AccountSyncAsync(PublicToken token)
         {
             if (ModelState.IsValid)
             {
                 ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
                 string _token = token.public_token;
-                AccountSyncModel async = new AccountSyncModel();
-                async.user = user;
-                async.AuthConnect(_token);
+                Plaid plaid = new Plaid();
+                plaid.user = user;
+                plaid.AuthenticateAccount(_token);
+                plaid.GetAccountList();
 
-                return View();
+                user.FirstLoginFlag = false;
+                await UserManager.UpdateAsync(user);
+
+                return RedirectToAction("AccountViewSync");
             }
 
             // If we got this far, something failed, redisplay form
