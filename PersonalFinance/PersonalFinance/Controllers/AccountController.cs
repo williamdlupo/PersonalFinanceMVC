@@ -14,9 +14,9 @@ namespace PersonalFinance.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        
         public AccountController()
-        {
+        {            
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -172,7 +172,7 @@ namespace PersonalFinance.Controllers
 
                 if (result.Succeeded)
                 {
-                    return View("AccountSync");
+                    return View("AccountViewSync");
                 }
                 AddErrors(result);
             }
@@ -182,46 +182,45 @@ namespace PersonalFinance.Controllers
         }
 
         //
-        // GET: /Account/AccountSync
-        public ActionResult AccountSync()
-        {
-            return View();
-        }
-
-        //
         // GET: /Account/AccountViewSync
-        public ActionResult AccountViewSync(Plaid aPlaid)
+        [HttpGet]
+        public ActionResult AccountViewSync()
         {
-            if (ModelState.IsValid)
-            {
-                return View(aPlaid);
-            }
+            Plaid plaid = new Plaid();
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            plaid.User = user;
+            try { plaid.GetAccountList(); }
+            catch { }
 
-            return View("Error");
-           
+            return View(plaid);
         }
 
-        //
+         //
         // POST: /Account/AccountSyncAsync
-        public async Task<ActionResult> AccountSyncAsync(PublicToken token)
+        [HttpPost]
+        public async Task<JsonResult> AccountViewSync(PublicToken token)
         {
+            Plaid plaid = new Plaid();
+
             if (ModelState.IsValid)
             {
                 ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
                 string _token = token.public_token;
-                Plaid plaid = new Plaid();
-                plaid.user = user;
+                
+                plaid.User = user;
                 plaid.AuthenticateAccount(_token);
-                plaid.GetAccountList();
-
-                user.FirstLoginFlag = false;
-                await UserManager.UpdateAsync(user);
-
-                return RedirectToAction("AccountViewSync");
+                                
+                user.FirstLoginFlag = true;
+                var result = await UserManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    ViewBag.StatusMessage = "Account added!";
+                    return Json(new { success = true });
+                }                
             }
 
             // If we got this far, something failed, redisplay form
-            return View();
+            return Json(plaid);
         }
 
         //

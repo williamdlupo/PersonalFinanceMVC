@@ -16,7 +16,7 @@
                 <p><small>Goals</small></p>
             </div>
             <div class="stepwizard-step col-xs-4">
-                <a href="@Url.Action("AccountSync", "Account")" role="button" class="btn btn-success btn-circle">3</a>
+                <a href="@Url.Action("AccountViewSync", "Account")" role="button" class="btn btn-success btn-circle">3</a>
                 <p><small>Account Sync</small></p>
             </div>
         </div>
@@ -28,21 +28,29 @@
     </div>
     <div class="panel-body">
         <h3>Sync Up Your Accounts</h3>
-        @if (Model.has_accounts)
+        @using (Html.BeginForm())
         {
-            foreach (var account in Model.account_list)
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+
+            @if (Model.Has_accounts)
             {
-                <ul>Name: @account.AccountName Balance: @account.Balance </ul>
+                foreach (var account in Model.Account_list)
+                {
+                    <ul>@account.AccountName Balance: $@account.Balance </ul>
+                }
+                <button class="btn btn-primary" id="link-button" type="button">Add Another Account</button>
+
+                <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-success pull-right">All Set!</a>
             }
-        }
-        else
-        {
-            <p>You have no accounts synced! </p>
-        }
+            else
+            {
+                <p>You have no accounts synced! </p>
 
-        <button class="btn btn-primary" id="link-button">Add An Account</button>
-
-        <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-success pull-right">Let's Go!</a>
+                <button class="btn btn-primary" id="link-button" type="button">Add An Account</button>
+            }
+            </div>
+        }
     </div>
 </div>
 
@@ -59,12 +67,15 @@
                 // Send the public_token to your app server.
                 // The metadata object contains info about the institution the
                 // user selected and the account ID, if `selectAccount` is enabled.
-                $.post('/Account/AccountSyncAsync', {
+                $.post('@Url.Action("AccountViewSync","Account")', {
                     public_token: public_token,
+                    metadata: metadata,
+                }, function () {
+                    window.location.reload(true);
                 });
             },
             onExit: function (err, metadata) {
-                // The user exited the Link flow.
+                //User exited pop up
                 if (err != null) {
                     // The user encountered a Plaid API error prior to exiting.
                 }
