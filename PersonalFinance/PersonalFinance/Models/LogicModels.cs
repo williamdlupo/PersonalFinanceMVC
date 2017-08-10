@@ -20,13 +20,19 @@ namespace PersonalFinance.Models
         private string _item_id;
         private string _public_token;
         private List<string> _accesstokenlist = new List<string>();
+        private List<string> _accountidlist = new List<string>();
 
         public ApplicationUser User { private get; set; }
         public List<User_Accounts> Account_list = new List<User_Accounts>();
+        public List<User_Transactions> Transaction_list = new List<User_Transactions>();
         public bool Has_accounts { get; set; }
 
+        //
+        //Sets the Has_accounts to false on object creation for account list view cycle 
         public Plaid() { Has_accounts = false; }
 
+        //
+        //Public accessor to create a new account in DB
         public void AuthenticateAccount(string public_token)
         {
             _public_token = public_token;
@@ -35,8 +41,7 @@ namespace PersonalFinance.Models
         }
 
         //
-        //Authenticates a new User account with Plaid, stores in memory and persists the access token and item id
-        //associated with the account to the database
+        //Authenticates a new User account with Plaid, stores access token and item IDs in memory and persists to DB
         private void AuthenticateAccount()
         {
             client.BaseAddress = new Uri(_baseurl);
@@ -58,7 +63,7 @@ namespace PersonalFinance.Models
             using (var context = new PersonalFinanceAppEntities())
             {
                 User_Items item_db = new User_Items();
-                item_db.Access_Token = _accesstokenlist[0];
+                item_db.Access_Token = _accesstoken;
                 item_db.Item_ID = _item_id;
                 item_db.ID = User.Id;
 
@@ -182,14 +187,65 @@ namespace PersonalFinance.Models
         }
 
         //
+        //Method to delete all accounts related to the specified institution
+
+        //
         //Method that will return a list of transactions for each account in the account list for a given timeframe
         //Amount sums by category, by date, by location etc
+        public void GetTransactions(DateTime start_date, DateTime end_date)
+        {
+            //go to database and get list of account ID's assoicated with a user and save to _accountidlist
+            using (var context = new PersonalFinanceAppEntities())
+            {
+                var account_id_query = from db in context.User_Accounts
+                                       where db.UserID == User.Id
+                                       select db.AccountID;
+                var account_id_list = account_id_query.ToList();
+
+                foreach (var accountid in account_id_query)
+                {
+                    _accountidlist.Add(accountid);
+                }
+            }
+
+            //parse list of account id's and get list of transactions
+            using (var context = new PersonalFinanceAppEntities())
+            {
+                foreach (var accountid in _accountidlist)
+                {
+                    var transaction_query = from db in context.User_Transactions
+                                            where accountid == db.AccountID
+                                            && db.Date > start_date
+                                            && db.Date < end_date
+                                            select new { db.Date, db.CategoryID, db.Location_Name, db.Location_City, db.Location_State, db.Amount };
+                    var transaction_list = transaction_query.ToList();
+
+                    //create list of transaction objects
+                    foreach (var t in transaction_list)
+                    {
+                        User_Transactions aTransaction = new User_Transactions();
+                        aTransaction.Date = (DateTime)t.Date;
+                        aTransaction.CategoryID = t.CategoryID;
+                        aTransaction.Location_Name = t.Location_Name;
+                        aTransaction.Location_City = t.Location_City;
+                        aTransaction.Location_State = t.Location_State;
+                        aTransaction.Amount = (decimal)t.Amount;
+
+                        Transaction_list.Add(aTransaction);
+                    }
+                }
+
+            }
+        }
 
         //
         //Method to get all transactions for a specific account for a given timeframe
+        private void GetTransactions(DateTime start_date, DateTime end_date, string account_id)
+        {
 
+        }
         //
-        //Method to pull all *new* transactions from Plaid for all items associated with all  access codes 
+        //Method to pull all *new* transactions from Plaid via webhook
         //aka the "job" method to update DB
     }
 }

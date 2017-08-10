@@ -28,27 +28,35 @@
     </div>
     <div class="panel-body">
         <h3>Sync Up Your Accounts</h3>
+        @ViewBag.StatusMessage
         @using (Html.BeginForm())
         {
             @Html.ValidationSummary(true)
             <div class="form-group">
 
-            @if (Model.Has_accounts)
-            {
-                foreach (var account in Model.Account_list)
+                @if (Model.Has_accounts)
                 {
-                    <ul>@account.AccountName Balance: $@account.Balance </ul>
-                }
-                <button class="btn btn-primary" id="link-button" type="button">Add Another Account</button>
+                    <ul class="list-group">
+                        @foreach (var account in Model.Account_list)
+                        {
+                            <li class="list-group-item">
+                                <span class="badge">$@account.Balance</span>
+                                <b>@account.AccountName</b>
 
-                <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-success pull-right">All Set!</a>
-            }
-            else
-            {
+                            </li>
+                        }
+                    </ul>
+
+                    <button class="btn btn-primary" id="link-button" type="button">Add Another Account</button>
+
+                    <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-success">All Set!</a>
+                }
+                else
+                {
                 <p>You have no accounts synced! </p>
 
                 <button class="btn btn-primary" id="link-button" type="button">Add An Account</button>
-            }
+                }
             </div>
         }
     </div>
@@ -68,8 +76,7 @@
                 // The metadata object contains info about the institution the
                 // user selected and the account ID, if `selectAccount` is enabled.
                 $.post('@Url.Action("AccountViewSync","Account")', {
-                    public_token: public_token,
-                    metadata: metadata,
+                    public_token: public_token
                 }, function () {
                     window.location.reload(true);
                 });

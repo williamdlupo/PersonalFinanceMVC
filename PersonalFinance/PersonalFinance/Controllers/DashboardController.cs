@@ -18,6 +18,7 @@ namespace PersonalFinance.Controllers
         private UserManager<ApplicationUser> UserManager { get; set; }
         private ApplicationUser user;
 
+        //
         //Constructor- creates user object the current user that is logged in
         public DashboardController()
         {
@@ -33,6 +34,9 @@ namespace PersonalFinance.Controllers
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber","Manage");}
             if (user.FirstLoginFlag == true) { return RedirectToAction("GetStarted", "Account"); }
 
+            Plaid plaid = new Plaid();
+            plaid.User = user;
+            plaid.GetTransactions( new DateTime(2017, 7, 1), new DateTime(2017, 7, 31));
             return View();
         }
 

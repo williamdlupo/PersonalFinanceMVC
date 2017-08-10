@@ -1,13 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Web.Configuration;
 
 namespace PersonalFinance.Models
 {
@@ -130,5 +123,16 @@ namespace PersonalFinance.Models
     public class PublicToken
     {
         public string public_token { get; set; }
+    }
+
+    public class MData
+    {
+        public Institution institution { get; set; }
+    }
+
+    public class Institution
+    {
+        string name { get; set; }
+        string institution_id { get; set; }
     }
 }

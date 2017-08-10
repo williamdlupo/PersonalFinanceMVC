@@ -6,6 +6,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PersonalFinance.Models;
+using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json.Linq;
 
 namespace PersonalFinance.Controllers
 {
@@ -164,7 +166,7 @@ namespace PersonalFinance.Controllers
         public async Task<ActionResult> Onboarding(UpdateGoalIDModel model)
         {
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-
+            Plaid plaid = new Plaid();
             if (ModelState.IsValid)
             {
                 user.GoaltrackID = model.GoalID;
@@ -172,7 +174,7 @@ namespace PersonalFinance.Controllers
 
                 if (result.Succeeded)
                 {
-                    return View("AccountViewSync");
+                    return RedirectToAction("AccountViewSync");
                 }
                 AddErrors(result);
             }
@@ -197,6 +199,7 @@ namespace PersonalFinance.Controllers
 
          //
         // POST: /Account/AccountSyncAsync
+        //TO Do: Figure out how to handle the meta data so we can get the name of the institution being selected
         [HttpPost]
         public async Task<JsonResult> AccountViewSync(PublicToken token)
         {
@@ -210,7 +213,7 @@ namespace PersonalFinance.Controllers
                 plaid.User = user;
                 plaid.AuthenticateAccount(_token);
                                 
-                user.FirstLoginFlag = true;
+                user.FirstLoginFlag = false;
                 var result = await UserManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
@@ -220,6 +223,7 @@ namespace PersonalFinance.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            ViewBag.StatusMessage = "Somethings went wrong.";
             return Json(plaid);
         }
 
