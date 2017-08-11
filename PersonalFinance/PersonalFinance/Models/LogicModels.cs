@@ -10,6 +10,12 @@ using System.Web.Configuration;
 
 namespace PersonalFinance.Models
 {
+    public class Dates
+    {
+        public string start_date { get; set; }
+        public string end_date { get; set; }
+    }
+
     public class Plaid
     {
         private static string _clientid = WebConfigurationManager.AppSettings["client_id"];
@@ -25,6 +31,8 @@ namespace PersonalFinance.Models
         public ApplicationUser User { private get; set; }
         public List<User_Accounts> Account_list = new List<User_Accounts>();
         public List<User_Transactions> Transaction_list = new List<User_Transactions>();
+        public string start_date;
+        public string end_date;
         public bool Has_accounts { get; set; }
 
         //
@@ -208,7 +216,7 @@ namespace PersonalFinance.Models
                 }
             }
 
-            //parse list of account id's and get list of transactions
+            //parse list of account id's and get list of transactions for each account
             using (var context = new PersonalFinanceAppEntities())
             {
                 foreach (var accountid in _accountidlist)
@@ -217,6 +225,7 @@ namespace PersonalFinance.Models
                                             where accountid == db.AccountID
                                             && db.Date > start_date
                                             && db.Date < end_date
+                                            orderby (db.Date)
                                             select new { db.Date, db.CategoryID, db.Location_Name, db.Location_City, db.Location_State, db.Amount };
                     var transaction_list = transaction_query.ToList();
 
@@ -224,7 +233,7 @@ namespace PersonalFinance.Models
                     foreach (var t in transaction_list)
                     {
                         User_Transactions aTransaction = new User_Transactions();
-                        aTransaction.Date = (DateTime)t.Date;
+                        aTransaction.Date = t.Date;
                         aTransaction.CategoryID = t.CategoryID;
                         aTransaction.Location_Name = t.Location_Name;
                         aTransaction.Location_City = t.Location_City;
@@ -232,9 +241,9 @@ namespace PersonalFinance.Models
                         aTransaction.Amount = (decimal)t.Amount;
 
                         Transaction_list.Add(aTransaction);
+                        Transaction_list.Sort((x, y) => x.Date.CompareTo(y.Date));
                     }
                 }
-
             }
         }
 

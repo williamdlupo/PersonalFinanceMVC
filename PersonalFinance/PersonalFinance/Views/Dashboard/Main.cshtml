@@ -1,8 +1,101 @@
-﻿
+﻿@model PersonalFinance.Models.Plaid
 @{
-    ViewBag.Title = "Main";
+    ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h2>The Main Dashboard</h2>
+<br />
+<div class="panel panel-primary  table-responsive">
+    <div class="panel-heading">
+        <h3 class="panel-title"></h3>
+    </div>
+    <div class="panel-body">
+        <div id="reportrange" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: inherit">
+            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+            <span></span> @Model.start_date - @Model.end_date <b class="caret"></b>
+        </div>
+        @if (Model.Transaction_list is null)
+        {
+            <br />
+            <h1>No Data Available For This Timeframe!</h1>
+        }
+        else
+        {
 
-<h2>Main</h2>
 
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var transaction in Model.Transaction_list)
+                {
+                        <tr>
+                            <th scope="row">@transaction.Date.ToShortDateString()</th>
+                            <td>@transaction.CategoryID</td>
+                            <td>@transaction.Location_Name</td>
+                            @if (@transaction.Location_City is null && @transaction.Location_State is null)
+                            {
+                                <td><em>Unknown</em></td>
+                            }
+                            else
+                            {
+                                <td>@transaction.Location_City, @transaction.Location_State</td>
+                            }
+                            <td>@transaction.Amount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+@section Scripts {
+    <!-- Include Required Prerequisites -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    <script type="text/javascript">
+        $(function () {
+
+            var start = @Model.start_date;
+            var end = @Model.end_date;
+
+            $('#reportrange').daterangepicker({
+
+                startDate: start,
+                endDate: end,
+
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Week To Date': [moment().subtract(6, 'days'), moment()],
+                    'Month To Date': [moment().startOf('month'), moment()],
+                    'Year To Date': [moment().startOf('year'), moment()],
+                    'One Year': [moment().subtract(12, 'month'), moment()]
+                }
+
+            });
+
+            $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+
+                 $.post('@Url.Action("Main","Dashboard")', {
+                    dates: { start_date: picker.startDate.format("MM/DD/YYYY"), end_date: picker.endDate.format("MM/DD/YYYY") }
+                }, function () {
+                    window.location.reload(true);
+                });
+            });
+
+
+
+        });
+    </script>
+}
