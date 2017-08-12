@@ -33,7 +33,7 @@ namespace PersonalFinance.Controllers
         // GET: Dashboard/Main
         public ActionResult Main()
         {
-            if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber","Manage");}
+            if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
             if (user.FirstLoginFlag == true) { return RedirectToAction("GetStarted", "Account"); }
 
             Plaid plaid = new Plaid();
