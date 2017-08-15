@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,12 @@ namespace PersonalFinance.Models
         public string end_date { get; set; }
     }
 
+    public class AreaChartData
+    {
+        public string date { get; set; }
+        public decimal amount { get; set; }
+    }
+
     public class Plaid
     {
         private static string _clientid = WebConfigurationManager.AppSettings["client_id"];
@@ -26,11 +33,12 @@ namespace PersonalFinance.Models
         private string _item_id;
         private string _public_token;
         private List<string> _accesstokenlist = new List<string>();
-        private List<string> _accountidlist = new List<string>();
+        private List<string> _accountidlist = new List<string>();        
 
         public ApplicationUser User { private get; set; }
         public List<User_Accounts> Account_list = new List<User_Accounts>();
         public List<User_Transactions> Transaction_list = new List<User_Transactions>();
+        public List<AreaChartData> AreaChart = new List<AreaChartData>();
         public string start_date;
         public string end_date;
         public bool Has_accounts { get; set; }
@@ -187,6 +195,7 @@ namespace PersonalFinance.Models
                         accounts_db.Balance = (decimal)account["balances"]["current"];
                         Account_list.Add(accounts_db);
                         Has_accounts = true;
+
                         //To Do:
                         //Update balance in db to new balance where account id's match
                     }
@@ -195,7 +204,7 @@ namespace PersonalFinance.Models
         }
 
         //
-        //Method to delete all accounts related to the specified institution
+        //Method to delete an account related to the specified institution (stored procedure from DB)
 
         //
         //Method that will return a list of transactions for each account in the account list for a given timeframe
@@ -216,20 +225,21 @@ namespace PersonalFinance.Models
                 }
             }
 
-            //parse list of account id's and get list of transactions for each account
+            //parse list of account id's and get list of transactions for each account where the transactions are
+            //between the specified dates
             using (var context = new PersonalFinanceAppEntities())
             {
                 foreach (var accountid in _accountidlist)
                 {
                     var transaction_query = from db in context.User_Transactions
                                             where accountid == db.AccountID
-                                            && db.Date > start_date
-                                            && db.Date < end_date
+                                            && db.Date >= start_date
+                                            && db.Date <= end_date
                                             orderby (db.Date)
                                             select new { db.Date, db.CategoryID, db.Location_Name, db.Location_City, db.Location_State, db.Amount };
                     var transaction_list = transaction_query.ToList();
 
-                    //create list of transaction objects
+                    //create list of transaction objects and sort by date
                     foreach (var t in transaction_list)
                     {
                         User_Transactions aTransaction = new User_Transactions();
@@ -244,6 +254,32 @@ namespace PersonalFinance.Models
                         Transaction_list.Sort((x, y) => x.Date.CompareTo(y.Date));
                     }
                 }
+
+                //code to pull out list of unique dates and sum of transactions per date for area chart
+                if (Transaction_list != null)
+                {
+                    var areachartquery = from transaction in Transaction_list
+                                         group transaction by new { transaction.Date } into g
+                                         select new
+                                         {
+                                             Date = g.Distinct(),
+                                             Amount = g.Sum(s => s.Amount)
+                                         };
+                    var areachartdata = areachartquery.ToList();
+
+                    foreach (var datapoint in areachartdata)
+                    {
+                        AreaChartData aDataPoint = new AreaChartData();
+                        aDataPoint.amount = datapoint.Amount;
+                        foreach (var date in datapoint.Date)
+                        {
+                            aDataPoint.date = date.Date.ToShortDateString();
+                            break;
+                        }
+                        AreaChart.Add(aDataPoint);
+                    }
+                }
+
             }
         }
 
@@ -253,6 +289,7 @@ namespace PersonalFinance.Models
         {
 
         }
+
         //
         //Method to pull all *new* transactions from Plaid via webhook
         //aka the "job" method to update DB

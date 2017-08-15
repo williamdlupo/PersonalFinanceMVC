@@ -41,6 +41,7 @@ namespace PersonalFinance.Controllers
             plaid.Transaction_list = Session["transactions"] as List<User_Transactions>;
             plaid.start_date = Session["startdate"] as string;
             plaid.end_date = Session["enddate"] as string;
+            plaid.AreaChart = Session["areachart"] as List<AreaChartData>;
 
             if (plaid.Transaction_list is null)
             {
@@ -68,9 +69,11 @@ namespace PersonalFinance.Controllers
                 var transactions = plaid.Transaction_list;
                 var startdate = dates.start_date;
                 var enddate = dates.end_date;
+                var chartdata = plaid.AreaChart;
                 Session["transactions"] = transactions;
                 Session["startdate"] = startdate;
                 Session["enddate"] = enddate;
+                Session["areachart"] = chartdata;
 
                 return Json(new { success = true });
             }

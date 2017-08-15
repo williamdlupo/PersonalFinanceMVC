@@ -23,8 +23,8 @@
         }
         else
         {
-            <div id="area-chart"></div>
-            <hr />  
+            <div id="bar-chart"></div>
+            <hr />
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
@@ -100,42 +100,30 @@
 
     <!--Morris Charts Scripts-->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-
-            new Morris.Area({
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var data = @Html.Raw(Json.Encode(Session["areachart"]))
+            new Morris.Bar({
                 // ID of the element in which to draw the chart.
-                element: 'area-chart',
+                element: 'bar-chart',
                 // Chart data records -- each entry in this array corresponds to a point on
                 // the chart.
-                data: [
-                    { y: '2014', a: 50, b: 90 },
-                { y: '2015', a: 65, b: 75 },
-                { y: '2016', a: 50, b: 50 },
-                { y: '2017', a: 75, b: 60 },
-                { y: '2018', a: 80, b: 65 },
-                { y: '2019', a: 90, b: 70 },
-                { y: '2020', a: 100, b: 75 },
-                { y: '2021', a: 115, b: 75 },
-                { y: '2022', a: 120, b: 85 },
-                { y: '2023', a: 145, b: 85 },
-                { y: '2024', a: 160, b: 95 }
-                ],
-                xkey: 'y',
-                ykeys: ['a', 'b'],
-                labels: ['Total Income', 'Total Outcome'],
+                data: data,
+                xkey: 'date',
+                ykeys: ['amount'],
+                labels: ['Net Transactions'],
                 fillOpacity: 0.6,
                 hideHover: 'auto',
-                behaveLikeLine: true,
                 resize: true,
-                lineColors: ['green', 'blue']
+                barColors: ['#18bc9c'],
+                barShape: 'soft',
             });
         });
 
 
 
-</script>
+    </script>
 }

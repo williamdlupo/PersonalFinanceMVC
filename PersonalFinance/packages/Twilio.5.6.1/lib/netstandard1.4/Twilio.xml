@@ -730,6 +730,45 @@
             <param name="request">Twilio response</param>
             <returns>Task that resolves to the response</returns>
         </member>
+        <member name="T:Twilio.Jwt.AccessToken.ChatGrant">
+            <summary>
+            Grant to use for Twilio Chat
+            </summary>
+        </member>
+        <member name="P:Twilio.Jwt.AccessToken.ChatGrant.ServiceSid">
+            <summary>
+            Service SID
+            </summary>
+        </member>
+        <member name="P:Twilio.Jwt.AccessToken.ChatGrant.EndpointId">
+            <summary>
+            Endpoint ID
+            </summary>
+        </member>
+        <member name="P:Twilio.Jwt.AccessToken.ChatGrant.DeploymentRoleSid">
+            <summary>
+            Deployment role SID
+            </summary>
+        </member>
+        <member name="P:Twilio.Jwt.AccessToken.ChatGrant.PushCredentialSid">
+            <summary>
+            Push credential SID
+            </summary>
+        </member>
+        <member name="P:Twilio.Jwt.AccessToken.ChatGrant.Key">
+             <summary>
+             Get the grant name
+             </summary>
+            
+             <returns>name of the grant</returns>
+        </member>
+        <member name="P:Twilio.Jwt.AccessToken.ChatGrant.Payload">
+             <summary>
+             Get the grant payload
+             </summary>
+            
+             <returns>payload of the grant</returns>
+        </member>
         <member name="T:Twilio.Jwt.AccessToken.ConversationsGrant">
             <summary>
             Grant to use for Twilio Conversations
@@ -1893,6 +1932,11 @@
             The emergency_enabled
             </summary>
         </member>
+        <member name="P:Twilio.Rest.Api.V2010.Account.CreateAddressOptions.AutoCorrectAddress">
+            <summary>
+            The auto_correct_address
+            </summary>
+        </member>
         <member name="M:Twilio.Rest.Api.V2010.Account.CreateAddressOptions.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
              <summary>
              Construct a new CreateAddressOptions
@@ -2014,6 +2058,11 @@
             The emergency_enabled
             </summary>
         </member>
+        <member name="P:Twilio.Rest.Api.V2010.Account.UpdateAddressOptions.AutoCorrectAddress">
+            <summary>
+            The auto_correct_address
+            </summary>
+        </member>
         <member name="M:Twilio.Rest.Api.V2010.Account.UpdateAddressOptions.#ctor(System.String)">
              <summary>
              Construct a new UpdateAddressOptions
@@ -2074,7 +2123,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Address </returns> 
         </member>
-        <member name="M:Twilio.Rest.Api.V2010.Account.AddressResource.Create(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Api.V2010.Account.AddressResource.Create(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},Twilio.Clients.ITwilioRestClient)">
              <summary>
              create
              </summary>
@@ -2088,10 +2137,11 @@
              <param name="pathAccountSid"> The account_sid </param>
              <param name="friendlyName"> The friendly_name </param>
              <param name="emergencyEnabled"> The emergency_enabled </param>
+             <param name="autoCorrectAddress"> The auto_correct_address </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of Address </returns> 
         </member>
-        <member name="M:Twilio.Rest.Api.V2010.Account.AddressResource.CreateAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Api.V2010.Account.AddressResource.CreateAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},Twilio.Clients.ITwilioRestClient)">
              <summary>
              create
              </summary>
@@ -2105,6 +2155,7 @@
              <param name="pathAccountSid"> The account_sid </param>
              <param name="friendlyName"> The friendly_name </param>
              <param name="emergencyEnabled"> The emergency_enabled </param>
+             <param name="autoCorrectAddress"> The auto_correct_address </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Address </returns> 
         </member>
@@ -2202,7 +2253,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Address </returns> 
         </member>
-        <member name="M:Twilio.Rest.Api.V2010.Account.AddressResource.Update(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Api.V2010.Account.AddressResource.Update(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},Twilio.Clients.ITwilioRestClient)">
              <summary>
              update
              </summary>
@@ -2216,10 +2267,11 @@
              <param name="region"> The region </param>
              <param name="postalCode"> The postal_code </param>
              <param name="emergencyEnabled"> The emergency_enabled </param>
+             <param name="autoCorrectAddress"> The auto_correct_address </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of Address </returns> 
         </member>
-        <member name="M:Twilio.Rest.Api.V2010.Account.AddressResource.UpdateAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Api.V2010.Account.AddressResource.UpdateAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},Twilio.Clients.ITwilioRestClient)">
              <summary>
              update
              </summary>
@@ -2233,6 +2285,7 @@
              <param name="region"> The region </param>
              <param name="postalCode"> The postal_code </param>
              <param name="emergencyEnabled"> The emergency_enabled </param>
+             <param name="autoCorrectAddress"> The auto_correct_address </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Address </returns> 
         </member>
@@ -43400,11 +43453,6 @@
             The webhook_method
             </summary>
         </member>
-        <member name="P:Twilio.Rest.Preview.BulkExports.UpdateExportConfigurationOptions.Email">
-            <summary>
-            The email
-            </summary>
-        </member>
         <member name="M:Twilio.Rest.Preview.BulkExports.UpdateExportConfigurationOptions.#ctor(System.String)">
              <summary>
              Construct a new UpdateExportConfigurationOptions
@@ -43471,7 +43519,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of ExportConfiguration </returns> 
         </member>
-        <member name="M:Twilio.Rest.Preview.BulkExports.ExportConfigurationResource.Update(System.String,System.Nullable{System.Boolean},System.Uri,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Preview.BulkExports.ExportConfigurationResource.Update(System.String,System.Nullable{System.Boolean},System.Uri,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              update
              </summary>
@@ -43480,11 +43528,10 @@
              <param name="enabled"> The enabled </param>
              <param name="webhookUrl"> The webhook_url </param>
              <param name="webhookMethod"> The webhook_method </param>
-             <param name="email"> The email </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of ExportConfiguration </returns> 
         </member>
-        <member name="M:Twilio.Rest.Preview.BulkExports.ExportConfigurationResource.UpdateAsync(System.String,System.Nullable{System.Boolean},System.Uri,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Preview.BulkExports.ExportConfigurationResource.UpdateAsync(System.String,System.Nullable{System.Boolean},System.Uri,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              update
              </summary>
@@ -43493,7 +43540,6 @@
              <param name="enabled"> The enabled </param>
              <param name="webhookUrl"> The webhook_url </param>
              <param name="webhookMethod"> The webhook_method </param>
-             <param name="email"> The email </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of ExportConfiguration </returns> 
         </member>
@@ -43518,11 +43564,6 @@
         <member name="P:Twilio.Rest.Preview.BulkExports.ExportConfigurationResource.WebhookMethod">
             <summary>
             The webhook_method
-            </summary>
-        </member>
-        <member name="P:Twilio.Rest.Preview.BulkExports.ExportConfigurationResource.Email">
-            <summary>
-            The email
             </summary>
         </member>
         <member name="P:Twilio.Rest.Preview.BulkExports.ExportConfigurationResource.ResourceType">
@@ -66121,6 +66162,11 @@
             The record_participants_on_connect
             </summary>
         </member>
+        <member name="P:Twilio.Rest.Video.V1.CreateRoomOptions.VideoCodecs">
+            <summary>
+            The video_codecs
+            </summary>
+        </member>
         <member name="M:Twilio.Rest.Video.V1.CreateRoomOptions.GetParams">
             <summary>
             Generate the necessary parameters
@@ -66238,7 +66284,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Room </returns> 
         </member>
-        <member name="M:Twilio.Rest.Video.V1.RoomResource.Create(System.Nullable{System.Boolean},Twilio.Rest.Video.V1.RoomResource.RoomTypeEnum,System.String,System.Uri,Twilio.Http.HttpMethod,System.Nullable{System.Int32},System.Nullable{System.Boolean},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Video.V1.RoomResource.Create(System.Nullable{System.Boolean},Twilio.Rest.Video.V1.RoomResource.RoomTypeEnum,System.String,System.Uri,Twilio.Http.HttpMethod,System.Nullable{System.Int32},System.Nullable{System.Boolean},Twilio.Rest.Video.V1.RoomResource.VideoCodecEnum,Twilio.Clients.ITwilioRestClient)">
              <summary>
              create
              </summary>
@@ -66250,10 +66296,11 @@
              <param name="statusCallbackMethod"> The status_callback_method </param>
              <param name="maxParticipants"> The max_participants </param>
              <param name="recordParticipantsOnConnect"> The record_participants_on_connect </param>
+             <param name="videoCodecs"> The video_codecs </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of Room </returns> 
         </member>
-        <member name="M:Twilio.Rest.Video.V1.RoomResource.CreateAsync(System.Nullable{System.Boolean},Twilio.Rest.Video.V1.RoomResource.RoomTypeEnum,System.String,System.Uri,Twilio.Http.HttpMethod,System.Nullable{System.Int32},System.Nullable{System.Boolean},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Video.V1.RoomResource.CreateAsync(System.Nullable{System.Boolean},Twilio.Rest.Video.V1.RoomResource.RoomTypeEnum,System.String,System.Uri,Twilio.Http.HttpMethod,System.Nullable{System.Int32},System.Nullable{System.Boolean},Twilio.Rest.Video.V1.RoomResource.VideoCodecEnum,Twilio.Clients.ITwilioRestClient)">
              <summary>
              create
              </summary>
@@ -66265,6 +66312,7 @@
              <param name="statusCallbackMethod"> The status_callback_method </param>
              <param name="maxParticipants"> The max_participants </param>
              <param name="recordParticipantsOnConnect"> The record_participants_on_connect </param>
+             <param name="videoCodecs"> The video_codecs </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Room </returns> 
         </member>
@@ -68326,7 +68374,7 @@
             XML representation
             </summary>
         </member>
-        <member name="M:Twilio.TwiML.Gather.#ctor(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.String,System.String)">
+        <member name="M:Twilio.TwiML.Gather.#ctor(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Nullable{System.Int32},System.Boolean)">
             <summary>
             Create a new Gather verb
             </summary>
@@ -68336,6 +68384,13 @@
             <param name="action">Action URL</param>
             <param name="method">Aciton URL method</param>
             <param name="finishOnKey">Finish gather on key</param>
+            <param name="partialResultCallback">if provided, Twilio will make requests to your partialResultCallback in real-time as speech is recognized</param>
+            <param name="partialResultCallbackMethod">GET, POST</param>
+            <param name="language">The language Twilio should recognize as specified using a BCP-47 language tag</param>
+            <param name="hints">A list of words or phrases, up to 100 characters each that Twilio should expect during recognition</param>
+            <param name="profanityFilter">Specifies if Twilio should filter out profanities</param>
+            <param name="speechTimeout">sets the limit in seconds that Twilio will wait for speech before stopping</param>
+            <param name="bargeIn">Specifies if Twilio should stop playing media from nested or verbs once Twilio receives speech or DTMF</param>
         </member>
         <member name="M:Twilio.TwiML.Gather.Say(System.String,System.Nullable{System.Int32},System.String,System.String)">
             <summary>
