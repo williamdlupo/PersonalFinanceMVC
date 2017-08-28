@@ -10,22 +10,31 @@
         <h3 class="panel-title"></h3>
     </div>
     <div class="panel-body">
-        <div id="reportrange" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: inherit">
-            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-            <span></span> @Model.start_date - @Model.end_date <b class="caret"></b>
-        </div>
-        <br />
-        <br />
-        <hr />
+
         @if (Model.Transaction_list is null || Model.Transaction_list.Count == 0)
         {
+            <div id="reportrange" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: inherit">
+                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                <span></span> @Model.start_date - @Model.end_date <b class="caret"></b>
+            </div>
+            <br />
+            <br />
+            <br />
             <h3>No Data Available For This Timeframe!</h3>
         }
         else
         {
+            <div id="reportrange" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: inherit">
+                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                <span></span> @Model.start_date - @Model.end_date <b class="caret"></b>
+            </div>
+            <br />
+            <br />
             <div id="bar-chart"></div>
+            <div id="donut-chart"></div>
             <hr />
-            <table class="table table-hover table-condensed">
+            <br />
+            <table id="myDataTable" class="table table-hover table-condensed table-striped">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -35,25 +44,7 @@
                         <th>Amount</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach (var transaction in Model.Transaction_list)
-                {
-                        <tr>
-                            <th scope="row">@transaction.Date.ToShortDateString()</th>
-                            <td>@transaction.CategoryID</td>
-                            <td>@transaction.Location_Name</td>
-                            @if (@transaction.Location_City is null && @transaction.Location_State is null)
-                            {
-                                <td><em>Unknown</em></td>
-                            }
-                            else
-                            {
-                                <td>@transaction.Location_City, @transaction.Location_State</td>
-                            }
-                            <td>@transaction.Amount</td>
-                        </tr>
-                    }
-                </tbody>
+                <tbody></tbody>
             </table>
         }
     </div>
@@ -62,8 +53,6 @@
     <!--Date Picker Scripts-->
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-
-    <!-- Include Date Range Picker -->
     <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <script type="text/javascript">
@@ -102,16 +91,17 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-
     <script type="text/javascript">
         $(document).ready(function () {
-            var data = @Html.Raw(Json.Encode(Session["areachart"]))
+            var bardata = @Html.Raw(Json.Encode(Session["BarChart"]))
+            var donutdata = @Html.Raw(Json.Encode(Session["DonutChart"]))
+            console.log(donutdata)
             new Morris.Bar({
                 // ID of the element in which to draw the chart.
                 element: 'bar-chart',
                 // Chart data records -- each entry in this array corresponds to a point on
                 // the chart.
-                data: data,
+                data: bardata,
                 xkey: 'date',
                 ykeys: ['amount'],
                 labels: ['Net Transactions'],
@@ -120,10 +110,36 @@
                 resize: true,
                 barColors: ['#18bc9c'],
                 barShape: 'soft',
+                });
+
+            new Morris.Donut({
+                element: 'donut-chart',
+                resize: true,
+                data: donutdata
             });
         });
+    </script>
 
+    <!--DataTable Scripts-->
+    <script src="~/Scripts/jQuery.dataTables.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
 
+    <script>
+        $(document).ready(function () {
 
+    $('#myDataTable').dataTable({
+        "bServerSide": true,
+        "sAjaxSource": '@Url.Action("DataTableHandler", "Dashboard")',
+        "bProcessing": true,
+        "searching": false,
+        "aoColumns": [
+                        { "sName": "Date" },
+                        { "sName": "Category" },
+                        { "sName": "Description" },
+                        { "sName": "Location" },
+                        { "sName": "Amount" }
+                    ]
+    });
+});
     </script>
 }

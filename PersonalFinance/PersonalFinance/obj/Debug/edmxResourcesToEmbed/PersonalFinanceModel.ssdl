@@ -8,6 +8,7 @@
     <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="AccountName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Balance" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Institution_name" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -20,6 +21,7 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
     <Property Name="ID" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Access_Token" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Item_ID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Institution_Name" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="User_Transactions">
     <Key>
@@ -51,11 +53,13 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
     <Parameter Name="UserID" Type="nvarchar" Mode="In" />
     <Parameter Name="AccountName" Type="nvarchar(max)" Mode="In" />
     <Parameter Name="Balance" Type="decimal" Mode="In" />
+    <Parameter Name="Institution_name" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="Insert_UserItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ID" Type="nvarchar" Mode="In" />
     <Parameter Name="Access_Token" Type="nvarchar(max)" Mode="In" />
     <Parameter Name="Item_ID" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Institution_Name" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="Insert_UserTransaction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="TransactionID" Type="nvarchar" Mode="In" />
@@ -74,7 +78,8 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
       <DefiningQuery>SELECT 
     [User_Items].[ID] AS [ID], 
     [User_Items].[Access_Token] AS [Access_Token], 
-    [User_Items].[Item_ID] AS [Item_ID]
+    [User_Items].[Item_ID] AS [Item_ID], 
+    [User_Items].[Institution_Name] AS [Institution_Name]
     FROM [dbo].[User_Items] AS [User_Items]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_User_Transactions_User_Accounts" Association="Self.FK_User_Transactions_User_Accounts">

@@ -9,6 +9,7 @@
     <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Balance" Type="Decimal" Precision="10" Scale="2" />
     <NavigationProperty Name="User_Transactions" Relationship="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts" FromRole="User_Accounts" ToRole="User_Transactions" />
+    <Property Name="Institution_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="User_Items">
     <Key>
@@ -19,6 +20,7 @@
     <Property Name="ID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Access_Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Item_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Institution_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityContainer Name="PersonalFinanceAppEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="User_Accounts" EntityType="Self.User_Accounts" />
@@ -28,11 +30,13 @@
       <Parameter Name="UserID" Mode="In" Type="String" />
       <Parameter Name="AccountName" Mode="In" Type="String" />
       <Parameter Name="Balance" Mode="In" Type="Decimal" />
+      <Parameter Name="Institution_name" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="Insert_UserItems">
       <Parameter Name="ID" Mode="In" Type="String" />
       <Parameter Name="Access_Token" Mode="In" Type="String" />
       <Parameter Name="Item_ID" Mode="In" Type="String" />
+      <Parameter Name="Institution_Name" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="Insert_UserTransaction">
       <Parameter Name="TransactionID" Mode="In" Type="String" />

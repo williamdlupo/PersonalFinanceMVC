@@ -36,26 +36,33 @@
 
                 @if (Model.Has_accounts)
                 {
-                    <ul class="list-group">
-                        @foreach (var account in Model.Account_list)
-                        {
-                            <li class="list-group-item">
-                                <span class="badge">$@account.Balance</span>
-                                <b>@account.AccountName</b>
+                    <br />
+                    foreach (var institution in Model.Institution_list)
+                    {
+                        <div class="list-group-item-heading h2 text-success">@institution</div>
+                            <ul class="list-group">
+                                @foreach (var account in Model.Account_list)
+                                {
+                                    if (account.Institution_name.Equals(institution))
+                                    {
+                                        <li class="list-group-item">
+                                            <span class="badge">$@account.Balance</span>
+                                            <b>@account.AccountName</b>
+                                        </li>
+                                    }
 
-                            </li>
-                        }
-                    </ul>
-
+                                }
+                            </ul>
+                    }
                     <button class="btn btn-primary" id="link-button" type="button">Add Another Account</button>
 
                     <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-success">All Set!</a>
                 }
                 else
                 {
-                <p>You have no accounts synced! </p>
+                    <p>You have no accounts synced! </p>
 
-                <button class="btn btn-primary" id="link-button" type="button">Add An Account</button>
+                    <button class="btn btn-primary" id="link-button" type="button">Add An Account</button>
                 }
             </div>
         }
@@ -76,8 +83,9 @@
                 // The metadata object contains info about the institution the
                 // user selected and the account ID, if `selectAccount` is enabled.
                 $.post('@Url.Action("AccountViewSync","Account")', {
-                    public_token: public_token
+                    data: { public_token: public_token, name: metadata.institution.name}
                 }, function () {
+                    console.log('Customer-selected account: ' + metadata.institution.name);
                     window.location.reload(true);
                 });
             },

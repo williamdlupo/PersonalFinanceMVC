@@ -31,7 +31,7 @@ namespace PersonalFinance
         public virtual DbSet<User_Items> User_Items { get; set; }
         public virtual DbSet<User_Transactions> User_Transactions { get; set; }
     
-        public virtual int Insert_UserAccount(string accountID, string userID, string accountName, Nullable<decimal> balance)
+        public virtual int Insert_UserAccount(string accountID, string userID, string accountName, Nullable<decimal> balance, string institution_name)
         {
             var accountIDParameter = accountID != null ?
                 new ObjectParameter("AccountID", accountID) :
@@ -49,10 +49,14 @@ namespace PersonalFinance
                 new ObjectParameter("Balance", balance) :
                 new ObjectParameter("Balance", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_UserAccount", accountIDParameter, userIDParameter, accountNameParameter, balanceParameter);
+            var institution_nameParameter = institution_name != null ?
+                new ObjectParameter("Institution_name", institution_name) :
+                new ObjectParameter("Institution_name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_UserAccount", accountIDParameter, userIDParameter, accountNameParameter, balanceParameter, institution_nameParameter);
         }
     
-        public virtual int Insert_UserItems(string iD, string access_Token, string item_ID)
+        public virtual int Insert_UserItems(string iD, string access_Token, string item_ID, string institution_Name)
         {
             var iDParameter = iD != null ?
                 new ObjectParameter("ID", iD) :
@@ -66,7 +70,11 @@ namespace PersonalFinance
                 new ObjectParameter("Item_ID", item_ID) :
                 new ObjectParameter("Item_ID", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_UserItems", iDParameter, access_TokenParameter, item_IDParameter);
+            var institution_NameParameter = institution_Name != null ?
+                new ObjectParameter("Institution_Name", institution_Name) :
+                new ObjectParameter("Institution_Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_UserItems", iDParameter, access_TokenParameter, item_IDParameter, institution_NameParameter);
         }
     
         public virtual int Insert_UserTransaction(string transactionID, string accountID, string categoryID, Nullable<System.DateTime> date, string location_Name, string location_City, string location_State, Nullable<decimal> amount)

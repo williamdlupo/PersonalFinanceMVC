@@ -4,6 +4,7 @@
     <EntitySetMapping Name="User_Accounts">
       <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Accounts">
         <MappingFragment StoreEntitySet="User_Accounts">
+          <ScalarProperty Name="Institution_name" ColumnName="Institution_name" />
           <ScalarProperty Name="AccountID" ColumnName="AccountID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="AccountName" ColumnName="AccountName" />
@@ -13,6 +14,7 @@
       <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Accounts">
         <ModificationFunctionMapping>
           <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserAccount">
+            <ScalarProperty Name="Institution_name" ParameterName="Institution_name" />
             <ScalarProperty Name="Balance" ParameterName="Balance" />
             <ScalarProperty Name="AccountName" ParameterName="AccountName" />
             <ScalarProperty Name="UserID" ParameterName="UserID" />
@@ -24,6 +26,7 @@
     <EntitySetMapping Name="User_Items">
       <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Items">
         <MappingFragment StoreEntitySet="User_Items">
+          <ScalarProperty Name="Institution_Name" ColumnName="Institution_Name" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Access_Token" ColumnName="Access_Token" />
           <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
@@ -32,6 +35,7 @@
       <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Items">
         <ModificationFunctionMapping>
           <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserItems">
+            <ScalarProperty Name="Institution_Name" ParameterName="Institution_Name" />
             <ScalarProperty Name="Item_ID" ParameterName="Item_ID" />
             <ScalarProperty Name="Access_Token" ParameterName="Access_Token" />
             <ScalarProperty Name="ID" ParameterName="ID" />

@@ -201,16 +201,18 @@ namespace PersonalFinance.Controllers
         // POST: /Account/AccountSyncAsync
         //TO Do: Figure out how to handle the meta data so we can get the name of the institution being selected
         [HttpPost]
-        public async Task<JsonResult> AccountViewSync(PublicToken token)
+        public async Task<JsonResult> AccountViewSync(Response data)
         {
             Plaid plaid = new Plaid();
 
             if (ModelState.IsValid)
             {
                 ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-                string _token = token.public_token;
+                string _token = data.public_token;
+                string name = data.name;
                 
                 plaid.User = user;
+                plaid.Institution_name = name;
                 plaid.AuthenticateAccount(_token);
                                 
                 user.FirstLoginFlag = false;

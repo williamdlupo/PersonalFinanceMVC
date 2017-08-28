@@ -31,6 +31,7 @@ namespace PersonalFinance.Controllers
 
         //
         // GET: Dashboard/Main
+        //TO DO: figure out how to get default dates to be MTD
         public ActionResult Main()
         {
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
@@ -41,7 +42,8 @@ namespace PersonalFinance.Controllers
             plaid.Transaction_list = Session["transactions"] as List<User_Transactions>;
             plaid.start_date = Session["startdate"] as string;
             plaid.end_date = Session["enddate"] as string;
-            plaid.AreaChart = Session["areachart"] as List<AreaChartData>;
+            plaid.BarChart = Session["BarChart"] as List<BarChartData>;
+            plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
 
             if (plaid.Transaction_list is null)
             {
@@ -69,16 +71,61 @@ namespace PersonalFinance.Controllers
                 var transactions = plaid.Transaction_list;
                 var startdate = dates.start_date;
                 var enddate = dates.end_date;
-                var chartdata = plaid.AreaChart;
+                var chartdata = plaid.BarChart;
+                var donutdata = plaid.DonutChart;
                 Session["transactions"] = transactions;
                 Session["startdate"] = startdate;
                 Session["enddate"] = enddate;
-                Session["areachart"] = chartdata;
+                Session["BarChart"] = chartdata;
+                Session["DonutChart"] = donutdata;
 
                 return Json(new { success = true });
             }
             //if we got this far something went wrong and redisplay the page
             return Json(plaid);
+        }
+
+        //
+        //
+        public JsonResult DataTableHandler(DataTable param)
+        {
+            Plaid plaid = new Plaid();
+            plaid.User = user;
+            plaid.Transaction_list = Session["transactions"] as List<User_Transactions>;
+            plaid.start_date = Session["startdate"] as string;
+            plaid.end_date = Session["enddate"] as string;
+            plaid.BarChart = Session["BarChart"] as List<BarChartData>;
+            plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
+
+            if (plaid.Transaction_list is null)
+            {
+                plaid.GetTransactions(DateTime.Today, DateTime.Today);
+                plaid.start_date = (DateTime.Today.ToShortDateString()).ToString();
+                plaid.end_date = (DateTime.Today.ToShortDateString()).ToString();
+
+                return Json(plaid);
+            }
+
+            var displayedTransactions = plaid.Transaction_list
+                        .Skip(param.iDisplayStart)
+                        .Take(param.iDisplayLength);
+
+            var data = from transaction in displayedTransactions
+                       select new[] {   transaction.Date.ToShortDateString(),
+                                        transaction.CategoryID,
+                                        transaction.Location_Name,
+                                        (transaction.Location_City+ " "+ transaction.Location_State),
+                                        "$"+ transaction.Amount.ToString() };
+
+            
+            return Json(new
+            {
+                sEcho = param.sEcho,
+                iTotalRecords = plaid.Transaction_list.Count(),
+                iTotalDisplayRecords = plaid.Transaction_list.Count(),
+                aaData = data
+            },
+            JsonRequestBehavior.AllowGet);
         }
 
         //

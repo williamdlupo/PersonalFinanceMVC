@@ -11,18 +11,61 @@ using System.Web.Configuration;
 
 namespace PersonalFinance.Models
 {
+    //Date Picker data type class
     public class Dates
     {
         public string start_date { get; set; }
         public string end_date { get; set; }
     }
 
-    public class AreaChartData
+    //Morris Chart data type class
+    public class BarChartData
     {
         public string date { get; set; }
         public decimal amount { get; set; }
     }
 
+    //Morris Donut Chart data type class
+    public class DonutChartData
+    {
+        public string label { get; set; }
+        public int value { get; set; }
+    }
+
+    //Plaid metadata data type class
+    public class AccountData
+    {
+        public string access_token { get; set; }
+        public string institution_name { get; set; }
+    }
+    
+    //Date Table data type class
+    public class DataTable
+    {
+        //Request sequence number sent by DataTable,
+        //Same value must be returned in response      
+        public string sEcho { get; set; }
+
+        //Text used for filtering        
+        public string sSearch { get; set; }
+
+       /// Number of records that should be shown in table
+        public int iDisplayLength { get; set; }
+       
+        //First record that should be shown(used for paging)        
+        public int iDisplayStart { get; set; }
+        
+        //Number of columns in table
+        public int iColumns { get; set; }
+        
+        //Number of columns that are used in sorting        
+        public int iSortingCols { get; set; }
+       
+        /// Comma separated list of column names
+        public string sColumns { get; set; }
+    }
+
+    //Plaid class where the 'magic' happens
     public class Plaid
     {
         private static string _clientid = WebConfigurationManager.AppSettings["client_id"];
@@ -32,16 +75,19 @@ namespace PersonalFinance.Models
         private string _accesstoken;
         private string _item_id;
         private string _public_token;
-        private List<string> _accesstokenlist = new List<string>();
+        private List<AccountData> _accesstokenlist = new List<AccountData>();
         private List<string> _accountidlist = new List<string>();        
 
         public ApplicationUser User { private get; set; }
         public List<User_Accounts> Account_list = new List<User_Accounts>();
         public List<User_Transactions> Transaction_list = new List<User_Transactions>();
-        public List<AreaChartData> AreaChart = new List<AreaChartData>();
+        public List<BarChartData> BarChart = new List<BarChartData>();
+        public List<DonutChartData> DonutChart = new List<DonutChartData>();
+        public List<string> Institution_list = new List<string>();
         public string start_date;
         public string end_date;
         public bool Has_accounts { get; set; }
+        public string Institution_name { get; set; }
 
         //
         //Sets the Has_accounts to false on object creation for account list view cycle 
@@ -82,6 +128,7 @@ namespace PersonalFinance.Models
                 item_db.Access_Token = _accesstoken;
                 item_db.Item_ID = _item_id;
                 item_db.ID = User.Id;
+                item_db.Institution_Name = Institution_name.ToString();
 
                 context.User_Items.Add(item_db);
                 context.SaveChanges();
@@ -91,11 +138,12 @@ namespace PersonalFinance.Models
 
         //
         //Utilizes in memory access_token to get and persist account data and transactions from Plaid to database
+        //TO DO: figure out how to get default dates to be trailing 3 months
         private void GetTransactions()
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
 
-            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + _accesstoken + "\" , \"start_date\": \"2017-06-28\" , \"end_date\": \"2017-07-27\" }";
+            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + _accesstoken + "\" , \"start_date\": \"2017-02-16\" , \"end_date\": \"2017-08-16\" }";
             request.Content = new StringContent(data, Encoding.UTF8, "application/json");
 
             var result = client.SendAsync(request).Result;
@@ -116,6 +164,7 @@ namespace PersonalFinance.Models
                         accounts_db.UserID = User.Id;
                         accounts_db.AccountName = (string)account["official_name"];
                         accounts_db.Balance = (decimal)account["balances"]["current"];
+                        accounts_db.Institution_name = this.Institution_name;
 
                         context.User_Accounts.Add(accounts_db);
                         context.SaveChanges();
@@ -150,13 +199,22 @@ namespace PersonalFinance.Models
         {
             using (var context = new PersonalFinanceAppEntities())
             {
-                var token = from db in context.User_Items where db.ID.Equals(User.Id) select db.Access_Token;
+                var token = from db in context.User_Items
+                            where db.ID.Equals(User.Id)
+                            select new { db.Access_Token, db.Institution_Name };
+
                 var tokenlist = token.ToList();
 
                 foreach (var t in tokenlist)
                 {
-                    _accesstokenlist.Add(t.ToString());
+                    AccountData data = new AccountData();
+                    data.access_token = t.Access_Token.ToString();
+                    data.institution_name = t.Institution_Name.ToString();
+                    Institution_list.Add(t.Institution_Name.ToString());
+
+                    _accesstokenlist.Add(data);
                 }
+                Institution_list.Sort();
             }
         }
 
@@ -177,7 +235,7 @@ namespace PersonalFinance.Models
             {
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/accounts/get");
 
-                string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + token + "\" }";
+                string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + token.access_token + "\" }";
                 request.Content = new StringContent(data, Encoding.UTF8, "application/json");
 
                 var result = client.SendAsync(request).Result;
@@ -193,6 +251,7 @@ namespace PersonalFinance.Models
                         User_Accounts accounts_db = new User_Accounts();
                         accounts_db.AccountName = (string)account["official_name"];
                         accounts_db.Balance = (decimal)account["balances"]["current"];
+                        accounts_db.Institution_name = token.institution_name;
                         Account_list.Add(accounts_db);
                         Has_accounts = true;
 
@@ -254,29 +313,61 @@ namespace PersonalFinance.Models
                         Transaction_list.Sort((x, y) => x.Date.CompareTo(y.Date));
                     }
                 }
-
-                //code to pull out list of unique dates and sum of transactions per date for area chart
+                               
                 if (Transaction_list != null)
                 {
-                    var areachartquery = from transaction in Transaction_list
+                    //code to pull out list of unique dates and sum of transactions per date for bar chart
+                    var BarChartquery = from transaction in Transaction_list
                                          group transaction by new { transaction.Date } into g
                                          select new
                                          {
                                              Date = g.Distinct(),
                                              Amount = g.Sum(s => s.Amount)
                                          };
-                    var areachartdata = areachartquery.ToList();
+                    var BarChartData = BarChartquery.ToList();
 
-                    foreach (var datapoint in areachartdata)
+                    foreach (var datapoint in BarChartData)
                     {
-                        AreaChartData aDataPoint = new AreaChartData();
+                        BarChartData aDataPoint = new BarChartData();
                         aDataPoint.amount = datapoint.Amount;
+
                         foreach (var date in datapoint.Date)
                         {
                             aDataPoint.date = date.Date.ToShortDateString();
                             break;
                         }
-                        AreaChart.Add(aDataPoint);
+                        BarChart.Add(aDataPoint);
+                    }
+
+                    //code to pull out list of unique dates and sum of transactions per date for donut chart
+                    var DonutChartquery = from transaction in Transaction_list
+                                          group transaction by new { transaction.CategoryID } into g
+                                          select new
+                                          {
+                                              Category = g.Distinct(),
+                                              Count = g.Count()
+                                          };
+                    var DonutChartList = DonutChartquery.ToList();
+
+                    foreach (var item in DonutChartList)
+                    {
+                        DonutChartData aDatapoint = new DonutChartData();
+                        aDatapoint.value = item.Count;
+                        
+                        foreach (var aCat in item.Category)
+                        {
+                            if(aCat.CategoryID is null)
+                            {
+                                aDatapoint.label = "Unknown";
+                                break;
+                            }
+
+                            aDatapoint.label = aCat.CategoryID.ToString();
+                            break;
+                        }
+                                                
+
+                        DonutChart.Add(aDatapoint);                        
                     }
                 }
 

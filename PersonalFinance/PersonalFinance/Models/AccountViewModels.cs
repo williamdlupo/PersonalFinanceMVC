@@ -120,19 +120,9 @@ namespace PersonalFinance.Models
         public int GoalID { get; set; }
     }
 
-    public class PublicToken
+    public class Response
     {
         public string public_token { get; set; }
-    }
-
-    public class MData
-    {
-        public Institution institution { get; set; }
-    }
-
-    public class Institution
-    {
-        string name { get; set; }
-        string institution_id { get; set; }
+        public string name { get; set; }
     }
 }

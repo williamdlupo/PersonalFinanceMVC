@@ -13,6 +13,7 @@
           <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="AccountName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Balance" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Institution_name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -25,6 +26,7 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
           <Property Name="ID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Access_Token" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Item_ID" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Institution_Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="User_Transactions">
           <Key>
@@ -56,11 +58,13 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
           <Parameter Name="UserID" Type="nvarchar" Mode="In" />
           <Parameter Name="AccountName" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Balance" Type="decimal" Mode="In" />
+          <Parameter Name="Institution_name" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="Insert_UserItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="nvarchar" Mode="In" />
           <Parameter Name="Access_Token" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Item_ID" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Institution_Name" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="Insert_UserTransaction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TransactionID" Type="nvarchar" Mode="In" />
@@ -79,7 +83,8 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             <DefiningQuery>SELECT 
     [User_Items].[ID] AS [ID], 
     [User_Items].[Access_Token] AS [Access_Token], 
-    [User_Items].[Item_ID] AS [Item_ID]
+    [User_Items].[Item_ID] AS [Item_ID], 
+    [User_Items].[Institution_Name] AS [Institution_Name]
     FROM [dbo].[User_Items] AS [User_Items]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_User_Transactions_User_Accounts" Association="Self.FK_User_Transactions_User_Accounts">
@@ -100,6 +105,7 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
           <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Balance" Type="Decimal" Precision="10" Scale="2" />
           <NavigationProperty Name="User_Transactions" Relationship="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts" FromRole="User_Accounts" ToRole="User_Transactions" />
+          <Property Name="Institution_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="User_Items">
           <Key>
@@ -110,6 +116,7 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
           <Property Name="ID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Access_Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Item_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Institution_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="PersonalFinanceAppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="User_Accounts" EntityType="Self.User_Accounts" />
@@ -119,11 +126,13 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             <Parameter Name="UserID" Mode="In" Type="String" />
             <Parameter Name="AccountName" Mode="In" Type="String" />
             <Parameter Name="Balance" Mode="In" Type="Decimal" />
+            <Parameter Name="Institution_name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Insert_UserItems">
             <Parameter Name="ID" Mode="In" Type="String" />
             <Parameter Name="Access_Token" Mode="In" Type="String" />
             <Parameter Name="Item_ID" Mode="In" Type="String" />
+            <Parameter Name="Institution_Name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Insert_UserTransaction">
             <Parameter Name="TransactionID" Mode="In" Type="String" />
@@ -176,6 +185,7 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
           <EntitySetMapping Name="User_Accounts">
             <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Accounts">
               <MappingFragment StoreEntitySet="User_Accounts">
+                <ScalarProperty Name="Institution_name" ColumnName="Institution_name" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="AccountName" ColumnName="AccountName" />
@@ -185,6 +195,7 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Accounts">
               <ModificationFunctionMapping>
                 <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserAccount">
+                  <ScalarProperty Name="Institution_name" ParameterName="Institution_name" />
                   <ScalarProperty Name="Balance" ParameterName="Balance" />
                   <ScalarProperty Name="AccountName" ParameterName="AccountName" />
                   <ScalarProperty Name="UserID" ParameterName="UserID" />
@@ -196,6 +207,7 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
           <EntitySetMapping Name="User_Items">
             <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Items">
               <MappingFragment StoreEntitySet="User_Items">
+                <ScalarProperty Name="Institution_Name" ColumnName="Institution_Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Access_Token" ColumnName="Access_Token" />
                 <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
@@ -204,6 +216,7 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Items">
               <ModificationFunctionMapping>
                 <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserItems">
+                  <ScalarProperty Name="Institution_Name" ParameterName="Institution_Name" />
                   <ScalarProperty Name="Item_ID" ParameterName="Item_ID" />
                   <ScalarProperty Name="Access_Token" ParameterName="Access_Token" />
                   <ScalarProperty Name="ID" ParameterName="ID" />
