@@ -86,7 +86,7 @@ namespace PersonalFinance.Controllers
         }
 
         //
-        //
+        //GET: Populating data for the Data Table
         public JsonResult DataTableHandler(DataTable param)
         {
             Plaid plaid = new Plaid();
@@ -129,8 +129,8 @@ namespace PersonalFinance.Controllers
         }
 
         //
-        //GET:  Dashboard/Reports
-        public ActionResult Reports()
+        //GET:  Dashboard/Test
+        public ActionResult Test()
         {
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
             if (user.FirstLoginFlag == true) { return RedirectToAction("GetStarted", "Account"); }

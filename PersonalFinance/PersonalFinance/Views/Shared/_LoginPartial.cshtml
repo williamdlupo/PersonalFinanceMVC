@@ -11,11 +11,14 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <i></i> @User.Identity.GetUserName() <span class="caret"></span>
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu dropdown-menu-left">
                     <li>
                         @Html.ActionLink("Manage Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
                     </li>
-                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                    <li>
+                        @Html.ActionLink("My Synced Accounts", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                    </li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log Out</a></li>
                 </ul>
         </ul>
     }

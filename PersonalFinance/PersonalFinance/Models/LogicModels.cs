@@ -267,7 +267,7 @@ namespace PersonalFinance.Models
 
         //
         //Method that will return a list of transactions for each account in the account list for a given timeframe
-        //Amount sums by category, by date, by location etc
+        //and populates the data for the charts for the main dashboard
         public void GetTransactions(DateTime start_date, DateTime end_date)
         {
             //go to database and get list of account ID's assoicated with a user and save to _accountidlist
