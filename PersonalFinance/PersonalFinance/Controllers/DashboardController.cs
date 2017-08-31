@@ -117,9 +117,10 @@ namespace PersonalFinance.Controllers
                                         (transaction.Location_City+ " "+ transaction.Location_State),
                                         "$"+ transaction.Amount.ToString() };
 
-            
+
             return Json(new
             {
+                dom = "p<'row'<'col-sm-6'l><'col-sm-6'f>>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
                 sEcho = param.sEcho,
                 iTotalRecords = plaid.Transaction_list.Count(),
                 iTotalDisplayRecords = plaid.Transaction_list.Count(),

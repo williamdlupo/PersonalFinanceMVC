@@ -630,7 +630,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Dashboard\Main.cshtml" />
+    <Content Include="Views\Dashboard\OldMain.cshtml" />
     <Content Include="Views\Account\Onboarding.cshtml" />
     <Content Include="Views\Dashboard\Reports.cshtml" />
     <Content Include="Views\Account\UnconfirmedLoginError.cshtml" />
@@ -639,7 +639,7 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Account\AccountViewSync.cshtml" />
-    <Content Include="Views\Dashboard\Test.cshtml" />
+    <Content Include="Views\Dashboard\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

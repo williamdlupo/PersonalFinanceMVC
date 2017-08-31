@@ -89,7 +89,7 @@ fieldset[disabled] .btn-accent.focus {
   background-color: #949ba2;
 }
 .btn-default {
-  color: #949ba2;
+  color: #37353C;
   background-color: transparent;
   border-color: #616779;
 }
@@ -211,7 +211,7 @@ fieldset[disabled] .btn-primary.focus {
   background-color: #949ba2;
 }
 .btn-success {
-  color: #949ba2;
+  color: #37353C;
   background-color: transparent;
   border-color: #1bbf89;
 }
@@ -225,7 +225,7 @@ fieldset[disabled] .btn-primary.focus {
 }
 .btn-success:hover {
   color: #ffffff;
-  background-color: rgba(27, 191, 137, 0.1);
+  background-color: #1bbf89;
   border-color: #1bbf89;
 }
 .btn-success:active,

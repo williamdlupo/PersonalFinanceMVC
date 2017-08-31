@@ -382,7 +382,15 @@ namespace PersonalFinance.Models
         }
 
         //
+        //Method to get the total current net worth (sum of all current account balances), 
+        //populate the sparkline of the summed net worth per month YTD for a given user 
+        public void GetNetWorth()
+        {
+
+        }
+
+        //
         //Method to pull all *new* transactions from Plaid via webhook
-        //aka the "job" method to update DB
+        //aka the "job" method to update DB via the plaid webhook
     }
 }
