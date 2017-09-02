@@ -4,61 +4,70 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Log in";
 }
-<br />
-<h3>Sign in</h3>
-<div class="row">
-    <div class="col-md-5">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox-inline">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-success btn-block" />
-                    </div>
-                </div>
-            }
-        </section>
-    </div>
-    <div class="col-md-4">
-        <p>
-            <div>
-                <b>Don't have an account?</b>
-            </div>
-            @Html.ActionLink("Sign up now for free", "Register")
-        </p>
-        <p>
-            <div>
-                <b>Forgot your password?</b>
-            </div>
-            @Html.ActionLink("Reset it here", "ForgotPassword")
-        </p>
-    </div>
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<body class="blank">
+    <!-- Wrapper-->
+    <div class="wrapper">
+
+        <!-- Main content-->
+        <section>
+            <div class="container-center animated slideInDown">
+
+                <div class="view-header">
+                    <div class="header-icon">
+                        <i class="pe page-header-icon pe-7s-unlock"></i>
+                    </div>
+                    <div class="header-title">
+                        <h3>Login</h3>
+                        <small>
+                            Please enter your credentials to login
+                        </small>
+                    </div>
+                </div>
+                <div class="panel panel-filled">
+                    <div class="panel-body">
+                        <section id="loginForm">
+                            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                                <div class="form-group">
+                                    <label class="control-label col-md-offset-1" for="username">Username</label>
+                                    <div class="col-md-10 col-md-offset-1">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "example@gmail.com", name = "username" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-offset-1" for="password">Password</label>
+                                    <div class="col-md-10 col-md-offset-1">
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", name = "password" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                    <a class="help-block small col-md-10 col-md-offset-1" href="@Url.Action("ForgotPassword","Account")">Forgot Your Password?</a>
+                                    <div class="checkbox-inline col-md-offset-4 col-md-10">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe)
+                                    </div>
+                                </div>
+                                <div class="col-md-offset-3 col-md-10">
+                                    <input type="submit" value="Log in" class="btn btn-accent" />
+                                    <a class="btn btn-info" href="@Url.Action("Register","Account")">Register</a>
+                                </div>
+                            }
+                        </section>
+</div>
+                </div>
+            </div>
+        </section>
+        <!-- End main content-->
+    </div>
+    </body>
+    <script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/vendor/sparkline/index.js"></script>
+    <script src="~/Content/vendor/chart.js/dist/Chart.min.js"></script>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

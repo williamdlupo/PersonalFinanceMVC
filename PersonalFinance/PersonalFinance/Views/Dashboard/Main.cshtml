@@ -1,53 +1,15 @@
 ﻿@model PersonalFinance.Models.Plaid
 @{
-    Layout = null;
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
-    <!-- Page title -->
-    <title>FinanSeer | Home</title>
-    <!-- Vendor styles -->
-    <link rel="stylesheet" href="~/Content/vendor/fontawesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="~/Content/vendor/animate.css/animate.css" />
-    <link rel="stylesheet" href="~/Content/vendor/bootstrap/css/bootstrap.css" />
-    <!-- App styles -->
-    <link rel="stylesheet" href="~/Content/styles/pe-icons/pe-icon-7-stroke.css" />
-    <link rel="stylesheet" href="~/Content/styles/pe-icons/helper.css" />
-    <link rel="stylesheet" href="~/Content/styles/stroke-icons/style.css" />
-    <link rel="stylesheet" href="~/Content/styles/style.css">
-</head>
 <body>
     <!-- Wrapper-->
     <div class="wrapper">
         <!-- Header-->
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" data-toggle="collapse" data-target=".luna-nav" href="@Url.Action("Test","Dashboard")">
-                        FinanSeer
-                        <span>v.1.0</span>
-                    </a>
-                    <div class="nav navbar-right luna-nav">
-                        <div>
-                            @Html.Partial("_LoginPartial")
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </nav>
         <!-- End header-->
         <!-- Main content-->
-        <br />
-        <br />
-        <br />
-        <br />
         <section>
             <div class="container-fluid">
                 <div class="row">
@@ -127,10 +89,7 @@
                                     <div class="panel-body">
                                         <div class="text-center slight">
                                         </div>
-                                        <div class="flot-chart" style="height: 160px;margin-top: 5px">
-                                            <div class="flot-chart-content" id="flot-line-chart"></div>
-                                        </div>
-                                        <div class="small text-center">Daily Net Transactions</div>
+                                        <canvas id="singleBarOptions" height="100"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -148,41 +107,56 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="panel">
-                                <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <table id="myDataTable" class="table table-striped table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Category</th>
-                                                    <th>Description</th>
-                                                    <th>Location</th>
-                                                    <th>Amount</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                        </table>
+                    @if (Model.Transaction_list is null || Model.Transaction_list.Count == 0)
+                    {
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <h3>No Data Available For The Selected Timeframe!</h3>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="panel panel-b-accent m-t-sm">
-                                <div class="panel-body text-center p-m">
-                                    <h2 class="font-light">
-                                        +280k downloads
-                                    </h2>
-                                    <small>New downloads from the last month.</small>
-                                    <br />
-                                    120,312 <span class="slight"><i class="fa fa-play fa-rotate-270 c-white"> </i> -22%</span>
-                                    <div class="sparkline7 m-t-xs"></div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table id="myDataTable" class="table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Category</th>
+                                                        <th>Description</th>
+                                                        <th>Location</th>
+                                                        <th>Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="panel panel-b-accent m-t-sm">
+                                    <div class="panel-body text-center p-m">
+                                        <h2 class="font-light">
+                                            +280k downloads
+                                        </h2>
+                                        <small>New downloads from the last month.</small>
+                                        <br />
+                                        120,312 <span class="slight"><i class="fa fa-play fa-rotate-270 c-white"> </i> -22%</span>
+                                        <div class="sparkline7 m-t-xs"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </section>
@@ -190,15 +164,17 @@
     </div>
     <!-- End wrapper-->
     <!-- Vendor scripts -->
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
     <script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
     <script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Content/vendor/sparkline/index.js"></script>
-    <script src="~/Content/vendor/flot/jquery.flot.min.js"></script>
-    <script src="~/Content/vendor/flot/jquery.flot.resize.min.js"></script>
-    <script src="~/Content/vendor/flot/jquery.flot.spline.js"></script>
+    <script src="~/Content/vendor/chart.js/dist/Chart.min.js"></script>
 
     <!-- App scripts -->
     <script src="~/Scripts/luna.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
 
     <!--Date Picker Scripts-->
     <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -275,6 +251,11 @@
                     width: '100%'
                 });
 
+                $(".sparkline13").sparkline([6, 2], {
+                    type: 'pie',
+                    sliceColors: ['#f7af3e', '#404652']
+                });
+
                 $(".sparkline7").sparkline([10, 34, 13, 33, 35, 24, 32, 24, 52, 35], {
                     type: 'line',
                     lineColor: '#FFFFFF',
@@ -311,7 +292,7 @@
                     height: 20,
                     width: '100%'
                 });
-                $(".sparkline6").sparkline([0, 1, 4, 2, 2, 4, 1, 4, 3, 2, 3, 4, 4, 2, 4, 2, 1, 3], {
+                $(".sparkline6").sparkline(amounts, {
                     type: 'bar',
                     barColor: '#f7af3e',
                     height: 20,
@@ -338,10 +319,6 @@
                     type: 'pie',
                     sliceColors: ['#f7af3e', '#404652']
                 });
-                $(".sparkline13").sparkline([6, 2], {
-                    type: 'pie',
-                    sliceColors: ['#f7af3e', '#404652']
-                });
             };
 
             var sparkResize;
@@ -357,31 +334,55 @@
 
 
             // Flot charts data and options
-            var data1 = [[0, 16], [1, 24], [2, 11], [3, 7], [4, 10], [5, 15], [6, 24], [7, 30]];
-            var data2 = [[0, 26], [1, 44], [2, 31], [3, 27], [4, 36], [5, 46], [6, 56], [7, 66]];
+            var data = @Html.Raw(Json.Encode(Session["BarChart"]));
 
-            var chartUsersOptions = {
-                series: {
-                    splines: {
-                        show: true,
-                        tension: 0.4,
-                        lineWidth: 1,
-                        fill: 1
+            var dates = $.map(data, function (el) { return el.date });
+            var amounts = $.map(data, function (el) { return el.amount });
 
+            var globalOptions = {
+                responsive: true,
+                legend: {
+                    labels: {
+                        fontColor: "#90969D"
                     }
-
                 },
-                grid: {
-                    tickColor: "#404652",
-                    borderWidth: 0,
-                    borderColor: '#404652',
-                    color: '#404652'
-                },
-                colors: ["#f7af3e", "#DE9536"]
+                scales: {
+                    xAxes: [{
+                        display: false,
+                        ticks: {
+                            fontColor: "#90969D"
+                        },
+                        gridLines: {
+                            color: "#37393F"
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            fontColor: "#90969D"
+                        },
+                        gridLines: {
+                            color: "#37393F"
+                        }
+                    }]
+                }
             };
 
-            $.plot($("#flot-line-chart"), [data2, data1], chartUsersOptions);
+            var singleBarData = {
+                labels: dates,
+                datasets: [
+                    {
+                        label: 'Net Transactions',
+                        backgroundColor: 'transparent',
+                        borderColor: "#f6a821",
+                        borderWidth: 1,
+                        data: amounts
+                    }
+                ]
+            };
+
+            var c4 = document.getElementById("singleBarOptions").getContext("2d");
+            new Chart(c4, { type: 'bar', data: singleBarData, options: globalOptions });
+
         });
     </script>
 </body>
-</html>

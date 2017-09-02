@@ -374,14 +374,14 @@ namespace PersonalFinance.Models
             }
         }
 
-        //
+        //TODO
         //Method to get all transactions for a specific account for a given timeframe
         private void GetTransactions(DateTime start_date, DateTime end_date, string account_id)
         {
 
         }
 
-        //
+        //TODO
         //Method to get the total current net worth (sum of all current account balances), 
         //populate the sparkline of the summed net worth per month YTD for a given user 
         public void GetNetWorth()
@@ -389,7 +389,16 @@ namespace PersonalFinance.Models
 
         }
 
-        //
+        //TODO
+        //Method to calculate goal track success, determine if the user is 'on track', calculate year to date
+        //savings, ratio of savings to goal amount for front end
+        public void GoalProgress()
+        {
+
+        }
+
+
+        //TODO
         //Method to pull all *new* transactions from Plaid via webhook
         //aka the "job" method to update DB via the plaid webhook
     }

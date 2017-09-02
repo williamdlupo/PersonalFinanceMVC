@@ -1,56 +1,87 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+    <!-- Page title -->
+    <title>FinanSeer | @ViewBag.Title</title>
+    <!-- Vendor styles -->
+    <link rel="stylesheet" href="~/Content/vendor/fontawesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/Content/vendor/animate.css/animate.css" />
+    <link rel="stylesheet" href="~/Content/vendor/bootstrap/css/bootstrap.css" />
+    <!-- App styles -->
+    <link rel="stylesheet" href="~/Content/styles/pe-icons/pe-icon-7-stroke.css" />
+    <link rel="stylesheet" href="~/Content/styles/pe-icons/helper.css" />
+    <link rel="stylesheet" href="~/Content/styles/stroke-icons/style.css" />
+    <link rel="stylesheet" href="~/Content/styles/style.css">
 </head>
 <body>
     <!-- Navigation -->
     @if (Request.IsAuthenticated)
     {
-        <div class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
-                    @Html.ActionLink("Personal Finance", "Main", "Dashboard", null, new { @class = "navbar-brand" })
+                    <a class="navbar-brand" data-toggle="collapse" data-target=".luna-nav" href="@Url.Action("Main","Dashboard")">
+                        FinanSeer
+                        <span>v.1.0</span>
+                    </a>
+                    <div class="nav navbar-right luna-nav">
+                        <div>
+                            @Html.Partial("_LoginPartial")
+                        </div>
+                    </div>
                 </div>
-                <div class="navbar-collapse collapse">
-                    @Html.Partial("_LoginPartial")
-                </div>
+
             </div>
-        </div>
+        </nav>
+        <br />
+        <br />
+        <br />
+                <br />
     }
     @if (!Request.IsAuthenticated)
     {
-        <div class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Personal Finance", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    <a class="navbar-brand" data-toggle="collapse" data-target=".luna-nav" href="@Url.Action("Main","Dashboard")">
+                        FinanSeer
+                        <span>v.1.0</span>
+                    </a>
+                    <div class="nav navbar-right luna-nav">
+                        <div>
+                            @Html.Partial("_LoginPartial")
+                        </div>
+                    </div>
                 </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav"></ul>
-                    @Html.Partial("_LoginPartial")
-                </div>
+
             </div>
-        </div>
+        </nav>
+        <br />
+        <br />
+        <br />
+        <br />
     }
-    <div class="container body-content">
+    <div class="container-fluid">
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - DataHive Analytics</p>
         </footer>
     </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+
+    @Scripts.Render("~/Content/vendor/sparkline/index.js")
+    @Scripts.Render("~/Content/vendor/chart.js/dist/Chart.min.js")
+    @Scripts.Render("~/Scripts/luna.js")
+    @Scripts.Render("//cdn.jsdelivr.net/momentjs/latest/moment.min.js")
+    @Scripts.Render("~/Scripts/daterangepicker.js")
+    @Scripts.Render("~/Content/vendor/DataTables/datatables.min.js")
+    @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
+
+
 </body>
 </html>
