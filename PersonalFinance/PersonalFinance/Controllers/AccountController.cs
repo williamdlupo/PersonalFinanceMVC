@@ -262,7 +262,8 @@ namespace PersonalFinance.Controllers
                        " Please confirm your account by clicking this link: <a href=\""
                                                        + callbackUrl + "\">Confirm my Email Address</a>");
 
-                    return View("ValidateEmail");
+                    ViewBag.Message = "Thank you for registering your account. Please validate your email address by clicking the link we just sent. (This could take several minutes!)";
+                    return View("Login");
                 }
                 AddErrors(result);
             }

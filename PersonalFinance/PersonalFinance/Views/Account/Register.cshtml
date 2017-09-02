@@ -3,43 +3,72 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Getting Started";
 }
-
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h3 class="panel-title">Create Your Account</h3>
+<body class="blank">
+    <!-- Wrapper-->
+    <div class="wrapper">
+        <!-- Main content-->
+        <section>
+            <div class="container-center animated slideInDown">
+                <div class="view-header">
+                    <div class="header-icon">
+                        <i class="pe page-header-icon pe-7s-add-user"></i>
+                    </div>
+                    <div class="header-title">
+                        <h3>Register</h3>
+                        <small>
+                            Fill out the fields below to register.
+                        </small>
+                    </div>
+                </div>
+                <div class="panel panel-filled">
+                    <div class="panel-body">
+                        <p>
+                        </p>
+                        <section id="loginForm">
+                            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary("", new { @class = "text-danger" })
+                                <div class="row">
+                                    <div>
+                                        <label class="col-md-12">Username</label>
+                                        <div class="col-md-12">
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "example@gmail.com" })
+                                        </div>
+                                        <span class="help-block small col-md-12">The unique username you will log in with</span>
+                                    </div>
+                                    <div>
+                                        <label class="col-md-12">Password</label>
+                                        <div class="col-md-12">
+                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "********", @title = "8-16 digits required with at least 1 lowercase letter and 1 uppser case letter." })
+                                        </div>
+                                        <span class="help-block small col-md-12"></span>
+                                    </div>
+                                    <div>
+                                        <label class="col-md-12">Confirm Password</label>
+                                        <div class="col-md-12">
+                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "********"})
+                                        </div>
+                                        <span class="help-block small col-md-12"></span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="submit" class="btn btn-accent" value="Register" />
+                                </div>
+                            }
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End main content-->
     </div>
-    <div class="panel-body">
-        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary("", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-success btn-block" value="Register" />
-                </div>
-            </div>
-        }
-    </div>
-</div>
-
+</body>
+<script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
+<script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
+<script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Content/vendor/sparkline/index.js"></script>
+<script src="~/Content/vendor/chart.js/dist/Chart.min.js"></script>
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")        
+    @Scripts.Render("~/bundles/jqueryval")
 }

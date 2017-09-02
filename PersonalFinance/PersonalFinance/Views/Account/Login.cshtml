@@ -4,10 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Log in";
 }
-
 <body class="blank">
     <!-- Wrapper-->
     <div class="wrapper">
+        @if (ViewBag.Message != null)
+        {
+            <br />
+            <br />
+            <br />
+            <div class=" alert alert-success container-fluid col-md-6 col-md-offset-3" role="alert">
+               <b>Success! </b><span>@ViewBag.Message</span> 
+            </div>
+        }
 
         <!-- Main content-->
         <section>
@@ -34,18 +42,18 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-offset-1" for="username">Username</label>
                                     <div class="col-md-10 col-md-offset-1">
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "example@gmail.com", name = "username" })
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "example@gmail.com" })
                                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-offset-1" for="password">Password</label>
                                     <div class="col-md-10 col-md-offset-1">
-                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", name = "password" })
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @name = "password", @placeholder = "********" })
                                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                     </div>
                                     <a class="help-block small col-md-10 col-md-offset-1" href="@Url.Action("ForgotPassword","Account")">Forgot Your Password?</a>
-                                    <div class="checkbox-inline col-md-offset-4 col-md-10">
+                                    <div class="checkbox-inline col-md-10 col-md-offset-4">
                                         @Html.CheckBoxFor(m => m.RememberMe)
                                         @Html.LabelFor(m => m.RememberMe)
                                     </div>
@@ -56,18 +64,18 @@
                                 </div>
                             }
                         </section>
-</div>
+                    </div>
                 </div>
             </div>
         </section>
         <!-- End main content-->
     </div>
-    </body>
-    <script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/Content/vendor/sparkline/index.js"></script>
-    <script src="~/Content/vendor/chart.js/dist/Chart.min.js"></script>
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+</body>
+<script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
+<script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
+<script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Content/vendor/sparkline/index.js"></script>
+<script src="~/Content/vendor/chart.js/dist/Chart.min.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
