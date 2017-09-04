@@ -140,7 +140,7 @@ namespace PersonalFinance.Models
         //
         //Initial account and 1 month transaction pull from Plaid
         //TODO: Update the connection string to progamically set 'today' and 'MTD' dates
-        public async Task GetTransactions()
+        private async Task GetTransactions()
         {
             if (_accesstoken is null) { this.GetAccessToken(); }
 
@@ -155,7 +155,7 @@ namespace PersonalFinance.Models
 
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
 
-                string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + token.access_token + "\" , \"start_date\": \"2017-08-03\" , \"end_date\": \"2017-09-03\" }";
+                string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + token.access_token + "\" , \"start_date\": \""+DateTime.Today.AddMonths(-1).ToString("YYYY-MM-DD")+"\" , \"end_date\": \"" + DateTime.Today.ToString("YYYY-MM-DD") + "\" }";
                 request.Content = new StringContent(data, Encoding.UTF8, "application/json");
 
                 var connectasync = await client.SendAsync(request);
@@ -202,7 +202,7 @@ namespace PersonalFinance.Models
         }
 
         //
-        //Pull the YTD transaction list from Plaid in batches of 500 transactions
+        //TODO: Pull the YTD transaction list from Plaid in batches of 500 transactions
         public async Task GetYTDTransactions()
         {
             if (_accesstoken is null) { this.GetAccessToken(); }
@@ -359,7 +359,7 @@ namespace PersonalFinance.Models
                         aTransaction.Location_Name = t.Location_Name;
                         aTransaction.Location_City = t.Location_City;
                         aTransaction.Location_State = t.Location_State;
-                        aTransaction.Amount = (decimal)t.Amount;
+                        aTransaction.Amount = t.Amount;
 
                         Transaction_list.Add(aTransaction);
                         Transaction_list.Sort((x, y) => x.Date.CompareTo(y.Date));
@@ -417,8 +417,6 @@ namespace PersonalFinance.Models
                             aDatapoint.label = aCat.CategoryID.ToString();
                             break;
                         }
-
-
                         DonutChart.Add(aDatapoint);
                     }
                 }
@@ -454,7 +452,6 @@ namespace PersonalFinance.Models
         {
 
         }
-
 
         //TODO
         //Method to pull all *new* transactions from Plaid via webhook

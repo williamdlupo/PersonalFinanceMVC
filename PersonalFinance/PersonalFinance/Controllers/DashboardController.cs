@@ -40,17 +40,27 @@ namespace PersonalFinance.Controllers
             Plaid plaid = new Plaid();
             plaid.User = user;
             
-            plaid.Transaction_list = Session["transactions"] as List<User_Transactions>;
             plaid.start_date = Session["startdate"] as string;
             plaid.end_date = Session["enddate"] as string;
-            plaid.BarChart = Session["BarChart"] as List<BarChartData>;
-            plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
 
-            if (plaid.Transaction_list is null)
+            var  transaction_list = Session["transactions"] as List<User_Transactions>;
+
+            if (transaction_list is null)
             {
-                plaid.GetTransactions(DateTime.Today, DateTime.Today);
-                plaid.start_date = (DateTime.Today.ToShortDateString()).ToString();
-                plaid.end_date = (DateTime.Today.ToShortDateString()).ToString();
+                plaid.GetTransactions(DateTime.Today.AddMonths(-1), DateTime.Today);
+                plaid.start_date = (DateTime.Today.AddMonths(-1).ToShortDateString()).ToString();
+                plaid.end_date = DateTime.Today.ToShortDateString().ToString();
+
+                var chartdata = plaid.BarChart;
+                var donutdata = plaid.DonutChart;
+                Session["BarChart"] = chartdata;
+                Session["DonutChart"] = donutdata;
+            }
+            else
+            {
+                plaid.Transaction_list = transaction_list;
+                plaid.BarChart = Session["BarChart"] as List<BarChartData>;
+                plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
             }
 
             return View(plaid);
@@ -59,7 +69,7 @@ namespace PersonalFinance.Controllers
         //
         //POST: Dashboard/Main
         [HttpPost]
-        public async Task<JsonResult> Main(Dates dates)
+        public JsonResult Main(Dates dates)
         {
             Plaid plaid = new Plaid();
             if (ModelState.IsValid)
@@ -93,19 +103,24 @@ namespace PersonalFinance.Controllers
         {
             Plaid plaid = new Plaid();
             plaid.User = user;
-            plaid.Transaction_list = Session["transactions"] as List<User_Transactions>;
+            
             plaid.start_date = Session["startdate"] as string;
             plaid.end_date = Session["enddate"] as string;
-            plaid.BarChart = Session["BarChart"] as List<BarChartData>;
-            plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
+            var transaction_list = Session["transactions"] as List<User_Transactions>;
 
-            if (plaid.Transaction_list is null)
+            if (transaction_list is null)
             {
-                plaid.GetTransactions(DateTime.Today, DateTime.Today);
-                plaid.start_date = (DateTime.Today.ToShortDateString()).ToString();
-                plaid.end_date = (DateTime.Today.ToShortDateString()).ToString();
+                plaid.GetTransactions(DateTime.Today.AddMonths(-1), DateTime.Today);
+                plaid.start_date = (DateTime.Today.AddMonths(-1).ToShortDateString()).ToString();
+                plaid.end_date = DateTime.Today.ToShortDateString().ToString();
 
-                return Json(plaid);
+                
+            }
+            else
+            {
+                plaid.Transaction_list = transaction_list;
+                plaid.BarChart = Session["BarChart"] as List<BarChartData>;
+                plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
             }
 
             var displayedTransactions = plaid.Transaction_list
