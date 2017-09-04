@@ -32,13 +32,14 @@ namespace PersonalFinance.Controllers
         //
         // GET: Dashboard/Main
         //TO DO: figure out how to get default dates to be MTD
-        public ActionResult Main()
+        public async Task<ActionResult> Main()
         {
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
             if (user.FirstLoginFlag == true) { return RedirectToAction("GetStarted", "Account"); }
 
             Plaid plaid = new Plaid();
             plaid.User = user;
+            
             plaid.Transaction_list = Session["transactions"] as List<User_Transactions>;
             plaid.start_date = Session["startdate"] as string;
             plaid.end_date = Session["enddate"] as string;
@@ -58,7 +59,7 @@ namespace PersonalFinance.Controllers
         //
         //POST: Dashboard/Main
         [HttpPost]
-        public JsonResult Main(Dates dates)
+        public async Task<JsonResult> Main(Dates dates)
         {
             Plaid plaid = new Plaid();
             if (ModelState.IsValid)
@@ -66,6 +67,7 @@ namespace PersonalFinance.Controllers
                 DateTime start_date = DateTime.Parse(dates.start_date);
                 DateTime end_date = DateTime.Parse(dates.end_date);
                 plaid.User = user;
+                
                 plaid.GetTransactions(start_date, end_date);
 
                 var transactions = plaid.Transaction_list;
@@ -127,16 +129,6 @@ namespace PersonalFinance.Controllers
                 aaData = data
             },
             JsonRequestBehavior.AllowGet);
-        }
-
-        //
-        //GET:  Dashboard/Test
-        public ActionResult Test()
-        {
-            if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
-            if (user.FirstLoginFlag == true) { return RedirectToAction("GetStarted", "Account"); }
-
-            return View();
         }
     }
 }

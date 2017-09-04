@@ -31,11 +31,11 @@
                                 @Html.ValidationSummary("", new { @class = "text-danger" })
                                 <div class="row">
                                     <div>
-                                        <label class="col-md-12">Username</label>
+                                        <label class="col-md-12">Email</label>
                                         <div class="col-md-12">
                                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "example@gmail.com" })
                                         </div>
-                                        <span class="help-block small col-md-12">The unique username you will log in with</span>
+                                        <span class="help-block small col-md-12">This will also function as your user name.</span>
                                     </div>
                                     <div>
                                         <label class="col-md-12">Password</label>

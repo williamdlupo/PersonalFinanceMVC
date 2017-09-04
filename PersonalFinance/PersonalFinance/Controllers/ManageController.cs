@@ -184,7 +184,7 @@ namespace PersonalFinance.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("GetStarted","Account", new { Message = ManageMessageId.AddPhoneSuccess });
+                return RedirectToAction("AccountViewSync","Account", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "Failed to verify phone");

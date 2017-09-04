@@ -3,7 +3,9 @@
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<br />
+<br />
+<br />
 <body>
     <!-- Wrapper-->
     <div class="wrapper">
@@ -19,7 +21,7 @@
                                 <i class="pe page-header-icon pe-7s-cash"></i>
                             </div>
                             <div class="header-title">
-                                <h3 class="m-b-xs">Welcome Back, Username</h3>
+                                <h3 class="m-b-xs">Welcome Back, User</h3>
                                 <small>
                                     Some friendly welcome text that let's the user know they are in great hands.
                                 </small>
@@ -381,7 +383,7 @@
             };
 
             var c4 = document.getElementById("singleBarOptions").getContext("2d");
-            new Chart(c4, { type: 'bar', data: singleBarData, options: globalOptions });
+            new Chart(c4, { type: 'line', data: singleBarData, options: globalOptions });
 
         });
     </script>

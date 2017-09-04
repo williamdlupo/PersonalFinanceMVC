@@ -213,13 +213,13 @@ namespace PersonalFinance.Controllers
                 
                 plaid.User = user;
                 plaid.Institution_name = name;
-                plaid.AuthenticateAccount(_token);
+                await plaid.AuthenticateAccount(_token);
                                 
                 user.FirstLoginFlag = false;
                 var result = await UserManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
-                    ViewBag.StatusMessage = "Account added!";
+                    ViewBag.Message = "Account added!";
                     return Json(new { success = true });
                 }                
             }
@@ -319,7 +319,8 @@ namespace PersonalFinance.Controllers
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    ViewBag.Message = "Please check your email to reset your password.";
+                    return View("Login");
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -327,7 +328,8 @@ namespace PersonalFinance.Controllers
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                ViewBag.Message = "Please check your email to reset your password.";
+                return View("Login");
             }
 
             // If we got this far, something failed, redisplay form

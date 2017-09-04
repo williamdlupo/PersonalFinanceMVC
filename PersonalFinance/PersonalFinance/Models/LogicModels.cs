@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 
@@ -38,7 +39,7 @@ namespace PersonalFinance.Models
         public string access_token { get; set; }
         public string institution_name { get; set; }
     }
-    
+
     //Date Table data type class
     public class DataTable
     {
@@ -49,18 +50,18 @@ namespace PersonalFinance.Models
         //Text used for filtering        
         public string sSearch { get; set; }
 
-       /// Number of records that should be shown in table
+        /// Number of records that should be shown in table
         public int iDisplayLength { get; set; }
-       
+
         //First record that should be shown(used for paging)        
         public int iDisplayStart { get; set; }
-        
+
         //Number of columns in table
         public int iColumns { get; set; }
-        
+
         //Number of columns that are used in sorting        
         public int iSortingCols { get; set; }
-       
+
         /// Comma separated list of column names
         public string sColumns { get; set; }
     }
@@ -70,15 +71,15 @@ namespace PersonalFinance.Models
     {
         private static string _clientid = WebConfigurationManager.AppSettings["client_id"];
         private static string _secret = WebConfigurationManager.AppSettings["secret"];
-        private static string _baseurl = "https://sandbox.plaid.com";
+        private static string _baseurl = "https://development.plaid.com";
         private HttpClient client = new HttpClient();
         private string _accesstoken;
         private string _item_id;
         private string _public_token;
         private List<AccountData> _accesstokenlist = new List<AccountData>();
-        private List<string> _accountidlist = new List<string>();        
+        private List<string> _accountidlist = new List<string>();
 
-        public ApplicationUser User { private get; set; }
+        public ApplicationUser User { get; set; }
         public List<User_Accounts> Account_list = new List<User_Accounts>();
         public List<User_Transactions> Transaction_list = new List<User_Transactions>();
         public List<BarChartData> BarChart = new List<BarChartData>();
@@ -95,11 +96,11 @@ namespace PersonalFinance.Models
 
         //
         //Public accessor to create a new account in DB
-        public void AuthenticateAccount(string public_token)
+        public async Task AuthenticateAccount(string public_token)
         {
             _public_token = public_token;
             this.AuthenticateAccount();
-            this.GetTransactions();
+            await this.GetTransactions();
         }
 
         //
@@ -137,23 +138,31 @@ namespace PersonalFinance.Models
         }
 
         //
-        //Utilizes in memory access_token to get and persist account data and transactions from Plaid to database
-        //TO DO: figure out how to get default dates to be trailing 3 months
-        private void GetTransactions()
+        //Initial account and 1 month transaction pull from Plaid
+        //TODO: Update the connection string to progamically set 'today' and 'MTD' dates
+        public async Task GetTransactions()
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
+            if (_accesstoken is null) { this.GetAccessToken(); }
 
-            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + _accesstoken + "\" , \"start_date\": \"2017-02-16\" , \"end_date\": \"2017-08-16\" }";
-            request.Content = new StringContent(data, Encoding.UTF8, "application/json");
-
-            var result = client.SendAsync(request).Result;
-            var contents = result.Content.ReadAsStringAsync().Result;
-
-            var obj = JObject.Parse(contents);
-
-            //check that the item ID's match before continuing on
-            if (((string)obj["item"]["item_id"]).Equals(_item_id))
+            if (client.BaseAddress is null)
             {
+                client.BaseAddress = new Uri(_baseurl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+
+            foreach (var token in _accesstokenlist)
+            {
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
+
+                string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + token.access_token + "\" , \"start_date\": \"2017-08-03\" , \"end_date\": \"2017-09-03\" }";
+                request.Content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                var connectasync = await client.SendAsync(request);
+                var contents = connectasync.Content.ReadAsStringAsync().Result;
+
+                var obj = JObject.Parse(contents);
+
                 //parse the JSON object extract account data and persist to database
                 using (var context = new PersonalFinanceAppEntities())
                 {
@@ -190,7 +199,53 @@ namespace PersonalFinance.Models
                     }
                 }
             }
-            //if we got this far, something went wrong - TO DO: create error message and bomb out of method gracefully
+        }
+
+        //
+        //Pull the YTD transaction list from Plaid in batches of 500 transactions
+        public async Task GetYTDTransactions()
+        {
+            if (_accesstoken is null) { this.GetAccessToken(); }
+
+            if (client.BaseAddress is null)
+            {
+                client.BaseAddress = new Uri(_baseurl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+
+            foreach (var token in _accesstokenlist)
+            {
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
+
+                string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + token.access_token + "\" , \"start_date\": \"2017-01-01\" , \"end_date\": \"2017-08-02\" }";
+                request.Content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                var connectasync = await client.SendAsync(request);
+                var contents = connectasync.Content.ReadAsStringAsync().Result;
+
+                var obj = JObject.Parse(contents);
+
+                //parse the JSON object extract transactional data and persist to database
+                using (var context = new PersonalFinanceAppEntities())
+                {
+                    foreach (var transaction in obj["transactions"])
+                    {
+                        User_Transactions transaction_db = new User_Transactions();
+                        transaction_db.AccountID = (string)transaction["account_id"];
+                        transaction_db.Amount = (decimal)transaction["amount"];
+                        transaction_db.CategoryID = (string)transaction["category_id"];
+                        transaction_db.Date = (DateTime)transaction["date"];
+                        transaction_db.Location_City = (string)transaction["location"]["city"];
+                        transaction_db.Location_Name = (string)transaction["name"];
+                        transaction_db.Location_State = (string)transaction["location"]["state"];
+                        transaction_db.TransactionID = (string)transaction["transaction_id"];
+
+                        context.User_Transactions.Add(transaction_db);
+                        context.SaveChanges();
+                    }
+                }
+            }
         }
 
         //
@@ -253,17 +308,14 @@ namespace PersonalFinance.Models
                         accounts_db.Balance = (decimal)account["balances"]["current"];
                         accounts_db.Institution_name = token.institution_name;
                         Account_list.Add(accounts_db);
-                        Has_accounts = true;
+                        this.Has_accounts = true;
 
                         //To Do:
-                        //Update balance in db to new balance where account id's match
+                        //Update balance in db to new balance where account id's match (sproc update)
                     }
                 }
             }
         }
-
-        //
-        //Method to delete an account related to the specified institution (stored procedure from DB)
 
         //
         //Method that will return a list of transactions for each account in the account list for a given timeframe
@@ -313,17 +365,17 @@ namespace PersonalFinance.Models
                         Transaction_list.Sort((x, y) => x.Date.CompareTo(y.Date));
                     }
                 }
-                               
+
                 if (Transaction_list != null)
                 {
                     //code to pull out list of unique dates and sum of transactions per date for bar chart
                     var BarChartquery = from transaction in Transaction_list
-                                         group transaction by new { transaction.Date } into g
-                                         select new
-                                         {
-                                             Date = g.Distinct(),
-                                             Amount = g.Sum(s => s.Amount)
-                                         };
+                                        group transaction by new { transaction.Date } into g
+                                        select new
+                                        {
+                                            Date = g.Distinct(),
+                                            Amount = g.Sum(s => s.Amount)
+                                        };
                     var BarChartData = BarChartquery.ToList();
 
                     foreach (var datapoint in BarChartData)
@@ -353,10 +405,10 @@ namespace PersonalFinance.Models
                     {
                         DonutChartData aDatapoint = new DonutChartData();
                         aDatapoint.value = item.Count;
-                        
+
                         foreach (var aCat in item.Category)
                         {
-                            if(aCat.CategoryID is null)
+                            if (aCat.CategoryID is null)
                             {
                                 aDatapoint.label = "Unknown";
                                 break;
@@ -365,14 +417,20 @@ namespace PersonalFinance.Models
                             aDatapoint.label = aCat.CategoryID.ToString();
                             break;
                         }
-                                                
 
-                        DonutChart.Add(aDatapoint);                        
+
+                        DonutChart.Add(aDatapoint);
                     }
                 }
 
             }
         }
+
+
+        //TODO
+        //Method to delete an account related to the specified institution (stored procedure from DB)
+        public void DeleteAccount(string account_id)
+        { }
 
         //TODO
         //Method to get all transactions for a specific account for a given timeframe

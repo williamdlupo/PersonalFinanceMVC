@@ -1,33 +1,60 @@
 ﻿@model PersonalFinance.Models.AddPhoneNumberViewModel
 @{
-    ViewBag.Title = "Enable Two Factor Authentication";
+    ViewBag.Title = "Further Verification";
 }
+<body class="blank">
+    <!-- Wrapper-->
+    <div class="wrapper">
+        <!-- Main content-->
+        <section>
+            <div class="container-center animated slideInDown">
+                <div class="view-header">
+                    <div class="header-icon">
+                        <i class="pe page-header-icon pe-7s-door-lock"></i>
+                    </div>
+                    <div class="header-title">
+                        <h3>Two Factor Authentication</h3>
+                        <small>
+                            Submit your phone number below for further security verification.
+                        </small>
+                    </div>
+                </div>
+                <div class="panel panel-filled">
+                    <div class="panel-body">
+                        <p>
+                        </p>
+                        <section id="loginForm">
+                            @using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary("", new { @class = "text-danger" })
+                                <div class="row">
+                                    <div>
+                                        <label class="col-md-12">Phone Number</label>
+                                        <div class="col-md-12">
+                                            @Html.TextBoxFor(m => m.Number, new { @class = "form-control", @placeholder = "xxx-xxx-xxxx" })
+                                        </div>
+                                        <span class="help-block small col-md-12"></span>
+                                    </div>
 
-<h2>@ViewBag.Title</h2>
-<hr />
-<h4>For added security please enter a valid number for SMS verification</h4>
-
-<div class="panel panel-primary">
-    <div class="panel-body">
-        @using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        { 
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary("", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(m => m.Number, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Number, new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    <input type="submit" class="btn btn-accent" value="Send Verification Code" />
+                                </div>
+                            }
+                        </section>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-success" value="Send SMS Code" />
-                </div>
-            </div>
-        }
+        </section>
+        <!-- End main content-->
     </div>
-</div>
-
+</body>
+<script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
+<script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
+<script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Content/vendor/sparkline/index.js"></script>
+<script src="~/Content/vendor/chart.js/dist/Chart.min.js"></script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

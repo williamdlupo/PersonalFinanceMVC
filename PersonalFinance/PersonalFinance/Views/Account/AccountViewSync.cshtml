@@ -4,80 +4,87 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <div class="stepwizard">
-        <div class="stepwizard-row setup-panel">
-            <div class="stepwizard-step col-xs-4">
-                <a href="@Url.Action("GetStarted", "Account")" role="button" class="btn btn-default btn-circle">1</a>
-                <p><small>Getting Started</small></p>
+<div class="container-center animated slideInDown">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="view-header">
+                <div class="header-icon">
+                    <i class="pe page-header-icon pe-7s-piggy"></i>
+                </div>
+                <div class="header-title">
+                    <h3>Sync Your Accounts</h3>
+                    <small>
+                    </small>
+                </div>
             </div>
-            <div class="stepwizard-step col-xs-4">
-                <a href="@Url.Action("Onboarding", "Account")" role="button" class="btn btn-default btn-circle">2</a>
-                <p><small>Goals</small></p>
-            </div>
-            <div class="stepwizard-step col-xs-4">
-                <a href="@Url.Action("AccountViewSync", "Account")" role="button" class="btn btn-success btn-circle">3</a>
-                <p><small>Account Sync</small></p>
-            </div>
+            <hr />
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel-body">
+            @if (Model.Has_accounts)
+            {
+                foreach (var institution in Model.Institution_list)
+                {
+                    <div class="dd" id="nestable">
+                        <ol class="dd-list">
+                            <li class="dd-item" data-id="1">
+                                <div class="dd-handle">
+                                    <span class="h3"><i class="fa fa-bank text-warning"></i></span>
+                                    <b class=" h3 text-warning">@institution</b>
+                                </div>
+                                <ol class="dd-list">
+                                    @foreach (var account in Model.Account_list)
+                                    {
+                                        if (account.Institution_name.Equals(institution))
+                                        {
+                                                            <li class="dd-item" data-id="2">
+                                                                <div class="dd-handle">
+                                                                    <span class="pull-right badge"> $@account.Balance</span>
+                                                                    <text>@account.AccountName</text>
+                                                                </div>
+                                                            </li>
+                                                        }
+
+                                                    }
+                                                </ol>
+                                        </ol>
+                                    </div>
+                                }
+                <button class="btn btn-primary" id="link-button" type="button">Add Another Account</button>
+
+                <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-accent">All Set!</a>
+            }
+            else
+            {
+                <h4>You have no accounts synced!</h4>
+                <small> Click the button below to get started. </small>
+                <br />
+                    <br />
+                        <button class="btn btn-primary" id="link-button" type="button">Add An Account</button>
+            }
         </div>
     </div>
 </div>
-<div class="panel panel-primary setup-content">
-    <div class="panel-heading">
-        <h3 class="panel-title"></h3>
-    </div>
-    <div class="panel-body">
-        <h3>Sync Up Your Accounts</h3>
-        @ViewBag.StatusMessage
-        @using (Html.BeginForm())
-        {
-            @Html.ValidationSummary(true)
-            <div class="form-group">
 
-                @if (Model.Has_accounts)
-                {
-                    <br />
-                    foreach (var institution in Model.Institution_list)
-                    {
-                        <div class="list-group-item-heading h2 text-success">@institution</div>
-                            <ul class="list-group">
-                                @foreach (var account in Model.Account_list)
-                                {
-                                    if (account.Institution_name.Equals(institution))
-                                    {
-                                        <li class="list-group-item">
-                                            <span class="badge">$@account.Balance</span>
-                                            <b>@account.AccountName</b>
-                                        </li>
-                                    }
 
-                                }
-                            </ul>
-                    }
-                    <button class="btn btn-primary" id="link-button" type="button">Add Another Account</button>
+<script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
+<script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
+<script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Content/vendor/sparkline/index.js"></script>
+<script src="~/Content/vendor/chart.js/dist/Chart.min.js"></script>
 
-                    <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-success">All Set!</a>
-                }
-                else
-                {
-                    <p>You have no accounts synced! </p>
-
-                    <button class="btn btn-primary" id="link-button" type="button">Add An Account</button>
-                }
-            </div>
-        }
-    </div>
-</div>
-
+<script src="~/Content/vendor/nestable/jquery.nestable.js"></script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
-    <script type="text/javascript">
+}
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<script type="text/javascript">
         var handler = Plaid.create({
             clientName: 'Plaid Walkthrough Demo',
-            env: 'sandbox',
+            env: 'development',
             key: 'f326b59ea06cf5309ebd2861388d13', // Replace with your public_key to test with live credentials
-            product: ['auth', 'transactions'],
+            product: ['transactions'],
             onSuccess: function (public_token, metadata) {
                 // Send the public_token to your app server.
                 // The metadata object contains info about the institution the
@@ -85,7 +92,6 @@
                 $.post('@Url.Action("AccountViewSync","Account")', {
                     data: { public_token: public_token, name: metadata.institution.name}
                 }, function () {
-                    console.log('Customer-selected account: ' + metadata.institution.name);
                     window.location.reload(true);
                 });
             },
@@ -109,6 +115,4 @@
             //
             // This will open Link with Union Bank as the institution.
         });
-    </script>
-
-}
+</script>
