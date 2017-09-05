@@ -35,7 +35,7 @@ namespace PersonalFinance.Controllers
         public async Task<ActionResult> Main()
         {
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
-            if (user.FirstLoginFlag == true) { return RedirectToAction("GetStarted", "Account"); }
+            if (user.FirstLoginFlag == true) { return RedirectToAction("AccountViewSync", "Account"); }
 
             Plaid plaid = new Plaid();
             plaid.User = user;

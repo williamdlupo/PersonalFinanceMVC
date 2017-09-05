@@ -188,8 +188,11 @@ namespace PersonalFinance.Controllers
         [HttpGet]
         public ActionResult AccountViewSync()
         {
-            Plaid plaid = new Plaid();
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+        
+            if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
+
+            Plaid plaid = new Plaid();
             plaid.User = user;
             try { plaid.GetAccountList(); }
             catch { }
@@ -282,7 +285,8 @@ namespace PersonalFinance.Controllers
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            ViewBag.Message = "Thank you for confirming your email address. Please sign in below to continue.";
+            return View(result.Succeeded ? "Login" : "Error");
         }
 
         //

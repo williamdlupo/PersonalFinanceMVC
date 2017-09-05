@@ -139,7 +139,6 @@ namespace PersonalFinance.Models
 
         //
         //Initial account and 1 month transaction pull from Plaid
-        //TODO: Update the connection string to progamically set 'today' and 'MTD' dates
         private async Task GetTransactions()
         {
             if (_accesstoken is null) { this.GetAccessToken(); }
@@ -418,6 +417,7 @@ namespace PersonalFinance.Models
                             break;
                         }
                         DonutChart.Add(aDatapoint);
+                        DonutChart.Sort((x, y) => x.value.CompareTo(y.value));
                     }
                 }
 
@@ -432,6 +432,7 @@ namespace PersonalFinance.Models
 
         //TODO
         //Method to get all transactions for a specific account for a given timeframe
+        //This is a pretty big undertaking....
         private void GetTransactions(DateTime start_date, DateTime end_date, string account_id)
         {
 

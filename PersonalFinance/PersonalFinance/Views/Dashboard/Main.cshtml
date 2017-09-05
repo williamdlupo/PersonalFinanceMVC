@@ -90,8 +90,8 @@
                                 <div class="col-md-8">
                                     <div class="panel-body">
                                         <div class="text-center slight">
+                                            <canvas id="singleBar" height="100"></canvas>
                                         </div>
-                                        <canvas id="singleBarOptions" height="100"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -99,67 +99,66 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-3">
                         <div class="panel">
                             <div class="panel-body">
-                                <div id="reportrange" class="pull-left" style="background: #404652; cursor: pointer; padding: 5px 10px; border: none; width: inherit">
+                                <div id="reportrange" class="btn btn-accent">
                                     <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                     <span></span> @Model.start_date - @Model.end_date <b class="caret"></b>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @if (Model.Transaction_list is null || Model.Transaction_list.Count == 0)
-                    {
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="panel">
-                                    <div class="panel-body">
-                                        <h3>No Data Available For The Selected Timeframe!</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="panel">
-                                    <div class="panel-body">
-                                        <div class="table-responsive">
-                                            <table id="myDataTable" class="table table-striped table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Category</th>
-                                                        <th>Description</th>
-                                                        <th>Location</th>
-                                                        <th>Amount</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody></tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="panel panel-b-accent m-t-sm">
-                                    <div class="panel-body text-center p-m">
-                                        <h2 class="font-light">
-                                            +280k downloads
-                                        </h2>
-                                        <small>New downloads from the last month.</small>
-                                        <br />
-                                        120,312 <span class="slight"><i class="fa fa-play fa-rotate-270 c-white"> </i> -22%</span>
-                                        <div class="sparkline7 m-t-xs"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
                 </div>
+                @if (Model.Transaction_list is null || Model.Transaction_list.Count == 0)
+                {
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <h3>No Data Available For The Selected Timeframe!</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table id="myDataTable" class="table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Category</th>
+                                                    <th>Description</th>
+                                                    <th>Location</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-filled m-t-sm">
+                                <div class="panel-body text-center p-m">
+                                    <h2 class="font-light">
+                                        [Net Transactions Amount]
+                                    </h2>
+                                    <small>Summary of your transactions by category.</small>
+                                    <br />
+                                    <canvas id="doughnutChart" height="250"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </section>
         <!-- End main content-->
@@ -244,37 +243,6 @@
 
             // Sparkline charts
             var sparklineCharts = function () {
-                $(".sparkline").sparkline([20, 34, 43, 43, 35, 44, 32, 44, 52, 45], {
-                    type: 'line',
-                    lineColor: '#FFFFFF',
-                    lineWidth: 3,
-                    fillColor: '#404652',
-                    height: 47,
-                    width: '100%'
-                });
-
-                $(".sparkline13").sparkline([6, 2], {
-                    type: 'pie',
-                    sliceColors: ['#f7af3e', '#404652']
-                });
-
-                $(".sparkline7").sparkline([10, 34, 13, 33, 35, 24, 32, 24, 52, 35], {
-                    type: 'line',
-                    lineColor: '#FFFFFF',
-                    lineWidth: 3,
-                    fillColor: '#f7af3e',
-                    height: 75,
-                    width: '100%'
-                });
-
-                $(".sparkline1").sparkline([0, 6, 8, 3, 2, 4, 3, 4, 9, 5, 3, 4, 4, 5, 1, 6, 7, 15, 6, 4, 0], {
-                    type: 'line',
-                    lineColor: '#2978BB',
-                    lineWidth: 3,
-                    fillColor: '#2978BB',
-                    height: 170,
-                    width: '100%'
-                });
 
                 $(".sparkline3").sparkline([-8, 2, 4, 3, 5, 4, 3, 5, 5, 6, 3, 9, 7, 3, 5, 6, 9, 5, 6, 7, 2, 3, 9, 6, 6, 7, 8, 10, 15, 16, 17, 15], {
 
@@ -284,42 +252,6 @@
                     fillColor: '#393D47',
                     height: 70,
                     width: '100%'
-                });
-
-                $(".sparkline5").sparkline([0, 6, 8, 3, 2, 4, 3, 4, 9, 5, 3, 4, 4, 5], {
-                    type: 'line',
-                    lineColor: '#f7af3e',
-                    lineWidth: 2,
-                    fillColor: '#2F323B',
-                    height: 20,
-                    width: '100%'
-                });
-                $(".sparkline6").sparkline(amounts, {
-                    type: 'bar',
-                    barColor: '#f7af3e',
-                    height: 20,
-                    width: '100%'
-                });
-
-                $(".sparkline8").sparkline([4, 2], {
-                    type: 'pie',
-                    sliceColors: ['#f7af3e', '#404652']
-                });
-                $(".sparkline9").sparkline([3, 2], {
-                    type: 'pie',
-                    sliceColors: ['#f7af3e', '#404652']
-                });
-                $(".sparkline10").sparkline([4, 1], {
-                    type: 'pie',
-                    sliceColors: ['#f7af3e', '#404652']
-                });
-                $(".sparkline11").sparkline([1, 3], {
-                    type: 'pie',
-                    sliceColors: ['#f7af3e', '#404652']
-                });
-                $(".sparkline12").sparkline([3, 5], {
-                    type: 'pie',
-                    sliceColors: ['#f7af3e', '#404652']
                 });
             };
 
@@ -335,7 +267,7 @@
             sparklineCharts();
 
 
-            // Flot charts data and options
+            // Charts.js data and options
             var data = @Html.Raw(Json.Encode(Session["BarChart"]));
 
             var dates = $.map(data, function (el) { return el.date });
@@ -346,7 +278,8 @@
                 legend: {
                     labels: {
                         fontColor: "#90969D"
-                    }
+                    },
+                    display: false
                 },
                 scales: {
                     xAxes: [{
@@ -369,6 +302,37 @@
                 }
             };
 
+            var donutOptions = {
+                responsive: true,
+                legend: {
+                    labels: {
+                        fontColor: "#90969D"
+                    },
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        display: false,
+                        ticks: {
+                            fontColor: "#90969D"
+                        },
+                        gridLines: {
+                            color: "#37393F"
+                        }
+                    }],
+                    yAxes: [{
+                        display: false,
+                        ticks: {
+                            fontColor: "#90969D"
+                        },
+                        gridLines: {
+                            color: "#37393F"
+                        }
+                    }]
+                }
+            };
+
+
             var singleBarData = {
                 labels: dates,
                 datasets: [
@@ -382,8 +346,123 @@
                 ]
             };
 
-            var c4 = document.getElementById("singleBarOptions").getContext("2d");
+            var c4 = document.getElementById("singleBar").getContext("2d");
             new Chart(c4, { type: 'line', data: singleBarData, options: globalOptions });
+
+            var doughnut = @Html.Raw(Json.Encode(Session["DonutChart"]));
+
+            var categories = $.map(doughnut, function (el) { return el.label });
+            var values = $.map(doughnut, function (el) { return el.value });
+
+            var doughnutData = {
+                labels: categories,
+                datasets: [
+                    {
+                        data: values,
+                        borderWidth: 0,
+                        backgroundColor: [
+                            "rgba(246,168,33, 0.8)",
+                            "rgba(246,168,33, 0.4)",
+                            "rgba(246,168,33, 0.1)",
+                            "rgba(246,168,33, 0.6)",
+                            "rgba(246,168,33, 0.3)",
+                            "rgba(246,168,33, 0.2)",
+                            "rgba(246,168,33, 0.8)",
+                            "rgba(246,168,33, 0.4)",
+                            "rgba(246,168,33, 0.1)",
+                            "rgba(246,168,33, 0.6)",
+                            "rgba(246,168,33, 0.3)",
+                            "rgba(246,168,33, 0.2)",
+                            "rgba(246,168,33, 0.8)",
+                            "rgba(246,168,33, 0.4)",
+                            "rgba(246,168,33, 0.1)",
+                            "rgba(246,168,33, 0.6)",
+                            "rgba(246,168,33, 0.3)",
+                            "rgba(246,168,33, 0.2)",
+                            "rgba(246,168,33, 0.8)",
+                            "rgba(246,168,33, 0.4)",
+                            "rgba(246,168,33, 0.1)",
+                            "rgba(246,168,33, 0.6)",
+                            "rgba(246,168,33, 0.3)",
+                            "rgba(246,168,33, 0.2)",
+                            "rgba(246,168,33, 0.8)",
+                            "rgba(246,168,33, 0.4)",
+                            "rgba(246,168,33, 0.1)",
+                            "rgba(246,168,33, 0.6)",
+                            "rgba(246,168,33, 0.3)",
+                            "rgba(246,168,33, 0.2)",
+                            "rgba(246,168,33, 0.8)",
+                            "rgba(246,168,33, 0.4)",
+                            "rgba(246,168,33, 0.1)",
+                            "rgba(246,168,33, 0.6)",
+                            "rgba(246,168,33, 0.3)",
+                            "rgba(246,168,33, 0.2)",
+                            "rgba(246,168,33, 0.8)",
+                            "rgba(246,168,33, 0.4)",
+                            "rgba(246,168,33, 0.1)",
+                            "rgba(246,168,33, 0.6)",
+                            "rgba(246,168,33, 0.3)",
+                            "rgba(246,168,33, 0.2)",
+                            "rgba(246,168,33, 0.8)",
+                            "rgba(246,168,33, 0.4)",
+                            "rgba(246,168,33, 0.1)",
+                            "rgba(246,168,33, 0.6)",
+                            "rgba(246,168,33, 0.3)",
+                            "rgba(246,168,33, 0.2)"
+
+                        ],
+                        hoverBackgroundColor: [
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266",
+                            "#F6C266"
+                        ]
+                    }]
+            };
+
+            var c6 = document.getElementById("doughnutChart").getContext("2d");
+            new Chart(c6, { type: 'doughnut', data: doughnutData, options: donutOptions });
 
         });
     </script>

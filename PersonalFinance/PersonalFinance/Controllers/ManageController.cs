@@ -184,6 +184,7 @@ namespace PersonalFinance.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
+                ViewBag.Message = "Thank you for verifying your phone number!";
                 return RedirectToAction("AccountViewSync","Account", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
