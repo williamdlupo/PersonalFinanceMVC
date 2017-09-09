@@ -74,5 +74,24 @@
         </ModificationFunctionMapping>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_Categories">
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.Transaction_Categories">
+        <MappingFragment StoreEntitySet="Transaction_Categories">
+          <ScalarProperty Name="Hierarchy" ColumnName="Hierarchy" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.Transaction_Categories">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_TransactionCategory">
+            <ScalarProperty Name="Hierarchy" ParameterName="Hierarchy" />
+            <ScalarProperty Name="GroupName" ParameterName="GroupName" />
+            <ScalarProperty Name="CategoryID" ParameterName="CategoryID" />
+          </InsertFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Insert_TransactionCategory" FunctionName="PersonalFinanceAppModel.Store.Insert_TransactionCategory" />
   </EntityContainerMapping>
 </Mapping>

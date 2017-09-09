@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -292,6 +293,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Transaction_Categories.cs">
+      <DependentUpon>PersonalFinanceModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="User_Accounts.cs">
       <DependentUpon>PersonalFinanceModel.tt</DependentUpon>
     </Compile>

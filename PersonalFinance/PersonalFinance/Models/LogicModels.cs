@@ -30,7 +30,7 @@ namespace PersonalFinance.Models
     public class DonutChartData
     {
         public string label { get; set; }
-        public int value { get; set; }
+        public decimal value { get; set; }
     }
 
     //Plaid metadata data type class
@@ -89,6 +89,7 @@ namespace PersonalFinance.Models
         public string end_date;
         public bool Has_accounts { get; set; }
         public string Institution_name { get; set; }
+        public decimal SumTransactions { get; set; }
 
         //
         //Sets the Has_accounts to false on object creation for account list view cycle 
@@ -99,13 +100,13 @@ namespace PersonalFinance.Models
         public async Task AuthenticateAccount(string public_token)
         {
             _public_token = public_token;
-            this.AuthenticateAccount();
-            await this.GetTransactions();
+            await AuthenticateAccount();
+            await GetTransactions();
         }
 
         //
         //Authenticates a new User account with Plaid, stores access token and item IDs in memory and persists to DB
-        private void AuthenticateAccount()
+        private async Task AuthenticateAccount()
         {
             client.BaseAddress = new Uri(_baseurl);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -132,16 +133,15 @@ namespace PersonalFinance.Models
                 item_db.Institution_Name = Institution_name.ToString();
 
                 context.User_Items.Add(item_db);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
             Has_accounts = true;
         }
 
         //
-        //Initial account and 1 month transaction pull from Plaid
-        private async Task GetTransactions()
+        //Method to pull all current transaction categroy information from Plaid and save to database
+        public async Task GetCategories()
         {
-            if (_accesstoken is null) { this.GetAccessToken(); }
 
             if (client.BaseAddress is null)
             {
@@ -149,100 +149,80 @@ namespace PersonalFinance.Models
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             }
 
-            foreach (var token in _accesstokenlist)
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/categories/get");
+
+            string data = "{ }";
+            request.Content = new StringContent(data, Encoding.UTF8, "application/json");
+
+            var connectasync = await client.SendAsync(request);
+            var contents = connectasync.Content.ReadAsStringAsync().Result;
+
+            var obj = JObject.Parse(contents);
+
+            using (var context = new PersonalFinanceAppEntities())
             {
-
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
-
-                string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + token.access_token + "\" , \"start_date\": \""+DateTime.Today.AddMonths(-1).ToString("YYYY-MM-DD")+"\" , \"end_date\": \"" + DateTime.Today.ToString("YYYY-MM-DD") + "\" }";
-                request.Content = new StringContent(data, Encoding.UTF8, "application/json");
-
-                var connectasync = await client.SendAsync(request);
-                var contents = connectasync.Content.ReadAsStringAsync().Result;
-
-                var obj = JObject.Parse(contents);
-
-                //parse the JSON object extract account data and persist to database
-                using (var context = new PersonalFinanceAppEntities())
+                foreach (var category in obj["categories"])
                 {
-                    foreach (var account in obj["accounts"])
-                    {
-                        User_Accounts accounts_db = new User_Accounts();
-                        accounts_db.AccountID = (string)account["account_id"];
-                        accounts_db.UserID = User.Id;
-                        accounts_db.AccountName = (string)account["official_name"];
-                        accounts_db.Balance = (decimal)account["balances"]["current"];
-                        accounts_db.Institution_name = this.Institution_name;
+                    Transaction_Categories transaction_category = new Transaction_Categories();
+                    transaction_category.CategoryID = (string)category["category_id"];
+                    transaction_category.GroupName = (string)category["group"];
+                    transaction_category.Hierarchy = (string)category["hierarchy"].Last();
 
-                        context.User_Accounts.Add(accounts_db);
-                        context.SaveChanges();
-                    }
-                }
-                //parse the JSON object extract transactional data and persist to database
-                using (var context = new PersonalFinanceAppEntities())
-                {
-                    foreach (var transaction in obj["transactions"])
-                    {
-                        User_Transactions transaction_db = new User_Transactions();
-                        transaction_db.AccountID = (string)transaction["account_id"];
-                        transaction_db.Amount = (decimal)transaction["amount"];
-                        transaction_db.CategoryID = (string)transaction["category_id"];
-                        transaction_db.Date = (DateTime)transaction["date"];
-                        transaction_db.Location_City = (string)transaction["location"]["city"];
-                        transaction_db.Location_Name = (string)transaction["name"];
-                        transaction_db.Location_State = (string)transaction["location"]["state"];
-                        transaction_db.TransactionID = (string)transaction["transaction_id"];
-
-                        context.User_Transactions.Add(transaction_db);
-                        context.SaveChanges();
-                    }
+                    context.Transaction_Categories.Add(transaction_category);
+                    context.SaveChanges();
                 }
             }
         }
-
         //
-        //TODO: Pull the YTD transaction list from Plaid in batches of 500 transactions
-        public async Task GetYTDTransactions()
+        //Initial account and transaction pull from Plaid. Gets 3 months worth of transactions per 
+        //each account 
+        private async Task GetTransactions()
         {
-            if (_accesstoken is null) { this.GetAccessToken(); }
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
 
-            if (client.BaseAddress is null)
+            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + _accesstoken + "\" , \"start_date\": \"" + DateTime.Today.AddMonths(-3).ToString("yyyy-MM-dd") + "\" , \"end_date\": \"" + DateTime.Today.ToString("yyy-MM-dd") + "\" }";
+            request.Content = new StringContent(data, Encoding.UTF8, "application/json");
+
+            var connectasync = await client.SendAsync(request);
+            var contents = connectasync.Content.ReadAsStringAsync().Result;
+
+            var obj = JObject.Parse(contents);
+
+            //parse the JSON object extract account data and persist to database
+            using (var context = new PersonalFinanceAppEntities())
             {
-                client.BaseAddress = new Uri(_baseurl);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
-
-            foreach (var token in _accesstokenlist)
-            {
-
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
-
-                string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + token.access_token + "\" , \"start_date\": \"2017-01-01\" , \"end_date\": \"2017-08-02\" }";
-                request.Content = new StringContent(data, Encoding.UTF8, "application/json");
-
-                var connectasync = await client.SendAsync(request);
-                var contents = connectasync.Content.ReadAsStringAsync().Result;
-
-                var obj = JObject.Parse(contents);
-
-                //parse the JSON object extract transactional data and persist to database
-                using (var context = new PersonalFinanceAppEntities())
+                foreach (var account in obj["accounts"])
                 {
-                    foreach (var transaction in obj["transactions"])
-                    {
-                        User_Transactions transaction_db = new User_Transactions();
-                        transaction_db.AccountID = (string)transaction["account_id"];
-                        transaction_db.Amount = (decimal)transaction["amount"];
-                        transaction_db.CategoryID = (string)transaction["category_id"];
-                        transaction_db.Date = (DateTime)transaction["date"];
-                        transaction_db.Location_City = (string)transaction["location"]["city"];
-                        transaction_db.Location_Name = (string)transaction["name"];
-                        transaction_db.Location_State = (string)transaction["location"]["state"];
-                        transaction_db.TransactionID = (string)transaction["transaction_id"];
+                    User_Accounts accounts_db = new User_Accounts();
+                    accounts_db.AccountID = (string)account["account_id"];
+                    accounts_db.UserID = User.Id;
+                    accounts_db.AccountName = (string)account["official_name"];
+                    accounts_db.Balance = (decimal)account["balances"]["current"];
+                    accounts_db.Institution_name = this.Institution_name;
 
-                        context.User_Transactions.Add(transaction_db);
-                        context.SaveChanges();
-                    }
+                    context.User_Accounts.Add(accounts_db);
+                    await context.SaveChangesAsync();
+                }
+            }
+            //parse the JSON object extract transactional data and persist to database
+            using (var context = new PersonalFinanceAppEntities())
+            {
+                foreach (var transaction in obj["transactions"])
+                {
+                    User_Transactions transaction_db = new User_Transactions();
+                    transaction_db.AccountID = (string)transaction["account_id"];
+                    transaction_db.Amount = (decimal)transaction["amount"];
+                    transaction_db.CategoryID = (string)transaction["category_id"];
+                    transaction_db.Date = (DateTime)transaction["date"];
+                    transaction_db.Location_City = (string)transaction["location"]["city"];
+                    transaction_db.Location_Name = (string)transaction["name"];
+                    transaction_db.Location_State = (string)transaction["location"]["state"];
+                    transaction_db.TransactionID = (string)transaction["transaction_id"];
+
+                    context.User_Transactions.Add(transaction_db);
+                    try { await context.SaveChangesAsync(); }
+                    catch { continue; }
+
                 }
             }
         }
@@ -346,7 +326,7 @@ namespace PersonalFinance.Models
                                             && db.Date >= start_date
                                             && db.Date <= end_date
                                             orderby (db.Date)
-                                            select new { db.Date, db.CategoryID, db.Location_Name, db.Location_City, db.Location_State, db.Amount };
+                                            select new { db.Date, category = (from test in context.Transaction_Categories where test.CategoryID == db.CategoryID select new { test.Hierarchy}), db.Location_Name, db.Location_City, db.Location_State, db.Amount };
                     var transaction_list = transaction_query.ToList();
 
                     //create list of transaction objects and sort by date
@@ -354,7 +334,11 @@ namespace PersonalFinance.Models
                     {
                         User_Transactions aTransaction = new User_Transactions();
                         aTransaction.Date = t.Date;
-                        aTransaction.CategoryID = t.CategoryID;
+
+                        foreach (var item in t.category)
+                        {
+                            aTransaction.CategoryID = item.Hierarchy;
+                        }
                         aTransaction.Location_Name = t.Location_Name;
                         aTransaction.Location_City = t.Location_City;
                         aTransaction.Location_State = t.Location_State;
@@ -396,14 +380,18 @@ namespace PersonalFinance.Models
                                           select new
                                           {
                                               Category = g.Distinct(),
-                                              Count = g.Count()
+                                              Amount = g.Sum(s => s.Amount)
                                           };
                     var DonutChartList = DonutChartquery.ToList();
-
+                    //get the sum of all non-negative transaction for our pie chart
+                    SumTransactions = 0;
                     foreach (var item in DonutChartList)
                     {
                         DonutChartData aDatapoint = new DonutChartData();
-                        aDatapoint.value = item.Count;
+
+                        if (item.Amount < 0) { continue; }
+                        aDatapoint.value = item.Amount;
+                        SumTransactions += aDatapoint.value;
 
                         foreach (var aCat in item.Category)
                         {
@@ -424,6 +412,17 @@ namespace PersonalFinance.Models
             }
         }
 
+        //
+        //Method to get the sum of transactions for the pie chart data
+        public void DonutDataSum(List<DonutChartData> chartdata)
+        {
+            SumTransactions = 0;
+
+            foreach (var datapoint in chartdata)
+            {
+                SumTransactions += datapoint.value;
+            }
+        }
 
         //TODO
         //Method to delete an account related to the specified institution (stored procedure from DB)
@@ -452,6 +451,59 @@ namespace PersonalFinance.Models
         public void GoalProgress()
         {
 
+        }
+
+        //
+        //Pull the one year of transactiona from Plaid in batches of 500 transactions
+        //TODO: seems to be a bug that thiks there are duplicate transaction when added to database?
+        //We're going to want to make this a WebJob that executes  and runs in the background once a 
+        //user creates an account
+        private async Task CompleteTransactions()
+        {
+            int offset = 0;
+
+            while (true)
+            {
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
+
+                string offsetstring = String.Format("\"offset\": {0}", offset);
+                string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + _accesstoken + "\" , \"start_date\": \"" + DateTime.Today.AddMonths(-12).ToString("yyyy-MM-dd") + "\" , \"end_date\": \"" + DateTime.Today.AddMonths(-1).AddDays(-3).ToString("yyyy-MM-dd") + "\", \"options\": { \"count\": 500, " + offsetstring + " } }";
+
+                request.Content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                var connectasync = await client.SendAsync(request);
+                var contents = connectasync.Content.ReadAsStringAsync().Result;
+
+                var obj = JObject.Parse(contents);
+
+                //break loop if there are no more transactions to get
+                if (obj["transactions"].Count() < 1) { break; }
+
+                //parse the JSON object extract transactional data and persist to database
+                using (var context = new PersonalFinanceAppEntities())
+                {
+                    foreach (var transaction in obj["transactions"])
+                    {
+                        User_Transactions transaction_db = new User_Transactions();
+                        transaction_db.AccountID = (string)transaction["account_id"];
+                        transaction_db.Amount = (decimal)transaction["amount"];
+                        transaction_db.CategoryID = (string)transaction["category_id"];
+                        transaction_db.Date = (DateTime)transaction["date"];
+                        transaction_db.Location_City = (string)transaction["location"]["city"];
+                        transaction_db.Location_Name = (string)transaction["name"];
+                        transaction_db.Location_State = (string)transaction["location"]["state"];
+                        transaction_db.TransactionID = (string)transaction["transaction_id"];
+
+                        try
+                        {
+                            context.User_Transactions.Add(transaction_db);
+                            await context.SaveChangesAsync();
+                        }
+                        catch { continue; }
+                    }
+                }
+                offset += 500;
+            }
         }
 
         //TODO

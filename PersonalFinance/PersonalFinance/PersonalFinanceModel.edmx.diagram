@@ -9,6 +9,7 @@
         <EntityTypeShape EntityType="PersonalFinanceAppModel.User_Items" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PersonalFinanceAppModel.User_Transactions" Width="1.5" PointX="3" PointY="1" />
         <AssociationConnector Association="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts" />
+        <EntityTypeShape EntityType="PersonalFinanceAppModel.Transaction_Categories" Width="1.5" PointX="3.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

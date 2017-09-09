@@ -202,7 +202,6 @@ namespace PersonalFinance.Controllers
 
          //
         // POST: /Account/AccountSyncAsync
-        //TO Do: Figure out how to handle the meta data so we can get the name of the institution being selected
         [HttpPost]
         public async Task<JsonResult> AccountViewSync(Response data)
         {
@@ -220,6 +219,7 @@ namespace PersonalFinance.Controllers
                                 
                 user.FirstLoginFlag = false;
                 var result = await UserManager.UpdateAsync(user);
+
                 if (result.Succeeded)
                 {
                     ViewBag.Message = "Account added!";

@@ -53,6 +53,12 @@
       <End Role="User_Accounts" EntitySet="User_Accounts" />
       <End Role="User_Transactions" EntitySet="User_Transactions" />
     </AssociationSet>
+    <EntitySet Name="Transaction_Categories" EntityType="PersonalFinanceAppModel.Transaction_Categories" />
+    <FunctionImport Name="Insert_TransactionCategory">
+      <Parameter Name="CategoryID" Mode="In" Type="String" />
+      <Parameter Name="GroupName" Mode="In" Type="String" />
+      <Parameter Name="Hierarchy" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="User_Transactions">
     <Key>
@@ -80,4 +86,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Transaction_Categories">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Hierarchy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

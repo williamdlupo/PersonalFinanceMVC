@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PersonalFinanceAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Transaction_Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hierarchy" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="User_Accounts">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -53,6 +61,11 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Insert_TransactionCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryID" Type="nvarchar" Mode="In" />
+          <Parameter Name="GroupName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Hierarchy" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="Insert_UserAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="AccountID" Type="nvarchar" Mode="In" />
           <Parameter Name="UserID" Type="nvarchar" Mode="In" />
@@ -77,6 +90,7 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
           <Parameter Name="Amount" Type="decimal" Mode="In" />
         </Function>
         <EntityContainer Name="PersonalFinanceAppModelStoreContainer">
+          <EntitySet Name="Transaction_Categories" EntityType="Self.Transaction_Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Accounts" EntityType="Self.User_Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Transactions" EntityType="Self.User_Transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Items" EntityType="Self.User_Items" store:Type="Tables" store:Schema="dbo">
@@ -149,6 +163,12 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             <End Role="User_Accounts" EntitySet="User_Accounts" />
             <End Role="User_Transactions" EntitySet="User_Transactions" />
           </AssociationSet>
+          <EntitySet Name="Transaction_Categories" EntityType="PersonalFinanceAppModel.Transaction_Categories" />
+          <FunctionImport Name="Insert_TransactionCategory">
+            <Parameter Name="CategoryID" Mode="In" Type="String" />
+            <Parameter Name="GroupName" Mode="In" Type="String" />
+            <Parameter Name="Hierarchy" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="User_Transactions">
           <Key>
@@ -176,6 +196,14 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Transaction_Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Hierarchy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -255,6 +283,25 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
               </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Transaction_Categories">
+            <EntityTypeMapping TypeName="PersonalFinanceAppModel.Transaction_Categories">
+              <MappingFragment StoreEntitySet="Transaction_Categories">
+                <ScalarProperty Name="Hierarchy" ColumnName="Hierarchy" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="PersonalFinanceAppModel.Transaction_Categories">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_TransactionCategory">
+                  <ScalarProperty Name="Hierarchy" ParameterName="Hierarchy" />
+                  <ScalarProperty Name="GroupName" ParameterName="GroupName" />
+                  <ScalarProperty Name="CategoryID" ParameterName="CategoryID" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Insert_TransactionCategory" FunctionName="PersonalFinanceAppModel.Store.Insert_TransactionCategory" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

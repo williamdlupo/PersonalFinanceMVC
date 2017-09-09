@@ -30,6 +30,7 @@ namespace PersonalFinance
         public virtual DbSet<User_Accounts> User_Accounts { get; set; }
         public virtual DbSet<User_Items> User_Items { get; set; }
         public virtual DbSet<User_Transactions> User_Transactions { get; set; }
+        public virtual DbSet<Transaction_Categories> Transaction_Categories { get; set; }
     
         public virtual int Insert_UserAccount(string accountID, string userID, string accountName, Nullable<decimal> balance, string institution_name)
         {
@@ -112,6 +113,23 @@ namespace PersonalFinance
                 new ObjectParameter("Amount", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_UserTransaction", transactionIDParameter, accountIDParameter, categoryIDParameter, dateParameter, location_NameParameter, location_CityParameter, location_StateParameter, amountParameter);
+        }
+    
+        public virtual int Insert_TransactionCategory(string categoryID, string groupName, string hierarchy)
+        {
+            var categoryIDParameter = categoryID != null ?
+                new ObjectParameter("CategoryID", categoryID) :
+                new ObjectParameter("CategoryID", typeof(string));
+    
+            var groupNameParameter = groupName != null ?
+                new ObjectParameter("GroupName", groupName) :
+                new ObjectParameter("GroupName", typeof(string));
+    
+            var hierarchyParameter = hierarchy != null ?
+                new ObjectParameter("Hierarchy", hierarchy) :
+                new ObjectParameter("Hierarchy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_TransactionCategory", categoryIDParameter, groupNameParameter, hierarchyParameter);
         }
     }
 }

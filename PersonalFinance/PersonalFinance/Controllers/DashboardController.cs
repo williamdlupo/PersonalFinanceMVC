@@ -32,7 +32,7 @@ namespace PersonalFinance.Controllers
         //
         // GET: Dashboard/Main
         //TO DO: figure out how to get default dates to be MTD
-        public async Task<ActionResult> Main()
+        public ActionResult Main()
         {
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
             if (user.FirstLoginFlag == true) { return RedirectToAction("AccountViewSync", "Account"); }
@@ -50,9 +50,10 @@ namespace PersonalFinance.Controllers
                 plaid.GetTransactions(DateTime.Today.AddMonths(-1), DateTime.Today);
                 plaid.start_date = (DateTime.Today.AddMonths(-1).ToShortDateString()).ToString();
                 plaid.end_date = DateTime.Today.ToShortDateString().ToString();
-
+                
                 var chartdata = plaid.BarChart;
                 var donutdata = plaid.DonutChart;
+
                 Session["BarChart"] = chartdata;
                 Session["DonutChart"] = donutdata;
             }
@@ -61,6 +62,7 @@ namespace PersonalFinance.Controllers
                 plaid.Transaction_list = transaction_list;
                 plaid.BarChart = Session["BarChart"] as List<BarChartData>;
                 plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
+                plaid.DonutDataSum(plaid.DonutChart);
             }
 
             return View(plaid);
@@ -79,7 +81,7 @@ namespace PersonalFinance.Controllers
                 plaid.User = user;
                 
                 plaid.GetTransactions(start_date, end_date);
-
+                
                 var transactions = plaid.Transaction_list;
                 var startdate = dates.start_date;
                 var enddate = dates.end_date;
@@ -121,6 +123,7 @@ namespace PersonalFinance.Controllers
                 plaid.Transaction_list = transaction_list;
                 plaid.BarChart = Session["BarChart"] as List<BarChartData>;
                 plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
+                plaid.DonutDataSum(plaid.DonutChart);
             }
 
             var displayedTransactions = plaid.Transaction_list
