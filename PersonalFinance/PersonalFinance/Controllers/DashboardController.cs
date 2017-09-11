@@ -32,7 +32,7 @@ namespace PersonalFinance.Controllers
         //
         // GET: Dashboard/Main
         //TO DO: figure out how to get default dates to be MTD
-        public ActionResult Main()
+        public async Task<ActionResult> Main()
         {
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
             if (user.FirstLoginFlag == true) { return RedirectToAction("AccountViewSync", "Account"); }
@@ -50,7 +50,8 @@ namespace PersonalFinance.Controllers
                 plaid.GetTransactions(DateTime.Today.AddMonths(-1), DateTime.Today);
                 plaid.start_date = (DateTime.Today.AddMonths(-1).ToShortDateString()).ToString();
                 plaid.end_date = DateTime.Today.ToShortDateString().ToString();
-                
+
+                await plaid.GetAccountList();
                 var chartdata = plaid.BarChart;
                 var donutdata = plaid.DonutChart;
 

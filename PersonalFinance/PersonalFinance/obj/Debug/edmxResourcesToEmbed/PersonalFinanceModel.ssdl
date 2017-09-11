@@ -56,6 +56,9 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="DeleteAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="AccountID" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="Insert_TransactionCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CategoryID" Type="nvarchar" Mode="In" />
     <Parameter Name="GroupName" Type="nvarchar" Mode="In" />
@@ -83,6 +86,10 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
     <Parameter Name="Location_City" Type="varchar" Mode="In" />
     <Parameter Name="Location_State" Type="varchar" Mode="In" />
     <Parameter Name="Amount" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="Update_AccountBalance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="AccountID" Type="nvarchar" Mode="In" />
+    <Parameter Name="Balance" Type="decimal" Mode="In" />
   </Function>
   <EntityContainer Name="PersonalFinanceAppModelStoreContainer">
     <EntitySet Name="Transaction_Categories" EntityType="Self.Transaction_Categories" Schema="dbo" store:Type="Tables" />

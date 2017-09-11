@@ -255,7 +255,7 @@ namespace PersonalFinance.Models
         //
         //Method that will kick back list that contains the account name and balance 
         //for each account for current User
-        public void GetAccountList()
+        public async Task GetAccountList()
         {
             if (_accesstoken is null) { this.GetAccessToken(); }
 
@@ -283,14 +283,17 @@ namespace PersonalFinance.Models
                     foreach (var account in obj["accounts"])
                     {
                         User_Accounts accounts_db = new User_Accounts();
+                        accounts_db.AccountID = (string)account["account_id"];
                         accounts_db.AccountName = (string)account["official_name"];
                         accounts_db.Balance = (decimal)account["balances"]["current"];
                         accounts_db.Institution_name = token.institution_name;
                         Account_list.Add(accounts_db);
                         this.Has_accounts = true;
 
-                        //To Do:
-                        //Update balance in db to new balance where account id's match (sproc update)
+                        //Stored procedure to update account balance in DB with matching account ID.
+                        context.Update_AccountBalance(accounts_db.AccountID, accounts_db.Balance);
+                        await context.SaveChangesAsync();
+                        
                     }
                 }
             }
@@ -397,7 +400,7 @@ namespace PersonalFinance.Models
                         {
                             if (aCat.CategoryID is null)
                             {
-                                aDatapoint.label = "Unknown";
+                                aDatapoint.label = "Uncategorized";
                                 break;
                             }
 
@@ -424,10 +427,16 @@ namespace PersonalFinance.Models
             }
         }
 
-        //TODO
-        //Method to delete an account related to the specified institution (stored procedure from DB)
-        public void DeleteAccount(string account_id)
-        { }
+        //
+        //Stored Procedure has been created, just have to tie sproc into code and front end UI
+        public async Task DeleteAccount(string account_id)
+        {
+            using (var context = new PersonalFinanceAppEntities())
+            {
+                context.DeleteAccount(account_id);
+                await context.SaveChangesAsync();
+            }
+        }
 
         //TODO
         //Method to get all transactions for a specific account for a given timeframe
@@ -455,7 +464,10 @@ namespace PersonalFinance.Models
 
         //
         //Pull the one year of transactiona from Plaid in batches of 500 transactions
-        //TODO: seems to be a bug that thiks there are duplicate transaction when added to database?
+        //
+        //BUG: seems to be a bug that thinks there are duplicate transaction when added to database?
+        //Quick fix was to enclose with a try/catch, but not all transactions are getting posted to the DB...
+        //
         //We're going to want to make this a WebJob that executes  and runs in the background once a 
         //user creates an account
         private async Task CompleteTransactions()

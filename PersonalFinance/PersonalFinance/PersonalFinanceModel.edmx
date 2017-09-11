@@ -61,6 +61,9 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DeleteAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AccountID" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="Insert_TransactionCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CategoryID" Type="nvarchar" Mode="In" />
           <Parameter Name="GroupName" Type="nvarchar" Mode="In" />
@@ -88,6 +91,10 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
           <Parameter Name="Location_City" Type="varchar" Mode="In" />
           <Parameter Name="Location_State" Type="varchar" Mode="In" />
           <Parameter Name="Amount" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="Update_AccountBalance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AccountID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Balance" Type="decimal" Mode="In" />
         </Function>
         <EntityContainer Name="PersonalFinanceAppModelStoreContainer">
           <EntitySet Name="Transaction_Categories" EntityType="Self.Transaction_Categories" Schema="dbo" store:Type="Tables" />
@@ -169,6 +176,13 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             <Parameter Name="GroupName" Mode="In" Type="String" />
             <Parameter Name="Hierarchy" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="DeleteAccount">
+            <Parameter Name="AccountID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Update_AccountBalance">
+            <Parameter Name="AccountID" Mode="In" Type="String" />
+            <Parameter Name="Balance" Mode="In" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="User_Transactions">
           <Key>
@@ -229,6 +243,13 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
                   <ScalarProperty Name="UserID" ParameterName="UserID" />
                   <ScalarProperty Name="AccountID" ParameterName="AccountID" />
                 </InsertFunction>
+                <UpdateFunction FunctionName="PersonalFinanceAppModel.Store.Update_AccountBalance">
+                  <ScalarProperty Name="Balance" ParameterName="Balance" Version="Current" />
+                  <ScalarProperty Name="AccountID" ParameterName="AccountID" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="PersonalFinanceAppModel.Store.DeleteAccount">
+                  <ScalarProperty Name="AccountID" ParameterName="AccountID" />
+                </DeleteFunction>
               </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -302,6 +323,8 @@ warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Insert_TransactionCategory" FunctionName="PersonalFinanceAppModel.Store.Insert_TransactionCategory" />
+          <FunctionImportMapping FunctionImportName="DeleteAccount" FunctionName="PersonalFinanceAppModel.Store.DeleteAccount" />
+          <FunctionImportMapping FunctionImportName="Update_AccountBalance" FunctionName="PersonalFinanceAppModel.Store.Update_AccountBalance" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

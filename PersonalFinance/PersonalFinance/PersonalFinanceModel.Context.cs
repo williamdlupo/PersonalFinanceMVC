@@ -131,5 +131,27 @@ namespace PersonalFinance
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_TransactionCategory", categoryIDParameter, groupNameParameter, hierarchyParameter);
         }
+    
+        public virtual int DeleteAccount(string accountID)
+        {
+            var accountIDParameter = accountID != null ?
+                new ObjectParameter("AccountID", accountID) :
+                new ObjectParameter("AccountID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteAccount", accountIDParameter);
+        }
+    
+        public virtual int Update_AccountBalance(string accountID, Nullable<decimal> balance)
+        {
+            var accountIDParameter = accountID != null ?
+                new ObjectParameter("AccountID", accountID) :
+                new ObjectParameter("AccountID", typeof(string));
+    
+            var balanceParameter = balance.HasValue ?
+                new ObjectParameter("Balance", balance) :
+                new ObjectParameter("Balance", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_AccountBalance", accountIDParameter, balanceParameter);
+        }
     }
 }

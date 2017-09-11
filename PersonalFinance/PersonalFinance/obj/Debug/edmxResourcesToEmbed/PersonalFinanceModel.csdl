@@ -59,6 +59,13 @@
       <Parameter Name="GroupName" Mode="In" Type="String" />
       <Parameter Name="Hierarchy" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="DeleteAccount">
+      <Parameter Name="AccountID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Update_AccountBalance">
+      <Parameter Name="AccountID" Mode="In" Type="String" />
+      <Parameter Name="Balance" Mode="In" Type="Decimal" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="User_Transactions">
     <Key>
