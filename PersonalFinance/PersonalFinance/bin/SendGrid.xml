@@ -50,6 +50,18 @@
             <param name="rfc2822Email">"email@email.com" or <![CDATA["Name <email@email.com>"]]> string</param>
             <returns>EmailsAddress Object</returns>
         </member>
+        <member name="M:SendGrid.Helpers.Mail.MailHelper.CreateSingleEmailToMultipleRecipients(SendGrid.Helpers.Mail.EmailAddress,System.Collections.Generic.List{SendGrid.Helpers.Mail.EmailAddress},System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Send a single simple email to multiple recipients with option for displaying all the recipients present in "To" section of email
+            </summary>
+            <param name="from">An email object that may contain the recipient’s name, but must always contain the sender’s email.</param>
+            <param name="tos">A list of email objects that may contain the recipient’s name, but must always contain the recipient’s email.</param>
+            <param name="subject">The subject of your email. This may be overridden by SetGlobalSubject().</param>
+            <param name="plainTextContent">The text/plain content of the email body.</param>
+            <param name="htmlContent">The text/html content of the email body.</param>
+            <param name="showAllRecipients">Displays all the recipients present in the "To" section of email.The default value is false</param>
+            <returns>A SendGridMessage object.</returns>
+        </member>
         <member name="T:SendGrid.Helpers.Mail.ASM">
             <summary>
             An object allowing you to specify how to handle unsubscribes.
@@ -906,6 +918,63 @@
             </summary>
             <returns>The JSON object required to make a request to SendGrid.</returns>
         </member>
+        <member name="T:SendGrid.Helpers.Reliability.ReliabilitySettings">
+            <summary>
+            Defines the reliability settings to use on HTTP requests
+            </summary>
+        </member>
+        <member name="M:SendGrid.Helpers.Reliability.ReliabilitySettings.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SendGrid.Helpers.Reliability.ReliabilitySettings"/> class with default settings.
+            </summary>
+        </member>
+        <member name="M:SendGrid.Helpers.Reliability.ReliabilitySettings.#ctor(System.Int32,System.TimeSpan,System.TimeSpan,System.TimeSpan)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SendGrid.Helpers.Reliability.ReliabilitySettings"/> class.
+            </summary>
+            <param name="maximumNumberOfRetries">The maximum number of retries to execute against when sending an HTTP Request before throwing an exception</param>
+            <param name="minimumBackoff">The minimum amount of time to wait between between HTTP retries</param>
+            <param name="maximumBackOff">the maximum amount of time to wait between between HTTP retries</param>
+            <param name="deltaBackOff">the value that will be used to calculate a random delta in the exponential delay between retries</param>
+        </member>
+        <member name="P:SendGrid.Helpers.Reliability.ReliabilitySettings.MaximumNumberOfRetries">
+            <summary>
+                Gets the maximum number of retries to execute against when sending an HTTP Request before throwing an exception. Defaults to 0 (no retries, you must explicitly enable)
+            </summary>
+        </member>
+        <member name="P:SendGrid.Helpers.Reliability.ReliabilitySettings.MinimumBackOff">
+            <summary>
+            Gets the minimum amount of time to wait between between HTTP retries. Defaults to 1 second
+            </summary>
+        </member>
+        <member name="P:SendGrid.Helpers.Reliability.ReliabilitySettings.MaximumBackOff">
+            <summary>
+            Gets the maximum amount of time to wait between between HTTP retries. Defaults to 10 seconds
+            </summary>
+        </member>
+        <member name="P:SendGrid.Helpers.Reliability.ReliabilitySettings.DeltaBackOff">
+            <summary>
+            Gets the value that will be used to calculate a random delta in the exponential delay between retries. Defaults to 1 second
+            </summary>
+        </member>
+        <member name="T:SendGrid.Helpers.Reliability.RetryDelegatingHandler">
+            <summary>
+            A delegating handler that provides retry functionality while executing a request
+            </summary>
+        </member>
+        <member name="M:SendGrid.Helpers.Reliability.RetryDelegatingHandler.#ctor(SendGrid.Helpers.Reliability.ReliabilitySettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SendGrid.Helpers.Reliability.RetryDelegatingHandler"/> class.
+            </summary>
+            <param name="settings">A ReliabilitySettings instance</param>
+        </member>
+        <member name="M:SendGrid.Helpers.Reliability.RetryDelegatingHandler.#ctor(System.Net.Http.HttpMessageHandler,SendGrid.Helpers.Reliability.ReliabilitySettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SendGrid.Helpers.Reliability.RetryDelegatingHandler"/> class.
+            </summary>
+            <param name="innerHandler">A HttpMessageHandler instance to set as the innner handler</param>
+            <param name="settings">A ReliabilitySettings instance</param>
+        </member>
         <member name="T:SendGrid.ISendGridClient">
             <summary>
             A HTTP client wrapper for interacting with SendGrid's API
@@ -1073,6 +1142,21 @@
             <param name="urlPath">Path to endpoint (e.g. /path/to/endpoint)</param>
             <returns>Interface to the SendGrid REST API</returns>
         </member>
+        <member name="M:SendGrid.SendGridClient.#ctor(SendGrid.SendGridClientOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SendGrid.SendGridClient"/> class.
+            </summary>
+            <param name="options">A <see cref="T:SendGrid.SendGridClientOptions"/> instance that defines the configuration settings to use with the client </param>
+            <returns>Interface to the SendGrid REST API</returns>
+        </member>
+        <member name="M:SendGrid.SendGridClient.#ctor(System.Net.Http.HttpClient,SendGrid.SendGridClientOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SendGrid.SendGridClient"/> class.
+            </summary>
+            <param name="httpClient">An optional http client which may me injected in order to facilitate testing.</param>
+            <param name="options">A <see cref="T:SendGrid.SendGridClientOptions"/> instance that defines the configuration settings to use with the client </param>
+            <returns>Interface to the SendGrid REST API</returns>
+        </member>
         <member name="M:SendGrid.SendGridClient.#ctor(System.Net.Http.HttpClient,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:SendGrid.SendGridClient"/> class.
@@ -1183,6 +1267,46 @@
             <returns>
             Final URL
             </returns>
+        </member>
+        <member name="T:SendGrid.SendGridClientOptions">
+            <summary>
+            Defines the options to use with the SendGrid client
+            </summary>
+        </member>
+        <member name="M:SendGrid.SendGridClientOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SendGrid.SendGridClientOptions"/> class.
+            </summary>
+        </member>
+        <member name="P:SendGrid.SendGridClientOptions.ReliabilitySettings">
+            <summary>
+            Gets or sets the reliability settings to use on HTTP Requests
+            </summary>
+        </member>
+        <member name="P:SendGrid.SendGridClientOptions.ApiKey">
+            <summary>
+            Gets or sets the SendGrid API key
+            </summary>
+        </member>
+        <member name="P:SendGrid.SendGridClientOptions.RequestHeaders">
+            <summary>
+            Gets or sets the request headers to use on HttpRequests sent to SendGrid
+            </summary>
+        </member>
+        <member name="P:SendGrid.SendGridClientOptions.Host">
+            <summary>
+            Gets or sets base url (e.g. https://api.sendgrid.com, this is the default)
+            </summary>
+        </member>
+        <member name="P:SendGrid.SendGridClientOptions.Version">
+            <summary>
+            Gets or sets API version, override AddVersion to customize
+            </summary>
+        </member>
+        <member name="P:SendGrid.SendGridClientOptions.UrlPath">
+            <summary>
+            Gets or sets the path to the API endpoint.
+            </summary>
         </member>
     </members>
 </doc>

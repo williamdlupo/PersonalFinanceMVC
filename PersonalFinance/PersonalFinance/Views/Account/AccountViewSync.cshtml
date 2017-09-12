@@ -47,9 +47,9 @@
                                     {
                                         if (account.Institution_name.Equals(institution))
                                         {
-                                                            <li class="dd-item" data-id="2">
+                                                            <li class="dd-item">
                                                                 <div class="dd-handle">
-                                                                    <span class="pull-right badge"> $@account.Balance</span>
+                                                                    <span class="pull-right badge badge-accent"> $@account.Balance</span>
                                                                     <text>@account.AccountName</text>
                                                                 </div>
                                                             </li>
@@ -60,9 +60,10 @@
                                         </ol>
                                     </div>
                                 }
+                <br />
                 <button class="btn btn-primary" id="link-button" type="button">Add Another Account</button>
 
-                <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-accent">All Set!</a>
+                <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-accent pull-right">All Set!</a>
             }
             else
             {
@@ -70,7 +71,7 @@
                 <small> Click the button below to get started. </small>
                 <br />
                     <br />
-                        <button class="btn btn-primary" id="link-button" type="button">Add An Account</button>
+                        <button class="btn btn-primary btn-block" id="link-button" type="button">Add An Account</button>
             }
         </div>
     </div>

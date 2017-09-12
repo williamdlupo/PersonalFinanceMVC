@@ -186,7 +186,7 @@ namespace PersonalFinance.Controllers
         //
         // GET: /Account/AccountViewSync
         [HttpGet]
-        public ActionResult AccountViewSync()
+        public async Task<ActionResult> AccountViewSync()
         {
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
         
@@ -194,7 +194,7 @@ namespace PersonalFinance.Controllers
 
             Plaid plaid = new Plaid();
             plaid.User = user;
-            try { plaid.GetAccountList(); }
+            try { await plaid.GetAccountList(); }
             catch { }
 
             return View(plaid);

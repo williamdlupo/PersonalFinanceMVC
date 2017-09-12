@@ -140,6 +140,8 @@ namespace PersonalFinance.Models
 
         //
         //Method to pull all current transaction categroy information from Plaid and save to database
+        //Run once since this is the only way to update categories tables with data from Plaid.
+        //Might want to make this a 'job' since they could update on their end and we would wanto to stay current
         public async Task GetCategories()
         {
 
@@ -174,8 +176,7 @@ namespace PersonalFinance.Models
             }
         }
         //
-        //Initial account and transaction pull from Plaid. Gets 3 months worth of transactions per 
-        //each account 
+        //Initial account and transaction pull from Plaid. Gets 3 months worth of transactions per each account 
         private async Task GetTransactions()
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
@@ -287,13 +288,19 @@ namespace PersonalFinance.Models
                         accounts_db.AccountName = (string)account["official_name"];
                         accounts_db.Balance = (decimal)account["balances"]["current"];
                         accounts_db.Institution_name = token.institution_name;
+
                         Account_list.Add(accounts_db);
-                        this.Has_accounts = true;
+
+                        if (Institution_list.Count() < 1 || !(Institution_list.Contains(accounts_db.Institution_name.ToString())))
+                        {
+                            Institution_list.Add(accounts_db.Institution_name.ToString());
+                        }
 
                         //Stored procedure to update account balance in DB with matching account ID.
                         context.Update_AccountBalance(accounts_db.AccountID, accounts_db.Balance);
                         await context.SaveChangesAsync();
-                        
+
+                        Has_accounts = true;
                     }
                 }
             }

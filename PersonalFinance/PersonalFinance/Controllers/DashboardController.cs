@@ -52,17 +52,25 @@ namespace PersonalFinance.Controllers
                 plaid.end_date = DateTime.Today.ToShortDateString().ToString();
 
                 await plaid.GetAccountList();
+
+                var accountlist = plaid.Account_list;
                 var chartdata = plaid.BarChart;
                 var donutdata = plaid.DonutChart;
+                var institutionlist = plaid.Institution_list;
 
                 Session["BarChart"] = chartdata;
                 Session["DonutChart"] = donutdata;
+                Session["AccountList"] = accountlist;
+                Session["InstitutionList"] = institutionlist;
             }
             else
             {
                 plaid.Transaction_list = transaction_list;
                 plaid.BarChart = Session["BarChart"] as List<BarChartData>;
                 plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
+                plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
+                plaid.Institution_list = Session["InstitutionList"] as List<string>;
+
                 plaid.DonutDataSum(plaid.DonutChart);
             }
 
@@ -88,11 +96,15 @@ namespace PersonalFinance.Controllers
                 var enddate = dates.end_date;
                 var chartdata = plaid.BarChart;
                 var donutdata = plaid.DonutChart;
+
                 Session["transactions"] = transactions;
                 Session["startdate"] = startdate;
                 Session["enddate"] = enddate;
                 Session["BarChart"] = chartdata;
                 Session["DonutChart"] = donutdata;
+
+                plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
+                plaid.Institution_list = Session["InstitutionList"] as List<string>;
 
                 return Json(new { success = true });
             }
@@ -117,13 +129,14 @@ namespace PersonalFinance.Controllers
                 plaid.start_date = (DateTime.Today.AddMonths(-1).ToShortDateString()).ToString();
                 plaid.end_date = DateTime.Today.ToShortDateString().ToString();
 
-                
             }
             else
             {
                 plaid.Transaction_list = transaction_list;
                 plaid.BarChart = Session["BarChart"] as List<BarChartData>;
                 plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
+                plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
+                plaid.Institution_list = Session["InstitutionList"] as List<string>;
                 plaid.DonutDataSum(plaid.DonutChart);
             }
 
