@@ -192,8 +192,10 @@ namespace PersonalFinance.Controllers
         
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
 
-            Plaid plaid = new Plaid();
-            plaid.User = user;
+            Plaid plaid = new Plaid
+            {
+                User = user
+            };
             try { await plaid.GetAccountList(); }
             catch { }
 

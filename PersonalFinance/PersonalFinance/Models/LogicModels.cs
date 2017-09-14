@@ -71,7 +71,7 @@ namespace PersonalFinance.Models
     {
         private static string _clientid = WebConfigurationManager.AppSettings["client_id"];
         private static string _secret = WebConfigurationManager.AppSettings["secret"];
-        private static string _baseurl = "https://development.plaid.com";
+        private static string _baseurl = "https://sandbox.plaid.com";
         private HttpClient client = new HttpClient();
         private string _accesstoken;
         private string _item_id;
@@ -90,6 +90,7 @@ namespace PersonalFinance.Models
         public bool Has_accounts { get; set; }
         public string Institution_name { get; set; }
         public decimal SumTransactions { get; set; }
+        public List<decimal> NetWorth = new List<decimal>();
 
         //
         //Sets the Has_accounts to false on object creation for account list view cycle 
@@ -126,11 +127,13 @@ namespace PersonalFinance.Models
 
             using (var context = new PersonalFinanceAppEntities())
             {
-                User_Items item_db = new User_Items();
-                item_db.Access_Token = _accesstoken;
-                item_db.Item_ID = _item_id;
-                item_db.ID = User.Id;
-                item_db.Institution_Name = Institution_name.ToString();
+                User_Items item_db = new User_Items
+                {
+                    Access_Token = _accesstoken,
+                    Item_ID = _item_id,
+                    ID = User.Id,
+                    Institution_Name = Institution_name.ToString()
+                };
 
                 context.User_Items.Add(item_db);
                 await context.SaveChangesAsync();
@@ -165,16 +168,19 @@ namespace PersonalFinance.Models
             {
                 foreach (var category in obj["categories"])
                 {
-                    Transaction_Categories transaction_category = new Transaction_Categories();
-                    transaction_category.CategoryID = (string)category["category_id"];
-                    transaction_category.GroupName = (string)category["group"];
-                    transaction_category.Hierarchy = (string)category["hierarchy"].Last();
+                    Transaction_Categories transaction_category = new Transaction_Categories
+                    {
+                        CategoryID = (string)category["category_id"],
+                        GroupName = (string)category["group"],
+                        Hierarchy = (string)category["hierarchy"].Last()
+                    };
 
                     context.Transaction_Categories.Add(transaction_category);
                     context.SaveChanges();
                 }
             }
         }
+
         //
         //Initial account and transaction pull from Plaid. Gets 3 months worth of transactions per each account 
         private async Task GetTransactions()
@@ -194,12 +200,14 @@ namespace PersonalFinance.Models
             {
                 foreach (var account in obj["accounts"])
                 {
-                    User_Accounts accounts_db = new User_Accounts();
-                    accounts_db.AccountID = (string)account["account_id"];
-                    accounts_db.UserID = User.Id;
-                    accounts_db.AccountName = (string)account["official_name"];
-                    accounts_db.Balance = (decimal)account["balances"]["current"];
-                    accounts_db.Institution_name = this.Institution_name;
+                    User_Accounts accounts_db = new User_Accounts
+                    {
+                        AccountID = (string)account["account_id"],
+                        UserID = User.Id,
+                        AccountName = (string)account["official_name"],
+                        Balance = (decimal)account["balances"]["current"],
+                        Institution_name = this.Institution_name
+                    };
 
                     context.User_Accounts.Add(accounts_db);
                     await context.SaveChangesAsync();
@@ -210,15 +218,17 @@ namespace PersonalFinance.Models
             {
                 foreach (var transaction in obj["transactions"])
                 {
-                    User_Transactions transaction_db = new User_Transactions();
-                    transaction_db.AccountID = (string)transaction["account_id"];
-                    transaction_db.Amount = (decimal)transaction["amount"];
-                    transaction_db.CategoryID = (string)transaction["category_id"];
-                    transaction_db.Date = (DateTime)transaction["date"];
-                    transaction_db.Location_City = (string)transaction["location"]["city"];
-                    transaction_db.Location_Name = (string)transaction["name"];
-                    transaction_db.Location_State = (string)transaction["location"]["state"];
-                    transaction_db.TransactionID = (string)transaction["transaction_id"];
+                    User_Transactions transaction_db = new User_Transactions
+                    {
+                        AccountID = (string)transaction["account_id"],
+                        Amount = (decimal)transaction["amount"],
+                        CategoryID = (string)transaction["category_id"],
+                        Date = (DateTime)transaction["date"],
+                        Location_City = (string)transaction["location"]["city"],
+                        Location_Name = (string)transaction["name"],
+                        Location_State = (string)transaction["location"]["state"],
+                        TransactionID = (string)transaction["transaction_id"]
+                    };
 
                     context.User_Transactions.Add(transaction_db);
                     try { await context.SaveChangesAsync(); }
@@ -242,9 +252,11 @@ namespace PersonalFinance.Models
 
                 foreach (var t in tokenlist)
                 {
-                    AccountData data = new AccountData();
-                    data.access_token = t.Access_Token.ToString();
-                    data.institution_name = t.Institution_Name.ToString();
+                    AccountData data = new AccountData
+                    {
+                        access_token = t.Access_Token.ToString(),
+                        institution_name = t.Institution_Name.ToString()
+                    };
                     Institution_list.Add(t.Institution_Name.ToString());
 
                     _accesstokenlist.Add(data);
@@ -266,6 +278,7 @@ namespace PersonalFinance.Models
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             }
 
+            decimal _NetWorth = 0;
             foreach (var token in _accesstokenlist)
             {
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/accounts/get");
@@ -283,11 +296,13 @@ namespace PersonalFinance.Models
                 {
                     foreach (var account in obj["accounts"])
                     {
-                        User_Accounts accounts_db = new User_Accounts();
-                        accounts_db.AccountID = (string)account["account_id"];
-                        accounts_db.AccountName = (string)account["official_name"];
-                        accounts_db.Balance = (decimal)account["balances"]["current"];
-                        accounts_db.Institution_name = token.institution_name;
+                        User_Accounts accounts_db = new User_Accounts
+                        {
+                            AccountID = (string)account["account_id"],
+                            AccountName = (string)account["official_name"],
+                            Balance = (decimal)account["balances"]["current"],
+                            Institution_name = token.institution_name
+                        };
 
                         Account_list.Add(accounts_db);
 
@@ -301,9 +316,22 @@ namespace PersonalFinance.Models
                         await context.SaveChangesAsync();
 
                         Has_accounts = true;
+
+                        string _accounttype = (string)account["type"];
+                        if(_accounttype.Equals("credit") || _accounttype.Equals("loan") || _accounttype.Equals("mortgage"))
+                        {
+                            _NetWorth -= (decimal)accounts_db.Balance;
+                        }
+                        else
+                        {
+                            _NetWorth += (decimal)accounts_db.Balance;
+                        }
+                        
                     }
+                    
                 }
             }
+            NetWorth.Add(_NetWorth);
         }
 
         //
@@ -342,8 +370,10 @@ namespace PersonalFinance.Models
                     //create list of transaction objects and sort by date
                     foreach (var t in transaction_list)
                     {
-                        User_Transactions aTransaction = new User_Transactions();
-                        aTransaction.Date = t.Date;
+                        User_Transactions aTransaction = new User_Transactions
+                        {
+                            Date = t.Date
+                        };
 
                         foreach (var item in t.category)
                         {
@@ -373,8 +403,10 @@ namespace PersonalFinance.Models
 
                     foreach (var datapoint in BarChartData)
                     {
-                        BarChartData aDataPoint = new BarChartData();
-                        aDataPoint.amount = datapoint.Amount;
+                        BarChartData aDataPoint = new BarChartData
+                        {
+                            amount = datapoint.Amount
+                        };
 
                         foreach (var date in datapoint.Date)
                         {
@@ -503,15 +535,17 @@ namespace PersonalFinance.Models
                 {
                     foreach (var transaction in obj["transactions"])
                     {
-                        User_Transactions transaction_db = new User_Transactions();
-                        transaction_db.AccountID = (string)transaction["account_id"];
-                        transaction_db.Amount = (decimal)transaction["amount"];
-                        transaction_db.CategoryID = (string)transaction["category_id"];
-                        transaction_db.Date = (DateTime)transaction["date"];
-                        transaction_db.Location_City = (string)transaction["location"]["city"];
-                        transaction_db.Location_Name = (string)transaction["name"];
-                        transaction_db.Location_State = (string)transaction["location"]["state"];
-                        transaction_db.TransactionID = (string)transaction["transaction_id"];
+                        User_Transactions transaction_db = new User_Transactions
+                        {
+                            AccountID = (string)transaction["account_id"],
+                            Amount = (decimal)transaction["amount"],
+                            CategoryID = (string)transaction["category_id"],
+                            Date = (DateTime)transaction["date"],
+                            Location_City = (string)transaction["location"]["city"],
+                            Location_Name = (string)transaction["name"],
+                            Location_State = (string)transaction["location"]["state"],
+                            TransactionID = (string)transaction["transaction_id"]
+                        };
 
                         try
                         {

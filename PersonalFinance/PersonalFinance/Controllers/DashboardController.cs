@@ -24,8 +24,8 @@ namespace PersonalFinance.Controllers
         //Constructor- creates user object the current user that is logged in
         public DashboardController()
         {
-            this.ApplicationDbContext = new ApplicationDbContext();
-            this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext));
+            ApplicationDbContext = new ApplicationDbContext();
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext));
             user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
@@ -37,11 +37,13 @@ namespace PersonalFinance.Controllers
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
             if (user.FirstLoginFlag == true) { return RedirectToAction("AccountViewSync", "Account"); }
 
-            Plaid plaid = new Plaid();
-            plaid.User = user;
-            
-            plaid.start_date = Session["startdate"] as string;
-            plaid.end_date = Session["enddate"] as string;
+            Plaid plaid = new Plaid
+            {
+                User = user,
+
+                start_date = Session["startdate"] as string,
+                end_date = Session["enddate"] as string
+            };
 
             var  transaction_list = Session["transactions"] as List<User_Transactions>;
 
@@ -57,11 +59,13 @@ namespace PersonalFinance.Controllers
                 var chartdata = plaid.BarChart;
                 var donutdata = plaid.DonutChart;
                 var institutionlist = plaid.Institution_list;
+                var networth = plaid.NetWorth;
 
                 Session["BarChart"] = chartdata;
                 Session["DonutChart"] = donutdata;
                 Session["AccountList"] = accountlist;
                 Session["InstitutionList"] = institutionlist;
+                Session["NetWorth"] = networth;
             }
             else
             {
@@ -70,6 +74,7 @@ namespace PersonalFinance.Controllers
                 plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
                 plaid.Institution_list = Session["InstitutionList"] as List<string>;
+                plaid.NetWorth = Session["NetWorth"] as List<decimal>;
 
                 plaid.DonutDataSum(plaid.DonutChart);
             }
@@ -83,6 +88,7 @@ namespace PersonalFinance.Controllers
         public JsonResult Main(Dates dates)
         {
             Plaid plaid = new Plaid();
+
             if (ModelState.IsValid)
             {
                 DateTime start_date = DateTime.Parse(dates.start_date);
@@ -105,6 +111,7 @@ namespace PersonalFinance.Controllers
 
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
                 plaid.Institution_list = Session["InstitutionList"] as List<string>;
+                plaid.NetWorth = Session["NetWorth"] as List<decimal>;
 
                 return Json(new { success = true });
             }
@@ -116,11 +123,13 @@ namespace PersonalFinance.Controllers
         //GET: Populating data for the Data Table
         public JsonResult DataTableHandler(DataTable param)
         {
-            Plaid plaid = new Plaid();
-            plaid.User = user;
-            
-            plaid.start_date = Session["startdate"] as string;
-            plaid.end_date = Session["enddate"] as string;
+            Plaid plaid = new Plaid
+            {
+                User = user,
+
+                start_date = Session["startdate"] as string,
+                end_date = Session["enddate"] as string
+            };
             var transaction_list = Session["transactions"] as List<User_Transactions>;
 
             if (transaction_list is null)
@@ -137,6 +146,7 @@ namespace PersonalFinance.Controllers
                 plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
                 plaid.Institution_list = Session["InstitutionList"] as List<string>;
+                plaid.NetWorth = Session["NetWorth"] as List<decimal>;
                 plaid.DonutDataSum(plaid.DonutChart);
             }
 
@@ -161,6 +171,21 @@ namespace PersonalFinance.Controllers
                 aaData = data
             },
             JsonRequestBehavior.AllowGet);
+        }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (UserManager != null)
+                {
+                    UserManager.Dispose();
+                    UserManager = null;
+                }
+            }
+
+            base.Dispose(disposing);
         }
     }
 }

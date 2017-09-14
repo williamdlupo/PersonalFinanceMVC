@@ -36,10 +36,10 @@
                             <div class="panel-body">
                                 <h1 class="m-t-md m-b-xs" style="margin-top: 30px">
                                     <i class="pe pe-7s-global text-warning"> </i>
-                                    $ 25,000 <span class="slight"><i class="fa fa-play fa-rotate-90 text-warning"> </i> -0.5%</span>
+                                    @String.Format("{0:C2}", Model.NetWorth.First()) <span class="slight"><i class="fa fa-play fa-rotate-90 text-warning"> </i> -0.5%</span>
                                 </h1>
                                 <div class="small">
-                                    <span class="c-white">Your Net Worth</span> Calculated as the totaled sum for all synced accounts as of [date].
+                                    <span class="c-white">Your Net Worth</span> Calculated as the net sum for all synced accounts as of <b class="text-warning">@DateTime.Today.ToShortDateString()</b>
                                 </div>
                                 <div class="m-t-sm">
                                     <div class="row">

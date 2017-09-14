@@ -339,7 +339,6 @@ C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\Persona
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\System.Web.WebPages.Deployment.xml
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\System.Web.WebPages.Razor.xml
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\Twilio.xml
-C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\obj\Debug\PersonalFinance.csprojResolveAssemblyReference.cache
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\obj\Debug\PersonalFinance.Migrations.AddedUser.resources
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\obj\Debug\PersonalFinance.Migrations.PhoneandTableID.resources
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\obj\Debug\PersonalFinance.Migrations.RemovedDupePhone.resources
@@ -359,3 +358,4 @@ C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\Persona
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\System.Security.Cryptography.Primitives.dll
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\System.Security.Cryptography.X509Certificates.dll
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\obj\Debug\PersonalFinance.csproj.CoreCompileInputs.cache
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\obj\Debug\PersonalFinance.csprojResolveAssemblyReference.cache
