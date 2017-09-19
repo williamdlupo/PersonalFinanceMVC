@@ -92,9 +92,10 @@
 <script type="text/javascript">
         var handler = Plaid.create({
             clientName: 'Plaid Walkthrough Demo',
-            env: 'sandbox',
+            env: 'development',
             key: 'f326b59ea06cf5309ebd2861388d13', // Replace with your public_key to test with live credentials
             product: ['transactions'],
+            webhook: 'https://dhwebhookentry.azurewebsites.net/api/PlaidPostWebhook?code=42lH3EzkRgVgepdrH1w7Q5KDa/Tg1VDZgob28GRQx55Irx4XlaRqqQ==&clientId=default',
             onSuccess: function (public_token, metadata) {
                 // Send the public_token to your app server.
                 // The metadata object contains info about the institution the

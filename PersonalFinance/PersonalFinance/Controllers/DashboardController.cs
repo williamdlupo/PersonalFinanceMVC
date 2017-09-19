@@ -4,7 +4,6 @@ using Microsoft.AspNet.Identity.Owin;
 using PersonalFinance.Models;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -187,5 +186,6 @@ namespace PersonalFinance.Controllers
 
             base.Dispose(disposing);
         }
+
     }
 }

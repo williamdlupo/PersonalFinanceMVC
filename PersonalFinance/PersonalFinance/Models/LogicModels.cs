@@ -71,7 +71,7 @@ namespace PersonalFinance.Models
     {
         private static string _clientid = WebConfigurationManager.AppSettings["client_id"];
         private static string _secret = WebConfigurationManager.AppSettings["secret"];
-        private static string _baseurl = "https://sandbox.plaid.com";
+        private static string _baseurl = "https://development.plaid.com";
         private HttpClient client = new HttpClient();
         private string _accesstoken;
         private string _item_id;
@@ -102,7 +102,7 @@ namespace PersonalFinance.Models
         {
             _public_token = public_token;
             await AuthenticateAccount();
-            await GetTransactions();
+            await AddAccounts();
         }
 
         //
@@ -112,7 +112,7 @@ namespace PersonalFinance.Models
             client.BaseAddress = new Uri(_baseurl);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/item/public_token/exchange");
-
+            
             string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"public_token\":\"" + _public_token + "\" }";
             request.Content = new StringContent(data, Encoding.UTF8, "application/json");
 
@@ -143,8 +143,6 @@ namespace PersonalFinance.Models
 
         //
         //Method to pull all current transaction categroy information from Plaid and save to database
-        //Run once since this is the only way to update categories tables with data from Plaid.
-        //Might want to make this a 'job' since they could update on their end and we would wanto to stay current
         public async Task GetCategories()
         {
 
@@ -183,7 +181,7 @@ namespace PersonalFinance.Models
 
         //
         //Initial account and transaction pull from Plaid. Gets 3 months worth of transactions per each account 
-        private async Task GetTransactions()
+        private async Task AddAccounts()
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
 
@@ -211,29 +209,6 @@ namespace PersonalFinance.Models
 
                     context.User_Accounts.Add(accounts_db);
                     await context.SaveChangesAsync();
-                }
-            }
-            //parse the JSON object extract transactional data and persist to database
-            using (var context = new PersonalFinanceAppEntities())
-            {
-                foreach (var transaction in obj["transactions"])
-                {
-                    User_Transactions transaction_db = new User_Transactions
-                    {
-                        AccountID = (string)transaction["account_id"],
-                        Amount = (decimal)transaction["amount"],
-                        CategoryID = (string)transaction["category_id"],
-                        Date = (DateTime)transaction["date"],
-                        Location_City = (string)transaction["location"]["city"],
-                        Location_Name = (string)transaction["name"],
-                        Location_State = (string)transaction["location"]["state"],
-                        TransactionID = (string)transaction["transaction_id"]
-                    };
-
-                    context.User_Transactions.Add(transaction_db);
-                    try { await context.SaveChangesAsync(); }
-                    catch { continue; }
-
                 }
             }
         }
@@ -485,13 +460,6 @@ namespace PersonalFinance.Models
 
         }
 
-        //TODO
-        //Method to get the total current net worth (sum of all current account balances), 
-        //populate the sparkline of the summed net worth per month YTD for a given user 
-        public void GetNetWorth()
-        {
-
-        }
 
         //TODO
         //Method to calculate goal track success, determine if the user is 'on track', calculate year to date
@@ -500,67 +468,5 @@ namespace PersonalFinance.Models
         {
 
         }
-
-        //
-        //Pull the one year of transactiona from Plaid in batches of 500 transactions
-        //
-        //BUG: seems to be a bug that thinks there are duplicate transaction when added to database?
-        //Quick fix was to enclose with a try/catch, but not all transactions are getting posted to the DB...
-        //
-        //We're going to want to make this a WebJob that executes  and runs in the background once a 
-        //user creates an account
-        private async Task CompleteTransactions()
-        {
-            int offset = 0;
-
-            while (true)
-            {
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
-
-                string offsetstring = String.Format("\"offset\": {0}", offset);
-                string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + _accesstoken + "\" , \"start_date\": \"" + DateTime.Today.AddMonths(-12).ToString("yyyy-MM-dd") + "\" , \"end_date\": \"" + DateTime.Today.AddMonths(-1).AddDays(-3).ToString("yyyy-MM-dd") + "\", \"options\": { \"count\": 500, " + offsetstring + " } }";
-
-                request.Content = new StringContent(data, Encoding.UTF8, "application/json");
-
-                var connectasync = await client.SendAsync(request);
-                var contents = connectasync.Content.ReadAsStringAsync().Result;
-
-                var obj = JObject.Parse(contents);
-
-                //break loop if there are no more transactions to get
-                if (obj["transactions"].Count() < 1) { break; }
-
-                //parse the JSON object extract transactional data and persist to database
-                using (var context = new PersonalFinanceAppEntities())
-                {
-                    foreach (var transaction in obj["transactions"])
-                    {
-                        User_Transactions transaction_db = new User_Transactions
-                        {
-                            AccountID = (string)transaction["account_id"],
-                            Amount = (decimal)transaction["amount"],
-                            CategoryID = (string)transaction["category_id"],
-                            Date = (DateTime)transaction["date"],
-                            Location_City = (string)transaction["location"]["city"],
-                            Location_Name = (string)transaction["name"],
-                            Location_State = (string)transaction["location"]["state"],
-                            TransactionID = (string)transaction["transaction_id"]
-                        };
-
-                        try
-                        {
-                            context.User_Transactions.Add(transaction_db);
-                            await context.SaveChangesAsync();
-                        }
-                        catch { continue; }
-                    }
-                }
-                offset += 500;
-            }
-        }
-
-        //TODO
-        //Method to pull all *new* transactions from Plaid via webhook
-        //aka the "job" method to update DB via the plaid webhook
     }
 }
