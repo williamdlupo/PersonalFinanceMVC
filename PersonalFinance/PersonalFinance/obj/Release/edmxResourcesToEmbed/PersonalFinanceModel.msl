@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PersonalFinanceAppModelStoreContainer" CdmEntityContainer="PersonalFinanceAppEntities">
+    <EntitySetMapping Name="User_Accounts">
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Accounts">
+        <MappingFragment StoreEntitySet="User_Accounts">
+          <ScalarProperty Name="Institution_name" ColumnName="Institution_name" />
+          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Accounts">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserAccount">
+            <ScalarProperty Name="Institution_name" ParameterName="Institution_name" />
+            <ScalarProperty Name="Balance" ParameterName="Balance" />
+            <ScalarProperty Name="AccountName" ParameterName="AccountName" />
+            <ScalarProperty Name="UserID" ParameterName="UserID" />
+            <ScalarProperty Name="AccountID" ParameterName="AccountID" />
+          </InsertFunction>
+          <UpdateFunction FunctionName="PersonalFinanceAppModel.Store.Update_AccountBalance">
+            <ScalarProperty Name="Balance" ParameterName="Balance" Version="Current" />
+            <ScalarProperty Name="AccountID" ParameterName="AccountID" Version="Current" />
+          </UpdateFunction>
+          <DeleteFunction FunctionName="PersonalFinanceAppModel.Store.DeleteAccount">
+            <ScalarProperty Name="AccountID" ParameterName="AccountID" />
+          </DeleteFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_Items">
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Items">
+        <MappingFragment StoreEntitySet="User_Items">
+          <ScalarProperty Name="Institution_Name" ColumnName="Institution_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Access_Token" ColumnName="Access_Token" />
+          <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Items">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserItems">
+            <ScalarProperty Name="Institution_Name" ParameterName="Institution_Name" />
+            <ScalarProperty Name="Item_ID" ParameterName="Item_ID" />
+            <ScalarProperty Name="Access_Token" ParameterName="Access_Token" />
+            <ScalarProperty Name="ID" ParameterName="ID" />
+          </InsertFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Insert_UserAccount" FunctionName="PersonalFinanceAppModel.Store.Insert_UserAccount" />
+    <FunctionImportMapping FunctionImportName="Insert_UserItems" FunctionName="PersonalFinanceAppModel.Store.Insert_UserItems" />
+    <FunctionImportMapping FunctionImportName="Insert_UserTransaction" FunctionName="PersonalFinanceAppModel.Store.Insert_UserTransaction" />
+    <EntitySetMapping Name="User_Transactions">
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Transactions">
+        <MappingFragment StoreEntitySet="User_Transactions">
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Location_State" ColumnName="Location_State" />
+          <ScalarProperty Name="Location_City" ColumnName="Location_City" />
+          <ScalarProperty Name="Location_Name" ColumnName="Location_Name" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Transactions">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserTransaction">
+            <ScalarProperty Name="Amount" ParameterName="Amount" />
+            <ScalarProperty Name="Location_State" ParameterName="Location_State" />
+            <ScalarProperty Name="Location_City" ParameterName="Location_City" />
+            <ScalarProperty Name="Location_Name" ParameterName="Location_Name" />
+            <ScalarProperty Name="Date" ParameterName="Date" />
+            <ScalarProperty Name="CategoryID" ParameterName="CategoryID" />
+            <ScalarProperty Name="AccountID" ParameterName="AccountID" />
+            <ScalarProperty Name="TransactionID" ParameterName="TransactionID" />
+          </InsertFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_Categories">
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.Transaction_Categories">
+        <MappingFragment StoreEntitySet="Transaction_Categories">
+          <ScalarProperty Name="Hierarchy" ColumnName="Hierarchy" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.Transaction_Categories">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_TransactionCategory">
+            <ScalarProperty Name="Hierarchy" ParameterName="Hierarchy" />
+            <ScalarProperty Name="GroupName" ParameterName="GroupName" />
+            <ScalarProperty Name="CategoryID" ParameterName="CategoryID" />
+          </InsertFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Insert_TransactionCategory" FunctionName="PersonalFinanceAppModel.Store.Insert_TransactionCategory" />
+    <FunctionImportMapping FunctionImportName="DeleteAccount" FunctionName="PersonalFinanceAppModel.Store.DeleteAccount" />
+    <FunctionImportMapping FunctionImportName="Update_AccountBalance" FunctionName="PersonalFinanceAppModel.Store.Update_AccountBalance" />
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,150 @@
+﻿@model PersonalFinance.Models.Plaid
+@{
+    Layout = null;
+
+
+#line default
+#line hidden
+
+#line 3 "C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Views\Dashboard\Main.cshtml"
+      }
+<h2>The Main Dashboard</h2>
+<br />
+<div class="panel panel-primary  table-responsive">
+    <div class="panel-heading">
+        <h3 class="panel-title"></h3>
+    </div>
+    <div class="panel-body">
+
+        @if (Model.Transaction_list is null || Model.Transaction_list.Count == 0)
+        {
+            <div id="reportrange" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: inherit">
+                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                <span></span> @Model.start_date - @Model.end_date <b class="caret"></b>
+            </div>
+            <br />
+            <br />
+            <br />
+            <h3>No Data Available For This Timeframe!</h3>
+        }
+        else
+        {
+            <div id="reportrange" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: inherit">
+                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                <span></span> @Model.start_date - @Model.end_date <b class="caret"></b>
+            </div>
+            <br />
+            <br />
+            <div id="bar-chart"></div>
+            <div id="donut-chart"></div>
+            <hr />
+            <br />
+            <table id="myDataTable" class="table table-hover table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        }
+    </div>
+</div>
+@section Scripts {
+    <!--Date Picker Scripts-->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    <script type="text/javascript">
+        $(function () {
+
+            var start = @Model.start_date;
+            var end = @Model.end_date;
+
+            $('#reportrange').daterangepicker({
+
+                startDate: start,
+                endDate: end,
+
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Week To Date': [moment().subtract(6, 'days'), moment()],
+                    'Month To Date': [moment().startOf('month'), moment()],
+                    'Year To Date': [moment().startOf('year'), moment()],
+                    'One Year': [moment().subtract(12, 'month'), moment()]
+                }
+
+            });
+
+            $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+
+                 $.post('@Url.Action("Main","Dashboard")', {
+                    dates: { start_date: picker.startDate.format("MM/DD/YYYY"), end_date: picker.endDate.format("MM/DD/YYYY") }
+                }, function () {
+                    window.location.reload(true);
+                });
+            });
+        });
+    </script>
+
+    <!--Morris Charts Scripts-->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var bardata = @Html.Raw(Json.Encode(Session["BarChart"]))
+            var donutdata = @Html.Raw(Json.Encode(Session["DonutChart"]))
+            console.log(donutdata)
+            new Morris.Bar({
+                // ID of the element in which to draw the chart.
+                element: 'bar-chart',
+                // Chart data records -- each entry in this array corresponds to a point on
+                // the chart.
+                data: bardata,
+                xkey: 'date',
+                ykeys: ['amount'],
+                labels: ['Net Transactions'],
+                fillOpacity: 0.6,
+                hideHover: 'auto',
+                resize: true,
+                barColors: ['#18bc9c'],
+                barShape: 'soft',
+                });
+
+            new Morris.Donut({
+                element: 'donut-chart',
+                resize: true,
+                data: donutdata
+            });
+        });
+    </script>
+
+    <!--DataTable Scripts-->
+    <script src="~/Scripts/jQuery.dataTables.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
+
+    <script>
+        $(document).ready(function () {
+
+    $('#myDataTable').dataTable({
+        "bServerSide": true,
+        "sAjaxSource": '@Url.Action("DataTableHandler", "Dashboard")',
+        "bProcessing": true,
+        "searching": false,
+        "aoColumns": [
+                        { "sName": "Date" },
+                        { "sName": "Category" },
+                        { "sName": "Description" },
+                        { "sName": "Location" },
+                        { "sName": "Amount" }
+                    ]
+    });
+});
+    </script>
+}

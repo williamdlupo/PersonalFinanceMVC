@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "GetStarted";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step col-xs-4">
+                <a href="#step-1" role="button" class="btn btn-success btn-circle">1</a>
+                <p><small>Getting Started</small></p>
+            </div>
+            <div class="stepwizard-step col-xs-4">
+                <a href="@Url.Action("Onboarding", "Account")" role="button" class="btn btn-default btn-circle">2</a>
+                <p><small>Goals</small></p>
+            </div>
+            <div class="stepwizard-step col-xs-4">
+                <a href="@Url.Action("AccountViewSync", "Account")" role="button" class="btn btn-default btn-circle">3</a>
+                <p><small>Account Sync</small></p>
+            </div>
+        </div>
+    </div>
+
+    <form role="form">
+        <div class="panel panel-primary setup-content">
+            <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+            </div>
+            <div class="panel-body">
+                <h3>How it Works...</h3>
+                <a href="@Url.Action("Onboarding", "Account")" role="button" class="btn btn-primary pull-right">Get Started</a>
+            </div>
+        </div>
+    </form>
+</div>
+

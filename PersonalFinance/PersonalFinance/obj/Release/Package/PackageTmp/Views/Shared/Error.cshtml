@@ -1,0 +1,41 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section>
+    <div class="container-center md animated slideInDown">
+        <div class="view-header">
+            <div class="header-icon">
+                <i class="pe page-header-icon pe-7s-close-circle"></i>
+            </div>
+            <div class="header-title">
+                <h3>Oh Snap!</h3>
+                <small>
+                    Page Not Found!
+                </small>
+            </div>
+        </div>
+        <div class="panel panel-filled">
+            <div class="panel-body">
+                Sorry, but the page you are looking for has note been found. Try checking the URL for error, then hit the refresh button on your browser or try found something else in our app.
+
+            </div>
+        </div>
+        <div>
+            <a href="@Url.Action("Main","Dashboard")" class="btn btn-accent">Back to app</a>
+        </div>
+    </div>
+</section>
+<script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
+<script src="~/Content/vendor/jquery/dist/jquery.min.js"></script>
+<script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Content/vendor/sparkline/index.js"></script>
+<script src="~/Content/vendor/chart.js/dist/Chart.min.js"></script>
+
+<script src="~/Content/vendor/nestable/jquery.nestable.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

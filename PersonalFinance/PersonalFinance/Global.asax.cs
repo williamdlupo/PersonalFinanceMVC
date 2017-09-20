@@ -17,12 +17,7 @@ namespace PersonalFinance
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ConfigureAntiForgeryTokens();
-        }
-
-        private static void ConfigureAntiForgeryTokens()
-        {
-            AntiForgeryConfig.CookieName = "jibberish";
+            
         }
     }
 }

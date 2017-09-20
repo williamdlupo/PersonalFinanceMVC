@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PersonalFinanceAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Transaction_Categories">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Hierarchy" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="User_Accounts">
+    <Key>
+      <PropertyRef Name="AccountID" />
+    </Key>
+    <Property Name="AccountID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="AccountName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Balance" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Institution_name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PersonalFinanceApp.dbo.User_Items' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="User_Items">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Access_Token" />
+      <PropertyRef Name="Item_ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Access_Token" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Item_ID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Institution_Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="User_Transactions">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+    </Key>
+    <Property Name="TransactionID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="AccountID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CategoryID" Type="nvarchar" MaxLength="50" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Location_Name" Type="varchar(max)" />
+    <Property Name="Location_City" Type="varchar" MaxLength="50" />
+    <Property Name="Location_State" Type="varchar" MaxLength="2" />
+    <Property Name="Amount" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_User_Transactions_User_Accounts">
+    <End Role="User_Accounts" Type="Self.User_Accounts" Multiplicity="1" />
+    <End Role="User_Transactions" Type="Self.User_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Accounts">
+        <PropertyRef Name="AccountID" />
+      </Principal>
+      <Dependent Role="User_Transactions">
+        <PropertyRef Name="AccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="DeleteAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="AccountID" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Insert_TransactionCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CategoryID" Type="nvarchar" Mode="In" />
+    <Parameter Name="GroupName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Hierarchy" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="Insert_UserAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="AccountID" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserID" Type="nvarchar" Mode="In" />
+    <Parameter Name="AccountName" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Balance" Type="decimal" Mode="In" />
+    <Parameter Name="Institution_name" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Insert_UserItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="nvarchar" Mode="In" />
+    <Parameter Name="Access_Token" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Item_ID" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Institution_Name" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Insert_UserTransaction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TransactionID" Type="nvarchar" Mode="In" />
+    <Parameter Name="AccountID" Type="nvarchar" Mode="In" />
+    <Parameter Name="CategoryID" Type="nvarchar" Mode="In" />
+    <Parameter Name="Date" Type="date" Mode="In" />
+    <Parameter Name="Location_Name" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Location_City" Type="varchar" Mode="In" />
+    <Parameter Name="Location_State" Type="varchar" Mode="In" />
+    <Parameter Name="Amount" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="Update_AccountBalance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="AccountID" Type="nvarchar" Mode="In" />
+    <Parameter Name="Balance" Type="decimal" Mode="In" />
+  </Function>
+  <EntityContainer Name="PersonalFinanceAppModelStoreContainer">
+    <EntitySet Name="Transaction_Categories" EntityType="Self.Transaction_Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User_Accounts" EntityType="Self.User_Accounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User_Transactions" EntityType="Self.User_Transactions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User_Items" EntityType="Self.User_Items" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [User_Items].[ID] AS [ID], 
+    [User_Items].[Access_Token] AS [Access_Token], 
+    [User_Items].[Item_ID] AS [Item_ID], 
+    [User_Items].[Institution_Name] AS [Institution_Name]
+    FROM [dbo].[User_Items] AS [User_Items]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_User_Transactions_User_Accounts" Association="Self.FK_User_Transactions_User_Accounts">
+      <End Role="User_Accounts" EntitySet="User_Accounts" />
+      <End Role="User_Transactions" EntitySet="User_Transactions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

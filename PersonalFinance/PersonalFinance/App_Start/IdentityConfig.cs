@@ -21,10 +21,10 @@ namespace PersonalFinance
     {
         public async Task SendAsync(IdentityMessage message)
         {
-            await configSendGridasyncAsync(message);
+            await ConfigSendGridasyncAsync(message);
         }
 
-        private async Task configSendGridasyncAsync(IdentityMessage message)
+        private async Task ConfigSendGridasyncAsync(IdentityMessage message)
         {
             var apiKey = WebConfigurationManager.AppSettings["SendGrid"];
             var client = new SendGridClient(apiKey);

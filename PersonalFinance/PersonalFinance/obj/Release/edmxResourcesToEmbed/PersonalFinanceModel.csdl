@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PersonalFinanceAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="User_Accounts">
+    <Key>
+      <PropertyRef Name="AccountID" />
+    </Key>
+    <Property Name="AccountID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Balance" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="User_Transactions" Relationship="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts" FromRole="User_Accounts" ToRole="User_Transactions" />
+    <Property Name="Institution_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="User_Items">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Access_Token" />
+      <PropertyRef Name="Item_ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Access_Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Item_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Institution_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="PersonalFinanceAppEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="User_Accounts" EntityType="Self.User_Accounts" />
+    <EntitySet Name="User_Items" EntityType="Self.User_Items" />
+    <FunctionImport Name="Insert_UserAccount">
+      <Parameter Name="AccountID" Mode="In" Type="String" />
+      <Parameter Name="UserID" Mode="In" Type="String" />
+      <Parameter Name="AccountName" Mode="In" Type="String" />
+      <Parameter Name="Balance" Mode="In" Type="Decimal" />
+      <Parameter Name="Institution_name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Insert_UserItems">
+      <Parameter Name="ID" Mode="In" Type="String" />
+      <Parameter Name="Access_Token" Mode="In" Type="String" />
+      <Parameter Name="Item_ID" Mode="In" Type="String" />
+      <Parameter Name="Institution_Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Insert_UserTransaction">
+      <Parameter Name="TransactionID" Mode="In" Type="String" />
+      <Parameter Name="AccountID" Mode="In" Type="String" />
+      <Parameter Name="CategoryID" Mode="In" Type="String" />
+      <Parameter Name="Date" Mode="In" Type="DateTime" />
+      <Parameter Name="Location_Name" Mode="In" Type="String" />
+      <Parameter Name="Location_City" Mode="In" Type="String" />
+      <Parameter Name="Location_State" Mode="In" Type="String" />
+      <Parameter Name="Amount" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <EntitySet Name="User_Transactions" EntityType="PersonalFinanceAppModel.User_Transactions" />
+    <AssociationSet Name="FK_User_Transactions_User_Accounts" Association="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts">
+      <End Role="User_Accounts" EntitySet="User_Accounts" />
+      <End Role="User_Transactions" EntitySet="User_Transactions" />
+    </AssociationSet>
+    <EntitySet Name="Transaction_Categories" EntityType="PersonalFinanceAppModel.Transaction_Categories" />
+    <FunctionImport Name="Insert_TransactionCategory">
+      <Parameter Name="CategoryID" Mode="In" Type="String" />
+      <Parameter Name="GroupName" Mode="In" Type="String" />
+      <Parameter Name="Hierarchy" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteAccount">
+      <Parameter Name="AccountID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Update_AccountBalance">
+      <Parameter Name="AccountID" Mode="In" Type="String" />
+      <Parameter Name="Balance" Mode="In" Type="Decimal" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="User_Transactions">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+    </Key>
+    <Property Name="TransactionID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="AccountID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Location_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Location_City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Location_State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+    <NavigationProperty Name="User_Accounts" Relationship="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts" FromRole="User_Transactions" ToRole="User_Accounts" />
+  </EntityType>
+  <Association Name="FK_User_Transactions_User_Accounts">
+    <End Type="PersonalFinanceAppModel.User_Accounts" Role="User_Accounts" Multiplicity="1" />
+    <End Type="PersonalFinanceAppModel.User_Transactions" Role="User_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Accounts">
+        <PropertyRef Name="AccountID" />
+      </Principal>
+      <Dependent Role="User_Transactions">
+        <PropertyRef Name="AccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Transaction_Categories">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Hierarchy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>
