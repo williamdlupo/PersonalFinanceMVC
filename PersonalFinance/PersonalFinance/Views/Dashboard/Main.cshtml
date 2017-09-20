@@ -18,7 +18,7 @@
                                 <i class="pe page-header-icon pe-7s-cash"></i>
                             </div>
                             <div class="header-title">
-                                <h3 class="m-b-xs">Welcome Back, User</h3>
+                                <h3 class="m-b-xs">Welcome Back, @Model.User.UserName.Split('@')[0]</h3>
                                 <small>
                                     Some friendly welcome text that let's the user know they are in great hands.
                                 </small>
@@ -43,7 +43,7 @@
                                         <div class="col-md-12">
                                             <small class="c-white">
                                             </small>
-                                            <div class="sparkline3"></div>
+                                            @*<div class="sparkline3"></div>*@
                                             <small class="slight">
                                             </small>
                                         </div>
