@@ -22,25 +22,23 @@ namespace PersonalFinance
             bundles.Add(new StyleBundle("~/Content/css").Include(
                     "~/Content/site.css"));
             bundles.Add(new StyleBundle("~/Content/font-awesome").Include(
-                    "~/Content/font-awesome.css"));
+                    "~/Content/font-awesome.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/Content/animate").Include(
-                    "~/Content/animate.css"));
+                    "~/Content/animate.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
-                    "~/Content/bootstrap.css"));
-            bundles.Add(new StyleBundle("~/Content/pe-icon-7-stroke").Include(
-                    "~/Content/pe-icon-7-stroke.css"));
+                    "~/Content/bootstrap.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/Content/helper").Include(
-                    "~/Content/helper.css"));
+                    "~/Content/helper.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/Content/stroke-icons-style").Include(
-                    "~/Content/stroke-icons-style.css"));
+                    "~/Content/stroke-icons-style.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/Content/pe-icons").Include(
-        "~/Content/pe-icon-7-stroke.css"));
+        "~/Content/pe-icon-7-stroke.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/Content/styles/style").Include(
-                    "~/Content/style.css"));
+                    "~/Content/style.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/Content/dataTables").Include(
-                "~/Content/dataTables.min.css"));
+                "~/Content/dataTables.min.css, new CssRewriteUrlTransform()"));
             bundles.Add(new StyleBundle("~/Content/daterangepicker").Include(
-                "~/Content/daterangepicker.css"));
+                "~/Content/daterangepicker.css", new CssRewriteUrlTransform()));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                     "~/Scripts/bootstrap.js"));

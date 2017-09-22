@@ -1,12 +1,9 @@
 @font-face {
-	font-family: 'stroke';
-	src:url('stroke.eot?-yg5sl9');
-	src:url('stroke.eot?#iefix-yg5sl9') format('embedded-opentype'),
-		url('stroke.woff?-yg5sl9') format('woff'),
-		url('stroke.ttf?-yg5sl9') format('truetype'),
-		url('stroke.svg?-yg5sl9#stroke') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'stroke';
+    src: url('/fonts/stroke.eot');
+    src: url('/fonts/stroke.eot') format('embedded-opentype'), url('/fonts/stroke.woff') format('woff'), url('/fonts/stroke.ttf') format('truetype'), url('/fonts/stroke.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 i {
