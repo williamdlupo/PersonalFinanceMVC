@@ -76,7 +76,7 @@ namespace PersonalFinance.Models
         private string _accesstoken;
         private string _item_id;
         private string _public_token;
-        private List<AccountData> _accesstokenlist = new List<AccountData>();
+        public List<AccountData> _accesstokenlist = new List<AccountData>();
         private List<string> _accountidlist = new List<string>();
 
         public ApplicationUser User { get; set; }
@@ -185,7 +185,7 @@ namespace PersonalFinance.Models
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
 
-            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + _accesstoken + "\" , \"start_date\": \"" + DateTime.Today.AddMonths(-3).ToString("yyyy-MM-dd") + "\" , \"end_date\": \"" + DateTime.Today.ToString("yyy-MM-dd") + "\" }";
+            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + _accesstoken + "\" , \"start_date\": \"" + DateTime.Today.AddMonths(-1).ToString("yyyy-MM-dd") + "\" , \"end_date\": \"" + DateTime.Today.ToString("yyy-MM-dd") + "\" }";
             request.Content = new StringContent(data, Encoding.UTF8, "application/json");
 
             var connectasync = await client.SendAsync(request);
@@ -204,7 +204,8 @@ namespace PersonalFinance.Models
                         UserID = User.Id,
                         AccountName = (string)account["official_name"],
                         Balance = (decimal)account["balances"]["current"],
-                        Institution_name = this.Institution_name
+                        Institution_name = this.Institution_name,
+                        Access_Token = _accesstoken
                     };
 
                     context.User_Accounts.Add(accounts_db);
@@ -443,12 +444,47 @@ namespace PersonalFinance.Models
 
         //
         //Stored Procedure has been created, just have to tie sproc into code and front end UI
-        public async Task DeleteAccount(string account_id)
+        public async Task DeleteInstitution(string access_token)
         {
+            _accesstoken = access_token;
+
+            //Get list of accounts associated with access token from DB
             using (var context = new PersonalFinanceAppEntities())
             {
-                context.DeleteAccount(account_id);
-                await context.SaveChangesAsync();
+                var token = from db in context.User_Accounts
+                            where db.Access_Token.Equals(access_token)
+                            select new { db.AccountID};
+
+                var tokenlist = token.ToList();
+
+                List<string> accountid_list = new List<string>();
+                foreach (var t in tokenlist)
+                {
+                    accountid_list.Add(t.AccountID.ToString());
+                }
+
+                //Pass off the access token to azure function to delete account with Plaid.
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://dhwebhookentry.azurewebsites.net/api/Plaid_Delete?code=itYQTwDowYyFt9/6awQ5VIUtmMl2LPscgWb5IeEa48avuTN2ftt6cQ==");
+
+                string item_id_data = "{ \"access_token\":\"" + _accesstoken + "\" }";
+
+                request.Content = new StringContent(item_id_data);
+
+                var access_token_connectasync = await client.SendAsync(request);
+
+                //If everything is cool (200 response), delete the account and all transactions related to that account
+                //from DB
+                if (access_token_connectasync.IsSuccessStatusCode)
+                {
+                    foreach (var account in accountid_list)
+                    {
+                        context.DeleteTransactions(account);
+                    }
+
+                    context.DeleteAccount(access_token);
+
+                    await context.SaveChangesAsync();
+                }
             }
         }
 

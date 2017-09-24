@@ -6,9 +6,9 @@
 
 @if (ViewBag.Message != null)
 {
-            <div class=" alert alert-success container-fluid col-md-4 col-md-offset-4" role="alert">
-                <b>Great! </b><span>@ViewBag.Message</span>
-            </div>
+    <div class=" alert alert-success container-fluid col-md-4 col-md-offset-4" role="alert">
+        <b>Great! </b><span>@ViewBag.Message</span>
+    </div>
 }
 <div class="container-center animated slideInDown">
     <div class="row">
@@ -18,9 +18,14 @@
                     <i class="pe page-header-icon pe-7s-piggy"></i>
                 </div>
                 <div class="header-title">
-                    <h3>Sync Your Accounts</h3>
-                    <small>
-                    </small>
+                    @if (!Model.Has_accounts)
+                    {
+                        <h3>Sync Up Your Accounts!</h3>
+                    }
+                    else
+                    {
+                        <h3>My Synced Accounts</h3>
+                    }
                 </div>
             </div>
             <hr />
@@ -30,33 +35,34 @@
         <div class="panel-body">
             @if (Model.Has_accounts)
             {
-                foreach (var institution in Model.Institution_list)
+                foreach (var institution in Model._accesstokenlist)
                 {
-                    <div class="dd" id="nestable">
-                        <ol class="dd-list">
-                            <li class="dd-item" data-id="1">
-                                <div class="dd-handle">
-                                    <span class="h3"><i class="fa fa-bank text-warning"></i></span>
-                                    <b class=" h3 text-warning">@institution</b>
-                                </div>
-                                <ol class="dd-list">
+                    <ul class="media-list">
+                        <li class="media">
+                            <div class="media-left">
+                                <span class="h3"><i class="fa fa-bank text-warning"></i></span>
+                            </div>
+                            <div class="media-body">
+                                <b class="media-heading h3 text-warning">@institution.institution_name</b>
+                                @*<button class="pull-right btn btn-accent" type="button" onclick="location.href='@Url.Action("DeleteAccount", "Account", new { access_token = institution.access_token } )'"><i class="fa fa-trash-o"></i></button>*@
+                                @*<button class="pull-right btn btn-danger" type="button" data-toggle="modal" data- data-target="#myModal"><i class="fa fa-trash-o"></i></button>*@
+                                <ul class="media-list">
                                     @foreach (var account in Model.Account_list)
                                     {
-                                        if (account.Institution_name.Equals(institution))
+                                        if (account.Institution_name.Equals(institution.institution_name))
                                         {
-                                                            <li class="dd-item">
-                                                                <div class="dd-handle">
-                                                                    <span class="pull-right badge badge-accent"> $@account.Balance</span>
-                                                                    <text>@account.AccountName</text>
-                                                                </div>
-                                                            </li>
-                                                        }
-
-                                                    }
-                                                </ol>
-                                        </ol>
-                                    </div>
-                                }
+                                            <li class="media">
+                                                <div class="media-heading">
+                                                    <text>@account.AccountName</text>
+                                                    <span class="badge"> $@account.Balance</span>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                    </ul>
+                }
                 <br />
                 <button class="btn btn-primary" id="link-button" type="button">Add Another Account</button>
 
@@ -67,11 +73,25 @@
                 <h4>You have no accounts synced!</h4>
                 <small> Click the button below to get started. </small>
                 <br />
-                    <br />
-                        <button class="btn btn-primary btn-block" id="link-button" type="button">Add An Account</button>
+                <br />
+                <button class="btn btn-primary btn-block" id="link-button" type="button">Add An Account</button>
             }
         </div>
     </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body  text-center">
+                        <h4 class="m-t-none">Are you sure you want to delete this account?</h4>
+                        <p>Deleting an account will <b>permanently delete</b> the account but all of those transactions!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="pull-left btn btn-primary" data-dismiss="modal">Nevermind!</button>
+                        <button type="button" class="pull-right btn btn-danger" id="" onclick="location.href='@Url.Action("List", "Search")'">Delete Away</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 
 
@@ -83,7 +103,7 @@
             env: 'development',
             key: 'f326b59ea06cf5309ebd2861388d13', // Replace with your public_key to test with live credentials
             product: ['transactions'],
-            webhook: 'https://dhwebhookentry.azurewebsites.net/api/PlaidPostWebhook?code=42lH3EzkRgVgepdrH1w7Q5KDa/Tg1VDZgob28GRQx55Irx4XlaRqqQ==&clientId=default',
+            webhook: 'https://dhwebhookentry.azurewebsites.net/api/PlaidWebHook?code=t6wJsM/S4m1Sg1H4SutHgArWcPSNSSTEqu6rbSWiaY6rCPSLDynamw==',
             onSuccess: function (public_token, metadata) {
                 // Send the public_token to your app server.
                 // The metadata object contains info about the institution the

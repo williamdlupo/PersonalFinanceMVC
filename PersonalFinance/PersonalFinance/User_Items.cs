@@ -14,9 +14,18 @@ namespace PersonalFinance
     
     public partial class User_Items
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User_Items()
+        {
+            this.User_Accounts = new HashSet<User_Accounts>();
+        }
+    
         public string ID { get; set; }
         public string Access_Token { get; set; }
         public string Item_ID { get; set; }
         public string Institution_Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User_Accounts> User_Accounts { get; set; }
     }
 }

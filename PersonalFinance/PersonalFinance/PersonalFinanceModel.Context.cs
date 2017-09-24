@@ -32,7 +32,7 @@ namespace PersonalFinance
         public virtual DbSet<User_Transactions> User_Transactions { get; set; }
         public virtual DbSet<Transaction_Categories> Transaction_Categories { get; set; }
     
-        public virtual int Insert_UserAccount(string accountID, string userID, string accountName, Nullable<decimal> balance, string institution_name)
+        public virtual int Insert_UserAccount(string accountID, string userID, string accountName, Nullable<decimal> balance, string institution_name, string access_Token)
         {
             var accountIDParameter = accountID != null ?
                 new ObjectParameter("AccountID", accountID) :
@@ -54,7 +54,11 @@ namespace PersonalFinance
                 new ObjectParameter("Institution_name", institution_name) :
                 new ObjectParameter("Institution_name", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_UserAccount", accountIDParameter, userIDParameter, accountNameParameter, balanceParameter, institution_nameParameter);
+            var access_TokenParameter = access_Token != null ?
+                new ObjectParameter("Access_Token", access_Token) :
+                new ObjectParameter("Access_Token", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_UserAccount", accountIDParameter, userIDParameter, accountNameParameter, balanceParameter, institution_nameParameter, access_TokenParameter);
         }
     
         public virtual int Insert_UserItems(string iD, string access_Token, string item_ID, string institution_Name)
@@ -132,13 +136,13 @@ namespace PersonalFinance
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_TransactionCategory", categoryIDParameter, groupNameParameter, hierarchyParameter);
         }
     
-        public virtual int DeleteAccount(string accountID)
+        public virtual int DeleteAccount(string access_Token)
         {
-            var accountIDParameter = accountID != null ?
-                new ObjectParameter("AccountID", accountID) :
-                new ObjectParameter("AccountID", typeof(string));
+            var access_TokenParameter = access_Token != null ?
+                new ObjectParameter("Access_Token", access_Token) :
+                new ObjectParameter("Access_Token", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteAccount", accountIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteAccount", access_TokenParameter);
         }
     
         public virtual int Update_AccountBalance(string accountID, Nullable<decimal> balance)
@@ -152,6 +156,15 @@ namespace PersonalFinance
                 new ObjectParameter("Balance", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_AccountBalance", accountIDParameter, balanceParameter);
+        }
+    
+        public virtual int DeleteTransactions(string accountID)
+        {
+            var accountIDParameter = accountID != null ?
+                new ObjectParameter("AccountID", accountID) :
+                new ObjectParameter("AccountID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteTransactions", accountIDParameter);
         }
     }
 }

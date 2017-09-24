@@ -202,6 +202,21 @@ namespace PersonalFinance.Controllers
             return View(plaid);
         }
 
+        public async Task<ActionResult> DeleteAccount(string access_token)
+        {
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            Plaid plaid = new Plaid
+            {
+                User = user
+            };
+
+            await plaid.DeleteInstitution(access_token);
+            try { await plaid.GetAccountList(); }
+            catch { }
+
+            return View(plaid);
+        }
          //
         // POST: /Account/AccountSyncAsync
         [HttpPost]

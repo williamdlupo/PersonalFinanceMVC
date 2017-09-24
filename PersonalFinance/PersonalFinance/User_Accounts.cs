@@ -25,7 +25,9 @@ namespace PersonalFinance
         public string AccountName { get; set; }
         public Nullable<decimal> Balance { get; set; }
         public string Institution_name { get; set; }
+        public string Access_Token { get; set; }
     
+        public virtual User_Items User_Items { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Transactions> User_Transactions { get; set; }
     }

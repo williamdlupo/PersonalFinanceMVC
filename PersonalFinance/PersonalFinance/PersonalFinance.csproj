@@ -293,6 +293,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PersonalFinanceModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="PersonalFinanceModel1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersonalFinanceModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Transaction_Categories.cs">
@@ -343,7 +348,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <EntityDeploy Include="PersonalFinanceModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PersonalFinanceModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>PersonalFinanceModel1.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="PersonalFinanceModel.edmx.diagram">
       <DependentUpon>PersonalFinanceModel.edmx</DependentUpon>

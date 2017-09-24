@@ -5,11 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a3e04e5d0b0e4e94af54d136463c7987" Name="Diagram1">
-        <EntityTypeShape EntityType="PersonalFinanceAppModel.User_Accounts" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PersonalFinanceAppModel.User_Items" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PersonalFinanceAppModel.User_Transactions" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="PersonalFinanceAppModel.User_Accounts" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="PersonalFinanceAppModel.User_Items" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="PersonalFinanceAppModel.User_Transactions" Width="1.5" PointX="5.25" PointY="1" />
+        <AssociationConnector Association="PersonalFinanceAppModel.FK_User_Accounts_User_Items" />
         <AssociationConnector Association="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts" />
-        <EntityTypeShape EntityType="PersonalFinanceAppModel.Transaction_Categories" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="PersonalFinanceAppModel.Transaction_Categories" Width="1.5" PointX="3.125" PointY="4" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
