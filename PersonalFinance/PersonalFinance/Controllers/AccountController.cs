@@ -527,6 +527,7 @@ namespace PersonalFinance.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            Session.RemoveAll();
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
