@@ -66,6 +66,9 @@
     </ReferentialConstraint>
   </Association>
   <Function Name="DeleteAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Access_Token" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="DeleteTransactions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="AccountID" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="Insert_TransactionCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">

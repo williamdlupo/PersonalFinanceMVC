@@ -31,7 +31,7 @@
       <Parameter Name="Hierarchy" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="DeleteAccount">
-      <Parameter Name="AccountID" Mode="In" Type="String" />
+      <Parameter Name="Access_Token" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="Update_AccountBalance">
       <Parameter Name="AccountID" Mode="In" Type="String" />
@@ -49,6 +49,9 @@
       <End Role="User_Transactions" EntitySet="User_Transactions" />
     </AssociationSet>
     <EntitySet Name="Transaction_Categories" EntityType="PersonalFinanceAppModel.Transaction_Categories" />
+    <FunctionImport Name="DeleteTransactions">
+      <Parameter Name="AccountID" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="User_Accounts">
     <Key>

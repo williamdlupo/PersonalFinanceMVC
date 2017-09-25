@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -17,7 +19,7 @@
     @Styles.Render("~/Content/styles/style")
     @Styles.Render("~/Content/pe-icons")
 
-    @Scripts.Render("~/bundles/jquery");
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/respond")
@@ -29,52 +31,81 @@
     @Scripts.Render("~/bundles/datatables")
 
 </head>
-<body>
-    <!-- Navigation -->
-    @if (Request.IsAuthenticated)
-    {
+@if (Request.IsAuthenticated)
+{
+    <body class="pace-done">
+        <!-- Wrapper-->
+        <div class="wrapper">
+            <!-- Navigation -->
+
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+                @Html.AntiForgeryToken()
+                <nav class="navbar navbar-default navbar-fixed-top">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <div id="mobile-menu">
+                                <div class="left-nav-toggle">
+                                    <a href="#">
+                                        <i class="stroke-hamburgermenu"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <a class="navbar-brand" href="@Url.Action("Main", "Dashboard")">
+                                FinanSeer
+                                <span>v1.0</span>
+                            </a>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <div class="left-nav-toggle">
+                                <a href="">
+                                    <i class="stroke-hamburgermenu"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <aside class="navigation">
+                    <nav>
+                        <ul class="nav luna-nav">
+                            <li>
+                                <a href="#account" data-toggle="collapse" aria-expanded="false">
+                                    My Account<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                                </a>
+                                <ul id="account" class="nav nav-second collapse">
+                                    <li>@Html.ActionLink("Synced Accounts", "AccountViewSync", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                                    <li>@Html.ActionLink("Account Settings", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                                </ul>
+                            </li>
+                            <li class="nav-category"><a href="javascript:document.getElementById('logoutForm').submit()">Log Out</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+            }
+
+            <section class="content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </section>
+        </div>
+
+    </body>
+}
+@if(!Request.IsAuthenticated)
+{
+    <body>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" data-toggle="collapse" data-target=".luna-nav" href="@Url.Action("Main","Dashboard")">
+                    <a class="navbar-brand" href="@Url.Action("Main", "Dashboard")">
                         FinanSeer
-                        <span>v.1.0</span>
+                        <span>v1.0</span>
                     </a>
-                    <div class="nav navbar-right luna-nav">
-                        <div>
-                            @Html.Partial("_LoginPartial")
-                        </div>
-                    </div>
                 </div>
-
             </div>
         </nav>
-    }
-    @if (!Request.IsAuthenticated)
-    {
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" data-toggle="collapse" data-target=".luna-nav" href="@Url.Action("Main","Dashboard")">
-                        FinanSeer
-                        <span>v.1.0</span>
-                    </a>
-                    <div class="nav navbar-right luna-nav">
-                        <div>
-                            @Html.Partial("_LoginPartial")
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </nav>
-    }
-    <div class="container-fluid">
         @RenderBody()
-    </div>
-
-    @RenderSection("scripts", required: false)
-
-
-</body>
+    </body>
+}
 </html>

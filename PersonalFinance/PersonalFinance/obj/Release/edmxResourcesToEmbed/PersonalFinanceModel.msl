@@ -29,7 +29,7 @@
             <ScalarProperty Name="AccountID" ParameterName="AccountID" />
           </InsertFunction>
           <DeleteFunction FunctionName="PersonalFinanceAppModel.Store.DeleteAccount">
-            <ScalarProperty Name="AccountID" ParameterName="AccountID" />
+            <ScalarProperty Name="Access_Token" ParameterName="Access_Token" />
           </DeleteFunction>
           <UpdateFunction FunctionName="PersonalFinanceAppModel.Store.Update_AccountBalance">
             <ScalarProperty Name="Balance" ParameterName="Balance" Version="Current" />
@@ -83,6 +83,9 @@
             <ScalarProperty Name="AccountID" ParameterName="AccountID" />
             <ScalarProperty Name="TransactionID" ParameterName="TransactionID" />
           </InsertFunction>
+          <DeleteFunction FunctionName="PersonalFinanceAppModel.Store.DeleteTransactions">
+            <ScalarProperty Name="AccountID" ParameterName="AccountID" />
+          </DeleteFunction>
         </ModificationFunctionMapping>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -104,5 +107,6 @@
         </ModificationFunctionMapping>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="DeleteTransactions" FunctionName="PersonalFinanceAppModel.Store.DeleteTransactions" />
   </EntityContainerMapping>
 </Mapping>

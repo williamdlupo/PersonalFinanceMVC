@@ -182,6 +182,7 @@ namespace PersonalFinance.Controllers
                     UserManager.Dispose();
                     UserManager = null;
                 }
+                Session.RemoveAll();
             }
 
             base.Dispose(disposing);

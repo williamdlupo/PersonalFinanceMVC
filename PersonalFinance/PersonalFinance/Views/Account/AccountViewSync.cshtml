@@ -44,7 +44,7 @@
                             </div>
                             <div class="media-body">
                                 <b class="media-heading h3 text-warning">@institution.institution_name</b>
-                                @*<button class="pull-right btn btn-accent" type="button" onclick="location.href='@Url.Action("DeleteAccount", "Account", new { access_token = institution.access_token } )'"><i class="fa fa-trash-o"></i></button>*@
+                                <button class="pull-right btn btn-danger" type="button" onclick="location.href='@Url.Action("DeleteAccount", "Account", new { access_token = institution.access_token } )'"><i class="fa fa-trash-o"></i></button>
                                 @*<button class="pull-right btn btn-danger" type="button" data-toggle="modal" data- data-target="#myModal"><i class="fa fa-trash-o"></i></button>*@
                                 <ul class="media-list">
                                     @foreach (var account in Model.Account_list)
