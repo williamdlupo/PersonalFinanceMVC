@@ -472,7 +472,7 @@ namespace PersonalFinance.Models
 
                 var access_token_connectasync = await client.SendAsync(request);
 
-                //If everything is cool (200 response), delete the account and all transactions related to that account
+                //If everything is cool with the function (200 response), delete the account and all transactions related to that account
                 //from DB
                 if (access_token_connectasync.IsSuccessStatusCode)
                 {

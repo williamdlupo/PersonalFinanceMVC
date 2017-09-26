@@ -212,10 +212,9 @@ namespace PersonalFinance.Controllers
             };
 
             await plaid.DeleteInstitution(access_token);
-            try { await plaid.GetAccountList(); }
-            catch { }
+            ViewBag.Message = "Account Deleted!";
 
-            return View(plaid);
+            return View("AccountViewSync");
         }
          //
         // POST: /Account/AccountSyncAsync
@@ -554,6 +553,10 @@ namespace PersonalFinance.Controllers
                 {
                     _signInManager.Dispose();
                     _signInManager = null;
+                }
+                if (Session != null)
+                {
+                    Session.RemoveAll();
                 }
             }
 
