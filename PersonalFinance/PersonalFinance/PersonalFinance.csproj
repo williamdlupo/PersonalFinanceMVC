@@ -512,11 +512,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
@@ -531,12 +529,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Dashboard\OldMain.cshtml" />
-    <Content Include="Views\Account\Onboarding.cshtml" />
-    <Content Include="Views\Dashboard\Reports.cshtml" />
     <Content Include="Views\Account\UnconfirmedLoginError.cshtml" />
-    <Content Include="Views\Account\ValidateEmail.cshtml" />
-    <Content Include="Views\Account\GetStarted.cshtml" />
     <Content Include="Views\Account\AccountViewSync.cshtml" />
     <Content Include="Views\Dashboard\Main.cshtml" />
   </ItemGroup>

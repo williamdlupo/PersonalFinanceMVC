@@ -79,8 +79,8 @@ namespace PersonalFinance.Controllers
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
-                    ViewBag.errorMessage = "You must have a confirmed email to log on.";
-                    return View("UnconfirmedLoginError");
+                    ViewBag.errorMessage = "You must have a confirmed email to log on. A new confirmation link has been sent.";
+                    return View("Login");
                 }
             }
 
@@ -97,7 +97,7 @@ namespace PersonalFinance.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Oh Snap!The username or password entered was not found");
+                    ModelState.AddModelError("", "Yikes! The username or password entered was not found");
                     return View(model);
             }
         }
@@ -143,44 +143,6 @@ namespace PersonalFinance.Controllers
                     ModelState.AddModelError("", "Invalid code.");
                     return View(model);
             }
-        }
-
-        //
-        // GET: /Account/GetStarted
-        public ActionResult GetStarted()
-        {
-            return View();
-        }
-
-        //
-        // GET: /Account/Onboarding
-        public ActionResult Onboarding()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/Onboarding
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Onboarding(UpdateGoalIDModel model)
-        {
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            Plaid plaid = new Plaid();
-            if (ModelState.IsValid)
-            {
-                user.GoaltrackID = model.GoalID;
-                var result = await UserManager.UpdateAsync(user);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("AccountViewSync");
-                }
-                AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View();
         }
 
         //
@@ -357,14 +319,6 @@ namespace PersonalFinance.Controllers
         }
 
         //
-        // GET: /Account/ForgotPasswordConfirmation
-        [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
-
-        //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
@@ -392,17 +346,10 @@ namespace PersonalFinance.Controllers
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                ViewBag.Message = "Your password has been updated successfully!";
+                return View("Login");
             }
             AddErrors(result);
-            return View();
-        }
-
-        //
-        // GET: /Account/ResetPasswordConfirmation
-        [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
-        {
             return View();
         }
 
