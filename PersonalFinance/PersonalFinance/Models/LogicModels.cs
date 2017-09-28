@@ -185,7 +185,7 @@ namespace PersonalFinance.Models
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/accounts/get");
 
-            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + _accesstoken + "\" , \"start_date\": \"" + DateTime.Today.AddMonths(-1).ToString("yyyy-MM-dd") + "\" , \"end_date\": \"" + DateTime.Today.ToString("yyy-MM-dd") + "\" }";
+            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + _accesstoken + "\" }";
             request.Content = new StringContent(data, Encoding.UTF8, "application/json");
 
             var connectasync = await client.SendAsync(request);

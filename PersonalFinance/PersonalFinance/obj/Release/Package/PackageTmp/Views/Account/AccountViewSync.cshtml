@@ -49,9 +49,13 @@
                                 {
                                     <li class="media">
                                         <div class="media-heading">
-                                            <text class="text-warning">@account.Institution_name.ToString():</text><text> @account.AccountName.ToString()</text>
-                                            <span class="badge"> $@account.Balance</span>
-                                            <button class="pull-right btn btn-danger" type="button" onclick="href='@Url.Action("DeleteAccount", "Account", new { access_token = account.Access_Token } )'"><i class="fa fa-trash-o"></i></button>
+                                            <text class="text-warning">@account.Institution_name.ToString()</text>
+                                            <button class="pull-right btn-circle btn-danger" type="button" onclick="location.href='@Url.Action("DeleteAccount", "Account", new { access_token = account.Access_Token } )'"><i class="fa fa-trash-o"></i></button>
+                                            <div class="media-body">
+                                                
+                                                <text> @account.AccountName.ToString()</text>
+                                                <span class="badge"> $@account.Balance</span>
+                                            </div>
                                             @*<button class="pull-right btn btn-danger" type="button" data-toggle="modal" data- data-target="#myModal"><i class="fa fa-trash-o"></i></button>*@
                                         </div>
                                     </li>
