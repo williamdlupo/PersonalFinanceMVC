@@ -23,6 +23,7 @@
           <Property Name="Balance" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Institution_name" Type="nvarchar" MaxLength="50" />
           <Property Name="Access_Token" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Account_Type" Type="nchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="User_Items">
           <Key>
@@ -88,6 +89,7 @@
           <Parameter Name="Balance" Type="decimal" Mode="In" />
           <Parameter Name="Institution_name" Type="nvarchar" Mode="In" />
           <Parameter Name="Access_Token" Type="nvarchar" Mode="In" />
+          <Parameter Name="Account_Type" Type="nchar" Mode="In" />
         </Function>
         <Function Name="Insert_UserItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="nvarchar" Mode="In" />
@@ -135,6 +137,7 @@
             <Parameter Name="Balance" Mode="In" Type="Decimal" />
             <Parameter Name="Institution_name" Mode="In" Type="String" />
             <Parameter Name="Access_Token" Mode="In" Type="String" />
+            <Parameter Name="Account_Type" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Insert_UserItems">
             <Parameter Name="ID" Mode="In" Type="String" />
@@ -192,6 +195,7 @@
           <Property Name="Access_Token" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User_Items" Relationship="PersonalFinanceAppModel.FK_User_Accounts_User_Items" FromRole="User_Accounts" ToRole="User_Items" />
           <NavigationProperty Name="User_Transactions" Relationship="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts" FromRole="User_Accounts" ToRole="User_Transactions" />
+          <Property Name="Account_Type" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="User_Items">
           <Key>
@@ -264,6 +268,7 @@
           <EntitySetMapping Name="User_Accounts">
             <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Accounts">
               <MappingFragment StoreEntitySet="User_Accounts">
+                <ScalarProperty Name="Account_Type" ColumnName="Account_Type" />
                 <ScalarProperty Name="Access_Token" ColumnName="Access_Token" />
                 <ScalarProperty Name="Institution_name" ColumnName="Institution_name" />
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
@@ -275,6 +280,7 @@
             <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Accounts">
               <ModificationFunctionMapping>
                 <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserAccount">
+                  <ScalarProperty Name="Account_Type" ParameterName="Account_Type" />
                   <ScalarProperty Name="Access_Token" ParameterName="Access_Token" />
                   <ScalarProperty Name="Institution_name" ParameterName="Institution_name" />
                   <ScalarProperty Name="Balance" ParameterName="Balance" />

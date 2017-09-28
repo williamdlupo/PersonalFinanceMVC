@@ -57,13 +57,11 @@ namespace PersonalFinance.Controllers
                 var accountlist = plaid.Account_list;
                 var chartdata = plaid.BarChart;
                 var donutdata = plaid.DonutChart;
-                var institutionlist = plaid.Institution_list;
                 var networth = plaid.NetWorth;
 
                 Session["BarChart"] = chartdata;
                 Session["DonutChart"] = donutdata;
                 Session["AccountList"] = accountlist;
-                Session["InstitutionList"] = institutionlist;
                 Session["NetWorth"] = networth;
             }
             else
@@ -72,7 +70,6 @@ namespace PersonalFinance.Controllers
                 plaid.BarChart = Session["BarChart"] as List<BarChartData>;
                 plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
-                plaid.Institution_list = Session["InstitutionList"] as List<string>;
                 plaid.NetWorth = Session["NetWorth"] as List<decimal>;
 
                 plaid.DonutDataSum(plaid.DonutChart);
@@ -109,7 +106,6 @@ namespace PersonalFinance.Controllers
                 Session["DonutChart"] = donutdata;
 
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
-                plaid.Institution_list = Session["InstitutionList"] as List<string>;
                 plaid.NetWorth = Session["NetWorth"] as List<decimal>;
 
                 return Json(new { success = true });
@@ -144,7 +140,6 @@ namespace PersonalFinance.Controllers
                 plaid.BarChart = Session["BarChart"] as List<BarChartData>;
                 plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
-                plaid.Institution_list = Session["InstitutionList"] as List<string>;
                 plaid.NetWorth = Session["NetWorth"] as List<decimal>;
                 plaid.DonutDataSum(plaid.DonutChart);
             }

@@ -214,7 +214,7 @@ namespace PersonalFinance.Controllers
             await plaid.DeleteInstitution(access_token);
             ViewBag.Message = "Account Deleted!";
 
-            return View("AccountViewSync");
+            return RedirectToAction("AccountViewSync", "Account");
         }
          //
         // POST: /Account/AccountSyncAsync

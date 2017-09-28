@@ -358,5 +358,6 @@ C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\Persona
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\System.Security.Cryptography.Primitives.dll
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\System.Security.Cryptography.X509Certificates.dll
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\obj\Debug\PersonalFinance.csproj.CoreCompileInputs.cache
-C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\obj\Debug\PersonalFinance.csprojResolveAssemblyReference.cache
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\System.Net.Http.dll
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\Microsoft.ApplicationInsights.TraceListener.dll
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\Microsoft.ApplicationInsights.TraceListener.xml

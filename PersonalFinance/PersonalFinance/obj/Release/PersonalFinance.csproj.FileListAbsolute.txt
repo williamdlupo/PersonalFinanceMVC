@@ -103,3 +103,5 @@ C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\Persona
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\obj\Release\PersonalFinance.dll
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\obj\Release\PersonalFinance.pdb
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\System.Net.Http.dll
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\Microsoft.ApplicationInsights.TraceListener.dll
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\Microsoft.ApplicationInsights.TraceListener.xml

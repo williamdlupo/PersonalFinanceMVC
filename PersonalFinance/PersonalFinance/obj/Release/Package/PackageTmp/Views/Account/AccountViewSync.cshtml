@@ -1,6 +1,6 @@
 ﻿@model PersonalFinance.Models.Plaid
 @{
-    ViewBag.Title = "Account Sync - Onboarding";
+    ViewBag.Title = "Account Sync";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -31,69 +31,66 @@
             <hr />
         </div>
     </div>
-    <div class="panel">
-        <div class="panel-body">
-            @if (Model.Has_accounts)
+    @if (Model.Has_accounts)
             {
-                foreach (var institution in Model._accesstokenlist)
+                foreach (var accounttype in Model.AccountTypeList)
                 {
-                    <ul class="media-list">
-                        <li class="media">
-                            <div class="media-left">
-                                <span class="h3"><i class="fa fa-bank text-warning"></i></span>
-                            </div>
-                            <div class="media-body">
-                                <b class="media-heading h3 text-warning">@institution.institution_name</b>
-                                <button class="pull-right btn btn-danger" type="button" onclick="location.href='@Url.Action("DeleteAccount", "Account", new { access_token = institution.access_token } )'"><i class="fa fa-trash-o"></i></button>
-                                @*<button class="pull-right btn btn-danger" type="button" data-toggle="modal" data- data-target="#myModal"><i class="fa fa-trash-o"></i></button>*@
-                                <ul class="media-list">
-                                    @foreach (var account in Model.Account_list)
-                                    {
-                                        if (account.Institution_name.Equals(institution.institution_name))
-                                        {
-                                            <li class="media">
-                                                <div class="media-heading">
-                                                    <text>@account.AccountName</text>
-                                                    <span class="badge"> $@account.Balance</span>
-                                                </div>
-                                            </li>
-                                        }
-                                    }
-                                </ul>
-                            </div>
-                    </ul>
-                }
-                <br />
-                <button class="btn btn-primary" id="link-button" type="button">Add Another Account</button>
+            <ul class="media-list">
+                <li class="media">
+                    <div class="media-left">
+                        <span class="h3"><i class="fa fa-bank text-warning"></i></span>
+                    </div>
+                    <div class="media-body">
+                        <b class="media-heading h3 text-warning text-capitalize">@accounttype.ToString()</b>
+                        <ul class="media-list">
+                            @foreach (var account in Model.Account_list)
+                            {
+                                if (account.Account_Type.Equals(accounttype.ToString()))
+                                {
+                                    <li class="media">
+                                        <div class="media-heading">
+                                            <text class="text-warning">@account.Institution_name.ToString():</text><text> @account.AccountName.ToString()</text>
+                                            <span class="badge"> $@account.Balance</span>
+                                            <button class="pull-right btn btn-danger" type="button" onclick="href='@Url.Action("DeleteAccount", "Account", new { access_token = account.Access_Token } )'"><i class="fa fa-trash-o"></i></button>
+                                            @*<button class="pull-right btn btn-danger" type="button" data-toggle="modal" data- data-target="#myModal"><i class="fa fa-trash-o"></i></button>*@
+                                        </div>
+                                    </li>
+                                }
+                                <content class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body  text-center">
+                                                <h4 class="m-t-none">Are you sure you want to delete this account?</h4>
+                                                <p>Deleting an account will <b>permanently delete</b> the account but all of those transactions!</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="pull-left btn btn-primary" data-dismiss="modal">Nevermind!</button>
+                                                <button type="button" class="pull-right btn btn-danger" id="" onclick="href='@Url.Action("DeleteAccount", "Account", new { access_token = account.Access_Token } )'">Delete Away</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </content>
+                            }
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        }
 
-                <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-accent pull-right">All Set!</a>
-            }
-            else
-            {
-                <h4>You have no accounts synced!</h4>
-                <small> Click the button below to get started. </small>
-                <br />
-                <br />
-                <button class="btn btn-primary btn-block" id="link-button" type="button">Add An Account</button>
-            }
-        </div>
-    </div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body  text-center">
-                        <h4 class="m-t-none">Are you sure you want to delete this account?</h4>
-                        <p>Deleting an account will <b>permanently delete</b> the account but all of those transactions!</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="pull-left btn btn-primary" data-dismiss="modal">Nevermind!</button>
-                        <button type="button" class="pull-right btn btn-danger" id="" onclick="location.href='@Url.Action("List", "Search")'">Delete Away</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <br />
+                                <button class="btn btn-primary" id="link-button" type="button">Add Another Account</button>
+
+                                <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-accent pull-right">All Set!</a>
+    }
+    else
+    {
+        <h4>You have no accounts synced!</h4>
+                                <small> Click the button below to get started. </small>
+                                <br />
+                                <br />
+                                <button class="btn btn-primary btn-block" id="link-button" type="button">Add An Account</button>
+    }
 </div>
-
 
 
 <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>

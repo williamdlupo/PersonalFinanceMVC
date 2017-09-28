@@ -18,6 +18,7 @@
     <Property Name="Balance" Type="decimal" Precision="10" Scale="2" />
     <Property Name="Institution_name" Type="nvarchar" MaxLength="50" />
     <Property Name="Access_Token" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Account_Type" Type="nchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="User_Items">
     <Key>
@@ -83,6 +84,7 @@
     <Parameter Name="Balance" Type="decimal" Mode="In" />
     <Parameter Name="Institution_name" Type="nvarchar" Mode="In" />
     <Parameter Name="Access_Token" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Type" Type="nchar" Mode="In" />
   </Function>
   <Function Name="Insert_UserItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ID" Type="nvarchar" Mode="In" />

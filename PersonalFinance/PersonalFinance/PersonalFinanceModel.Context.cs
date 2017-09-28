@@ -32,7 +32,7 @@ namespace PersonalFinance
         public virtual DbSet<User_Transactions> User_Transactions { get; set; }
         public virtual DbSet<Transaction_Categories> Transaction_Categories { get; set; }
     
-        public virtual int Insert_UserAccount(string accountID, string userID, string accountName, Nullable<decimal> balance, string institution_name, string access_Token)
+        public virtual int Insert_UserAccount(string accountID, string userID, string accountName, Nullable<decimal> balance, string institution_name, string access_Token, string account_Type)
         {
             var accountIDParameter = accountID != null ?
                 new ObjectParameter("AccountID", accountID) :
@@ -58,7 +58,11 @@ namespace PersonalFinance
                 new ObjectParameter("Access_Token", access_Token) :
                 new ObjectParameter("Access_Token", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_UserAccount", accountIDParameter, userIDParameter, accountNameParameter, balanceParameter, institution_nameParameter, access_TokenParameter);
+            var account_TypeParameter = account_Type != null ?
+                new ObjectParameter("Account_Type", account_Type) :
+                new ObjectParameter("Account_Type", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_UserAccount", accountIDParameter, userIDParameter, accountNameParameter, balanceParameter, institution_nameParameter, access_TokenParameter, account_TypeParameter);
         }
     
         public virtual int Insert_UserItems(string iD, string access_Token, string item_ID, string institution_Name)

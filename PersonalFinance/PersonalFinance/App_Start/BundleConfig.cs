@@ -20,7 +20,7 @@ namespace PersonalFinance
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                    "~/Content/site.css"));
+                    "~/Content/Site.css"));
             bundles.Add(new StyleBundle("~/Content/font-awesome").Include(
                     "~/Content/font-awesome.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/Content/animate").Include(

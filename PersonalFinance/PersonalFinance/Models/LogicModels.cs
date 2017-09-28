@@ -40,7 +40,7 @@ namespace PersonalFinance.Models
         public string institution_name { get; set; }
     }
 
-    //Date Table data type class
+    //Data Table data type class
     public class DataTable
     {
         //Request sequence number sent by DataTable,
@@ -76,21 +76,21 @@ namespace PersonalFinance.Models
         private string _accesstoken;
         private string _item_id;
         private string _public_token;
-        public List<AccountData> _accesstokenlist = new List<AccountData>();
         private List<string> _accountidlist = new List<string>();
+        private List<AccountData> _accesstokenlist = new List<AccountData>();
 
         public ApplicationUser User { get; set; }
         public List<User_Accounts> Account_list = new List<User_Accounts>();
         public List<User_Transactions> Transaction_list = new List<User_Transactions>();
         public List<BarChartData> BarChart = new List<BarChartData>();
         public List<DonutChartData> DonutChart = new List<DonutChartData>();
-        public List<string> Institution_list = new List<string>();
         public string start_date;
         public string end_date;
         public bool Has_accounts { get; set; }
         public string Institution_name { get; set; }
         public decimal SumTransactions { get; set; }
         public List<decimal> NetWorth = new List<decimal>();
+        public List<string> AccountTypeList = new List<string>();
 
         //
         //Sets the Has_accounts to false on object creation for account list view cycle 
@@ -112,7 +112,7 @@ namespace PersonalFinance.Models
             client.BaseAddress = new Uri(_baseurl);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/item/public_token/exchange");
-            
+
             string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"public_token\":\"" + _public_token + "\" }";
             request.Content = new StringContent(data, Encoding.UTF8, "application/json");
 
@@ -183,7 +183,7 @@ namespace PersonalFinance.Models
         //Initial account and transaction pull from Plaid. Gets 3 months worth of transactions per each account 
         private async Task AddAccounts()
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/transactions/get");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/accounts/get");
 
             string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + _accesstoken + "\" , \"start_date\": \"" + DateTime.Today.AddMonths(-1).ToString("yyyy-MM-dd") + "\" , \"end_date\": \"" + DateTime.Today.ToString("yyy-MM-dd") + "\" }";
             request.Content = new StringContent(data, Encoding.UTF8, "application/json");
@@ -205,7 +205,8 @@ namespace PersonalFinance.Models
                         AccountName = (string)account["official_name"],
                         Balance = (decimal)account["balances"]["current"],
                         Institution_name = this.Institution_name,
-                        Access_Token = _accesstoken
+                        Access_Token = _accesstoken,
+                        Account_Type = (string)account["type"]
                     };
 
                     context.User_Accounts.Add(accounts_db);
@@ -233,11 +234,9 @@ namespace PersonalFinance.Models
                         access_token = t.Access_Token.ToString(),
                         institution_name = t.Institution_Name.ToString()
                     };
-                    Institution_list.Add(t.Institution_Name.ToString());
 
                     _accesstokenlist.Add(data);
                 }
-                Institution_list.Sort();
             }
         }
 
@@ -255,6 +254,7 @@ namespace PersonalFinance.Models
             }
 
             decimal _NetWorth = 0;
+
             foreach (var token in _accesstokenlist)
             {
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/accounts/get");
@@ -277,24 +277,20 @@ namespace PersonalFinance.Models
                             AccountID = (string)account["account_id"],
                             AccountName = (string)account["official_name"],
                             Balance = (decimal)account["balances"]["current"],
-                            Institution_name = token.institution_name
+                            Institution_name = token.institution_name,
+                            Account_Type = (string)account["type"],
+                            Access_Token = _accesstoken
                         };
-
-                        Account_list.Add(accounts_db);
-
-                        if (Institution_list.Count() < 1 || !(Institution_list.Contains(accounts_db.Institution_name.ToString())))
-                        {
-                            Institution_list.Add(accounts_db.Institution_name.ToString());
-                        }
 
                         //Stored procedure to update account balance in DB with matching account ID.
                         context.Update_AccountBalance(accounts_db.AccountID, accounts_db.Balance);
                         await context.SaveChangesAsync();
 
+                        Account_list.Add(accounts_db);
+
                         Has_accounts = true;
 
-                        string _accounttype = (string)account["type"];
-                        if(_accounttype.Equals("credit") || _accounttype.Equals("loan") || _accounttype.Equals("mortgage"))
+                        if (accounts_db.Account_Type.Equals("credit") || accounts_db.Account_Type.Equals("loan") || accounts_db.Account_Type.Equals("mortgage"))
                         {
                             _NetWorth -= (decimal)accounts_db.Balance;
                         }
@@ -302,12 +298,29 @@ namespace PersonalFinance.Models
                         {
                             _NetWorth += (decimal)accounts_db.Balance;
                         }
-                        
+
                     }
-                    
+
                 }
             }
             NetWorth.Add(_NetWorth);
+
+            var accountquery = from db in Account_list
+                               orderby db.Account_Type, db.Institution_name, db.AccountName
+                               select new { db.Account_Type, db.Institution_name, db.AccountName };
+
+            var accountlist = accountquery.ToList();
+
+            //get list of distinct account types
+            var _accounttype = from mem in accountlist
+                               orderby mem.Account_Type
+                               select new { mem.Account_Type };
+            var _accounttypelst = _accounttype.ToList().Distinct();
+
+            foreach (var type in _accounttypelst)
+            {
+                AccountTypeList.Add(type.Account_Type.ToString());
+            }
         }
 
         //
@@ -340,7 +353,7 @@ namespace PersonalFinance.Models
                                             && db.Date >= start_date
                                             && db.Date <= end_date
                                             orderby (db.Date)
-                                            select new { db.Date, category = (from test in context.Transaction_Categories where test.CategoryID == db.CategoryID select new { test.Hierarchy}), db.Location_Name, db.Location_City, db.Location_State, db.Amount };
+                                            select new { db.Date, category = (from test in context.Transaction_Categories where test.CategoryID == db.CategoryID select new { test.Hierarchy }), db.Location_Name, db.Location_City, db.Location_State, db.Amount };
                     var transaction_list = transaction_query.ToList();
 
                     //create list of transaction objects and sort by date
@@ -453,7 +466,7 @@ namespace PersonalFinance.Models
             {
                 var token = from db in context.User_Accounts
                             where db.Access_Token.Equals(access_token)
-                            select new { db.AccountID};
+                            select new { db.AccountID };
 
                 var tokenlist = token.ToList();
 
