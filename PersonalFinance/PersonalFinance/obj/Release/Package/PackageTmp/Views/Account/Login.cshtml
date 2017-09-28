@@ -9,14 +9,21 @@
 {
     <br />
     <br />
-            <br />
-            <div class=" alert alert-success container-fluid col-md-4 col-md-offset-4" role="alert">
-                <b>Great! </b><span>@ViewBag.Message</span>
-            </div>
+    <br />
+    <div class="alert alert-success container-fluid col-md-4 col-md-offset-4" role="alert">
+        <b>Great! </b><span>@ViewBag.Message</span>
+    </div>
 }
-
+@if (ViewBag.errorMessage != null)
+{
+    <br />
+    <br />
+    <br />
+    <div class="alert alert-danger container-fluid col-md-4 col-md-offset-4" role="alert">
+        <b class="text-center">Yikes! </b><span class="text-center">@ViewBag.errorMessage</span>
+    </div>
+}
 <div class="container-center animated slideInDown">
-
     <div class="view-header">
         <div class="header-icon">
             <i class="pe page-header-icon pe-7s-unlock"></i>

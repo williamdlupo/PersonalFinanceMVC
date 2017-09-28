@@ -279,7 +279,7 @@ namespace PersonalFinance.Models
                             Balance = (decimal)account["balances"]["current"],
                             Institution_name = token.institution_name,
                             Account_Type = (string)account["type"],
-                            Access_Token = _accesstoken
+                            Access_Token = token.access_token
                         };
 
                         //Stored procedure to update account balance in DB with matching account ID.
