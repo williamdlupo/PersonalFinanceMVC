@@ -2,52 +2,44 @@
 @{
     ViewBag.Title = "Further Verification";
 }
-<body class="blank">
-    <!-- Wrapper-->
-    <div class="wrapper">
-        <!-- Main content-->
-        <section>
-            <div class="container-center animated slideInDown">
-                <div class="view-header">
-                    <div class="header-icon">
-                        <i class="pe page-header-icon pe-7s-door-lock"></i>
-                    </div>
-                    <div class="header-title">
-                        <h3>Two Factor Authentication</h3>
-                        <small>
-                            Submit your phone number below for further security verification.
-                        </small>
-                    </div>
-                </div>
-                <div class="panel panel-filled">
-                    <div class="panel-body">
-                        <p>
-                        </p>
-                        <section id="loginForm">
-                            @using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.ValidationSummary("", new { @class = "text-danger" })
-                                <div class="row">
-                                    <div>
-                                        <label class="col-md-12">Phone Number</label>
-                                        <div class="col-md-12">
-                                            @Html.TextBoxFor(m => m.Number, new { @class = "form-control", @placeholder = "xxx-xxx-xxxx" })
-                                        </div>
-                                        <span class="help-block small col-md-12"></span>
-                                    </div>
 
-                                </div>
-                                <div>
-                                    <input type="submit" class="btn btn-accent" value="Send Verification Code" />
-                                </div>
-                            }
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End main content-->
+<div class="container-center animated slideInDown">
+    <div class="view-header">
+        <div class="header-icon">
+            <i class="pe page-header-icon pe-7s-door-lock"></i>
+        </div>
+        <div class="header-title">
+            <h3>Let Me Get Them Digits</h3>
+            <small>
+                Submit your phone number below for further verification, yo
+            </small>
+        </div>
     </div>
-</body>
+    <div class="panel panel-filled">
+        <div class="panel-body">
+            <p>
+            </p>
+            <section id="loginForm">
+                @using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="row">
+                        <div>
+                            <label class="col-md-12">Phone Number</label>
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(m => m.Number, new { @class = "form-control", @placeholder = "xxx-xxx-xxxx" })
+                            </div>
+                            <span class="help-block small col-md-12"></span>
+                        </div>
+
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-accent" value="Send Verification Code" />
+                    </div>
+                }
+            </section>
+        </div>
+    </div>
+</div>
 
