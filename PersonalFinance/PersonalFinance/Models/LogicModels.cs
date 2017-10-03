@@ -392,6 +392,7 @@ namespace PersonalFinance.Models
 
                     foreach (var datapoint in BarChartData)
                     {
+                        if (datapoint.Amount < 0) { continue; }
                         BarChartData aDataPoint = new BarChartData
                         {
                             amount = datapoint.Amount

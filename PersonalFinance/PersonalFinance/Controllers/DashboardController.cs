@@ -44,7 +44,7 @@ namespace PersonalFinance.Controllers
                 end_date = Session["enddate"] as string
             };
 
-            var  transaction_list = Session["transactions"] as List<User_Transactions>;
+            var transaction_list = Session["transactions"] as List<User_Transactions>;
 
             if (transaction_list is null)
             {
@@ -90,9 +90,9 @@ namespace PersonalFinance.Controllers
                 DateTime start_date = DateTime.Parse(dates.start_date);
                 DateTime end_date = DateTime.Parse(dates.end_date);
                 plaid.User = user;
-                
+
                 plaid.GetTransactions(start_date, end_date);
-                
+
                 var transactions = plaid.Transaction_list;
                 var startdate = dates.start_date;
                 var enddate = dates.end_date;
@@ -148,6 +148,38 @@ namespace PersonalFinance.Controllers
                         .Skip(param.iDisplayStart)
                         .Take(param.iDisplayLength);
 
+            var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);
+
+            if (sortColumnIndex >= 1 && sortColumnIndex < 4)
+            {
+                Func<User_Transactions, string> orderingFunction = (c => sortColumnIndex == 1 ? c.CategoryID :
+                                                               sortColumnIndex == 2 ? c.Location_Name :
+                                                               c.Location_State);
+                var sortDirection = Request["sSortDir_0"]; // asc or desc
+                if (sortDirection == "desc")
+                    displayedTransactions = displayedTransactions.OrderBy(orderingFunction);
+                else
+                    displayedTransactions = displayedTransactions.OrderByDescending(orderingFunction);
+            }
+            else if (sortColumnIndex == 0)
+            {
+                Func<User_Transactions, DateTime> orderingFunction = (c => c.Date);
+                var sortDirection = Request["sSortDir_0"]; // asc or desc
+                if (sortDirection == "desc")
+                    displayedTransactions = displayedTransactions.OrderBy(orderingFunction);
+                else
+                    displayedTransactions = displayedTransactions.OrderByDescending(orderingFunction);
+            }
+            else
+            {
+                Func<User_Transactions, decimal> orderingFunction = (c => c.Amount);
+                var sortDirection = Request["sSortDir_0"]; // asc or desc
+                if (sortDirection == "asc")
+                    displayedTransactions = displayedTransactions.OrderBy(orderingFunction);
+                else
+                    displayedTransactions = displayedTransactions.OrderByDescending(orderingFunction);
+            }
+
             var data = from transaction in displayedTransactions
                        select new[] {   transaction.Date.ToShortDateString(),
                                         transaction.CategoryID,
@@ -158,10 +190,11 @@ namespace PersonalFinance.Controllers
 
             return Json(new
             {
-                dom = "p<'row'<'col-sm-6'l><'col-sm-6'f>>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                dom = "",
                 sEcho = param.sEcho,
                 iTotalRecords = plaid.Transaction_list.Count(),
                 iTotalDisplayRecords = plaid.Transaction_list.Count(),
+                iSortingCols = 5,
                 aaData = data
             },
             JsonRequestBehavior.AllowGet);
