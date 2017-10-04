@@ -361,18 +361,22 @@ namespace PersonalFinance.Models
                     {
                         User_Transactions aTransaction = new User_Transactions
                         {
-                            Date = t.Date
+                            Date = t.Date,
+                            Location_Name = t.Location_Name,
+                            Location_City = t.Location_City,
+                            Location_State = t.Location_State,
+                            Amount = t.Amount
                         };
 
                         foreach (var item in t.category)
                         {
                             aTransaction.CategoryID = item.Hierarchy;
                         }
-                        aTransaction.Location_Name = t.Location_Name;
-                        aTransaction.Location_City = t.Location_City;
-                        aTransaction.Location_State = t.Location_State;
-                        aTransaction.Amount = t.Amount;
 
+                        if (aTransaction.CategoryID is null)
+                        {
+                            aTransaction.CategoryID = "Unknown";
+                        }
                         Transaction_list.Add(aTransaction);
                         Transaction_list.Sort((x, y) => x.Date.CompareTo(y.Date));
                     }
@@ -427,12 +431,6 @@ namespace PersonalFinance.Models
 
                         foreach (var aCat in item.Category)
                         {
-                            if (aCat.CategoryID is null)
-                            {
-                                aDatapoint.label = "Uncategorized";
-                                break;
-                            }
-
                             aDatapoint.label = aCat.CategoryID.ToString();
                             break;
                         }

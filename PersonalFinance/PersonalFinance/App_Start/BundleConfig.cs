@@ -35,8 +35,8 @@ namespace PersonalFinance
         "~/Content/pe-icon-7-stroke.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/Content/styles/style").Include(
                     "~/Content/style.css", new CssRewriteUrlTransform()));
-            bundles.Add(new StyleBundle("~/Content/dataTables").Include(
-                "~/Content/dataTables.min.css", new CssRewriteUrlTransform()));
+            bundles.Add(new StyleBundle("~/Content/bundles/dataTables").Include(
+                "~/Content/datatables.min.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/Content/daterangepicker").Include(
                 "~/Content/daterangepicker.css", new CssRewriteUrlTransform()));
 
