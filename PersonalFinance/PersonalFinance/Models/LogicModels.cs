@@ -384,30 +384,62 @@ namespace PersonalFinance.Models
 
                 if (Transaction_list != null)
                 {
-                    //code to pull out list of unique dates and sum of transactions per date for bar chart
-                    var BarChartquery = from transaction in Transaction_list
-                                        group transaction by new { transaction.Date } into g
-                                        select new
-                                        {
-                                            Date = g.Distinct(),
-                                            Amount = g.Sum(s => s.Amount)
-                                        };
-                    var BarChartData = BarChartquery.ToList();
-
-                    foreach (var datapoint in BarChartData)
+                    //if the time frame selected is greater than 31 days, condense chart to transaction totals by month
+                    if ((end_date - start_date).TotalDays > 31)
                     {
-                        if (datapoint.Amount < 0) { continue; }
-                        BarChartData aDataPoint = new BarChartData
-                        {
-                            amount = datapoint.Amount
-                        };
+                        var BarChartquery = from transaction in Transaction_list
+                                            where transaction.Amount > 0
+                                            group transaction by new { transaction.Date.Month } into g
+                                            select new
+                                            {
+                                                Date = g.Distinct(),
+                                                Amount = g.Sum(s => s.Amount)
+                                            };
+                        var BarChartData = BarChartquery.ToList();
 
-                        foreach (var date in datapoint.Date)
+                        foreach (var datapoint in BarChartData)
                         {
-                            aDataPoint.date = date.Date.ToShortDateString();
-                            break;
+                            BarChartData aDataPoint = new BarChartData
+                            {
+                                amount = datapoint.Amount
+                            };
+
+                            foreach (var date in datapoint.Date)
+                            {
+                                aDataPoint.date = date.Date.ToString("MMMM");
+                                break;
+                            }
+                            BarChart.Add(aDataPoint);
                         }
-                        BarChart.Add(aDataPoint);
+                    }
+
+                    else
+                    {
+                        //code to pull out list of unique dates and sum of transactions per date for bar chart
+                        var BarChartquery = from transaction in Transaction_list
+                                            where transaction.Amount > 0
+                                            group transaction by new { transaction.Date } into g
+                                            select new
+                                            {
+                                                Date = g.Distinct(),
+                                                Amount = g.Sum(s => s.Amount)
+                                            };
+                        var BarChartData = BarChartquery.ToList();
+
+                        foreach (var datapoint in BarChartData)
+                        {
+                            BarChartData aDataPoint = new BarChartData
+                            {
+                                amount = datapoint.Amount
+                            };
+
+                            foreach (var date in datapoint.Date)
+                            {
+                                aDataPoint.date = date.Date.ToShortDateString();
+                                break;
+                            }
+                            BarChart.Add(aDataPoint);
+                        }
                     }
 
                     //code to pull out list of unique dates and sum of transactions per date for donut chart
