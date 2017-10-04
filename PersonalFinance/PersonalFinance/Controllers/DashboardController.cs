@@ -144,9 +144,7 @@ namespace PersonalFinance.Controllers
                 plaid.DonutDataSum(plaid.DonutChart);
             }
 
-            var displayedTransactions = plaid.Transaction_list
-                        .Skip(param.iDisplayStart)
-                        .Take(param.iDisplayLength);
+            var displayedTransactions = (IEnumerable<User_Transactions>)plaid.Transaction_list;
 
             var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);
 
@@ -156,7 +154,7 @@ namespace PersonalFinance.Controllers
                                                                sortColumnIndex == 2 ? c.Location_Name :
                                                                c.Location_State);
                 var sortDirection = Request["sSortDir_0"]; // asc or desc
-                if (sortDirection == "desc")
+                if (sortDirection == "asc")
                     displayedTransactions = displayedTransactions.OrderBy(orderingFunction);
                 else
                     displayedTransactions = displayedTransactions.OrderByDescending(orderingFunction);
@@ -179,6 +177,10 @@ namespace PersonalFinance.Controllers
                 else
                     displayedTransactions = displayedTransactions.OrderByDescending(orderingFunction);
             }
+
+            displayedTransactions = displayedTransactions
+            .Skip(param.iDisplayStart)
+            .Take(param.iDisplayLength);
 
             var data = from transaction in displayedTransactions
                        select new[] {   transaction.Date.ToShortDateString(),
