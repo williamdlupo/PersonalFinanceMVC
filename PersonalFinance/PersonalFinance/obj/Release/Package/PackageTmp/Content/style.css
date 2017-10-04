@@ -822,7 +822,7 @@ body {
   margin-top: 60px;
   background-color: #24262d;
   width: 200px;
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   top: 0;
