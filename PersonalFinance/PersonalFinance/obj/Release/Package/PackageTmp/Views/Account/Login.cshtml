@@ -52,7 +52,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-offset-1" for="password">Password</label>
                             <div class="col-md-10 col-md-offset-1">
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @name = "password", @placeholder = "********" })
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @name = "password" })
                                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                             </div>
                             <a class="help-block small col-md-12 col-md-offset-1" href="@Url.Action("ForgotPassword","Account")">Forgot Your Password?</a>

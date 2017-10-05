@@ -435,7 +435,7 @@ namespace PersonalFinance.Models
 
                             foreach (var date in datapoint.Date)
                             {
-                                aDataPoint.date = date.Date.ToShortDateString();
+                                aDataPoint.date = date.Date.ToString("MM-dd");
                                 break;
                             }
                             BarChart.Add(aDataPoint);
