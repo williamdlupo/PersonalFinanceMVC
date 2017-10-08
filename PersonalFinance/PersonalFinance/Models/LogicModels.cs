@@ -221,18 +221,16 @@ namespace PersonalFinance.Models
         {
             using (var context = new PersonalFinanceAppEntities())
             {
-                var token = from db in context.User_Items
-                            where db.ID.Equals(User.Id)
-                            select new { db.Access_Token, db.Institution_Name };
+                var tokenquery = from db in context.User_Items
+                                 where db.ID.Equals(User.Id)
+                                 select new { db.Access_Token, db.Institution_Name };
 
-                var tokenlist = token.ToList();
-
-                foreach (var t in tokenlist)
+                foreach (var token in tokenquery)
                 {
                     AccountData data = new AccountData
                     {
-                        access_token = t.Access_Token.ToString(),
-                        institution_name = t.Institution_Name.ToString()
+                        access_token = token.Access_Token.ToString(),
+                        institution_name = token.Institution_Name.ToString()
                     };
 
                     _accesstokenlist.Add(data);
@@ -303,21 +301,14 @@ namespace PersonalFinance.Models
 
                 }
             }
+
             NetWorth.Add(_NetWorth);
 
             var accountquery = from db in Account_list
-                               orderby db.Account_Type, db.Institution_name, db.AccountName
-                               select new { db.Account_Type, db.Institution_name, db.AccountName };
+                               orderby db.Account_Type
+                               select new { db.Account_Type };
 
-            var accountlist = accountquery.ToList();
-
-            //get list of distinct account types
-            var _accounttype = from mem in accountlist
-                               orderby mem.Account_Type
-                               select new { mem.Account_Type };
-            var _accounttypelst = _accounttype.ToList().Distinct();
-
-            foreach (var type in _accounttypelst)
+            foreach (var type in accountquery.Distinct())
             {
                 AccountTypeList.Add(type.Account_Type.ToString());
             }
@@ -334,18 +325,15 @@ namespace PersonalFinance.Models
                 var account_id_query = from db in context.User_Accounts
                                        where db.UserID == User.Id
                                        select db.AccountID;
-                var account_id_list = account_id_query.ToList();
 
                 foreach (var accountid in account_id_query)
                 {
                     _accountidlist.Add(accountid);
                 }
-            }
 
-            //parse list of account id's and get list of transactions for each account where the transactions are
-            //between the specified dates
-            using (var context = new PersonalFinanceAppEntities())
-            {
+                //parse list of account id's and get list of transactions for each account where the transactions are
+                //between the specified dates
+
                 foreach (var accountid in _accountidlist)
                 {
                     var transaction_query = from db in context.User_Transactions
@@ -354,10 +342,9 @@ namespace PersonalFinance.Models
                                             && db.Date <= end_date
                                             orderby (db.Date)
                                             select new { db.Date, category = (from test in context.Transaction_Categories where test.CategoryID == db.CategoryID select new { test.Hierarchy }), db.Location_Name, db.Location_City, db.Location_State, db.Amount };
-                    var transaction_list = transaction_query.ToList();
 
                     //create list of transaction objects and sort by date
-                    foreach (var t in transaction_list)
+                    foreach (var t in transaction_query)
                     {
                         User_Transactions aTransaction = new User_Transactions
                         {
@@ -377,8 +364,8 @@ namespace PersonalFinance.Models
                         {
                             aTransaction.CategoryID = "Unknown";
                         }
+
                         Transaction_list.Add(aTransaction);
-                        Transaction_list.Sort((x, y) => x.Date.CompareTo(y.Date));
                     }
                 }
 
@@ -389,33 +376,27 @@ namespace PersonalFinance.Models
                     {
                         var BarChartquery = from transaction in Transaction_list
                                             where transaction.Amount > 0
-                                            group transaction by new { transaction.Date.Month } into g
+                                            group transaction by transaction.Date.Month into g
                                             select new
                                             {
                                                 Date = g.Distinct(),
                                                 Amount = g.Sum(s => s.Amount)
                                             };
-                        var BarChartData = BarChartquery.ToList();
 
-                        foreach (var datapoint in BarChartData)
+                        foreach (var datapoint in BarChartquery)
                         {
                             BarChartData aDataPoint = new BarChartData
                             {
-                                amount = datapoint.Amount
+                                amount = datapoint.Amount,
+                                date = datapoint.Date.Select(t => t.Date.ToString("MMMM")).FirstOrDefault()
                             };
 
-                            foreach (var date in datapoint.Date)
-                            {
-                                aDataPoint.date = date.Date.ToString("MMMM");
-                                break;
-                            }
                             BarChart.Add(aDataPoint);
                         }
                     }
 
                     else
                     {
-                        //code to pull out list of unique dates and sum of transactions per date for bar chart
                         var BarChartquery = from transaction in Transaction_list
                                             where transaction.Amount > 0
                                             group transaction by new { transaction.Date } into g
@@ -424,48 +405,41 @@ namespace PersonalFinance.Models
                                                 Date = g.Distinct(),
                                                 Amount = g.Sum(s => s.Amount)
                                             };
-                        var BarChartData = BarChartquery.ToList();
 
-                        foreach (var datapoint in BarChartData)
+                        foreach (var datapoint in BarChartquery)
                         {
                             BarChartData aDataPoint = new BarChartData
                             {
-                                amount = datapoint.Amount
+                                amount = datapoint.Amount,
+                                date = datapoint.Date.Select(t => t.Date.ToString("MM-dd")).FirstOrDefault()
                             };
 
-                            foreach (var date in datapoint.Date)
-                            {
-                                aDataPoint.date = date.Date.ToString("MM-dd");
-                                break;
-                            }
                             BarChart.Add(aDataPoint);
                         }
                     }
 
                     //code to pull out list of unique dates and sum of transactions per date for donut chart
                     var DonutChartquery = from transaction in Transaction_list
+                                          where transaction.Amount > 0
                                           group transaction by new { transaction.CategoryID } into g
                                           select new
                                           {
                                               Category = g.Distinct(),
                                               Amount = g.Sum(s => s.Amount)
                                           };
-                    var DonutChartList = DonutChartquery.ToList();
+
                     //get the sum of all non-negative transaction for our pie chart
                     SumTransactions = 0;
-                    foreach (var item in DonutChartList)
+                    foreach (var item in DonutChartquery)
                     {
-                        DonutChartData aDatapoint = new DonutChartData();
+                        DonutChartData aDatapoint = new DonutChartData
+                        {
+                            value = item.Amount,
+                            label = item.Category.Select(t => t.CategoryID.ToString()).FirstOrDefault()
+                        };
 
-                        if (item.Amount < 0) { continue; }
-                        aDatapoint.value = item.Amount;
                         SumTransactions += aDatapoint.value;
 
-                        foreach (var aCat in item.Category)
-                        {
-                            aDatapoint.label = aCat.CategoryID.ToString();
-                            break;
-                        }
                         DonutChart.Add(aDatapoint);
                         DonutChart.Sort((x, y) => x.value.CompareTo(y.value));
                     }
@@ -487,7 +461,7 @@ namespace PersonalFinance.Models
         }
 
         //
-        //Stored Procedure has been created, just have to tie sproc into code and front end UI
+        //UI button click -> Azure Delete function -> activate DB sproc
         public async Task DeleteInstitution(string access_token)
         {
             _accesstoken = access_token;
@@ -499,10 +473,8 @@ namespace PersonalFinance.Models
                             where db.Access_Token.Equals(access_token)
                             select new { db.AccountID };
 
-                var tokenlist = token.ToList();
-
                 List<string> accountid_list = new List<string>();
-                foreach (var t in tokenlist)
+                foreach (var t in token)
                 {
                     accountid_list.Add(t.AccountID.ToString());
                 }

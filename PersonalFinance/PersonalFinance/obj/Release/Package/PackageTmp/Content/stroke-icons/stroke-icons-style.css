@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'stroke';
-    src: url('/fonts/stroke.eot');
-    src: url('/fonts/stroke.eot') format('embedded-opentype'), url('/fonts/stroke.woff') format('woff'), url('/fonts/stroke.ttf') format('truetype'), url('/fonts/stroke.svg') format('svg');
+    src: url('/Content/stroke-icons/stroke.eot');
+    src: url('/Content/stroke-icons/stroke.eot') format('embedded-opentype'), url('/Content/stroke-icons/stroke.woff') format('woff'), url('/Content/stroke-icons/stroke.ttf') format('truetype'), url('/Content/stroke-icons/stroke.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }

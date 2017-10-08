@@ -30,9 +30,9 @@ namespace PersonalFinance
             bundles.Add(new StyleBundle("~/Content/helper").Include(
                     "~/Content/helper.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/Content/stroke-icons-style").Include(
-                    "~/Content/stroke-icons-style.css", new CssRewriteUrlTransform()));
-            bundles.Add(new StyleBundle("~/Content/pe-icons").Include(
-        "~/Content/pe-icon-7-stroke.css", new CssRewriteUrlTransform()));
+                    "~/Content/stroke-icons/stroke-icons-style.css", new CssRewriteUrlTransform()));
+            bundles.Add(new StyleBundle("~/Content/icon-styling").Include(
+                    "~/Content/pe-icon-7-stroke.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/Content/styles/style").Include(
                     "~/Content/style.css", new CssRewriteUrlTransform()));
             bundles.Add(new StyleBundle("~/Content/bundles/dataTables").Include(
