@@ -78,7 +78,14 @@
                 </div>
                 <div class="col-md-8">
                     <div class="panel-body">
+                        @if (Model.Transaction_list is null || Model.Transaction_list.Count == 0)
+                        {
+                            <h3>No Data</h3>
+                        }
+                        else
+                        {
                             <canvas id="singleBar" height="125"></canvas>
+                        }
                     </div>
                 </div>
             </div>
@@ -86,24 +93,25 @@
     </div>
 </div>
 <div class="row">
-    <div id="reportrange" class="btn btn-accent">
-        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-        <span></span> @Model.Start_date - @Model.End_date <b class="caret"></b>
-    </div>
-    <div class="dropdown col-md-2">
-        <button class="btn btn-accent dropdown-toggle" type="button" id="AccountDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            All Accounts
+    <div class="col-md-12">
+        <div id="reportrange" class="btn btn-accent col-sm-3">
+            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+            <span> @Model.Start_date - @Model.End_date <b class="caret"></b></span>
+        </div>
+        <div class="dropdown col-sm-2">
+            <button class="btn btn-accent dropdown-toggle" type="button" id="AccountDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                @Model.SelectedAccount
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
             @foreach (var account in Model.Account_list)
             {
-                <li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href="#">@account.AccountName: <em class="pull-right">$@account.Balance</em></a></li>
-
+                <li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("AccountViewHandler", "Dashboard", new { accountid = account.AccountID } )'>@account.AccountName: <em class="pull-right">$@account.Balance</em></a></li>
             }
 
         </ul>
     </div>
+</div>
 
 </div>
 <br />

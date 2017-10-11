@@ -198,6 +198,47 @@ namespace PersonalFinance.Controllers
             JsonRequestBehavior.AllowGet);
         }
 
+        public async Task<ActionResult> AccountViewHandler(string accountid)
+        {
+            Plaid plaid = new Plaid
+            {
+                User = user,
+
+                Start_date = Session["startdate"] as string,
+                End_date = Session["enddate"] as string
+            };
+
+            try
+            {
+                DateTime start_date = DateTime.Parse(plaid.Start_date);
+                DateTime end_date = DateTime.Parse(plaid.End_date);
+
+                plaid.GetTransactions(start_date, end_date, accountid);
+            }
+
+            catch
+            {
+                DateTime? start_date = null;
+                DateTime? end_date = null;
+
+                plaid.GetTransactions(start_date, end_date, accountid);
+            }
+
+            await plaid.GetAccountList();
+
+            var accountlist = plaid.Account_list;
+            var chartdata = plaid.BarChart;
+            var donutdata = plaid.DonutChart;
+            var networth = plaid.NetWorth;
+
+            Session["BarChart"] = chartdata;
+            Session["DonutChart"] = donutdata;
+            Session["AccountList"] = accountlist;
+            Session["NetWorth"] = networth;
+
+            return View("Main", plaid);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

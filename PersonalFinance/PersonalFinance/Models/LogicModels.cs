@@ -91,6 +91,7 @@ namespace PersonalFinance.Models
         public decimal SumTransactions { get; set; }
         public List<decimal> NetWorth = new List<decimal>();
         public List<string> AccountTypeList = new List<string>();
+        public string SelectedAccount { get; private set; }
 
         //
         //Sets the Has_accounts to false on object creation for account list view cycle 
@@ -318,7 +319,7 @@ namespace PersonalFinance.Models
         //Method that will return a list of transactions for each account in the account list for a given timeframe
         //and populates the data for the charts for the main dashboard
         //Rather than overload, if dates not known, default range of 1 month set
-        public void GetTransactions(DateTime? start_date = null, DateTime? end_date = null)
+        public void GetTransactions(DateTime? start_date = null, DateTime? end_date = null, string account_id = null)
         {
             DateTime S_date = start_date ?? DateTime.Today.AddMonths(-1);
             DateTime E_date = end_date ?? DateTime.Today;
@@ -326,21 +327,39 @@ namespace PersonalFinance.Models
             Start_date = S_date.ToShortDateString();
             End_date = E_date.ToShortDateString();
 
-            //go to database and get list of account ID's assoicated with a user and save to _accountidlist
             using (var context = new PersonalFinanceAppEntities())
             {
-                var account_id_query = from db in context.User_Accounts
-                                       where db.UserID == User.Id
-                                       select db.AccountID;
-
-                foreach (var accountid in account_id_query)
+                if (account_id is null)
                 {
-                    _accountidlist.Add(accountid);
+                    //go to database and get list of all account ID's assoicated with a user and save to _accountidlist
+                    var account_id_query = from db in context.User_Accounts
+                                           where db.UserID == User.Id
+                                           select db.AccountID;
+
+                    foreach (var accountid in account_id_query)
+                    {
+                        _accountidlist.Add(accountid);
+                    }
+
+                    SelectedAccount = "All Accounts";
+                }
+                else
+                {
+                    //we know the specific account ID so just add it to the 'list' of account Id's
+                    _accountidlist.Add(account_id);
+
+                    var account_query = from db in context.User_Accounts
+                                        where db.AccountID == account_id
+                                        select db.AccountName;
+                    foreach (var name in account_query)
+                    {
+                        SelectedAccount = name.ToString();
+                    }
+                    
                 }
 
                 //parse list of account id's and get list of transactions for each account where the transactions are
                 //between the specified dates
-
                 foreach (var accountid in _accountidlist)
                 {
                     var transaction_query = from db in context.User_Transactions
@@ -348,12 +367,19 @@ namespace PersonalFinance.Models
                                             && db.Date >= S_date
                                             && db.Date <= E_date
                                             orderby (db.Date)
-                                            select new { db.Date,
-                                                        category = (
-                                                                    from test in context.Transaction_Categories
-                                                                    where test.CategoryID == db.CategoryID
-                                                                    select new { test.Hierarchy }),
-                                                        db.Location_Name, db.Location_City, db.Location_State, db.Amount };
+                                            select new
+                                            {
+                                                db.Date,
+                                                category = (
+                                                            from test in context.Transaction_Categories
+                                                            where test.CategoryID == db.CategoryID
+                                                            select new { test.Hierarchy }
+                                                            ),
+                                                db.Location_Name,
+                                                db.Location_City,
+                                                db.Location_State,
+                                                db.Amount
+                                            };
 
                     //create list of transaction objects and sort by date
                     foreach (var t in transaction_query)
