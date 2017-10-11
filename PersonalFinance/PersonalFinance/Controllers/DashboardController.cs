@@ -40,17 +40,15 @@ namespace PersonalFinance.Controllers
             {
                 User = user,
 
-                start_date = Session["startdate"] as string,
-                end_date = Session["enddate"] as string
+                Start_date = Session["startdate"] as string,
+                End_date = Session["enddate"] as string
             };
 
             var transaction_list = Session["transactions"] as List<User_Transactions>;
 
             if (transaction_list is null)
             {
-                plaid.GetTransactions(DateTime.Today.AddMonths(-1), DateTime.Today);
-                plaid.start_date = (DateTime.Today.AddMonths(-1).ToShortDateString()).ToString();
-                plaid.end_date = DateTime.Today.ToShortDateString().ToString();
+                plaid.GetTransactions();
 
                 await plaid.GetAccountList();
 
@@ -81,7 +79,7 @@ namespace PersonalFinance.Controllers
         //
         //POST: Dashboard/Main
         [HttpPost]
-        public JsonResult Main(Dates dates)
+        public JsonResult DatePickerHandler(Dates dates)
         {
             Plaid plaid = new Plaid();
 
@@ -110,7 +108,7 @@ namespace PersonalFinance.Controllers
 
                 return Json(new { success = true });
             }
-            //if we got this far something went wrong and redisplay the page
+            //if we got this far something went wrong - redisplay the page
             return Json(plaid);
         }
 
@@ -122,16 +120,14 @@ namespace PersonalFinance.Controllers
             {
                 User = user,
 
-                start_date = Session["startdate"] as string,
-                end_date = Session["enddate"] as string
+                Start_date = Session["startdate"] as string,
+                End_date = Session["enddate"] as string
             };
             var transaction_list = Session["transactions"] as List<User_Transactions>;
 
             if (transaction_list is null)
             {
-                plaid.GetTransactions(DateTime.Today.AddMonths(-1), DateTime.Today);
-                plaid.start_date = (DateTime.Today.AddMonths(-1).ToShortDateString()).ToString();
-                plaid.end_date = DateTime.Today.ToShortDateString().ToString();
+                plaid.GetTransactions();
 
             }
             else

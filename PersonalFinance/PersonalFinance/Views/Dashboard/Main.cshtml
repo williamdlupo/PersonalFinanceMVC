@@ -88,7 +88,7 @@
 <div class="row">
     <div id="reportrange" class="btn btn-accent">
         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-        <span></span> @Model.start_date - @Model.end_date <b class="caret"></b>
+        <span></span> @Model.Start_date - @Model.End_date <b class="caret"></b>
     </div>
     <div class="dropdown col-md-2">
         <button class="btn btn-accent dropdown-toggle" type="button" id="AccountDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -154,12 +154,12 @@ else
         </div>
     </div>
 }
-
+<!--Date Picker Scripts-->
 <script type="text/javascript">
         $(function () {
 
-            var start = @Model.start_date;
-            var end = @Model.end_date;
+            var start = @Model.Start_date;
+            var end = @Model.End_date;
 
             $('#reportrange').daterangepicker({
 
@@ -178,7 +178,7 @@ else
 
             $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
 
-                 $.post('@Url.Action("Main","Dashboard")', {
+                 $.post('@Url.Action("DatePickerHandler", "Dashboard")', {
                     dates: { start_date: picker.startDate.format("MM/DD/YYYY"), end_date: picker.endDate.format("MM/DD/YYYY") }
                 }, function () {
                     window.location.reload(true);

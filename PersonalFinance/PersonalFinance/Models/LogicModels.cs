@@ -84,8 +84,8 @@ namespace PersonalFinance.Models
         public List<User_Transactions> Transaction_list = new List<User_Transactions>();
         public List<BarChartData> BarChart = new List<BarChartData>();
         public List<DonutChartData> DonutChart = new List<DonutChartData>();
-        public string start_date;
-        public string end_date;
+        public string Start_date { get; set; }
+        public string End_date { get; set; }
         public bool Has_accounts { get; set; }
         public string Institution_name { get; set; }
         public decimal SumTransactions { get; set; }
@@ -317,8 +317,15 @@ namespace PersonalFinance.Models
         //
         //Method that will return a list of transactions for each account in the account list for a given timeframe
         //and populates the data for the charts for the main dashboard
-        public void GetTransactions(DateTime start_date, DateTime end_date)
+        //Rather than overload, if dates not known, default range of 1 month set
+        public void GetTransactions(DateTime? start_date = null, DateTime? end_date = null)
         {
+            DateTime S_date = start_date ?? DateTime.Today.AddMonths(-1);
+            DateTime E_date = end_date ?? DateTime.Today;
+
+            Start_date = S_date.ToShortDateString();
+            End_date = E_date.ToShortDateString();
+
             //go to database and get list of account ID's assoicated with a user and save to _accountidlist
             using (var context = new PersonalFinanceAppEntities())
             {
@@ -338,10 +345,15 @@ namespace PersonalFinance.Models
                 {
                     var transaction_query = from db in context.User_Transactions
                                             where accountid == db.AccountID
-                                            && db.Date >= start_date
-                                            && db.Date <= end_date
+                                            && db.Date >= S_date
+                                            && db.Date <= E_date
                                             orderby (db.Date)
-                                            select new { db.Date, category = (from test in context.Transaction_Categories where test.CategoryID == db.CategoryID select new { test.Hierarchy }), db.Location_Name, db.Location_City, db.Location_State, db.Amount };
+                                            select new { db.Date,
+                                                        category = (
+                                                                    from test in context.Transaction_Categories
+                                                                    where test.CategoryID == db.CategoryID
+                                                                    select new { test.Hierarchy }),
+                                                        db.Location_Name, db.Location_City, db.Location_State, db.Amount };
 
                     //create list of transaction objects and sort by date
                     foreach (var t in transaction_query)
@@ -372,7 +384,7 @@ namespace PersonalFinance.Models
                 if (Transaction_list != null)
                 {
                     //if the time frame selected is greater than 31 days, condense chart to transaction totals by month
-                    if ((end_date - start_date).TotalDays > 31)
+                    if ((E_date - S_date).TotalDays > 31)
                     {
                         var BarChartquery = from transaction in Transaction_list
                                             where transaction.Amount > 0
