@@ -80,7 +80,6 @@
                     <div class="panel-body">
                         @if (Model.Transaction_list is null || Model.Transaction_list.Count == 0)
                         {
-                            <h3>No Data</h3>
                         }
                         else
                         {
@@ -101,17 +100,17 @@
         <div class="dropdown col-sm-2">
             <button class="btn btn-accent dropdown-toggle" type="button" id="AccountDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 @Model.SelectedAccount
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            @foreach (var account in Model.Account_list)
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                @foreach (var account in Model.Account_list)
             {
-                <li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("AccountViewHandler", "Dashboard", new { accountid = account.AccountID } )'>@account.AccountName: <em class="pull-right">$@account.Balance</em></a></li>
-            }
+                    <li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("AccountViewHandler", "Dashboard", new { accountid = account.AccountID } )'>@account.AccountName: <em class="pull-right">$@account.Balance</em></a></li>
+                }
 
-        </ul>
+            </ul>
+        </div>
     </div>
-</div>
 
 </div>
 <br />
@@ -162,6 +161,7 @@ else
         </div>
     </div>
 }
+
 <!--Date Picker Scripts-->
 <script type="text/javascript">
         $(function () {
@@ -205,7 +205,7 @@ else
         "bProcessing": true,
         "searching": false,
         "ordering": true,
-        "pagingType": "full_numbers",
+        "pagingType": "full",
         "aoColumns": [
                         { "sName": "Date" },
                         { "sName": "Category" },

@@ -25881,6 +25881,16 @@
             The media.compatibility_message
             </summary>
         </member>
+        <member name="P:Twilio.Rest.Chat.V2.UpdateServiceOptions.PreWebhookRetryCount">
+            <summary>
+            The pre_webhook_retry_count
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Chat.V2.UpdateServiceOptions.PostWebhookRetryCount">
+            <summary>
+            The post_webhook_retry_count
+            </summary>
+        </member>
         <member name="M:Twilio.Rest.Chat.V2.UpdateServiceOptions.#ctor(System.String)">
              <summary>
              Construct a new UpdateServiceOptions
@@ -26084,7 +26094,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Service </returns> 
         </member>
-        <member name="M:Twilio.Rest.Chat.V2.ServiceResource.Update(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Uri,System.Uri,Twilio.Http.HttpMethod,System.Collections.Generic.List{System.String},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Chat.V2.ServiceResource.Update(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Uri,System.Uri,Twilio.Http.HttpMethod,System.Collections.Generic.List{System.String},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},Twilio.Clients.ITwilioRestClient)">
              <summary>
              update
              </summary>
@@ -26118,10 +26128,12 @@
              <param name="limitsChannelMembers"> The limits.channel_members </param>
              <param name="limitsUserChannels"> The limits.user_channels </param>
              <param name="mediaCompatibilityMessage"> The media.compatibility_message </param>
+             <param name="preWebhookRetryCount"> The pre_webhook_retry_count </param>
+             <param name="postWebhookRetryCount"> The post_webhook_retry_count </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of Service </returns> 
         </member>
-        <member name="M:Twilio.Rest.Chat.V2.ServiceResource.UpdateAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Uri,System.Uri,Twilio.Http.HttpMethod,System.Collections.Generic.List{System.String},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Chat.V2.ServiceResource.UpdateAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Uri,System.Uri,Twilio.Http.HttpMethod,System.Collections.Generic.List{System.String},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},Twilio.Clients.ITwilioRestClient)">
              <summary>
              update
              </summary>
@@ -26155,6 +26167,8 @@
              <param name="limitsChannelMembers"> The limits.channel_members </param>
              <param name="limitsUserChannels"> The limits.user_channels </param>
              <param name="mediaCompatibilityMessage"> The media.compatibility_message </param>
+             <param name="preWebhookRetryCount"> The pre_webhook_retry_count </param>
+             <param name="postWebhookRetryCount"> The post_webhook_retry_count </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Service </returns> 
         </member>
@@ -26249,6 +26263,16 @@
         <member name="P:Twilio.Rest.Chat.V2.ServiceResource.WebhookFilters">
             <summary>
             The webhook_filters
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Chat.V2.ServiceResource.PreWebhookRetryCount">
+            <summary>
+            The pre_webhook_retry_count
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Chat.V2.ServiceResource.PostWebhookRetryCount">
+            <summary>
+            The post_webhook_retry_count
             </summary>
         </member>
         <member name="P:Twilio.Rest.Chat.V2.ServiceResource.Notifications">
@@ -27765,11 +27789,6 @@
             The channel_sid
             </summary>
         </member>
-        <member name="P:Twilio.Rest.Chat.V2.Service.Channel.CreateMessageOptions.Body">
-            <summary>
-            The body
-            </summary>
-        </member>
         <member name="P:Twilio.Rest.Chat.V2.Service.Channel.CreateMessageOptions.From">
             <summary>
             The from
@@ -27795,14 +27814,23 @@
             The last_updated_by
             </summary>
         </member>
-        <member name="M:Twilio.Rest.Chat.V2.Service.Channel.CreateMessageOptions.#ctor(System.String,System.String,System.String)">
+        <member name="P:Twilio.Rest.Chat.V2.Service.Channel.CreateMessageOptions.Body">
+            <summary>
+            The body
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Chat.V2.Service.Channel.CreateMessageOptions.MediaSid">
+            <summary>
+            The media_sid
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Chat.V2.Service.Channel.CreateMessageOptions.#ctor(System.String,System.String)">
              <summary>
              Construct a new CreateMessageOptions
              </summary>
             
              <param name="pathServiceSid"> The service_sid </param>
              <param name="pathChannelSid"> The channel_sid </param>
-             <param name="body"> The body </param>
         </member>
         <member name="M:Twilio.Rest.Chat.V2.Service.Channel.CreateMessageOptions.GetParams">
             <summary>
@@ -27993,35 +28021,37 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Message </returns> 
         </member>
-        <member name="M:Twilio.Rest.Chat.V2.Service.Channel.MessageResource.Create(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Chat.V2.Service.Channel.MessageResource.Create(System.String,System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              create
              </summary>
             
              <param name="pathServiceSid"> The service_sid </param>
              <param name="pathChannelSid"> The channel_sid </param>
-             <param name="body"> The body </param>
              <param name="from"> The from </param>
              <param name="attributes"> The attributes </param>
              <param name="dateCreated"> The date_created </param>
              <param name="dateUpdated"> The date_updated </param>
              <param name="lastUpdatedBy"> The last_updated_by </param>
+             <param name="body"> The body </param>
+             <param name="mediaSid"> The media_sid </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of Message </returns> 
         </member>
-        <member name="M:Twilio.Rest.Chat.V2.Service.Channel.MessageResource.CreateAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Chat.V2.Service.Channel.MessageResource.CreateAsync(System.String,System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              create
              </summary>
             
              <param name="pathServiceSid"> The service_sid </param>
              <param name="pathChannelSid"> The channel_sid </param>
-             <param name="body"> The body </param>
              <param name="from"> The from </param>
              <param name="attributes"> The attributes </param>
              <param name="dateCreated"> The date_created </param>
              <param name="dateUpdated"> The date_updated </param>
              <param name="lastUpdatedBy"> The last_updated_by </param>
+             <param name="body"> The body </param>
+             <param name="mediaSid"> The media_sid </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Message </returns> 
         </member>
@@ -35009,6 +35039,16 @@
             The media.compatibility_message
             </summary>
         </member>
+        <member name="P:Twilio.Rest.IpMessaging.V2.UpdateServiceOptions.PreWebhookRetryCount">
+            <summary>
+            The pre_webhook_retry_count
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.IpMessaging.V2.UpdateServiceOptions.PostWebhookRetryCount">
+            <summary>
+            The post_webhook_retry_count
+            </summary>
+        </member>
         <member name="M:Twilio.Rest.IpMessaging.V2.UpdateServiceOptions.#ctor(System.String)">
              <summary>
              Construct a new UpdateServiceOptions
@@ -35212,7 +35252,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Service </returns> 
         </member>
-        <member name="M:Twilio.Rest.IpMessaging.V2.ServiceResource.Update(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Uri,System.Uri,Twilio.Http.HttpMethod,System.Collections.Generic.List{System.String},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.IpMessaging.V2.ServiceResource.Update(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Uri,System.Uri,Twilio.Http.HttpMethod,System.Collections.Generic.List{System.String},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},Twilio.Clients.ITwilioRestClient)">
              <summary>
              update
              </summary>
@@ -35246,10 +35286,12 @@
              <param name="limitsChannelMembers"> The limits.channel_members </param>
              <param name="limitsUserChannels"> The limits.user_channels </param>
              <param name="mediaCompatibilityMessage"> The media.compatibility_message </param>
+             <param name="preWebhookRetryCount"> The pre_webhook_retry_count </param>
+             <param name="postWebhookRetryCount"> The post_webhook_retry_count </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of Service </returns> 
         </member>
-        <member name="M:Twilio.Rest.IpMessaging.V2.ServiceResource.UpdateAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Uri,System.Uri,Twilio.Http.HttpMethod,System.Collections.Generic.List{System.String},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.IpMessaging.V2.ServiceResource.UpdateAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Boolean},System.String,System.String,System.Uri,System.Uri,Twilio.Http.HttpMethod,System.Collections.Generic.List{System.String},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},Twilio.Clients.ITwilioRestClient)">
              <summary>
              update
              </summary>
@@ -35283,6 +35325,8 @@
              <param name="limitsChannelMembers"> The limits.channel_members </param>
              <param name="limitsUserChannels"> The limits.user_channels </param>
              <param name="mediaCompatibilityMessage"> The media.compatibility_message </param>
+             <param name="preWebhookRetryCount"> The pre_webhook_retry_count </param>
+             <param name="postWebhookRetryCount"> The post_webhook_retry_count </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Service </returns> 
         </member>
@@ -35377,6 +35421,16 @@
         <member name="P:Twilio.Rest.IpMessaging.V2.ServiceResource.WebhookFilters">
             <summary>
             The webhook_filters
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.IpMessaging.V2.ServiceResource.PreWebhookRetryCount">
+            <summary>
+            The pre_webhook_retry_count
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.IpMessaging.V2.ServiceResource.PostWebhookRetryCount">
+            <summary>
+            The post_webhook_retry_count
             </summary>
         </member>
         <member name="P:Twilio.Rest.IpMessaging.V2.ServiceResource.Notifications">
@@ -36893,11 +36947,6 @@
             The channel_sid
             </summary>
         </member>
-        <member name="P:Twilio.Rest.IpMessaging.V2.Service.Channel.CreateMessageOptions.Body">
-            <summary>
-            The body
-            </summary>
-        </member>
         <member name="P:Twilio.Rest.IpMessaging.V2.Service.Channel.CreateMessageOptions.From">
             <summary>
             The from
@@ -36923,14 +36972,23 @@
             The last_updated_by
             </summary>
         </member>
-        <member name="M:Twilio.Rest.IpMessaging.V2.Service.Channel.CreateMessageOptions.#ctor(System.String,System.String,System.String)">
+        <member name="P:Twilio.Rest.IpMessaging.V2.Service.Channel.CreateMessageOptions.Body">
+            <summary>
+            The body
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.IpMessaging.V2.Service.Channel.CreateMessageOptions.MediaSid">
+            <summary>
+            The media_sid
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.IpMessaging.V2.Service.Channel.CreateMessageOptions.#ctor(System.String,System.String)">
              <summary>
              Construct a new CreateMessageOptions
              </summary>
             
              <param name="pathServiceSid"> The service_sid </param>
              <param name="pathChannelSid"> The channel_sid </param>
-             <param name="body"> The body </param>
         </member>
         <member name="M:Twilio.Rest.IpMessaging.V2.Service.Channel.CreateMessageOptions.GetParams">
             <summary>
@@ -37121,35 +37179,37 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Message </returns> 
         </member>
-        <member name="M:Twilio.Rest.IpMessaging.V2.Service.Channel.MessageResource.Create(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.IpMessaging.V2.Service.Channel.MessageResource.Create(System.String,System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              create
              </summary>
             
              <param name="pathServiceSid"> The service_sid </param>
              <param name="pathChannelSid"> The channel_sid </param>
-             <param name="body"> The body </param>
              <param name="from"> The from </param>
              <param name="attributes"> The attributes </param>
              <param name="dateCreated"> The date_created </param>
              <param name="dateUpdated"> The date_updated </param>
              <param name="lastUpdatedBy"> The last_updated_by </param>
+             <param name="body"> The body </param>
+             <param name="mediaSid"> The media_sid </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of Message </returns> 
         </member>
-        <member name="M:Twilio.Rest.IpMessaging.V2.Service.Channel.MessageResource.CreateAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.IpMessaging.V2.Service.Channel.MessageResource.CreateAsync(System.String,System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              create
              </summary>
             
              <param name="pathServiceSid"> The service_sid </param>
              <param name="pathChannelSid"> The channel_sid </param>
-             <param name="body"> The body </param>
              <param name="from"> The from </param>
              <param name="attributes"> The attributes </param>
              <param name="dateCreated"> The date_created </param>
              <param name="dateUpdated"> The date_updated </param>
              <param name="lastUpdatedBy"> The last_updated_by </param>
+             <param name="body"> The body </param>
+             <param name="mediaSid"> The media_sid </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Message </returns> 
         </member>
@@ -42387,7 +42447,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Notification </returns> 
         </member>
-        <member name="M:Twilio.Rest.Notify.V1.Service.NotificationResource.Create(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,Twilio.Rest.Notify.V1.Service.NotificationResource.PriorityEnum,System.Nullable{System.Int32},System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object,System.String,System.Collections.Generic.List{System.String},System.String,System.Collections.Generic.List{System.String},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Notify.V1.Service.NotificationResource.Create(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,Twilio.Rest.Notify.V1.Service.NotificationResource.PriorityEnum,System.Nullable{System.Int32},System.String,System.String,System.String,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Collections.Generic.List{System.String},System.Object,System.Collections.Generic.List{System.String},Twilio.Clients.ITwilioRestClient)">
              <summary>
              create
              </summary>
@@ -42413,7 +42473,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of Notification </returns> 
         </member>
-        <member name="M:Twilio.Rest.Notify.V1.Service.NotificationResource.CreateAsync(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,Twilio.Rest.Notify.V1.Service.NotificationResource.PriorityEnum,System.Nullable{System.Int32},System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object,System.String,System.Collections.Generic.List{System.String},System.String,System.Collections.Generic.List{System.String},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Notify.V1.Service.NotificationResource.CreateAsync(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,Twilio.Rest.Notify.V1.Service.NotificationResource.PriorityEnum,System.Nullable{System.Int32},System.String,System.String,System.String,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Collections.Generic.List{System.String},System.Object,System.Collections.Generic.List{System.String},Twilio.Clients.ITwilioRestClient)">
              <summary>
              create
              </summary>
@@ -43766,6 +43826,602 @@
         <member name="P:Twilio.Rest.Notify.V1.Service.User.UserBindingResource.Links">
             <summary>
             The links
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.AccSecurity.CreateServiceOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            Create a new Verification Service.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.CreateServiceOptions.Name">
+            <summary>
+            Friendly name of the service
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.CreateServiceOptions.CodeLength">
+            <summary>
+            Length of verification code. Valid values are 4-10
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.CreateServiceOptions.#ctor(System.String)">
+             <summary>
+             Construct a new CreateServiceOptions
+             </summary>
+            
+             <param name="name"> Friendly name of the service </param>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.CreateServiceOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.AccSecurity.FetchServiceOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            Fetch specific Verification Service Instance.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.FetchServiceOptions.PathSid">
+            <summary>
+            Verification Service Instance SID.
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.FetchServiceOptions.#ctor(System.String)">
+             <summary>
+             Construct a new FetchServiceOptions
+             </summary>
+            
+             <param name="pathSid"> Verification Service Instance SID. </param>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.FetchServiceOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.AccSecurity.ReadServiceOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            Retrieve a list of all Phone Verification Services for an account.
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ReadServiceOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.AccSecurity.UpdateServiceOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            Update a specific Phone Verification Service.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.UpdateServiceOptions.PathSid">
+            <summary>
+            Service Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.UpdateServiceOptions.Name">
+            <summary>
+            Friendly name of the service
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.UpdateServiceOptions.CodeLength">
+            <summary>
+            Length of verification code. Valid values are 4-10
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.UpdateServiceOptions.#ctor(System.String)">
+             <summary>
+             Construct a new UpdateServiceOptions
+             </summary>
+            
+             <param name="pathSid"> Service Sid. </param>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.UpdateServiceOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.Create(Twilio.Rest.Preview.AccSecurity.CreateServiceOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Create a new Verification Service.
+             </summary>
+            
+             <param name="options"> Create Service parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.CreateAsync(Twilio.Rest.Preview.AccSecurity.CreateServiceOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Create a new Verification Service.
+             </summary>
+            
+             <param name="options"> Create Service parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.Create(System.String,System.Nullable{System.Int32},Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Create a new Verification Service.
+             </summary>
+            
+             <param name="name"> Friendly name of the service </param>
+             <param name="codeLength"> Length of verification code. Valid values are 4-10 </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.CreateAsync(System.String,System.Nullable{System.Int32},Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Create a new Verification Service.
+             </summary>
+            
+             <param name="name"> Friendly name of the service </param>
+             <param name="codeLength"> Length of verification code. Valid values are 4-10 </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.Fetch(Twilio.Rest.Preview.AccSecurity.FetchServiceOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Fetch specific Verification Service Instance.
+             </summary>
+            
+             <param name="options"> Fetch Service parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.FetchAsync(Twilio.Rest.Preview.AccSecurity.FetchServiceOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Fetch specific Verification Service Instance.
+             </summary>
+            
+             <param name="options"> Fetch Service parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.Fetch(System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Fetch specific Verification Service Instance.
+             </summary>
+            
+             <param name="pathSid"> Verification Service Instance SID. </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.FetchAsync(System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Fetch specific Verification Service Instance.
+             </summary>
+            
+             <param name="pathSid"> Verification Service Instance SID. </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.Read(Twilio.Rest.Preview.AccSecurity.ReadServiceOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Retrieve a list of all Phone Verification Services for an account.
+             </summary>
+            
+             <param name="options"> Read Service parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.ReadAsync(Twilio.Rest.Preview.AccSecurity.ReadServiceOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Retrieve a list of all Phone Verification Services for an account.
+             </summary>
+            
+             <param name="options"> Read Service parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.Read(System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Retrieve a list of all Phone Verification Services for an account.
+             </summary>
+            
+             <param name="pageSize"> Page size </param>
+             <param name="limit"> Record limit </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.ReadAsync(System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Retrieve a list of all Phone Verification Services for an account.
+             </summary>
+            
+             <param name="pageSize"> Page size </param>
+             <param name="limit"> Record limit </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.GetPage(System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Fetch the target page of records
+             </summary>
+            
+             <param name="targetUrl"> API-generated URL for the requested results page </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> The target page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.NextPage(Twilio.Base.Page{Twilio.Rest.Preview.AccSecurity.ServiceResource},Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Fetch the next page of records
+             </summary>
+            
+             <param name="page"> current page of records </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> The next page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.PreviousPage(Twilio.Base.Page{Twilio.Rest.Preview.AccSecurity.ServiceResource},Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Fetch the previous page of records
+             </summary>
+            
+             <param name="page"> current page of records </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> The previous page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.Update(Twilio.Rest.Preview.AccSecurity.UpdateServiceOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Update a specific Phone Verification Service.
+             </summary>
+            
+             <param name="options"> Update Service parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.UpdateAsync(Twilio.Rest.Preview.AccSecurity.UpdateServiceOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Update a specific Phone Verification Service.
+             </summary>
+            
+             <param name="options"> Update Service parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.Update(System.String,System.String,System.Nullable{System.Int32},Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Update a specific Phone Verification Service.
+             </summary>
+            
+             <param name="pathSid"> Service Sid. </param>
+             <param name="name"> Friendly name of the service </param>
+             <param name="codeLength"> Length of verification code. Valid values are 4-10 </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.UpdateAsync(System.String,System.String,System.Nullable{System.Int32},Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Update a specific Phone Verification Service.
+             </summary>
+            
+             <param name="pathSid"> Service Sid. </param>
+             <param name="name"> Friendly name of the service </param>
+             <param name="codeLength"> Length of verification code. Valid values are 4-10 </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of Service </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.ServiceResource.FromJson(System.String)">
+             <summary>
+             Converts a JSON string into a ServiceResource object
+             </summary>
+            
+             <param name="json"> Raw JSON string </param>
+             <returns> ServiceResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.ServiceResource.Sid">
+            <summary>
+            A string that uniquely identifies this Service.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.ServiceResource.AccountSid">
+            <summary>
+            Account Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.ServiceResource.Name">
+            <summary>
+            Friendly name of the service
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.ServiceResource.CodeLength">
+            <summary>
+            Length of verification code. Valid values are 4-10
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.ServiceResource.DateCreated">
+            <summary>
+            The date this Service was created
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.ServiceResource.DateUpdated">
+            <summary>
+            The date this Service was updated
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.ServiceResource.Url">
+            <summary>
+            The url
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.ServiceResource.Links">
+            <summary>
+            The links
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationCheckOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            challenge a specific Verification Check.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationCheckOptions.PathServiceSid">
+            <summary>
+            The service_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationCheckOptions.Code">
+            <summary>
+            The verification string
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationCheckOptions.To">
+            <summary>
+            To phonenumber
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationCheckOptions.#ctor(System.String,System.String)">
+             <summary>
+             Construct a new CreateVerificationCheckOptions
+             </summary>
+            
+             <param name="pathServiceSid"> The service_sid </param>
+             <param name="code"> The verification string </param>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationCheckOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.Create(Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationCheckOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             challenge a specific Verification Check.
+             </summary>
+            
+             <param name="options"> Create VerificationCheck parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of VerificationCheck </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.CreateAsync(Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationCheckOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             challenge a specific Verification Check.
+             </summary>
+            
+             <param name="options"> Create VerificationCheck parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of VerificationCheck </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.Create(System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             challenge a specific Verification Check.
+             </summary>
+            
+             <param name="pathServiceSid"> The service_sid </param>
+             <param name="code"> The verification string </param>
+             <param name="to"> To phonenumber </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of VerificationCheck </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.CreateAsync(System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             challenge a specific Verification Check.
+             </summary>
+            
+             <param name="pathServiceSid"> The service_sid </param>
+             <param name="code"> The verification string </param>
+             <param name="to"> To phonenumber </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of VerificationCheck </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.FromJson(System.String)">
+             <summary>
+             Converts a JSON string into a VerificationCheckResource object
+             </summary>
+            
+             <param name="json"> Raw JSON string </param>
+             <returns> VerificationCheckResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.Sid">
+            <summary>
+            A string that uniquely identifies this Verification Check.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.ServiceSid">
+            <summary>
+            Service Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.AccountSid">
+            <summary>
+            Account Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.To">
+            <summary>
+            To phonenumber
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.Channel">
+            <summary>
+            sms or call
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.Status">
+            <summary>
+            pending, approved, denied or expired
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.Valid">
+            <summary>
+            successful verification
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.DateCreated">
+            <summary>
+            The date this Verification Check was created
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationCheckResource.DateUpdated">
+            <summary>
+            The date this Verification Check was updated
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            Create a new Verification for a To number using a Service
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationOptions.PathServiceSid">
+            <summary>
+            Service Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationOptions.To">
+            <summary>
+            To phonenumber
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationOptions.Channel">
+            <summary>
+            sms or call
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationOptions.CustomMessage">
+            <summary>
+            A custom message for this verification
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationOptions.#ctor(System.String,System.String,System.String)">
+             <summary>
+             Construct a new CreateVerificationOptions
+             </summary>
+            
+             <param name="pathServiceSid"> Service Sid. </param>
+             <param name="to"> To phonenumber </param>
+             <param name="channel"> sms or call </param>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.Create(Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Create a new Verification for a To number using a Service
+             </summary>
+            
+             <param name="options"> Create Verification parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of Verification </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.CreateAsync(Twilio.Rest.Preview.AccSecurity.Service.CreateVerificationOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Create a new Verification for a To number using a Service
+             </summary>
+            
+             <param name="options"> Create Verification parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of Verification </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.Create(System.String,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Create a new Verification for a To number using a Service
+             </summary>
+            
+             <param name="pathServiceSid"> Service Sid. </param>
+             <param name="to"> To phonenumber </param>
+             <param name="channel"> sms or call </param>
+             <param name="customMessage"> A custom message for this verification </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of Verification </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.CreateAsync(System.String,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             Create a new Verification for a To number using a Service
+             </summary>
+            
+             <param name="pathServiceSid"> Service Sid. </param>
+             <param name="to"> To phonenumber </param>
+             <param name="channel"> sms or call </param>
+             <param name="customMessage"> A custom message for this verification </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of Verification </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.FromJson(System.String)">
+             <summary>
+             Converts a JSON string into a VerificationResource object
+             </summary>
+            
+             <param name="json"> Raw JSON string </param>
+             <returns> VerificationResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.Sid">
+            <summary>
+            A string that uniquely identifies this Verification.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.ServiceSid">
+            <summary>
+            Service Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.AccountSid">
+            <summary>
+            Account Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.To">
+            <summary>
+            To phonenumber
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.Channel">
+            <summary>
+            sms or call
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.Status">
+            <summary>
+            pending, approved, denied or expired
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.Valid">
+            <summary>
+            successful verification
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.DateCreated">
+            <summary>
+            The date this Verification was created
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.AccSecurity.Service.VerificationResource.DateUpdated">
+            <summary>
+            The date this Verification was updated
             </summary>
         </member>
         <member name="T:Twilio.Rest.Preview.BulkExports.FetchExportConfigurationOptions">
@@ -63064,6 +63720,356 @@
             The links
             </summary>
         </member>
+        <member name="T:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueCumulativeStatisticsOptions">
+            <summary>
+            FetchTaskQueueCumulativeStatisticsOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueCumulativeStatisticsOptions.PathWorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueCumulativeStatisticsOptions.PathTaskQueueSid">
+            <summary>
+            The task_queue_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueCumulativeStatisticsOptions.EndDate">
+            <summary>
+            The end_date
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueCumulativeStatisticsOptions.Minutes">
+            <summary>
+            The minutes
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueCumulativeStatisticsOptions.StartDate">
+            <summary>
+            The start_date
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueCumulativeStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueCumulativeStatisticsOptions.SplitByWaitTime">
+            <summary>
+            The split_by_wait_time
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueCumulativeStatisticsOptions.#ctor(System.String,System.String)">
+             <summary>
+             Construct a new FetchTaskQueueCumulativeStatisticsOptions
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="pathTaskQueueSid"> The task_queue_sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueCumulativeStatisticsOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.Fetch(Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueCumulativeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch TaskQueueCumulativeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of TaskQueueCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.FetchAsync(Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueCumulativeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch TaskQueueCumulativeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of TaskQueueCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.Fetch(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="pathTaskQueueSid"> The task_queue_sid </param>
+             <param name="endDate"> The end_date </param>
+             <param name="minutes"> The minutes </param>
+             <param name="startDate"> The start_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of TaskQueueCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.FetchAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="pathTaskQueueSid"> The task_queue_sid </param>
+             <param name="endDate"> The end_date </param>
+             <param name="minutes"> The minutes </param>
+             <param name="startDate"> The start_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of TaskQueueCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.FromJson(System.String)">
+             <summary>
+             Converts a JSON string into a TaskQueueCumulativeStatisticsResource object
+             </summary>
+            
+             <param name="json"> Raw JSON string </param>
+             <returns> TaskQueueCumulativeStatisticsResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.AccountSid">
+            <summary>
+            The account_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.AvgTaskAcceptanceTime">
+            <summary>
+            The avg_task_acceptance_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.StartTime">
+            <summary>
+            The start_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.EndTime">
+            <summary>
+            The end_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.ReservationsCreated">
+            <summary>
+            The reservations_created
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.ReservationsAccepted">
+            <summary>
+            The reservations_accepted
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.ReservationsRejected">
+            <summary>
+            The reservations_rejected
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.ReservationsTimedOut">
+            <summary>
+            The reservations_timed_out
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.ReservationsCanceled">
+            <summary>
+            The reservations_canceled
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.ReservationsRescinded">
+            <summary>
+            The reservations_rescinded
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.SplitByWaitTime">
+            <summary>
+            The split_by_wait_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.TaskQueueSid">
+            <summary>
+            The task_queue_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.WaitDurationUntilAccepted">
+            <summary>
+            The wait_duration_until_accepted
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.WaitDurationUntilCanceled">
+            <summary>
+            The wait_duration_until_canceled
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.TasksCanceled">
+            <summary>
+            The tasks_canceled
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.TasksCompleted">
+            <summary>
+            The tasks_completed
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.TasksDeleted">
+            <summary>
+            The tasks_deleted
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.TasksEntered">
+            <summary>
+            The tasks_entered
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.TasksMoved">
+            <summary>
+            The tasks_moved
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.WorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueCumulativeStatisticsResource.Url">
+            <summary>
+            The url
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueRealTimeStatisticsOptions">
+            <summary>
+            FetchTaskQueueRealTimeStatisticsOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueRealTimeStatisticsOptions.PathWorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueRealTimeStatisticsOptions.PathTaskQueueSid">
+            <summary>
+            The task_queue_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueRealTimeStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueRealTimeStatisticsOptions.#ctor(System.String,System.String)">
+             <summary>
+             Construct a new FetchTaskQueueRealTimeStatisticsOptions
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="pathTaskQueueSid"> The task_queue_sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueRealTimeStatisticsOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.Fetch(Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueRealTimeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch TaskQueueRealTimeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of TaskQueueRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.FetchAsync(Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueRealTimeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch TaskQueueRealTimeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of TaskQueueRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.Fetch(System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="pathTaskQueueSid"> The task_queue_sid </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of TaskQueueRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.FetchAsync(System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="pathTaskQueueSid"> The task_queue_sid </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of TaskQueueRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.FromJson(System.String)">
+             <summary>
+             Converts a JSON string into a TaskQueueRealTimeStatisticsResource object
+             </summary>
+            
+             <param name="json"> Raw JSON string </param>
+             <returns> TaskQueueRealTimeStatisticsResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.AccountSid">
+            <summary>
+            The account_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.ActivityStatistics">
+            <summary>
+            The activity_statistics
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.LongestTaskWaitingAge">
+            <summary>
+            The longest_task_waiting_age
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.TaskQueueSid">
+            <summary>
+            The task_queue_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.TasksByPriority">
+            <summary>
+            The tasks_by_priority
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.TasksByStatus">
+            <summary>
+            The tasks_by_status
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.TotalAvailableWorkers">
+            <summary>
+            The total_available_workers
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.TotalEligibleWorkers">
+            <summary>
+            The total_eligible_workers
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.TotalTasks">
+            <summary>
+            The total_tasks
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.WorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueRealTimeStatisticsResource.Url">
+            <summary>
+            The url
+            </summary>
+        </member>
         <member name="T:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.ReadTaskQueuesStatisticsOptions">
             <summary>
             ReadTaskQueuesStatisticsOptions
@@ -63092,6 +64098,16 @@
         <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.ReadTaskQueuesStatisticsOptions.StartDate">
             <summary>
             The start_date
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.ReadTaskQueuesStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.ReadTaskQueuesStatisticsOptions.SplitByWaitTime">
+            <summary>
+            The split_by_wait_time
             </summary>
         </member>
         <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.ReadTaskQueuesStatisticsOptions.#ctor(System.String)">
@@ -63124,7 +64140,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of TaskQueuesStatistics </returns> 
         </member>
-        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueuesStatisticsResource.Read(System.String,System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueuesStatisticsResource.Read(System.String,System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
              <summary>
              read
              </summary>
@@ -63134,12 +64150,14 @@
              <param name="friendlyName"> The friendly_name </param>
              <param name="minutes"> The minutes </param>
              <param name="startDate"> The start_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
              <param name="pageSize"> Page size </param>
              <param name="limit"> Record limit </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of TaskQueuesStatistics </returns> 
         </member>
-        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueuesStatisticsResource.ReadAsync(System.String,System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueuesStatisticsResource.ReadAsync(System.String,System.Nullable{System.DateTime},System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
              <summary>
              read
              </summary>
@@ -63149,6 +64167,8 @@
              <param name="friendlyName"> The friendly_name </param>
              <param name="minutes"> The minutes </param>
              <param name="startDate"> The start_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
              <param name="pageSize"> Page size </param>
              <param name="limit"> Record limit </param>
              <param name="client"> Client to make requests to Twilio </param>
@@ -63244,6 +64264,16 @@
             The start_date
             </summary>
         </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueStatisticsOptions.SplitByWaitTime">
+            <summary>
+            The split_by_wait_time
+            </summary>
+        </member>
         <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.FetchTaskQueueStatisticsOptions.#ctor(System.String,System.String)">
              <summary>
              Construct a new FetchTaskQueueStatisticsOptions
@@ -63275,7 +64305,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of TaskQueueStatistics </returns> 
         </member>
-        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueStatisticsResource.Fetch(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.DateTime},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueStatisticsResource.Fetch(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.String,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              fetch
              </summary>
@@ -63285,10 +64315,12 @@
              <param name="endDate"> The end_date </param>
              <param name="minutes"> The minutes </param>
              <param name="startDate"> The start_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of TaskQueueStatistics </returns> 
         </member>
-        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueStatisticsResource.FetchAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.DateTime},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.TaskQueue.TaskQueueStatisticsResource.FetchAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.String,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              fetch
              </summary>
@@ -63298,6 +64330,8 @@
              <param name="endDate"> The end_date </param>
              <param name="minutes"> The minutes </param>
              <param name="startDate"> The start_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of TaskQueueStatistics </returns> 
         </member>
@@ -65865,6 +66899,258 @@
             The url
             </summary>
         </member>
+        <member name="T:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersCumulativeStatisticsOptions">
+            <summary>
+            FetchWorkersCumulativeStatisticsOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersCumulativeStatisticsOptions.PathWorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersCumulativeStatisticsOptions.EndDate">
+            <summary>
+            The end_date
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersCumulativeStatisticsOptions.Minutes">
+            <summary>
+            The minutes
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersCumulativeStatisticsOptions.StartDate">
+            <summary>
+            The start_date
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersCumulativeStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersCumulativeStatisticsOptions.#ctor(System.String)">
+             <summary>
+             Construct a new FetchWorkersCumulativeStatisticsOptions
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersCumulativeStatisticsOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.Fetch(Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersCumulativeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch WorkersCumulativeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of WorkersCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.FetchAsync(Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersCumulativeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch WorkersCumulativeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of WorkersCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.Fetch(System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="endDate"> The end_date </param>
+             <param name="minutes"> The minutes </param>
+             <param name="startDate"> The start_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of WorkersCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.FetchAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="endDate"> The end_date </param>
+             <param name="minutes"> The minutes </param>
+             <param name="startDate"> The start_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of WorkersCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.FromJson(System.String)">
+             <summary>
+             Converts a JSON string into a WorkersCumulativeStatisticsResource object
+             </summary>
+            
+             <param name="json"> Raw JSON string </param>
+             <returns> WorkersCumulativeStatisticsResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.AccountSid">
+            <summary>
+            The account_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.StartTime">
+            <summary>
+            The start_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.EndTime">
+            <summary>
+            The end_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.ActivityDurations">
+            <summary>
+            The activity_durations
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.ReservationsCreated">
+            <summary>
+            The reservations_created
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.ReservationsAccepted">
+            <summary>
+            The reservations_accepted
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.ReservationsRejected">
+            <summary>
+            The reservations_rejected
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.ReservationsTimedOut">
+            <summary>
+            The reservations_timed_out
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.ReservationsCanceled">
+            <summary>
+            The reservations_canceled
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.ReservationsRescinded">
+            <summary>
+            The reservations_rescinded
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.WorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersCumulativeStatisticsResource.Url">
+            <summary>
+            The url
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersRealTimeStatisticsOptions">
+            <summary>
+            FetchWorkersRealTimeStatisticsOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersRealTimeStatisticsOptions.PathWorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersRealTimeStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersRealTimeStatisticsOptions.#ctor(System.String)">
+             <summary>
+             Construct a new FetchWorkersRealTimeStatisticsOptions
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersRealTimeStatisticsOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersRealTimeStatisticsResource.Fetch(Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersRealTimeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch WorkersRealTimeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of WorkersRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersRealTimeStatisticsResource.FetchAsync(Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersRealTimeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch WorkersRealTimeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of WorkersRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersRealTimeStatisticsResource.Fetch(System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of WorkersRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersRealTimeStatisticsResource.FetchAsync(System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of WorkersRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersRealTimeStatisticsResource.FromJson(System.String)">
+             <summary>
+             Converts a JSON string into a WorkersRealTimeStatisticsResource object
+             </summary>
+            
+             <param name="json"> Raw JSON string </param>
+             <returns> WorkersRealTimeStatisticsResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersRealTimeStatisticsResource.AccountSid">
+            <summary>
+            The account_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersRealTimeStatisticsResource.ActivityStatistics">
+            <summary>
+            The activity_statistics
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersRealTimeStatisticsResource.TotalWorkers">
+            <summary>
+            The total_workers
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersRealTimeStatisticsResource.WorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersRealTimeStatisticsResource.Url">
+            <summary>
+            The url
+            </summary>
+        </member>
         <member name="T:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersStatisticsOptions">
             <summary>
             FetchWorkersStatisticsOptions
@@ -65905,6 +67191,11 @@
             The friendly_name
             </summary>
         </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
         <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkersStatisticsOptions.#ctor(System.String)">
              <summary>
              Construct a new FetchWorkersStatisticsOptions
@@ -65935,7 +67226,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of WorkersStatistics </returns> 
         </member>
-        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersStatisticsResource.Fetch(System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersStatisticsResource.Fetch(System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              fetch
              </summary>
@@ -65947,10 +67238,11 @@
              <param name="taskQueueSid"> The task_queue_sid </param>
              <param name="taskQueueName"> The task_queue_name </param>
              <param name="friendlyName"> The friendly_name </param>
+             <param name="taskChannel"> The task_channel </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of WorkersStatistics </returns> 
         </member>
-        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersStatisticsResource.FetchAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersStatisticsResource.FetchAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              fetch
              </summary>
@@ -65962,6 +67254,7 @@
              <param name="taskQueueSid"> The task_queue_sid </param>
              <param name="taskQueueName"> The task_queue_name </param>
              <param name="friendlyName"> The friendly_name </param>
+             <param name="taskChannel"> The task_channel </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of WorkersStatistics </returns> 
         </member>
@@ -65973,9 +67266,9 @@
              <param name="json"> Raw JSON string </param>
              <returns> WorkersStatisticsResource object represented by the provided JSON </returns> 
         </member>
-        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersStatisticsResource.AccountSid">
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersStatisticsResource.Realtime">
             <summary>
-            The account_sid
+            The realtime
             </summary>
         </member>
         <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersStatisticsResource.Cumulative">
@@ -65983,9 +67276,9 @@
             The cumulative
             </summary>
         </member>
-        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersStatisticsResource.Realtime">
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersStatisticsResource.AccountSid">
             <summary>
-            The realtime
+            The account_sid
             </summary>
         </member>
         <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkersStatisticsResource.WorkspaceSid">
@@ -66028,6 +67321,11 @@
             The end_date
             </summary>
         </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkerStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
         <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.FetchWorkerStatisticsOptions.#ctor(System.String,System.String)">
              <summary>
              Construct a new FetchWorkerStatisticsOptions
@@ -66059,7 +67357,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of WorkerStatistics </returns> 
         </member>
-        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkerStatisticsResource.Fetch(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkerStatisticsResource.Fetch(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              fetch
              </summary>
@@ -66069,10 +67367,11 @@
              <param name="minutes"> The minutes </param>
              <param name="startDate"> The start_date </param>
              <param name="endDate"> The end_date </param>
+             <param name="taskChannel"> The task_channel </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of WorkerStatistics </returns> 
         </member>
-        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkerStatisticsResource.FetchAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Worker.WorkerStatisticsResource.FetchAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              fetch
              </summary>
@@ -66082,6 +67381,7 @@
              <param name="minutes"> The minutes </param>
              <param name="startDate"> The start_date </param>
              <param name="endDate"> The end_date </param>
+             <param name="taskChannel"> The task_channel </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of WorkerStatistics </returns> 
         </member>
@@ -66615,6 +67915,346 @@
             The links
             </summary>
         </member>
+        <member name="T:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowCumulativeStatisticsOptions">
+            <summary>
+            FetchWorkflowCumulativeStatisticsOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowCumulativeStatisticsOptions.PathWorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowCumulativeStatisticsOptions.PathWorkflowSid">
+            <summary>
+            The workflow_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowCumulativeStatisticsOptions.EndDate">
+            <summary>
+            The end_date
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowCumulativeStatisticsOptions.Minutes">
+            <summary>
+            The minutes
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowCumulativeStatisticsOptions.StartDate">
+            <summary>
+            The start_date
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowCumulativeStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowCumulativeStatisticsOptions.SplitByWaitTime">
+            <summary>
+            The split_by_wait_time
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowCumulativeStatisticsOptions.#ctor(System.String,System.String)">
+             <summary>
+             Construct a new FetchWorkflowCumulativeStatisticsOptions
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="pathWorkflowSid"> The workflow_sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowCumulativeStatisticsOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.Fetch(Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowCumulativeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch WorkflowCumulativeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of WorkflowCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.FetchAsync(Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowCumulativeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch WorkflowCumulativeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of WorkflowCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.Fetch(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="pathWorkflowSid"> The workflow_sid </param>
+             <param name="endDate"> The end_date </param>
+             <param name="minutes"> The minutes </param>
+             <param name="startDate"> The start_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of WorkflowCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.FetchAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="pathWorkflowSid"> The workflow_sid </param>
+             <param name="endDate"> The end_date </param>
+             <param name="minutes"> The minutes </param>
+             <param name="startDate"> The start_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of WorkflowCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.FromJson(System.String)">
+             <summary>
+             Converts a JSON string into a WorkflowCumulativeStatisticsResource object
+             </summary>
+            
+             <param name="json"> Raw JSON string </param>
+             <returns> WorkflowCumulativeStatisticsResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.AccountSid">
+            <summary>
+            The account_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.AvgTaskAcceptanceTime">
+            <summary>
+            The avg_task_acceptance_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.StartTime">
+            <summary>
+            The start_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.EndTime">
+            <summary>
+            The end_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.ReservationsCreated">
+            <summary>
+            The reservations_created
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.ReservationsAccepted">
+            <summary>
+            The reservations_accepted
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.ReservationsRejected">
+            <summary>
+            The reservations_rejected
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.ReservationsTimedOut">
+            <summary>
+            The reservations_timed_out
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.ReservationsCanceled">
+            <summary>
+            The reservations_canceled
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.ReservationsRescinded">
+            <summary>
+            The reservations_rescinded
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.SplitByWaitTime">
+            <summary>
+            The split_by_wait_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.WaitDurationUntilAccepted">
+            <summary>
+            The wait_duration_until_accepted
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.WaitDurationUntilCanceled">
+            <summary>
+            The wait_duration_until_canceled
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.TasksCanceled">
+            <summary>
+            The tasks_canceled
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.TasksCompleted">
+            <summary>
+            The tasks_completed
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.TasksEntered">
+            <summary>
+            The tasks_entered
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.TasksDeleted">
+            <summary>
+            The tasks_deleted
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.TasksMoved">
+            <summary>
+            The tasks_moved
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.TasksTimedOutInWorkflow">
+            <summary>
+            The tasks_timed_out_in_workflow
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.WorkflowSid">
+            <summary>
+            The workflow_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.WorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowCumulativeStatisticsResource.Url">
+            <summary>
+            The url
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowRealTimeStatisticsOptions">
+            <summary>
+            FetchWorkflowRealTimeStatisticsOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowRealTimeStatisticsOptions.PathWorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowRealTimeStatisticsOptions.PathWorkflowSid">
+            <summary>
+            The workflow_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowRealTimeStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowRealTimeStatisticsOptions.#ctor(System.String,System.String)">
+             <summary>
+             Construct a new FetchWorkflowRealTimeStatisticsOptions
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="pathWorkflowSid"> The workflow_sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowRealTimeStatisticsOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowRealTimeStatisticsResource.Fetch(Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowRealTimeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch WorkflowRealTimeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of WorkflowRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowRealTimeStatisticsResource.FetchAsync(Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowRealTimeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch WorkflowRealTimeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of WorkflowRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowRealTimeStatisticsResource.Fetch(System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="pathWorkflowSid"> The workflow_sid </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of WorkflowRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowRealTimeStatisticsResource.FetchAsync(System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="pathWorkflowSid"> The workflow_sid </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of WorkflowRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowRealTimeStatisticsResource.FromJson(System.String)">
+             <summary>
+             Converts a JSON string into a WorkflowRealTimeStatisticsResource object
+             </summary>
+            
+             <param name="json"> Raw JSON string </param>
+             <returns> WorkflowRealTimeStatisticsResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowRealTimeStatisticsResource.AccountSid">
+            <summary>
+            The account_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowRealTimeStatisticsResource.LongestTaskWaitingAge">
+            <summary>
+            The longest_task_waiting_age
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowRealTimeStatisticsResource.TasksByPriority">
+            <summary>
+            The tasks_by_priority
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowRealTimeStatisticsResource.TasksByStatus">
+            <summary>
+            The tasks_by_status
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowRealTimeStatisticsResource.TotalTasks">
+            <summary>
+            The total_tasks
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowRealTimeStatisticsResource.WorkflowSid">
+            <summary>
+            The workflow_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowRealTimeStatisticsResource.WorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowRealTimeStatisticsResource.Url">
+            <summary>
+            The url
+            </summary>
+        </member>
         <member name="T:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowStatisticsOptions">
             <summary>
             FetchWorkflowStatisticsOptions
@@ -66643,6 +68283,16 @@
         <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowStatisticsOptions.EndDate">
             <summary>
             The end_date
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowStatisticsOptions.SplitByWaitTime">
+            <summary>
+            The split_by_wait_time
             </summary>
         </member>
         <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.FetchWorkflowStatisticsOptions.#ctor(System.String,System.String)">
@@ -66676,7 +68326,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of WorkflowStatistics </returns> 
         </member>
-        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowStatisticsResource.Fetch(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowStatisticsResource.Fetch(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              fetch
              </summary>
@@ -66686,10 +68336,12 @@
              <param name="minutes"> The minutes </param>
              <param name="startDate"> The start_date </param>
              <param name="endDate"> The end_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of WorkflowStatistics </returns> 
         </member>
-        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowStatisticsResource.FetchAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.Workflow.WorkflowStatisticsResource.FetchAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              fetch
              </summary>
@@ -66699,6 +68351,8 @@
              <param name="minutes"> The minutes </param>
              <param name="startDate"> The start_date </param>
              <param name="endDate"> The end_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of WorkflowStatistics </returns> 
         </member>
@@ -66740,6 +68394,330 @@
             The url
             </summary>
         </member>
+        <member name="T:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceCumulativeStatisticsOptions">
+            <summary>
+            FetchWorkspaceCumulativeStatisticsOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceCumulativeStatisticsOptions.PathWorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceCumulativeStatisticsOptions.EndDate">
+            <summary>
+            The end_date
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceCumulativeStatisticsOptions.Minutes">
+            <summary>
+            The minutes
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceCumulativeStatisticsOptions.StartDate">
+            <summary>
+            The start_date
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceCumulativeStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceCumulativeStatisticsOptions.SplitByWaitTime">
+            <summary>
+            The split_by_wait_time
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceCumulativeStatisticsOptions.#ctor(System.String)">
+             <summary>
+             Construct a new FetchWorkspaceCumulativeStatisticsOptions
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceCumulativeStatisticsOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.Fetch(Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceCumulativeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch WorkspaceCumulativeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of WorkspaceCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.FetchAsync(Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceCumulativeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch WorkspaceCumulativeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of WorkspaceCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.Fetch(System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="endDate"> The end_date </param>
+             <param name="minutes"> The minutes </param>
+             <param name="startDate"> The start_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of WorkspaceCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.FetchAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="endDate"> The end_date </param>
+             <param name="minutes"> The minutes </param>
+             <param name="startDate"> The start_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of WorkspaceCumulativeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.FromJson(System.String)">
+             <summary>
+             Converts a JSON string into a WorkspaceCumulativeStatisticsResource object
+             </summary>
+            
+             <param name="json"> Raw JSON string </param>
+             <returns> WorkspaceCumulativeStatisticsResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.AccountSid">
+            <summary>
+            The account_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.AvgTaskAcceptanceTime">
+            <summary>
+            The avg_task_acceptance_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.StartTime">
+            <summary>
+            The start_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.EndTime">
+            <summary>
+            The end_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.ReservationsCreated">
+            <summary>
+            The reservations_created
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.ReservationsAccepted">
+            <summary>
+            The reservations_accepted
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.ReservationsRejected">
+            <summary>
+            The reservations_rejected
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.ReservationsTimedOut">
+            <summary>
+            The reservations_timed_out
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.ReservationsCanceled">
+            <summary>
+            The reservations_canceled
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.ReservationsRescinded">
+            <summary>
+            The reservations_rescinded
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.SplitByWaitTime">
+            <summary>
+            The split_by_wait_time
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.WaitDurationUntilAccepted">
+            <summary>
+            The wait_duration_until_accepted
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.WaitDurationUntilCanceled">
+            <summary>
+            The wait_duration_until_canceled
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.TasksCanceled">
+            <summary>
+            The tasks_canceled
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.TasksCompleted">
+            <summary>
+            The tasks_completed
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.TasksCreated">
+            <summary>
+            The tasks_created
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.TasksDeleted">
+            <summary>
+            The tasks_deleted
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.TasksMoved">
+            <summary>
+            The tasks_moved
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.TasksTimedOutInWorkflow">
+            <summary>
+            The tasks_timed_out_in_workflow
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.WorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceCumulativeStatisticsResource.Url">
+            <summary>
+            The url
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceRealTimeStatisticsOptions">
+            <summary>
+            FetchWorkspaceRealTimeStatisticsOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceRealTimeStatisticsOptions.PathWorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceRealTimeStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceRealTimeStatisticsOptions.#ctor(System.String)">
+             <summary>
+             Construct a new FetchWorkspaceRealTimeStatisticsOptions
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceRealTimeStatisticsOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.Fetch(Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceRealTimeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch WorkspaceRealTimeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of WorkspaceRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.FetchAsync(Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceRealTimeStatisticsOptions,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="options"> Fetch WorkspaceRealTimeStatistics parameters </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of WorkspaceRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.Fetch(System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> A single instance of WorkspaceRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.FetchAsync(System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+             <summary>
+             fetch
+             </summary>
+            
+             <param name="pathWorkspaceSid"> The workspace_sid </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="client"> Client to make requests to Twilio </param>
+             <returns> Task that resolves to A single instance of WorkspaceRealTimeStatistics </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.FromJson(System.String)">
+             <summary>
+             Converts a JSON string into a WorkspaceRealTimeStatisticsResource object
+             </summary>
+            
+             <param name="json"> Raw JSON string </param>
+             <returns> WorkspaceRealTimeStatisticsResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.AccountSid">
+            <summary>
+            The account_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.ActivityStatistics">
+            <summary>
+            The activity_statistics
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.LongestTaskWaitingAge">
+            <summary>
+            The longest_task_waiting_age
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.TasksByPriority">
+            <summary>
+            The tasks_by_priority
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.TasksByStatus">
+            <summary>
+            The tasks_by_status
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.TotalTasks">
+            <summary>
+            The total_tasks
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.TotalWorkers">
+            <summary>
+            The total_workers
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.WorkspaceSid">
+            <summary>
+            The workspace_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceRealTimeStatisticsResource.Url">
+            <summary>
+            The url
+            </summary>
+        </member>
         <member name="T:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceStatisticsOptions">
             <summary>
             FetchWorkspaceStatisticsOptions
@@ -66763,6 +68741,16 @@
         <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceStatisticsOptions.EndDate">
             <summary>
             The end_date
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceStatisticsOptions.TaskChannel">
+            <summary>
+            The task_channel
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceStatisticsOptions.SplitByWaitTime">
+            <summary>
+            The split_by_wait_time
             </summary>
         </member>
         <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.FetchWorkspaceStatisticsOptions.#ctor(System.String)">
@@ -66795,7 +68783,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of WorkspaceStatistics </returns> 
         </member>
-        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceStatisticsResource.Fetch(System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceStatisticsResource.Fetch(System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              fetch
              </summary>
@@ -66804,10 +68792,12 @@
              <param name="minutes"> The minutes </param>
              <param name="startDate"> The start_date </param>
              <param name="endDate"> The end_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of WorkspaceStatistics </returns> 
         </member>
-        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceStatisticsResource.FetchAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Taskrouter.V1.Workspace.WorkspaceStatisticsResource.FetchAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              fetch
              </summary>
@@ -66816,6 +68806,8 @@
              <param name="minutes"> The minutes </param>
              <param name="startDate"> The start_date </param>
              <param name="endDate"> The end_date </param>
+             <param name="taskChannel"> The task_channel </param>
+             <param name="splitByWaitTime"> The split_by_wait_time </param>
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of WorkspaceStatistics </returns> 
         </member>
@@ -69251,6 +71243,11 @@
             The media_region
             </summary>
         </member>
+        <member name="M:Twilio.Rest.Video.V1.CreateRoomOptions.#ctor">
+            <summary>
+            Construct a new CreateRoomOptions
+            </summary>
+        </member>
         <member name="M:Twilio.Rest.Video.V1.CreateRoomOptions.GetParams">
             <summary>
             Generate the necessary parameters
@@ -69368,7 +71365,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> Task that resolves to A single instance of Room </returns> 
         </member>
-        <member name="M:Twilio.Rest.Video.V1.RoomResource.Create(System.Nullable{System.Boolean},Twilio.Rest.Video.V1.RoomResource.RoomTypeEnum,System.String,System.Uri,Twilio.Http.HttpMethod,System.Nullable{System.Int32},System.Nullable{System.Boolean},Twilio.Rest.Video.V1.RoomResource.VideoCodecEnum,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Video.V1.RoomResource.Create(System.Nullable{System.Boolean},Twilio.Rest.Video.V1.RoomResource.RoomTypeEnum,System.String,System.Uri,Twilio.Http.HttpMethod,System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Collections.Generic.List{Twilio.Rest.Video.V1.RoomResource.VideoCodecEnum},System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              create
              </summary>
@@ -69385,7 +71382,7 @@
              <param name="client"> Client to make requests to Twilio </param>
              <returns> A single instance of Room </returns> 
         </member>
-        <member name="M:Twilio.Rest.Video.V1.RoomResource.CreateAsync(System.Nullable{System.Boolean},Twilio.Rest.Video.V1.RoomResource.RoomTypeEnum,System.String,System.Uri,Twilio.Http.HttpMethod,System.Nullable{System.Int32},System.Nullable{System.Boolean},Twilio.Rest.Video.V1.RoomResource.VideoCodecEnum,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Video.V1.RoomResource.CreateAsync(System.Nullable{System.Boolean},Twilio.Rest.Video.V1.RoomResource.RoomTypeEnum,System.String,System.Uri,Twilio.Http.HttpMethod,System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Collections.Generic.List{Twilio.Rest.Video.V1.RoomResource.VideoCodecEnum},System.String,Twilio.Clients.ITwilioRestClient)">
              <summary>
              create
              </summary>
@@ -69589,6 +71586,11 @@
         <member name="P:Twilio.Rest.Video.V1.RoomResource.RecordParticipantsOnConnect">
             <summary>
             The record_participants_on_connect
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Video.V1.RoomResource.VideoCodecs">
+            <summary>
+            The video_codecs
             </summary>
         </member>
         <member name="P:Twilio.Rest.Video.V1.RoomResource.Url">

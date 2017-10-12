@@ -9,55 +9,37 @@ namespace PersonalFinance
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.validate*"
+                        ));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+            bundles.Add(new StyleBundle("~/Content/css_all").Include(
+                   "~/Content/Site.css",
+                   "~/Content/font-awesome.css",
+                   "~/Content/font-awesome.css",
+                   "~/Content/animate.css",
+                   "~/Content/bootstrap.css",
+                   "~/Content/helper.css",
+                   "~/Content/stroke-icons/stroke-icons-style.css",
+                   "~/Content/pe-icon-7-stroke.css",
+                   "~/Content/style.css",
+                   "~/Content/datatables.min.css",
+                    "~/Content/daterangepicker.css"
+       ));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+            bundles.Add(new ScriptBundle("~/bundles/scripts_all").Include(
+                    "~/Scripts/bootstrap.js",
+                    "~/Scripts/respond.js",
+                    "~/Scripts/index.js",
+                    "~/Scripts/Chart.min.js",
+                    "~/Scripts/luna.js",
+                    "~/Scripts/datatables.min.js",
+                     "~/Scripts/Moment.js",
+                     "~/Scripts/pace.min.js",
+                    "~/Scripts/daterangepicker.js"
+                    ));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                    "~/Content/Site.css"));
-            bundles.Add(new StyleBundle("~/Content/font-awesome").Include(
-                    "~/Content/font-awesome.css", new CssRewriteUrlTransform()));
-            bundles.Add(new StyleBundle("~/Content/animate").Include(
-                    "~/Content/animate.css", new CssRewriteUrlTransform()));
-            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
-                    "~/Content/bootstrap.css", new CssRewriteUrlTransform()));
-            bundles.Add(new StyleBundle("~/Content/helper").Include(
-                    "~/Content/helper.css", new CssRewriteUrlTransform()));
-            bundles.Add(new StyleBundle("~/Content/stroke-icons-style").Include(
-                    "~/Content/stroke-icons/stroke-icons-style.css", new CssRewriteUrlTransform()));
-            bundles.Add(new StyleBundle("~/Content/icon-styling").Include(
-                    "~/Content/pe-icon-7-stroke.css", new CssRewriteUrlTransform()));
-            bundles.Add(new StyleBundle("~/Content/styles/style").Include(
-                    "~/Content/style.css", new CssRewriteUrlTransform()));
-            bundles.Add(new StyleBundle("~/Content/bundles/dataTables").Include(
-                "~/Content/datatables.min.css", new CssRewriteUrlTransform()));
-            bundles.Add(new StyleBundle("~/Content/daterangepicker").Include(
-                "~/Content/daterangepicker.css", new CssRewriteUrlTransform()));
-
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                    "~/Scripts/bootstrap.js"));
-            bundles.Add(new ScriptBundle("~/bundles/respond").Include(
-                    "~/Scripts/respond.js"));
-            bundles.Add(new ScriptBundle("~/bundles/sparkline").Include(
-                    "~/Scripts/index.js"));
-            bundles.Add(new ScriptBundle("~/bundles/Chart").Include(
-                    "~/Scripts/Chart.min.js"));
-            bundles.Add(new ScriptBundle("~/bundles/luna").Include(
-                    "~/Scripts/luna.js"));
-            bundles.Add(new ScriptBundle("~/bundles/daterangepicker").Include(
-                    "~/Scripts/daterangepicker.js"));
-            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
-                    "~/Scripts/datatables.min.js"));
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                    "~/bundles/jqueryval"));
-            bundles.Add(new ScriptBundle("~/bundles/Moment").Include(
-                "~/Scripts/Moment.js"));
+            BundleTable.EnableOptimizations = true;
 
         }
     }

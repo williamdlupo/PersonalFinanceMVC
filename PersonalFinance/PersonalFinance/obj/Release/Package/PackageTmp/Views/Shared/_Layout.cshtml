@@ -7,39 +7,11 @@
     <!-- Page title -->
     <title>FinanSeer | @ViewBag.Title</title>
 
-    @Styles.Render("~/Content/daterangepicker")
-    @Styles.Render("~/Content/bundles/dataTables")
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/font-awesome")
-    @Styles.Render("~/Content/animate")
-    @Styles.Render("~/Content/bootstrap")
-    @Styles.Render("~/Content/helper")
-    @Styles.Render("~/Content/stroke-icons-style")
-    @Styles.Render("~/Content/styles/style")
-    @Styles.Render("~/Content/icon-styling")
-
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/respond")
-    @Scripts.Render("~/bundles/Moment")
-    @Scripts.Render("~/bundles/sparkline")
-    @Scripts.Render("~/bundles/Chart")
-    @Scripts.Render("~/bundles/luna")
-    @Scripts.Render("~/bundles/daterangepicker")
-    @Scripts.Render("~/bundles/datatables")
+    @Styles.Render("~/Content/css_all")
+    @Scripts.Render("~/bundles/scripts_all")
 
-    <script type='text/javascript'>
-        var appInsights = window.appInsights || function (config) {
-            function r(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } }
-            var t = { config: config }, u = document, e = window, o = 'script', s = u.createElement(o), i, f; for (s.src = config.url || '//az416426.vo.msecnd.net/scripts/a/ai.0.js', u.getElementsByTagName(o)[0].parentNode.appendChild(s), t.cookie = u.cookie, t.queue = [], i = ['Event', 'Exception', 'Metric', 'PageView', 'Trace', 'Ajax']; i.length;)r('track' + i.pop()); return r('setAuthenticatedUserContext'), r('clearAuthenticatedUserContext'), config.disableExceptionTracking || (i = 'onerror', r('_' + i), f = e[i], e[i] = function (config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t['_' + i](config, r, u, e, o), s }), t
-        }({
-            instrumentationKey: '8b0f16ae-b67e-4f9c-8f85-6cc107b07534'
-        });
 
-        window.appInsights = appInsights;
-        appInsights.trackPageView();
-    </script>
 </head>
 @if (Request.IsAuthenticated)
 {
