@@ -229,6 +229,7 @@ namespace PersonalFinance.Controllers
             Session["DonutChart"] = donutdata;
             Session["AccountList"] = accountlist;
             Session["NetWorth"] = networth;
+            Session["transactions"] = plaid.Transaction_list;
 
             return View("Main", plaid);
         }

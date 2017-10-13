@@ -164,7 +164,7 @@ namespace PersonalFinance.Controllers
             return View(plaid);
         }
 
-        public async Task<ActionResult> DeleteAccount(string access_token)
+        public async Task<ActionResult> DeleteAccount(string slct)
         {
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
@@ -173,7 +173,7 @@ namespace PersonalFinance.Controllers
                 User = user
             };
 
-            await plaid.DeleteInstitution(access_token);
+            await plaid.DeleteInstitution(slct);
             ViewBag.Message = "Account Deleted!";
 
             return RedirectToAction("AccountSync", "Account");
