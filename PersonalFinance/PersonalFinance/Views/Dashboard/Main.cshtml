@@ -102,12 +102,25 @@
                 @Model.SelectedAccount
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu">
-                @foreach (var account in Model.Account_list)
-            {
-                    <li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("AccountViewHandler", "Dashboard", new { accountid = account.AccountID } )'>@account.AccountName: <em class="pull-right">$@account.Balance</em></a></li>
+            <ul class="dropdown-menu" style="width:auto">
+                @if (!Model.SelectedAccount.Equals("All Accounts"))
+                {
+                    <li data-placement="left" title="All Accounts"><a href='@Url.Action("AccountViewHandler", "Dashboard", new { trim = "" } )'>All Accounts</a></li>
+                    <li role="separator" class="divider"></li>
                 }
+                @foreach (var accounttype in Model.AccountTypeList)
+                {
+                    <li class="dropdown-header text-capitalize">@accounttype.ToString()</li>
 
+                    foreach (var account in Model.Account_list)
+                    {
+                        if (account.Account_Type.Equals(accounttype.ToString()))
+                        {
+                            <li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("AccountViewHandler", "Dashboard", new { trim = account.AccountID })'>@account.AccountName: <b> $@account.Balance</b></a></li>
+                        }
+                    }
+                    <li role="separator" class="divider"></li>
+                }
             </ul>
         </div>
     </div>

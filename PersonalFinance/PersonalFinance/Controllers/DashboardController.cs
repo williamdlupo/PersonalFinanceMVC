@@ -34,7 +34,7 @@ namespace PersonalFinance.Controllers
         public async Task<ActionResult> Main()
         {
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
-            if (user.FirstLoginFlag == true) { return RedirectToAction("AccountViewSync", "Account"); }
+            if (user.FirstLoginFlag == true) { return RedirectToAction("AccountSync", "Account"); }
 
             Plaid plaid = new Plaid
             {
@@ -52,15 +52,10 @@ namespace PersonalFinance.Controllers
 
                 await plaid.GetAccountList();
 
-                var accountlist = plaid.Account_list;
-                var chartdata = plaid.BarChart;
-                var donutdata = plaid.DonutChart;
-                var networth = plaid.NetWorth;
-
-                Session["BarChart"] = chartdata;
-                Session["DonutChart"] = donutdata;
-                Session["AccountList"] = accountlist;
-                Session["NetWorth"] = networth;
+                Session["BarChart"] = plaid.BarChart;
+                Session["DonutChart"] = plaid.DonutChart;
+                Session["AccountList"] = plaid.Account_list;
+                Session["NetWorth"] = plaid.NetWorth;
             }
             else
             {
@@ -69,6 +64,7 @@ namespace PersonalFinance.Controllers
                 plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
                 plaid.NetWorth = Session["NetWorth"] as List<decimal>;
+                plaid.SelectedAccount = Session["SelectedAccount"] as string;
 
                 plaid.DonutDataSum(plaid.DonutChart);
             }
@@ -91,17 +87,12 @@ namespace PersonalFinance.Controllers
 
                 plaid.GetTransactions(start_date, end_date);
 
-                var transactions = plaid.Transaction_list;
-                var startdate = dates.start_date;
-                var enddate = dates.end_date;
-                var chartdata = plaid.BarChart;
-                var donutdata = plaid.DonutChart;
-
-                Session["transactions"] = transactions;
-                Session["startdate"] = startdate;
-                Session["enddate"] = enddate;
-                Session["BarChart"] = chartdata;
-                Session["DonutChart"] = donutdata;
+                Session["transactions"] = plaid.Transaction_list;
+                Session["startdate"] = dates.start_date;
+                Session["enddate"] = dates.end_date;
+                Session["BarChart"] = plaid.BarChart;
+                Session["DonutChart"] = plaid.DonutChart;
+                Session["SelectedAccount"] = plaid.SelectedAccount;
 
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
                 plaid.NetWorth = Session["NetWorth"] as List<decimal>;
@@ -144,18 +135,7 @@ namespace PersonalFinance.Controllers
 
             var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);
 
-            if (sortColumnIndex >= 1 && sortColumnIndex < 4)
-            {
-                Func<User_Transactions, string> orderingFunction = (c => sortColumnIndex == 1 ? c.CategoryID :
-                                                               sortColumnIndex == 2 ? c.Location_Name :
-                                                               c.Location_State);
-                var sortDirection = Request["sSortDir_0"]; // asc or desc
-                if (sortDirection == "asc")
-                    displayedTransactions = displayedTransactions.OrderBy(orderingFunction);
-                else
-                    displayedTransactions = displayedTransactions.OrderByDescending(orderingFunction);
-            }
-            else if (sortColumnIndex == 0)
+            if (sortColumnIndex == 0)
             {
                 Func<User_Transactions, DateTime> orderingFunction = (c => c.Date);
                 var sortDirection = Request["sSortDir_0"]; // asc or desc
@@ -164,9 +144,20 @@ namespace PersonalFinance.Controllers
                 else
                     displayedTransactions = displayedTransactions.OrderByDescending(orderingFunction);
             }
-            else
+            else if(sortColumnIndex == 4)
             {
                 Func<User_Transactions, decimal> orderingFunction = (c => c.Amount);
+                var sortDirection = Request["sSortDir_0"]; // asc or desc
+                if (sortDirection == "asc")
+                    displayedTransactions = displayedTransactions.OrderBy(orderingFunction);
+                else
+                    displayedTransactions = displayedTransactions.OrderByDescending(orderingFunction);
+            }
+            else
+            {
+                Func<User_Transactions, string> orderingFunction = (c => sortColumnIndex == 1 ? c.CategoryID :
+                                                               sortColumnIndex == 2 ? c.Location_Name :
+                                                               c.Location_State);
                 var sortDirection = Request["sSortDir_0"]; // asc or desc
                 if (sortDirection == "asc")
                     displayedTransactions = displayedTransactions.OrderBy(orderingFunction);
@@ -198,7 +189,7 @@ namespace PersonalFinance.Controllers
             JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<ActionResult> AccountViewHandler(string accountid)
+        public async Task<ActionResult> AccountViewHandler(string trim)
         {
             Plaid plaid = new Plaid
             {
@@ -213,7 +204,7 @@ namespace PersonalFinance.Controllers
                 DateTime start_date = DateTime.Parse(plaid.Start_date);
                 DateTime end_date = DateTime.Parse(plaid.End_date);
 
-                plaid.GetTransactions(start_date, end_date, accountid);
+                plaid.GetTransactions(start_date, end_date, trim);
             }
 
             catch
@@ -221,7 +212,7 @@ namespace PersonalFinance.Controllers
                 DateTime? start_date = null;
                 DateTime? end_date = null;
 
-                plaid.GetTransactions(start_date, end_date, accountid);
+                plaid.GetTransactions(start_date, end_date, trim);
             }
 
             await plaid.GetAccountList();

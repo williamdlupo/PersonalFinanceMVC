@@ -19,22 +19,28 @@
     </div>
     <div class="panel panel-filled">
         <div class="panel-body">
+            <label>Email/Username</label>
+            <div>
+                @(Model.Email)
+            </div>
+            <br />
             <label>Password</label>
             <div>
-                @Html.ActionLink("Change your password", "ChangePassword")
+                @Html.ActionLink("Change Password", "ChangePassword")
             </div>
+            <br />
             <label>Phone Number</label>
             <div>
                 <div>@(Model.PhoneNumber ?? "None")</div>
                 <div>
                     @if (Model.PhoneNumber != null)
             {
-                        @Html.ActionLink("Change", "AddPhoneNumber")
+                        @Html.ActionLink("Change Number", "AddPhoneNumber")
                     }
                 </div>
             </div>
             <br />
-            <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-primary btn-block">All Set!</a>
+            <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-info btn-block">All Set</a>
         </div>
     </div>
 </div>

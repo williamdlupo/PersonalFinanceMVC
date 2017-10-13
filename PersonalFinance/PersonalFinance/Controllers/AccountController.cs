@@ -146,9 +146,9 @@ namespace PersonalFinance.Controllers
         }
 
         //
-        // GET: /Account/AccountViewSync
+        // GET: /Account/AccountSync
         [HttpGet]
-        public async Task<ActionResult> AccountViewSync()
+        public async Task<ActionResult> AccountSync()
         {
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
         
@@ -176,12 +176,12 @@ namespace PersonalFinance.Controllers
             await plaid.DeleteInstitution(access_token);
             ViewBag.Message = "Account Deleted!";
 
-            return RedirectToAction("AccountViewSync", "Account");
+            return RedirectToAction("AccountSync", "Account");
         }
          //
         // POST: /Account/AccountSyncAsync
         [HttpPost]
-        public async Task<JsonResult> AccountViewSync(Response data)
+        public async Task<JsonResult> AccountSync(Response data)
         {
             Plaid plaid = new Plaid();
 

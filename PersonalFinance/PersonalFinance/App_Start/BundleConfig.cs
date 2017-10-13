@@ -35,7 +35,6 @@ namespace PersonalFinance
                     "~/Scripts/luna.js",
                     "~/Scripts/datatables.min.js",
                      "~/Scripts/Moment.js",
-                     "~/Scripts/pace.min.js",
                     "~/Scripts/daterangepicker.js"
                     ));
 

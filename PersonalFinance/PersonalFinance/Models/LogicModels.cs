@@ -91,7 +91,7 @@ namespace PersonalFinance.Models
         public decimal SumTransactions { get; set; }
         public List<decimal> NetWorth = new List<decimal>();
         public List<string> AccountTypeList = new List<string>();
-        public string SelectedAccount { get; private set; }
+        public string SelectedAccount { get; set; }
 
         //
         //Sets the Has_accounts to false on object creation for account list view cycle 

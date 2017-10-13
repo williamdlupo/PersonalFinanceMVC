@@ -11,7 +11,6 @@
     @Styles.Render("~/Content/css_all")
     @Scripts.Render("~/bundles/scripts_all")
 
-
 </head>
 @if (Request.IsAuthenticated)
 {
@@ -55,8 +54,8 @@
                                     My Account<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
                                 </a>
                                 <ul id="account" class="nav nav-second collapse">
-                                    <li>@Html.ActionLink("Synced Accounts", "AccountViewSync", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
-                                    <li>@Html.ActionLink("Account Settings", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                                    <li>@Html.ActionLink("Synced Accounts", "AccountSync", "Account", routeValues: null, htmlAttributes: new { title = "Synced Accounts" })</li>
+                                    <li>@Html.ActionLink("Account Settings", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Account Settings" })</li>
                                 </ul>
                             </li>
                             <li class="navbar-header"><a href="javascript:document.getElementById('logoutForm').submit()">Log Out</a></li>

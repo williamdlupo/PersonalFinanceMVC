@@ -69,7 +69,8 @@ namespace PersonalFinance.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                Email = await UserManager.GetEmailAsync(userId)
             };
             return View(model);
         }
@@ -133,7 +134,7 @@ namespace PersonalFinance.Controllers
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
                 ViewBag.Message = "Thank you for verifying your phone number!";
-                return RedirectToAction("AccountViewSync","Account", new { Message = ManageMessageId.AddPhoneSuccess });
+                return RedirectToAction("AccountSync","Account", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "Failed to verify phone");
