@@ -510,6 +510,11 @@ namespace PersonalFinance.Controllers
             base.Dispose(disposing);
         }
 
+        //GET: Account/Profiler
+        public ActionResult Profiler()
+        {
+            return View();
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

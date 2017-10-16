@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="view-header">
+            <div class="header-icon">
+                <i class="pe page-header-icon pe-7s-id"></i>
+            </div>
+            <div class="header-title">
+                <h3>My Financial Profile</h3>
+                <small>
+                    Get your money right playboi, nahmsayin
+                </small>
+            </div>
+        </div>
+        <hr />
+    </div>
+</div>
+
+<div class="col-lg-12">
+    <div class="tabs-container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> <i class="fa fa-usd"></i></a></li>
+            <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false"><i class="fa fa-money"></i></a></li>
+            <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false"><i class="fa fa-line-chart"></i></a></li>
+            <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="true"> <i class="fa fa-shield"></i></a></li>
+            <li class=""><a data-toggle="tab" href="#tab-5" aria-expanded="false"><i class="fa fa-credit-card-alt"></i></a></li>
+            <li class=""><a data-toggle="tab" href="#tab-6" aria-expanded="false"><i class="fa fa-home"></i></a></li>
+            <li class=""><a data-toggle="tab" href="#tab-7" aria-expanded="false"><i class="fa fa-bolt"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="tab-1" class="tab-pane active">
+                <div class="panel-body">
+                    <strong class="h3 c-accent">Income</strong>
+                    <p>
+                        Income before the outcome am i right?!
+                    </p>
+                    <a class="btn btn-accent btnNext pull-right">Next</a>
+                </div>
+            </div>
+            <div id="tab-2" class="tab-pane">
+                <div class="panel-body">
+                    <strong class="h3 c-accent">Cash</strong>
+                    <p>
+                        Get in, get out grab the cash and bail 
+                    </p>
+                    <a class="btn btn-info btnPrevious pull-left">Previous</a>
+                    <a class="btn btn-accent btnNext pull-right">Next</a>
+                </div>
+            </div>
+            <div id="tab-3" class="tab-pane">
+                <div class="panel-body">
+                    <strong class="h3 c-accent">Investments and Retirement Accounts</strong>
+                    <p>
+                        Making it rain BOI
+                    </p>
+                    <a class="btn btn-info btnPrevious pull-left">Previous</a>
+                    <a class="btn btn-accent btnNext pull-right">Next</a>
+                </div>
+            </div>
+            <div id="tab-4" class="tab-pane">
+                <div class="panel-body">
+                    <strong class="h3 c-accent">Insurance</strong>
+                    <p>
+                        PROTECT YA NECK
+                    </p>
+                    <a class="btn btn-info btnPrevious pull-left">Previous</a>
+                    <a class="btn btn-accent btnNext pull-right">Next</a>
+                </div>
+            </div>
+            <div id="tab-5" class="tab-pane">
+                <div class="panel-body">
+                    <strong class="h3 c-accent">Debt</strong>
+                    <p>
+                        Everyone's got skin in the game
+                    </p>
+                    <a class="btn btn-info btnPrevious pull-left">Previous</a>
+                    <a class="btn btn-accent btnNext pull-right">Next</a>
+                </div>
+            </div>
+            <div id="tab-6" class="tab-pane">
+                <div class="panel-body">
+                    <strong class="h3 c-accent">Housing</strong>
+                    <p>
+                        Livin la vida loca HAMHIRITE
+                    </p>
+                    <a class="btn btn-info btnPrevious pull-left">Previous</a>
+                    <a class="btn btn-accent btnNext pull-right">Next</a>
+                </div>
+            </div>
+            <div id="tab-7" class="tab-pane">
+                <div class="panel-body">
+                    <strong class="h3 c-accent">Profile Summary</strong>
+                    <p>
+                        Take a look and make sure everything looks cool (don't worry you can change this at any time)
+                    </p>
+                    <a class="btn btn-info btnPrevious pull-left">Previous</a>
+                    <a class="btn btn-primary btnNext pull-right">Submit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Tab Scripts-->
+<script>
+    $('.btnNext').click(function () {
+        $('.nav-tabs > .active').next('li').find('a').trigger('click');
+    });
+
+    $('.btnPrevious').click(function () {
+        $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+    });
+</script>

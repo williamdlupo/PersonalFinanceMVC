@@ -534,6 +534,7 @@
     <Content Include="Views\Account\UnconfirmedLoginError.cshtml" />
     <Content Include="Views\Account\AccountSync.cshtml" />
     <Content Include="Views\Dashboard\Main.cshtml" />
+    <Content Include="Views\Account\Profiler.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
