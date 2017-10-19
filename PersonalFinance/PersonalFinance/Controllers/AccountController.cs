@@ -511,8 +511,24 @@ namespace PersonalFinance.Controllers
         }
 
         //GET: Account/Profiler
-        public ActionResult Profiler()
+        public async Task<ActionResult> Profiler()
         {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+                if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
+
+                Plaid plaid = new Plaid
+                {
+                    User = user
+                };
+                try { await plaid.GetAccountList(); }
+                catch { }
+
+                return View(plaid);
+            }
+
             return View();
         }
         #region Helpers

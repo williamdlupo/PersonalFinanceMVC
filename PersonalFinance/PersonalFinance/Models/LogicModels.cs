@@ -542,14 +542,23 @@ namespace PersonalFinance.Models
             }
         }
 
-        //TODO
-        //Method to get all transactions for a specific account for a given timeframe
-        //This is a pretty big undertaking....
-        private void GetTransactions(DateTime start_date, DateTime end_date, string account_id)
+        //
+        //
+        public async Task DeleteAccount()
         {
+            //Get list of all access tokens associated with this user
 
+            //Get list of all accounts associate with each access token
+
+            //Pass off each token to azure function to delete account with Plaid
+
+            //If everything is cool with the function (200 response), delete the account and all transactions related to the account
+            //from the DB
+
+            //Once all accounts and transactions have been deleted from Plaid and the DB, delete the user data from DB
+
+            //......maybe we can just wrap all of the DB stuff into one SProc?
         }
-
 
         //TODO
         //Method to calculate goal track success, determine if the user is 'on track', calculate year to date

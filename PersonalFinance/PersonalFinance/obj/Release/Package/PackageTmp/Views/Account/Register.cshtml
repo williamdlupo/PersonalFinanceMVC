@@ -4,55 +4,61 @@
     ViewBag.Title = "Getting Started";
 }
 
+
 <div class="container-center animated slideInDown">
     <div class="view-header">
         <div class="header-icon">
-            <i class="pe page-header-icon pe-7s-add-user"></i>
+            <i class="pe page-header-icon pe-7s-gleam"></i>
         </div>
         <div class="header-title">
-            <h3>Register</h3>
+            <h3>Sign Up</h3>
             <small>
-                Fill out the fields below to register.
+                You're just a few key taps away from some mind-blowing finance
             </small>
         </div>
     </div>
     <div class="panel panel-filled">
         <div class="panel-body">
-            <p>
-            </p>
             <section id="loginForm">
                 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary("", new { @class = "text-danger" })
-                    <div class="row">
-                        <div>
-                            <label class="col-md-12">Email</label>
-                            <div class="col-md-12">
-                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "example@gmail.com" })
-                            </div>
-                            <span class="help-block small col-md-12">This will also function as your user name.</span>
-                        </div>
-                        <div>
-                            <label class="col-md-12">Password</label>
-                            <div class="col-md-12">
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "********", @title = "8-16 digits required with at least 1 lowercase letter and 1 uppser case letter." })
-                            </div>
-                            <span class="help-block small col-md-12"></span>
-                        </div>
-                        <div>
-                            <label class="col-md-12">Confirm Password</label>
-                            <div class="col-md-12">
-                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "********" })
-                            </div>
-                            <span class="help-block small col-md-12"></span>
-                        </div>
-                    </div>
+                    <form>
+                        <row class="col-xs-10 col-xs-offset-1">
+                            <div class="form-group">
+                                <label class="control-label">Email</label>
                                 <div>
-                                    <a class="btn btn-accent pull-left" href="@Url.Action("Login","Account")">Back to Login</a>
-                                    <input type="submit" class="btn btn-info pull-right" value="Register" />
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "example@gmail.com" })
                                 </div>
+                                <span class="small text-accent">Heads up, this will also be your user name.</span>
+                            </div>
+                        </row>
+                        <row class="col-xs-10 col-xs-offset-1">
+                            <div class="form-group">
+                                <label class="control-label">Password</label>
+                                <div>
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @title = "8-16 digits required with at least 1 lowercase letter and 1 uppser case letter." })
+                                </div>
+                            </div>
+                        </row>
+                        <row class="col-xs-10 col-xs-offset-1">
+                            <div class="form-group">
+                                <label class="control-label">Re-Enter Password</label>
+                                <div>
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                </div>
+                                <span class=" help-block text-accent"></span>
+                            </div>
+                        </row>
+
+                        <div>
+                            <a class="btn btn-accent pull-left" href="@Url.Action("Login","Account")">Back</a>
+                            <input type="submit" class="btn btn-info pull-right" value="Sign Me Up" />
+                        </div>
+                    </form>
                 }
+
             </section>
         </div>
     </div>

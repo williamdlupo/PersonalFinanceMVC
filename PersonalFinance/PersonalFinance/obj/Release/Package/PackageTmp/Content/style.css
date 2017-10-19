@@ -881,7 +881,7 @@ body.blank .content {
 }
 .container-center {
   max-width: 400px;
-  margin: 10% auto 0;
+  margin: auto auto 0;
   padding: 20px;
 }
 .container-center.sm {
