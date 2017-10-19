@@ -2,14 +2,11 @@
 @model LoginViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Sign in";
 }
 
 @if (ViewBag.Message != null)
 {
-    <br />
-    <br />
-    <br />
     <div class="alert alert-success container-fluid col-md-4 col-md-offset-4" role="alert">
         <b>Great! </b><span>@ViewBag.Message</span>
     </div>
@@ -20,7 +17,7 @@
             <i class="pe page-header-icon pe-7s-unlock"></i>
         </div>
         <div class="header-title">
-            <h3>Login</h3>
+            <h3>Sign In</h3>
             <small>
                 Please enter your credentials to login
             </small>
