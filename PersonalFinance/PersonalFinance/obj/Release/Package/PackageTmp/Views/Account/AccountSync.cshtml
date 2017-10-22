@@ -34,53 +34,57 @@
         @foreach (var accounttype in Model.AccountTypeList)
         {
             <div class="panel col-sm-4">
-                <div class="animated slideInDown">
+                <div class="animated slideInUp">
                     <ul class="media-list">
                         <li class="media">
                             <div class="media-body">
-                                
-                                    @if (accounttype.ToString().Equals("credit"))
-                                    {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-credit-card-alt text-warning"></i></span> @accounttype.ToString()</b>
-                                    <div class="panel-tools"><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                    else if (accounttype.ToString().Equals("depository"))
-                                    {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-money text-warning"></i></span> Cash</b>
-                                    <div class="panel-tools"><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                    else if (accounttype.ToString().Equals("brokerage"))
-                                    {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-line-chart text-warning"></i></span> @accounttype.ToString()</b>
-                                    <div class="panel-tools"><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                    else if (accounttype.ToString().Equals("loan"))
-                                    {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-bank text-warning"></i></span> @accounttype.ToString()</b>
-                                    <div class="panel-tools"><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                    else if (accounttype.ToString().Equals("mortgage"))
-                                    {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-home text-warning"></i></span> @accounttype.ToString()</b>
-                                    <div class="panel-tools"><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                    else
-                                    {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-balance-scale text-warning"></i></span> @accounttype.ToString()</b>
-                                    <div class="panel-tools"><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
 
-                                    <div class="panel-body">
-                                        @foreach (var account in Model.Account_list)
+                                @if (accounttype.ToString().Equals("credit"))
+                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-credit-card-alt text-warning"></i></span> @accounttype.ToString()</b>
+                                <div class="panel-tools"><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
+                                else if (accounttype.ToString().Equals("depository"))
+                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-money text-warning"></i></span> Cash</b>
+                                <div class="panel-tools"><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
+                                else if (accounttype.ToString().Equals("brokerage"))
+                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-line-chart text-warning"></i></span> @accounttype.ToString()</b>
+                                <div class="panel-tools"><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
+                                else if (accounttype.ToString().Equals("loan"))
+                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-bank text-warning"></i></span> @accounttype.ToString()</b>
+                                <div class="panel-tools"><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
+                                else if (accounttype.ToString().Equals("mortgage"))
+                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-home text-warning"></i></span> @accounttype.ToString()</b>
+                                <div class="panel-tools"><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
+                                else
+                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-balance-scale text-warning"></i></span> @accounttype.ToString()</b>
+                                <div class="panel-tools"><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
+
+                                <div class="panel-body">
+                                    @foreach (var account in Model.Account_list)
+                                    {
+                                        if (account.Account_Type.Equals(accounttype.ToString()))
                                         {
-                                            if (account.Account_Type.Equals(accounttype.ToString()))
-                                            {
-                                                <div class="panel panel-filled panel-c-success">
-                                                    <ul class="media-list">
-                                                        <li class="media panel-body">
-                                                            <div class="media-heading">
-                                                                <text class="text-warning">@account.Institution_name.ToString()</text>
-                                                                @*<button class="pull-right btn btn-sm btn-danger" type="button" onclick="location.href='@Url.Action("DeleteAccount", "Account", new { slct = account.Access_Token } )'"><i class="fa fa-trash-o"></i></button>*@
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <text> @account.AccountName.ToString()</text>
-                                                                <span class="pull-right text-success"> $@account.Balance</span>
-                                                            </div>
-                                                            @*<button class="pull-right btn btn-danger" type="button" data-toggle="modal" data- data-target="#myModal"><i class="fa fa-trash-o"></i></button>*@
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            }
+                                            <div class="panel panel-filled panel-c-success">
+                                                <ul class="media-list">
+                                                    <li class="media panel-body">
+                                                        <div class="media-heading">
+                                                            <text class="text-warning">@account.Institution_name.ToString()</text>
+                                                            @*<button class="pull-right btn btn-sm btn-danger" type="button" onclick="location.href='@Url.Action("DeleteAccount", "Account", new { slct = account.Access_Token } )'"><i class="fa fa-trash-o"></i></button>*@
+                                                        </div>
+                                                        <div class="media-heading">
+                                                            <row>
+                                                                @if (@account.AccountName.Length > 20)
+                                                                {<p class="c-white"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">$@account.Balance</text></p> }
+                                                                else
+                                                                {<p class="c-white"> @account.AccountName.ToString()<text class="pull-right text-success">$@account.Balance</text></p> }
+                                                            </row>
+                                                        </div>
+                                                        @*<button class="pull-right btn btn-danger" type="button" data-toggle="modal" data- data-target="#myModal"><i class="fa fa-trash-o"></i></button>*@
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         }
-                                    </div>
+                                    }
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -90,9 +94,9 @@
         }
     </row>
     <row>
-        <div class="col-sm-12">
-            <button class="btn btn-accent" id="link-button" type="button">Add Another Account</button>
-            <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-primary">All Set</a>
+        <div class="col-sm-3">
+            <button class="btn btn-accent pull-left" id="link-button" type="button">Add Another Account</button>
+            <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-primary pull-right">All Set</a>
         </div>
     </row>
 }
@@ -102,7 +106,7 @@ else
     <h4>You have no accounts synced!</h4>
     <small> Click the button below to get started. </small>
     <br />
-        <br />
+    <br />
         <button class="btn btn-primary btn-block" id="link-button" type="button">Add An Account</button>
 }
 <!--Modal HTML for confirmation pop up for account deletion

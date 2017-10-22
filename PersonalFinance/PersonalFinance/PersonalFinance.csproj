@@ -341,6 +341,7 @@
     <Content Include="Content\stroke-icons\stroke-icons-style.css" />
     <Content Include="Content\stroke-icons\stroke.svg" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\switchery.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\fonts\fontawesome-webfont.svg" />
@@ -501,6 +502,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\switchery.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

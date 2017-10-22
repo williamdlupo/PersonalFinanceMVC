@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<div class="col-sm-6 col-sm-offset-3 animated slideInUp">
+<div class="col-sm-8 col-sm-offset-2 animated slideInUp">
     <div class="tabs-container">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> <i class="fa fa-usd"></i></a></li>
@@ -38,6 +38,66 @@
                     <p class="col-sm-offset-1">
                         Income before the outcome am I right?!
                     </p>
+                    <row>
+                        <ul class="media-list bs-example col-sm-12">
+                            <li class="media">
+                                <div class="media-body">
+                                    <br />
+                                    <text class="col-sm-8 text-accent">Let's get started with building your personal financial profile.</text>
+                                    <br />
+                                    <hr />
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">Are You Employed?</div>
+                                        <input type="checkbox" class="col-sm-offset-3 js-switch" />
+                                    </div>
+                                    <div id="employed" hidden="hidden">
+                                        <div class="col-sm-12">
+                                            <p class="col-sm-8 col-sm-offset-1">Is Your Position Paid Hourly or Salary?</p>
+                                        </div>
+                                        <div class="col-sm-offset-3">
+                                            <div class="radio radio-success radio-inline">
+                                                <input type="radio" id="hourly_radio" value="option1" name="selected">
+                                                <label for="inlineRadio1"> Hourly </label>
+                                            </div>
+                                            <div class="radio radio-success radio-inline">
+                                                <input type="radio" id="salary_radio" value="option2" name="selected">
+                                                <label for="inlineRadio2"> Salary </label>
+                                            </div>
+                                        </div>
+                                        <div id="salary" hidden="hidden">
+                                            <div class="col-sm-12">
+                                                <p class="col-sm-8 col-sm-offset-2">What's Your Yearly Salary? <small class="text-accent"> (Don't worry about taxes)</small></p>
+                                            </div>
+                                            <div class="col-sm-4 col-sm-offset-3">
+                                                <input class="form-control" id="salary_pay" placeholder="$" />
+                                            </div>
+                                            <div class="col-sm-12"> <text class="text-accent pull-right"> $ xxx,xxx / month</text></div>
+                                        </div>
+                                        <div id="hourly" hidden="hidden">
+                                            <div class="col-sm-12">
+                                                <p class="col-sm-8 col-sm-offset-2">How Much Do You Make Per Hour? <small class="text-accent"></small></p>
+                                            </div>
+                                            <div class="col-sm-4 col-sm-offset-3">
+                                                <input class="form-control" id="hourly_pay" placeholder="$" />
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <p class="col-sm-12 col-sm-offset-2">How Many Hours Do You Usually Work Each Week? <small class="text-accent"> (On average)</small></p>
+                                            </div>
+                                            <div class="col-sm-4 col-sm-offset-3">
+                                                <input class="form-control" id="hourly_pay" placeholder="" />
+                                            </div>
+                                            <div class="col-sm-12"> <text class="text-accent pull-right"> $ xxx,xxx / month</text></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <br />
+                                        <hr />
+                                        <div class="col-sm-12"> <text class="text-accent pull-right">Monthly Income: $xxx,xxx </text></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </row>
                     <row>
                         <div class="col-sm-12">
                             <br />
@@ -63,17 +123,18 @@
                                             {
                                                 if (account.Account_Type.Equals(accounttype.ToString()))
                                                 {
-                                    <ul class="media-list">
-                                        <li class="media">
-                                            <div class="media-heading">
-                                                <row>
-                                                    @if (@account.AccountName.Length > 20) {<p class="text-warning"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">$@account.Balance</text></p> }
+                                            <ul class="media-list">
+                                                <li class="media">
+                                                    <div class="media-heading">
+                                                        <row>
+                                                            @if (@account.AccountName.Length > 20)
+                                                                    {<p class="text-warning"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">$@account.Balance</text></p> }
                                                                     else
                                                                     {<p class="text-warning"> @account.AccountName.ToString()<text class="pull-right text-success">$@account.Balance</text></p> }
-                                                </row>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                                        </row>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                                 }
                                             }
                                 </div>
@@ -112,18 +173,18 @@
                                             {
                                                 if (account.Account_Type.Equals(accounttype.ToString()))
                                                 {
-                                    <ul class="media-list">
-                                        <li class="media">
-                                            <div class="media-heading">
-                                                <row>
-                                                    @if (@account.AccountName.Length > 20)
+                                            <ul class="media-list">
+                                                <li class="media">
+                                                    <div class="media-heading">
+                                                        <row>
+                                                            @if (@account.AccountName.Length > 20)
                                                                     {<p class="text-warning"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">$@account.Balance</text></p> }
                                                                     else
                                                                     {<p class="text-warning"> @account.AccountName.ToString()<text class="pull-right text-success">$@account.Balance</text></p> }
-                                                </row>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                                        </row>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                                 }
                                             }
 
@@ -180,18 +241,18 @@
                                             {
                                                 if (account.Account_Type.Equals(accounttype.ToString()))
                                                 {
-                                    <ul class="media-list">
-                                        <li class="media">
-                                            <div class="media-heading">
-                                                <row>
-                                                    @if (@account.AccountName.Length > 20)
+                                            <ul class="media-list">
+                                                <li class="media">
+                                                    <div class="media-heading">
+                                                        <row>
+                                                            @if (@account.AccountName.Length > 20)
                                                                     {<p class="text-warning"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">$@account.Balance</text></p> }
                                                                     else
                                                                     {<p class="text-warning"> @account.AccountName.ToString()<text class="pull-right text-success">$@account.Balance</text></p> }
-                                                </row>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                                        </row>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                                 }
                                             }
                                 </div>
@@ -287,6 +348,7 @@
 
 <!--Tab Scripts-->
 <script>
+    //Next and Back Button
     $('.btnNext').click(function () {
         $('.nav-tabs > .active').next('li').find('a').trigger('click');
     });
@@ -294,4 +356,34 @@
     $('.btnPrevious').click(function () {
         $('.nav-tabs > .active').prev('li').find('a').trigger('click');
     });
+
+    //Make the check box look like a cool switch
+    $(document).ready(function () {
+        var elem = document.querySelector('.js-switch');
+        var elem = new Switchery(elem, { color: '#1bbf89', size: 'small' });
+    });
+
+    //Show/Hide next question if switch is hit
+    $('.js-switch').change(function () {
+        if ($(this).prop("checked")) {
+            $('#employed').show();
+        } else {
+            $('#employed').hide();
+        }
+    });
+
+    $('#salary_radio').change(function (event) {
+        if ($('#salary_radio').is(':checked')) {
+            $('#salary').show();
+            $('#hourly').hide();
+        }   
+    });
+    $('#hourly_radio').change(function (event) {
+        if ($('#hourly_radio').is(':checked')) {
+            $('#hourly').show();
+            $('#salary').hide();
+        }
+    });
+
+
 </script>

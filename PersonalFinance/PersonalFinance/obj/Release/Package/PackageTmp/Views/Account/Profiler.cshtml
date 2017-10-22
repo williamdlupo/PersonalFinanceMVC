@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<div class="col-sm-6 animated slideInUp">
+<div class="col-sm-6 col-sm-offset-3 animated slideInUp">
     <div class="tabs-container">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> <i class="fa fa-usd"></i></a></li>
@@ -51,33 +51,35 @@
                     <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-money text-warning"></i></span> Cash</b>
                     <p class="col-sm-offset-1">Rules Everything Around Me</p>
                     <row>
+                        <br />
                         @foreach (var accounttype in Model.AccountTypeList)
                         {
-                            <ul class="media-list">
-                                <li class="media">
-                                    <div class="media-body">
-                                        @if (accounttype.ToString().Equals("depository"))
-                                        {
-                                            foreach (var account in Model.Account_list)
+                            if (accounttype.ToString().Equals("depository"))
+                            {
+                        <ul class="media-list bs-example">
+                            <li class="media">
+                                <div class="media-body">
+                                    @foreach (var account in Model.Account_list)
                                             {
                                                 if (account.Account_Type.Equals(accounttype.ToString()))
                                                 {
-                                                    <ul class="media-list">
-                                                        <li class="media">
-                                                            <div class="media-heading">
-                                                                <row>
-                                                                    <text class="col-sm-6 text-warning"> @account.AccountName.ToString()</text>
-                                                                    <text class="pull-right text-success">$@account.Balance</text>
-                                                                </row>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
+                                    <ul class="media-list">
+                                        <li class="media">
+                                            <div class="media-heading">
+                                                <row>
+                                                    @if (@account.AccountName.Length > 20) {<p class="text-warning"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">$@account.Balance</text></p> }
+                                                                    else
+                                                                    {<p class="text-warning"> @account.AccountName.ToString()<text class="pull-right text-success">$@account.Balance</text></p> }
+                                                </row>
+                                            </div>
+                                        </li>
+                                    </ul>
                                                 }
                                             }
-                                        }
-                                    </div>
-                                </li>
-                            </ul>
+                                </div>
+                            </li>
+                        </ul>
+                            }
                         }
                         <row>
                             <text class="c-white">Total Cash</text>
@@ -95,10 +97,46 @@
             </div>
             <div id="tab-3" class="tab-pane">
                 <div class="panel-body">
-                    <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-line-chart text-warning"></i></span> Investment & Retirement</b>
-                    <p class="col-sm-offset-1">
-                        Making it rain BOI
-                    </p>
+                    <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-line-chart text-warning"></i></span> Investments</b>
+                    <p class="col-sm-offset-1">Making it rain BOI</p>
+                    <row>
+                        <br />
+                        @foreach (var accounttype in Model.AccountTypeList)
+                        {
+                            if (accounttype.ToString().Equals("brokerage") || accounttype.ToString().Equals("other"))
+                            {
+                        <ul class="media-list bs-example">
+                            <li class="media">
+                                <div class="media-body">
+                                    @foreach (var account in Model.Account_list)
+                                            {
+                                                if (account.Account_Type.Equals(accounttype.ToString()))
+                                                {
+                                    <ul class="media-list">
+                                        <li class="media">
+                                            <div class="media-heading">
+                                                <row>
+                                                    @if (@account.AccountName.Length > 20)
+                                                                    {<p class="text-warning"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">$@account.Balance</text></p> }
+                                                                    else
+                                                                    {<p class="text-warning"> @account.AccountName.ToString()<text class="pull-right text-success">$@account.Balance</text></p> }
+                                                </row>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                                }
+                                            }
+
+                                </div>
+                            </li>
+                        </ul>
+                            }
+                        }
+                        <row>
+                            <text class="c-white">Total Investments</text>
+                            <text class="text-success pull-right">[SUM]</text>
+                        </row>
+                    </row>
                     <row>
                         <div class="col-sm-12">
                             <br />
@@ -130,6 +168,43 @@
                         Everyone's got skin in the game
                     </p>
                     <row>
+                        <br />
+                        @foreach (var accounttype in Model.AccountTypeList)
+                        {
+                            if (accounttype.ToString().Equals("credit") || accounttype.ToString().Equals("loan"))
+                            {
+                        <ul class="media-list bs-example">
+                            <li class="media">
+                                <div class="media-body">
+                                    @foreach (var account in Model.Account_list)
+                                            {
+                                                if (account.Account_Type.Equals(accounttype.ToString()))
+                                                {
+                                    <ul class="media-list">
+                                        <li class="media">
+                                            <div class="media-heading">
+                                                <row>
+                                                    @if (@account.AccountName.Length > 20)
+                                                                    {<p class="text-warning"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">$@account.Balance</text></p> }
+                                                                    else
+                                                                    {<p class="text-warning"> @account.AccountName.ToString()<text class="pull-right text-success">$@account.Balance</text></p> }
+                                                </row>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                                }
+                                            }
+                                </div>
+                            </li>
+                        </ul>
+                            }
+                        }
+                        <row>
+                            <text class="c-white">Total Debt</text>
+                            <text class="text-success pull-right">[SUM]</text>
+                        </row>
+                    </row>
+                    <row>
                         <div class="col-sm-12">
                             <br />
                             <a class="btn btn-accent btnPrevious pull-left"><i class="fa fa-chevron-left"></i></a>
@@ -145,6 +220,44 @@
                         Whole Crew Loungin'
                     </p>
                     <row>
+                        <br />
+                        @foreach (var accounttype in Model.AccountTypeList)
+                        {
+
+                            if (accounttype.ToString().Equals("mortgage"))
+                            {
+                        <ul class="media-list">
+                            <li class="media">
+                                <div class="media-body">
+                                    @foreach (var account in Model.Account_list)
+                                            {
+                                                if (account.Account_Type.Equals(accounttype.ToString()))
+                                                {
+                                            <ul class="media-list">
+                                                <li class="media">
+                                                    <div class="media-heading">
+                                                        <row>
+                                                            @if (@account.AccountName.Length > 20)
+                                                                    {<p class="text-warning"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">$@account.Balance</text></p> }
+                                                                    else
+                                                                    {<p class="text-warning"> @account.AccountName.ToString()<text class="pull-right text-success">$@account.Balance</text></p> }
+                                                        </row>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                                }
+                                            }
+                                </div>
+                            </li>
+                        </ul>
+                            }
+                        }
+                        <row>
+                            <text class="c-white">Total Housing Expense</text>
+                            <text class="text-success pull-right">[SUM]</text>
+                        </row>
+                    </row>
+                    <row>
                         <div class="col-sm-12">
                             <br />
                             <a class="btn btn-accent btnPrevious pull-left"><i class="fa fa-chevron-left"></i></a>
@@ -157,7 +270,7 @@
                 <div class="panel-body">
                     <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-bolt text-warning"></i></span> Summary</b>
                     <p class="col-sm-offset-1">
-                        Take a look and make sure everything looks cool (don't worry you can change this at any time)
+                        Take a look and make sure everything looks cool (don't worry you can change this later if something changes)
                     </p>
                     <row>
                         <div class="col-sm-12">

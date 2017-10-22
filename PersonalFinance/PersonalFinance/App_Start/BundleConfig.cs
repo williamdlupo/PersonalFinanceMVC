@@ -24,7 +24,8 @@ namespace PersonalFinance
                    "~/Content/pe-icon-7-stroke.css",
                    "~/Content/style.css",
                    "~/Content/datatables.min.css",
-                    "~/Content/daterangepicker.css"
+                    "~/Content/daterangepicker.css",
+                    "~/Content/switchery.min.css"
        ));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts_all").Include(
@@ -35,7 +36,8 @@ namespace PersonalFinance
                     "~/Scripts/luna.js",
                     "~/Scripts/datatables.min.js",
                      "~/Scripts/Moment.js",
-                    "~/Scripts/daterangepicker.js"
+                    "~/Scripts/daterangepicker.js",
+                    "~/Scripts/switchery.min.js"
                     ));
 
             BundleTable.EnableOptimizations = true;
