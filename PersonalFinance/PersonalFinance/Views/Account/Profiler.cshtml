@@ -43,7 +43,7 @@
                             <li class="media">
                                 <div class="media-body">
                                     <br />
-                                    <text class="col-sm-8 text-accent">Let's get started with building your personal financial profile.</text>
+                                    <text class="col-sm-8 text-accent">Let's get started with building your financial profile.</text>
                                     <br />
                                     <hr />
                                     <div class="col-sm-12">
@@ -88,6 +88,34 @@
                                             </div>
                                             <div class="col-sm-12"> <text class="text-accent pull-right"> $ xxx,xxx / month</text></div>
                                         </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">Do You Have Any Other Income Sources?</div>
+                                        <input type="checkbox" class="col-sm-offset-2 js-switch2" />
+                                    </div>
+                                    <div id="other_inc" hidden="hidden">
+                                        <div>
+                                            <div>
+                                                <label class="col-sm-2 col-sm-offset-1 control-label">Amount</label>
+                                                <div class="col-sm-5"><input class="form-control" id="other_amount"></div>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <label class="col-sm-3 col-sm-offset-1 control-label">Frequency</label>
+                                                <div class="checkbox checkbox-success checkbox-inline">
+                                                    <input type="checkbox" class="styled" id="inlineCheckbox1" value="option1">
+                                                    <label for="inlineCheckbox1"> Weekly </label>
+                                                </div>
+                                                <div class="checkbox checkbox-success checkbox-inline">
+                                                    <input type="checkbox" class="styled" id="inlineCheckbox2" value="option1">
+                                                    <label for="inlineCheckbox2"> Monthly </label>
+                                                </div>
+                                                <div class="checkbox checkbox-success checkbox-inline">
+                                                    <input type="checkbox" class="styled" id="inlineCheckbox2" value="option1">
+                                                    <label for="inlineCheckbox2"> Yearly </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12"> <text class="text-accent pull-right"> $ xxx,xxx / month</text></div>
                                     </div>
                                     <div class="col-sm-12">
                                         <br />
@@ -363,12 +391,27 @@
         var elem = new Switchery(elem, { color: '#1bbf89', size: 'small' });
     });
 
+    //Make the check box look like a cool switch2
+    $(document).ready(function () {
+        var elem = document.querySelector('.js-switch2');
+        var elem = new Switchery(elem, { color: '#1bbf89', size: 'small' });
+    });
+
     //Show/Hide next question if switch is hit
     $('.js-switch').change(function () {
         if ($(this).prop("checked")) {
             $('#employed').show();
         } else {
             $('#employed').hide();
+        }
+    });
+
+    //Show/Hide next question if switch is hit
+    $('.js-switch2').change(function () {
+        if ($(this).prop("checked")) {
+            $('#other_inc').show();
+        } else {
+            $('#other_inc').hide();
         }
     });
 
