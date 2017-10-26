@@ -119,7 +119,7 @@ namespace PersonalFinance.Models
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/item/public_token/exchange");
 
-            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"public_token\":\"" + _public_token + "\" }";
+            string data = String.Format("{{ \"client_id\":\"{0}\" , \"secret\":\"{1}\" , \"public_token\":\"{2}\" }}", _clientid, _secret, _public_token);
             request.Content = new StringContent(data, Encoding.UTF8, "application/json");
 
             var result = client.SendAsync(request).Result;
@@ -153,7 +153,7 @@ namespace PersonalFinance.Models
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/accounts/get");
 
-            string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + _accesstoken + "\" }";
+            string data = String.Format("{{ \"client_id\":\"{0}\" , \"secret\":\"{1}\" , \"access_token\":\"{2}\" }}", _clientid, _secret, _accesstoken);
             request.Content = new StringContent(data, Encoding.UTF8, "application/json");
 
             var connectasync = await client.SendAsync(request);
@@ -225,7 +225,7 @@ namespace PersonalFinance.Models
             {
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/accounts/get");
 
-                string data = "{ \"client_id\":\"" + _clientid + "\" , \"secret\":\"" + _secret + "\" , \"access_token\":\"" + token.access_token + "\" }";
+                string data = String.Format("{{ \"client_id\":\"{0}\" , \"secret\":\"{1}\" , \"access_token\":\"{2}\" }}", _clientid, _secret, token.access_token);
                 request.Content = new StringContent(data, Encoding.UTF8, "application/json");
 
                 var result = client.SendAsync(request).Result;
@@ -501,7 +501,7 @@ namespace PersonalFinance.Models
                 //Pass off the access token to azure function to delete account with Plaid.
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://dhwebhookentry.azurewebsites.net/api/Plaid_Delete?code=itYQTwDowYyFt9/6awQ5VIUtmMl2LPscgWb5IeEa48avuTN2ftt6cQ==");
 
-                string item_id_data = "{ \"access_token\":\"" + _accesstoken + "\" }";
+                string item_id_data = String.Format("{{ \"access_token\":\"{0}\" }}", _accesstoken);
 
                 request.Content = new StringContent(item_id_data);
 
