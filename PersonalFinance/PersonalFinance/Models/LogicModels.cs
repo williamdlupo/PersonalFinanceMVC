@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,40 +6,46 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Configuration;
 
 namespace PersonalFinance.Models
 {
-    //Date Picker data type class
+    //Date Picker object class
     public class Dates
     {
         public string start_date { get; set; }
         public string end_date { get; set; }
     }
 
-    //Morris Chart data type class
+    //Bar Chart object class
     public class BarChartData
     {
         public string date { get; set; }
         public decimal amount { get; set; }
     }
 
-    //Morris Donut Chart data type class
+    //Donut Chart object class
     public class DonutChartData
     {
         public string label { get; set; }
         public decimal value { get; set; }
     }
 
-    //Plaid metadata data type class
+    //Plaid account metadata object class
     public class AccountData
     {
         public string access_token { get; set; }
         public string institution_name { get; set; }
     }
 
-    //Data Table data type class
+    //Acount type object class
+    public class AccountType
+    {
+        public string Accounttype { get; set; }
+        public string Accounttype_sum { get; set; }
+    }
+
+    //Data Table object class
     public class DataTable
     {
         //Request sequence number sent by DataTable,
@@ -90,7 +95,7 @@ namespace PersonalFinance.Models
         public string Institution_name { get; set; }
         public decimal SumTransactions { get; set; }
         public List<decimal> NetWorth = new List<decimal>();
-        public List<string> AccountTypeList = new List<string>();
+        public List<AccountType> AccountTypeList = new List<AccountType>();
         public string SelectedAccount { get; set; }
 
         //
@@ -140,44 +145,6 @@ namespace PersonalFinance.Models
                 await context.SaveChangesAsync();
             }
             Has_accounts = true;
-        }
-
-        //
-        //Method to pull all current transaction categroy information from Plaid and save to database
-        public async Task GetCategories()
-        {
-
-            if (client.BaseAddress is null)
-            {
-                client.BaseAddress = new Uri(_baseurl);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
-
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/categories/get");
-
-            string data = "{ }";
-            request.Content = new StringContent(data, Encoding.UTF8, "application/json");
-
-            var connectasync = await client.SendAsync(request);
-            var contents = connectasync.Content.ReadAsStringAsync().Result;
-
-            var obj = JObject.Parse(contents);
-
-            using (var context = new PersonalFinanceAppEntities())
-            {
-                foreach (var category in obj["categories"])
-                {
-                    Transaction_Categories transaction_category = new Transaction_Categories
-                    {
-                        CategoryID = (string)category["category_id"],
-                        GroupName = (string)category["group"],
-                        Hierarchy = (string)category["hierarchy"].Last()
-                    };
-
-                    context.Transaction_Categories.Add(transaction_category);
-                    context.SaveChanges();
-                }
-            }
         }
 
         //
@@ -289,7 +256,11 @@ namespace PersonalFinance.Models
 
                         Has_accounts = true;
 
-                        if (accounts_db.Account_Type.Equals("credit") || accounts_db.Account_Type.Equals("loan") || accounts_db.Account_Type.Equals("mortgage"))
+                        if (accounts_db.Account_Type.Equals("mortgage"))
+                        {
+                            continue;
+                        }
+                        else if (accounts_db.Account_Type.Equals("credit") || accounts_db.Account_Type.Equals("loan"))
                         {
                             _NetWorth -= (decimal)accounts_db.Balance;
                         }
@@ -306,12 +277,22 @@ namespace PersonalFinance.Models
             NetWorth.Add(_NetWorth);
 
             var accountquery = from db in Account_list
-                               orderby db.Account_Type
-                               select new { db.Account_Type };
+                               group db by db.Account_Type into g
+                               select new
+                               {
+                                   Type = g.Distinct(),
+                                   Sum = g.Sum(s => s.Balance)
+                               };
 
-            foreach (var type in accountquery.Distinct())
+            foreach (var type in accountquery)
             {
-                AccountTypeList.Add(type.Account_Type.ToString());
+                AccountType aAccountType = new AccountType
+                {
+                    Accounttype = type.Type.FirstOrDefault().Account_Type.ToString(),
+                    Accounttype_sum = String.Format("{0:C}", type.Sum)
+                };
+
+                AccountTypeList.Add(aAccountType);
             }
         }
 
@@ -487,7 +468,7 @@ namespace PersonalFinance.Models
         }
 
         //
-        //Method to get the sum of transactions for the pie chart data
+        //Method to get the sum of transactions for the dashboard pie chart
         public void DonutDataSum(List<DonutChartData> chartdata)
         {
             SumTransactions = 0;
@@ -542,8 +523,48 @@ namespace PersonalFinance.Models
             }
         }
 
+
         //
+        //Method to pull all current transaction categroy information from Plaid and save to database
+        public async Task GetCategories()
+        {
+
+            if (client.BaseAddress is null)
+            {
+                client.BaseAddress = new Uri(_baseurl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/categories/get");
+
+            string data = "{ }";
+            request.Content = new StringContent(data, Encoding.UTF8, "application/json");
+
+            var connectasync = await client.SendAsync(request);
+            var contents = connectasync.Content.ReadAsStringAsync().Result;
+
+            var obj = JObject.Parse(contents);
+
+            using (var context = new PersonalFinanceAppEntities())
+            {
+                foreach (var category in obj["categories"])
+                {
+                    Transaction_Categories transaction_category = new Transaction_Categories
+                    {
+                        CategoryID = (string)category["category_id"],
+                        GroupName = (string)category["group"],
+                        Hierarchy = (string)category["hierarchy"].Last()
+                    };
+
+                    context.Transaction_Categories.Add(transaction_category);
+                    context.SaveChanges();
+                }
+            }
+        }
+
         //
+        //TODO: FUnction that will delete all transactions, accounts, items and user data in DB
+        //and disconnect all accounts from Plaid webhooks
         public async Task DeleteAccount()
         {
             //Get list of all access tokens associated with this user
