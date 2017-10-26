@@ -71,7 +71,7 @@
                                             <div class="col-sm-4 col-sm-offset-3">
                                                 <input class="form-control" id="salary_pay" placeholder="$" />
                                             </div>
-                                            <div class="col-sm-12"> <text class="text-accent pull-right"> $ xxx,xxx / month</text></div>
+                                            <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_salary">$0.00 / month</text></div>
                                         </div>
                                         <div id="hourly" hidden="hidden">
                                             <div class="col-sm-12">
@@ -84,10 +84,16 @@
                                                 <p class="col-sm-12 col-sm-offset-2">How Many Hours Do You Usually Work Each Week? <small class="text-accent"> (On average)</small></p>
                                             </div>
                                             <div class="col-sm-4 col-sm-offset-3">
-                                                <input class="form-control" id="hourly_pay" placeholder="" />
+                                                <input class="form-control" id="hourly_time" placeholder="" />
                                             </div>
-                                            <div class="col-sm-12"> <text class="text-accent pull-right"> $ xxx,xxx / month</text></div>
+                                            <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_hourly"> $0.00 / month</text></div>
                                         </div>
+                                        @*<div id="second_job" hidden="hidden">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4 col-sm-offset-1">Do You have another job?</div>
+                                                <input type="checkbox" class="col-sm-offset-3 js-switch3" />
+                                            </div>
+                                        </div>*@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="col-sm-6">Do You Have Any Other Income Sources?</div>
@@ -101,26 +107,25 @@
                                             </div>
                                             <div class="col-sm-10">
                                                 <label class="col-sm-3 col-sm-offset-1 control-label">Frequency</label>
-                                                <div class="checkbox checkbox-success checkbox-inline">
-                                                    <input type="checkbox" class="styled" id="inlineCheckbox1" value="option1">
+                                                <div class="radio radio-success radio-inline">
+                                                    <input type="radio" id="other_weekly" value="option1" name="other_freq">
                                                     <label for="inlineCheckbox1"> Weekly </label>
                                                 </div>
-                                                <div class="checkbox checkbox-success checkbox-inline">
-                                                    <input type="checkbox" class="styled" id="inlineCheckbox2" value="option1">
+                                                <div class="radio radio-success radio-inline">
+                                                    <input type="radio" id="other_m" value="option2" name="other_freq">
                                                     <label for="inlineCheckbox2"> Monthly </label>
                                                 </div>
-                                                <div class="checkbox checkbox-success checkbox-inline">
-                                                    <input type="checkbox" class="styled" id="inlineCheckbox2" value="option1">
+                                                <div class="radio radio-success radio-inline">
+                                                    <input type="radio" id="other_yearly" value="option3" name="other_freq">
                                                     <label for="inlineCheckbox2"> Yearly </label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12"> <text class="text-accent pull-right"> $ xxx,xxx / month</text></div>
+                                        <div class="col-sm-12"> <text class="text-accent pull-right" id="other_monthly"> $0.00 / month</text></div>
                                     </div>
                                     <div class="col-sm-12">
-                                        <br />
                                         <hr />
-                                        <div class="col-sm-12"> <text class="text-accent pull-right">Monthly Income: $xxx,xxx </text></div>
+                                        <div class="col-sm-12"> <text class="text-accent pull-right" id="total_monthly">Total Monthly Income: $0.00 </text></div>
                                     </div>
                                 </div>
                             </li>
@@ -376,57 +381,192 @@
 
 <!--Tab Scripts-->
 <script>
-    //Next and Back Button
-    $('.btnNext').click(function () {
-        $('.nav-tabs > .active').next('li').find('a').trigger('click');
-    });
-
-    $('.btnPrevious').click(function () {
-        $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-    });
-
-    //Make the check box look like a cool switch
+    //Income form function
     $(document).ready(function () {
+        var wages;
+        var other;
+        var total_month;
+
+        $('.btnNext').click(function () {
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        });
+
+        $('.btnPrevious').click(function () {
+            $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+        });
+
         var elem = document.querySelector('.js-switch');
         var elem = new Switchery(elem, { color: '#1bbf89', size: 'small' });
-    });
 
-    //Make the check box look like a cool switch2
-    $(document).ready(function () {
-        var elem = document.querySelector('.js-switch2');
-        var elem = new Switchery(elem, { color: '#1bbf89', size: 'small' });
-    });
+        var elem2 = document.querySelector('.js-switch2');
+        var elem2 = new Switchery(elem2, { color: '#1bbf89', size: 'small' });
 
-    //Show/Hide next question if switch is hit
-    $('.js-switch').change(function () {
-        if ($(this).prop("checked")) {
-            $('#employed').show();
-        } else {
-            $('#employed').hide();
-        }
-    });
+        $('.js-switch').change(function () {
+            if ($(this).prop("checked")) {
+                $('#employed').show();
+            } else {
+                $('#salary_pay').val('');
+                $('#hourly_pay').val('');
+                $('#hourly_time').val('');
+                $('#monthly_hourly').text('$ 0.00 / month');
+                $('#monthly_salary').text('$ 0.00 / month');
+                wages = 0.0;
+                total_month = parseInt(wages) + parseInt(other);
+                $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+                $('#employed').hide();
+            }
+        });
 
-    //Show/Hide next question if switch is hit
-    $('.js-switch2').change(function () {
-        if ($(this).prop("checked")) {
-            $('#other_inc').show();
-        } else {
-            $('#other_inc').hide();
-        }
-    });
+        $('.js-switch2').change(function () {
+            if ($(this).prop("checked")) {
+                $('#other_inc').show();
+            } else {
+                $('#other_amount').val('');
+                $('#other_monthly').text('$ 0.00 / month');
+                other = 0.0;
+                total_month = parseInt(wages) + parseInt(other);
+                $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+                $('#other_inc').hide();
+            }
+        });
 
-    $('#salary_radio').change(function (event) {
-        if ($('#salary_radio').is(':checked')) {
-            $('#salary').show();
-            $('#hourly').hide();
-        }   
-    });
-    $('#hourly_radio').change(function (event) {
-        if ($('#hourly_radio').is(':checked')) {
-            $('#hourly').show();
-            $('#salary').hide();
-        }
-    });
+        $('#salary_radio').change(function (event) {
+            if ($('#salary_radio').is(':checked')) {
+                $('#salary').show();
+                $('#hourly_pay').val('');
+                $('#hourly_time').val('');
+                $('#monthly_hourly').text('$ 0.00 / month');
+                $('#total_monthly').text('$' + total_month + ' / month');
+                wages = 0.0;
+                total_month = parseInt(wages) + parseInt(other);
+                $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+                $('#hourly').hide();
+            }
+        });
+
+        $('#hourly_radio').change(function (event) {
+            if ($('#hourly_radio').is(':checked')) {
+                $('#hourly').show();
+                $('#salary_pay').val('');
+                $('#monthly_salary').text('$ 0.00 / month');
+                $('#total_monthly').text('$' + total_month + ' / month')
+                $('#second_job').show();
+                wages = 0.0;
+                total_month = parseInt(wages) + parseInt(other);
+                $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+                $('#salary').hide();
+            }
+        });
+
+        $('#salary_pay').keyup(function () {
+            var total = isNaN(parseInt($(this).val() / 12)) ? 0.00 : ($(this).val() / 12).toFixed(2)
+            $('#monthly_salary').text('$' + total + ' / month');
+
+            wages = total;
+            other = isNaN(other) ? 0.0 : other;
+            total_month = parseInt(wages) + parseInt(other);
+            $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+        });
+
+        $('#hourly_pay').keyup(function () {
+            var total = isNaN(parseInt((($(this).val() * $('#hourly_time').val()) * 52) / 12)) ? 0.00 : ((($(this).val() * $('#hourly_time').val()) * 52) / 12).toFixed(2);
+            wages = total;
+            other = isNaN(other) ? 0.0 : other;
+            total_month = parseInt(wages) + parseInt(other);
+
+            $('#monthly_hourly').text('$' + total + ' / month');
+
+            $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+        });
+
+        $('#hourly_time').keyup(function () {
+            var total = isNaN(parseInt((($(this).val() * $('#hourly_pay').val()) * 52) / 12)) ? 0.00 : ((($(this).val() * $('#hourly_pay').val()) * 52) / 12).toFixed(2);
+
+            wages = total;
+            other = isNaN(other) ? 0.0 : other;
+            total_month = parseInt(wages) + parseInt(other);
+
+            $('#monthly_hourly').text('$' + total + ' / month');
+            
+            $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+        });
+
+        $('#other_weekly').change(function (event){ 
+            if ($('#other_weekly').is(':checked')) {
+                var total = isNaN(parseInt($('#other_amount').val())) ? 0.00 : (($('#other_amount').val() * 52) / 12).toFixed(2);
+                other = total;
+                wages = isNaN(wages) ? 0.0 : wages;
+                total_month = parseInt(wages) + parseInt(other);
+
+                $('#other_monthly').text('$' + total + ' / month');
+                $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+            }
+        });
+        $('#other_m').change(function (event) {
+            if ($('#other_m').is(':checked')) {
+                var total = isNaN(parseInt($('#other_amount').val())) ? 0.00 : $('#other_amount').val();
+                other = total;
+                wages = isNaN(wages) ? 0.0 : wages;
+                total_month = parseInt(wages) + parseInt(other);
+
+                $('#other_monthly').text('$' + total + ' / month');
+                $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+            }
+        });
+        $('#other_yearly').change(function (event) {
+            if ($('#other_yearly').is(':checked')) {
+                var total = isNaN(parseInt($('#other_amount').val())) ? 0.00 : ($('#other_amount').val() / 12).toFixed(2);
+
+                other = total;
+                wages = isNaN(wages) ? 0.0 : wages;
+                total_month = parseInt(wages) + parseInt(other);
+
+                $('#other_monthly').text('$' + total + ' / month');
+                $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+            }
+        });
+
+        $('#other_amount').keyup(function () {
+            if ($('#other_weekly').is(':checked')) {
+                var total = isNaN(parseInt($('#other_amount').val())) ? 0.00 : (($('#other_amount').val() * 52) / 12).toFixed(2);
+
+                other = total;
+                wages = isNaN(wages) ? 0.0 : wages;
+                total_month = parseInt(wages) + parseInt(other);
+
+                $('#other_monthly').text('$' + total + ' / month');
+
+                $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+            }
+
+            else if ($('#other_m').is(':checked')) {
+                var total = isNaN(parseInt($('#other_amount').val())) ? 0.00 : $('#other_amount').val();
+
+                other = total;
+                wages = isNaN(wages) ? 0.0 : wages;
+                total_month = parseInt(wages) + parseInt(other);
+
+                $('#other_monthly').text('$' + total + ' / month');
+                $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+            }
+
+            else if ($('#other_yearly').is(':checked')) {
+                var total = isNaN(parseInt($('#other_amount').val())) ? 0.00 : ($('#other_amount').val() / 12).toFixed(2);
+
+                other = total;
+                wages = isNaN(wages) ? 0.0 : wages;
+                total_month = parseInt(wages) + parseInt(other);
+
+                $('#other_monthly').text('$' + total + ' / month');
+                $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+            }
+
+            else {
+                $('#other_monthly').text('$ 0.00 / month');
+                $('#total_monthly').text('Total Monthly Income: $ 0.00 / month')
+            }
+        });
 
 
+    });
 </script>
