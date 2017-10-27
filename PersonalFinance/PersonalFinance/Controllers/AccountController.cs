@@ -8,6 +8,8 @@ using Microsoft.Owin.Security;
 using PersonalFinance.Models;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json.Linq;
+using System.Net;
+using System.Web.Configuration;
 
 namespace PersonalFinance.Controllers
 {
@@ -84,7 +86,14 @@ namespace PersonalFinance.Controllers
                 }
             }
 
-            // This doesn't count login failures towards account lockout
+            var response = Request["g-recaptcha-response"];
+            string secretKey = WebConfigurationManager.AppSettings["reCaptcha"];
+            var client = new WebClient();
+            var send = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            var obj = JObject.Parse(send);
+            var status = (bool)obj.SelectToken("success");
+            if (!status) { return View(model); }
+
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
@@ -227,6 +236,14 @@ namespace PersonalFinance.Controllers
         {
             if (ModelState.IsValid)
             {
+                var response = Request["g-recaptcha-response"];
+                string secretKey = WebConfigurationManager.AppSettings["reCaptcha"];
+                var client = new WebClient();
+                var send = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+                var obj = JObject.Parse(send);
+                var status = (bool)obj.SelectToken("success");
+                if (!status) { return View(model); }
+
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstLoginFlag = model.FirstLogin };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

@@ -36,14 +36,14 @@
                 <div class="panel-body">
                     <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-usd text-warning"></i></span> Income</b>
                     <p class="col-sm-offset-1">
-                        Income before the outcome am I right?!
+                        Income before the outcome am I right?
                     </p>
                     <row>
                         <ul class="media-list bs-example col-sm-12">
                             <li class="media">
                                 <div class="media-body">
                                     <br />
-                                    <text class="col-sm-8 text-accent">Let's get started with building your financial profile.</text>
+                                    <text class="text-accent">First thing's first - how much are you bringing in each month?</text>
                                     <br />
                                     <hr />
                                     <div class="col-sm-12">
@@ -125,7 +125,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <hr />
-                                        <div class="col-sm-12"> <text class="c-white pull-right" id="total_monthly">Total Monthly Income: $0.00 </text></div>
+                                        <text class="c-white pull-right" id="total_monthly">Total Monthly Income: $0.00 </text>
                                     </div>
                                 </div>
                             </li>
@@ -144,10 +144,151 @@
                     <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-money text-warning"></i></span> Cash</b>
                     <p class="col-sm-offset-1">Rules Everything Around Me</p>
                     <row>
+                        <div class="bs-example">
+                            <br />
+                            <text class="text-accent">We snagged these balances from your cash accounts. Take a look and make sure it's all cool</text>
+                            <br />
+                            <hr />
+                            @foreach (var accounttype in Model.AccountTypeList)
+                            {
+                                if (accounttype.Accounttype.Equals("depository"))
+                                {
+                            <ul class="media-list">
+                                <li class="media">
+                                    <div class="media-body">
+                                        @foreach (var account in Model.Account_list)
+                                                {
+                                                    if (account.Account_Type.Equals(accounttype.Accounttype))
+                                                    {
+                                                <ul class="media-list">
+                                                    <li class="media">
+                                                        <div class="media-heading">
+                                                            <row>
+                                                                @if (@account.AccountName.Length > 20)
+                                                                        {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                                        else
+                                                                        {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                            </row>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                    }
+                                                }
+                                    </div>
+                                </li>
+                            </ul>
+                            <hr />
+                            <div class="col-sm-12">
+                                <text class="c-white pull-right" id="total_monthly">Total Cash: @accounttype.Accounttype_sum</text>
+                            </div>
+                            <br />
+                                }
+                            }
+                        </div>
+                    </row>
+                    <row>
+                        <div class="col-sm-12">
+                            <br />
+                            <a class="btn btn-accent btnPrevious pull-left"><i class="fa fa-chevron-left"></i></a>
+                            <a class="btn btn-accent btnNext pull-right"><i class="fa fa-chevron-right"></i></a>
+                        </div>
+                    </row>
+                </div>
+            </div>
+            <div id="tab-3" class="tab-pane">
+                <div class="panel-body">
+                    <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-line-chart text-warning"></i></span> Investments</b>
+                    <p class="col-sm-offset-1">Making it rain BOI</p>
+                    <row>
+                        <div class="bs-example">
+                            <br />
+                            <text class="text-accent">Your investment and retirement account balances</text>
+                            <br />
+                            <hr />
+                            @foreach (var accounttype in Model.AccountTypeList)
+                            {
+                                if (accounttype.Accounttype.Equals("brokerage") || accounttype.Accounttype.Equals("other"))
+                                {
+                            <ul class="media-list">
+                                <li class="media">
+                                    <div class="media-body">
+                                        @foreach (var account in Model.Account_list)
+                                                {
+                                                    if (account.Account_Type.Equals(accounttype.Accounttype.ToString()))
+                                                    {
+                                                <ul class="media-list">
+                                                    <li class="media">
+                                                        <div class="media-heading">
+                                                            <row>
+                                                                @if (@account.AccountName.Length > 20)
+                                                                        {<p class="c-white"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                                        else
+                                                                        {<p class="c-white"> @account.AccountName.ToString()<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                            </row>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                    }
+                                                }
+                                    </div>
+                                </li>
+                            </ul>
+                            <hr />
+                            <div class="col-sm-12">
+                                <text class="c-white pull-right" id="total_monthly">Total Investments: @accounttype.Accounttype_sum</text>
+                            </div>
+                            <br />
+                                }
+                            }
+                        </div>
+                    </row>
+                    <row>
+                        <div class="col-sm-12">
+                            <br />
+                            <a class="btn btn-accent btnPrevious pull-left"><i class="fa fa-chevron-left"></i></a>
+                            <a class="btn btn-accent btnNext pull-right"><i class="fa fa-chevron-right"></i></a>
+                        </div>
+                    </row>
+                </div>
+            </div>
+            <div id="tab-4" class="tab-pane">
+                <div class="panel-body">
+                    <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-shield text-warning"></i></span> Insurance</b>
+                    <p class="col-sm-offset-1">
+                        PROTECT YA NECK
+                    </p>
+                    <row>
+                        <div class="bs-example">
+                            <br />
+                            <text class="text-accent">Home, auto, life or whatver - protect yourself before you wreck yourself</text>
+                            <br />
+                            <hr />
+                            <div class="col-sm-12">
+                                <text class="c-white pull-right" id="total_monthly">Monthly Insurance Expense: $0.00 </text>
+                            </div>
+                            <br />
+                        </div>
+                        <row>
+                            <div class="col-sm-12">
+                                <br />
+                                <a class="btn btn-accent btnPrevious pull-left"><i class="fa fa-chevron-left"></i></a>
+                                <a class="btn btn-accent btnNext pull-right"><i class="fa fa-chevron-right"></i></a>
+                            </div>
+                        </row>
+                    </row>
+                </div>
+            </div>
+            <div id="tab-5" class="tab-pane">
+                <div class="panel-body">
+                    <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-credit-card-alt text-warning"></i></span> Debt</b>
+                    <p class="col-sm-offset-1">
+                        Everyone's got skin in the game
+                    </p>
+                    <row>
                         <br />
                         @foreach (var accounttype in Model.AccountTypeList)
                         {
-                            if (accounttype.Accounttype.Equals("depository"))
+                            if (accounttype.Accounttype.Equals("credit") || accounttype.Accounttype.Equals("loan"))
                             {
                                 <ul class="media-list bs-example">
                                     <li class="media">
@@ -174,128 +315,8 @@
                                     </li>
                                 </ul>
                                 <div class="col-sm-12">
-                                    <div class="col-sm-12"> <text class="c-white pull-right" id="total_monthly">Total Cash: @accounttype.Accounttype_sum</text></div>
+                                    <text class="c-white pull-right" id="total_monthly">Total Debt: @accounttype.Accounttype_sum</text>
                                 </div>
-                            }
-                        }
-
-                    </row>
-                    <row>
-                        <div class="col-sm-12">
-                            <br />
-                            <a class="btn btn-accent btnPrevious pull-left"><i class="fa fa-chevron-left"></i></a>
-                            <a class="btn btn-accent btnNext pull-right"><i class="fa fa-chevron-right"></i></a>
-                        </div>
-                    </row>
-                </div>
-            </div>
-            <div id="tab-3" class="tab-pane">
-                <div class="panel-body">
-                    <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-line-chart text-warning"></i></span> Investments</b>
-                    <p class="col-sm-offset-1">Making it rain BOI</p>
-                    <row>
-                        <br />
-                        @foreach (var accounttype in Model.AccountTypeList)
-                        {
-                            if (accounttype.Accounttype.Equals("brokerage") || accounttype.Accounttype.Equals("other"))
-                            {
-                        <ul class="media-list bs-example">
-                            <li class="media">
-                                <div class="media-body">
-                                    @foreach (var account in Model.Account_list)
-                                            {
-                                                if (account.Account_Type.Equals(accounttype.Accounttype.ToString()))
-                                                {
-                                    <ul class="media-list">
-                                        <li class="media">
-                                            <div class="media-heading">
-                                                <row>
-                                                    @if (@account.AccountName.Length > 20)
-                                                                    {<p class="text-warning"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                                    else
-                                                                    {<p class="text-warning"> @account.AccountName.ToString()<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                </row>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                                }
-                                            }
-
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="col-sm-12">
-                            <div class="col-sm-12"> <text class="c-white pull-right" id="total_monthly">Total Investments: @accounttype.Accounttype_sum</text></div>
-                        </div>
-                            }
-                        }
-                    </row>
-                    <row>
-                        <div class="col-sm-12">
-                            <br />
-                            <a class="btn btn-accent btnPrevious pull-left"><i class="fa fa-chevron-left"></i></a>
-                            <a class="btn btn-accent btnNext pull-right"><i class="fa fa-chevron-right"></i></a>
-                        </div>
-                    </row>
-                </div>
-            </div>
-            <div id="tab-4" class="tab-pane">
-                <div class="panel-body">
-                    <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-shield text-warning"></i></span> Insurance</b>
-                    <p class="col-sm-offset-1">
-                        PROTECT YA NECK
-                    </p>
-                    <div class="col-sm-12">
-                        <div class="col-sm-12"> <text class="c-white pull-right" id="total_monthly">Monthly Insurance Expense: $0.00 </text></div>
-                    </div>
-                    <row>
-                        <div class="col-sm-12">
-                            <br />
-                            <a class="btn btn-accent btnPrevious pull-left"><i class="fa fa-chevron-left"></i></a>
-                            <a class="btn btn-accent btnNext pull-right"><i class="fa fa-chevron-right"></i></a>
-                        </div>
-                    </row>
-                </div>
-            </div>
-            <div id="tab-5" class="tab-pane">
-                <div class="panel-body">
-                    <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-credit-card-alt text-warning"></i></span> Debt</b>
-                    <p class="col-sm-offset-1">
-                        Everyone's got skin in the game
-                    </p>
-                    <row>
-                        <br />
-                        @foreach (var accounttype in Model.AccountTypeList)
-                        {
-                            if (accounttype.Accounttype.Equals("credit") || accounttype.Accounttype.Equals("loan"))
-                            {
-                        <ul class="media-list bs-example">
-                            <li class="media">
-                                <div class="media-body">
-                                    @foreach (var account in Model.Account_list)
-                                            {
-                                                if (account.Account_Type.Equals(accounttype.Accounttype))
-                                                {
-                                            <ul class="media-list">
-                                                <li class="media">
-                                                    <div class="media-heading">
-                                                        <row>
-                                                            @if (@account.AccountName.Length > 20)
-                                                                    {<p class="text-warning"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                                    else
-                                                                    {<p class="text-warning"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                        </row>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                                }
-                                            }
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="col-sm-12">
-                            <div class="col-sm-12"> <text class="c-white pull-right" id="total_monthly">Total Debt: @accounttype.Accounttype_sum</text></div>
-                        </div>
                             }
                         }
                     </row>
