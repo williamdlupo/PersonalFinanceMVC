@@ -20,7 +20,7 @@
                     <h3>Synced Accounts</h3>
                 }
                 <small>
-                    N'SYNC reference would make this page
+                    Let's get N'SYNC...Ramen hair not necessary
                 </small>
             </div>
         </div>
@@ -39,23 +39,23 @@
                         <li class="media">
                             <div class="media-body">
 
-                                @if (accounttype.Accounttype.ToString().Equals("credit"))
-                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-credit-card-alt text-warning"></i></span> @accounttype.Accounttype.ToString() </b>
+                                @if (accounttype.Accounttype.Equals("credit"))
+                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-credit-card-alt text-warning"></i></span> @accounttype.Accounttype </b>
                                 <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                else if (accounttype.Accounttype.ToString().Equals("depository"))
+                                else if (accounttype.Accounttype.Equals("depository"))
                                 {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-money text-warning"></i></span> Cash</b>
                                 <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                else if (accounttype.Accounttype.ToString().Equals("brokerage"))
-                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-line-chart text-warning"></i></span> @accounttype.Accounttype.ToString()</b>
+                                else if (accounttype.Accounttype.Equals("brokerage"))
+                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-line-chart text-warning"></i></span> @accounttype.Accounttype</b>
                                 <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                else if (accounttype.Accounttype.ToString().Equals("loan"))
-                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-bank text-warning"></i></span> @accounttype.Accounttype.ToString()</b>
+                                else if (accounttype.Accounttype.Equals("loan"))
+                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-bank text-warning"></i></span> @accounttype.Accounttype</b>
                                 <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                else if (accounttype.Accounttype.ToString().Equals("mortgage"))
-                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-home text-warning"></i></span> @accounttype.Accounttype.ToString()</b>
+                                else if (accounttype.Accounttype.Equals("mortgage"))
+                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-home text-warning"></i></span> @accounttype.Accounttype</b>
                                 <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
                                 else
-                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-balance-scale text-warning"></i></span> @accounttype.Accounttype.ToString()</b>
+                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-balance-scale text-warning"></i></span> @accounttype.Accounttype</b>
                                 <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
 
                                 <div class="panel-body">
@@ -67,18 +67,17 @@
                                                 <ul class="media-list">
                                                     <li class="media panel-body">
                                                         <div class="media-heading">
-                                                            <text class="text-warning">@account.Institution_name.ToString()</text>
-                                                            @*<button class="pull-right btn btn-sm btn-danger" type="button" onclick="location.href='@Url.Action("DeleteAccount", "Account", new { slct = account.Access_Token } )'"><i class="fa fa-trash-o"></i></button>*@
+                                                            <text class="text-warning">@account.Institution_name</text>
+
                                                         </div>
                                                         <div class="media-heading">
                                                             <row>
                                                                 @if (@account.AccountName.Length > 20)
-                                                                {<p class="c-white"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                                {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
                                                                 else
-                                                                {<p class="c-white"> @account.AccountName.ToString()<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                                {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
                                                             </row>
                                                         </div>
-                                                        @*<button class="pull-right btn btn-danger" type="button" data-toggle="modal" data- data-target="#myModal"><i class="fa fa-trash-o"></i></button>*@
                                                     </li>
                                                 </ul>
                                             </div>
@@ -95,9 +94,10 @@
     </row>
     <row>
         <div class="col-sm-12">
-            <div class="col-sm-3">
-                <button class="btn btn-accent pull-left" id="link-button" type="button">Add Another Account</button>
-                <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-primary pull-right">All Set</a>
+            <div class="col-sm-4">
+                <button class="btn btn-w-sm btn-primary" id="link-button" type="button">Add</button>
+                <button class="btn btn-w-sm btn-danger" type="button" data-toggle="modal" data-target="#delete">Delete</button>
+                <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-w-sm btn-success">Home</a>
             </div>
         </div>
     </row>
@@ -105,35 +105,47 @@
 
 else
 {
-    <h4>You have no accounts synced!</h4>
-    <small> Click the button below to get started. </small>
-    <br />
-    <br />
-        <button class="btn btn-primary btn-block" id="link-button" type="button">Add An Account</button>
+    <div class="col-sm-12">
+        <div class="animated slideInUp">
+            <div class="panel panel-c-accent col-sm-6 col-sm-offset-3 text-center">
+                <h4 class="panel-heading">You have no accounts synced!</h4>
+                <small class="c-accent"> Click the button below to get started. </small>
+                <br />
+                <br />
+                <div class="col-sm-4 col-sm-offset-4">
+                    <button class="btn btn-primary btn-block" id="link-button" type="button">Add An Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
-<!--Modal HTML for confirmation pop up for account deletion
-    Need to figure out how to pass the token for the account to jQuery on
-    first button click and send same token to controller on confirmation button click
--->
-<content class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-sm">
+
+<content class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-body text-center">
-                <h4 class="m-t-none">Hold Up!</h4>
-                <p>Deleting an account will <b>permanently delete all of the accounts with this instituion</b> including all transactions!</p>
+            <div class="modal-header text-center">
+                <h3 class="m-t-none">Hold Up!</h3>
+                <text>Deleting an institution will <b><u>permanently delete all of the accounts with this instituion</u></b> including all your transactions!</text>
+            </div>
+            <div class="modal-body">
+                @foreach (var inst in Model.InstitutionList)
+                {
+                    <ul class="media-list">
+                        <li class="media">
+                            <div class="media-body">
+                                <b class="media-heading h3 text-warning text-capitalize text-center">@inst.Inst_name</b>
+                                <button class="pull-right btn btn-sm btn-danger" type="button" onclick="location.href='@Url.Action("DeleteAccount", "Account", new { slct = inst.Inst_access } )'"><i class="fa fa-trash-o"></i></button>
+                            </div>
+                        </li>
+                    </ul>
+                }
             </div>
             <div class="modal-footer">
-                <button type="button" class="pull-left btn btn-primary" data-dismiss="modal">I Changed My Mind!</button>
-                <button type="button" class="pull-right btn btn-danger" id="" onclick="href='@Url.Action("DeleteAccount", "Account", new { access_token = "" } )'">Delete Away</button>
+                <button type="button" class="pull-right btn btn-primary" data-dismiss="modal">All Set</button>
             </div>
         </div>
     </div>
 </content>
-
-
-
-
-
 
 <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 <script type="text/javascript">

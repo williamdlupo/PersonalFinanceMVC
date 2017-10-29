@@ -45,6 +45,14 @@ namespace PersonalFinance.Models
         public string Accounttype_sum { get; set; }
     }
 
+    //Institution object class
+    public class Institution
+    {
+        public string Inst_name { get; set; }
+        public string Inst_balance { get; set; }
+        public string Inst_access { get; set; }
+    }
+
     //Data Table object class
     public class DataTable
     {
@@ -96,6 +104,7 @@ namespace PersonalFinance.Models
         public decimal SumTransactions { get; set; }
         public List<decimal> NetWorth = new List<decimal>();
         public List<AccountType> AccountTypeList = new List<AccountType>();
+        public List<Institution> InstitutionList = new List<Institution>();
         public string SelectedAccount { get; set; }
 
         //
@@ -293,6 +302,25 @@ namespace PersonalFinance.Models
                 };
 
                 AccountTypeList.Add(aAccountType);
+            }
+
+            var institutionquery = from db in Account_list
+                                   group db by db.Institution_name into g
+                                   select new
+                                   {
+                                       Name = g.Distinct(),
+                                       Sum = g.Sum(s => s.Balance)
+                                   };
+            foreach (var inst in institutionquery)
+            {
+                Institution aInstitution = new Institution
+                {
+                    Inst_name = inst.Name.FirstOrDefault().Institution_name.ToString(),
+                    Inst_balance = String.Format("{0:C}", inst.Sum),
+                    Inst_access = inst.Name.FirstOrDefault().Access_Token.ToString()
+                };
+
+                InstitutionList.Add(aInstitution);
             }
         }
 
