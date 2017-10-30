@@ -11,8 +11,8 @@
             </div>
             <div class="header-title">
                 <h3>My Financial Profile</h3>
-                <small>
-                    Get your money right playboi
+                <small class="c-white">
+                    Get Your Money Right
                 </small>
             </div>
         </div>
@@ -39,97 +39,90 @@
                         Income before the outcome am I right?
                     </p>
                     <row>
-                        <ul class="media-list bs-example col-sm-12">
-                            <li class="media">
-                                <div class="media-body">
-                                    <br />
-                                    <text class="text-accent">First thing's first - how much are you bringing in each month?</text>
-                                    <br />
-                                    <hr />
+                        <div class="bs-example col-sm-12">
+                            <div>
+                                <br />
+                                <text class="text-accent">First thing's first - how much are you bringing in each month?</text>
+                                <br />
+                                <hr />
+                                <div class="col-sm-12">
+                                    <div class="col-sm-3">Are You Employed?</div>
+                                    <input type="checkbox" class="col-sm-offset-3 js-switch" />
+                                </div>
+                                <div id="employed" hidden="hidden">
                                     <div class="col-sm-12">
-                                        <div class="col-sm-3">Are You Employed?</div>
-                                        <input type="checkbox" class="col-sm-offset-3 js-switch" />
+                                        <p class="col-sm-8 col-sm-offset-1">Is Your Position Paid Hourly or Salary?</p>
                                     </div>
-                                    <div id="employed" hidden="hidden">
+                                    <div class="col-sm-offset-3">
+                                        <div class="radio radio-success radio-inline">
+                                            <input type="radio" id="hourly_radio" value="option1" name="selected">
+                                            <label for="inlineRadio1"> Hourly </label>
+                                        </div>
+                                        <div class="radio radio-success radio-inline">
+                                            <input type="radio" id="salary_radio" value="option2" name="selected">
+                                            <label for="inlineRadio2"> Salary </label>
+                                        </div>
+                                    </div>
+                                    <div id="salary" hidden="hidden">
                                         <div class="col-sm-12">
-                                            <p class="col-sm-8 col-sm-offset-1">Is Your Position Paid Hourly or Salary?</p>
+                                            <p class="col-sm-8 col-sm-offset-2">What's Your Yearly Salary? <small class="text-accent"> (Don't worry about taxes)</small></p>
                                         </div>
-                                        <div class="col-sm-offset-3">
-                                            <div class="radio radio-success radio-inline">
-                                                <input type="radio" id="hourly_radio" value="option1" name="selected">
-                                                <label for="inlineRadio1"> Hourly </label>
-                                            </div>
-                                            <div class="radio radio-success radio-inline">
-                                                <input type="radio" id="salary_radio" value="option2" name="selected">
-                                                <label for="inlineRadio2"> Salary </label>
-                                            </div>
+                                        <div class="col-sm-4 col-sm-offset-3">
+                                            <input class="form-control" id="salary_pay" placeholder="$" />
                                         </div>
-                                        <div id="salary" hidden="hidden">
-                                            <div class="col-sm-12">
-                                                <p class="col-sm-8 col-sm-offset-2">What's Your Yearly Salary? <small class="text-accent"> (Don't worry about taxes)</small></p>
-                                            </div>
-                                            <div class="col-sm-4 col-sm-offset-3">
-                                                <input class="form-control" id="salary_pay" placeholder="$" />
-                                            </div>
-                                            <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_salary">$0.00 / month</text></div>
-                                        </div>
-                                        <div id="hourly" hidden="hidden">
-                                            <div class="col-sm-12">
-                                                <p class="col-sm-8 col-sm-offset-2">How Much Do You Make Per Hour? <small class="text-accent"></small></p>
-                                            </div>
-                                            <div class="col-sm-4 col-sm-offset-3">
-                                                <input class="form-control" id="hourly_pay" placeholder="$" />
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <p class="col-sm-12 col-sm-offset-2">How Many Hours Do You Usually Work Each Week? <small class="text-accent"> (On average)</small></p>
-                                            </div>
-                                            <div class="col-sm-4 col-sm-offset-3">
-                                                <input class="form-control" id="hourly_time" placeholder="" />
-                                            </div>
-                                            <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_hourly"> $0.00 / month</text></div>
-                                        </div>
-                                        @*<div id="second_job" hidden="hidden">
-                                                <div class="col-sm-12">
-                                                    <div class="col-sm-4 col-sm-offset-1">Do You have another job?</div>
-                                                    <input type="checkbox" class="col-sm-offset-3 js-switch3" />
-                                                </div>
-                                            </div>*@
+                                        <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_salary">$0.00 / month</text></div>
                                     </div>
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-6">Do You Have Any Other Income Sources?</div>
-                                        <input type="checkbox" class="col-sm-offset-2 js-switch2" />
-                                    </div>
-                                    <div id="other_inc" hidden="hidden">
-                                        <div>
-                                            <div>
-                                                <label class="col-sm-2 col-sm-offset-1 control-label">Amount</label>
-                                                <div class="col-sm-5"><input class="form-control" id="other_amount"></div>
-                                            </div>
-                                            <div class="col-sm-10">
-                                                <label class="col-sm-3 col-sm-offset-1 control-label">Frequency</label>
-                                                <div class="radio radio-success radio-inline">
-                                                    <input type="radio" id="other_weekly" value="option1" name="other_freq">
-                                                    <label for="inlineCheckbox1"> Weekly </label>
-                                                </div>
-                                                <div class="radio radio-success radio-inline">
-                                                    <input type="radio" id="other_m" value="option2" name="other_freq">
-                                                    <label for="inlineCheckbox2"> Monthly </label>
-                                                </div>
-                                                <div class="radio radio-success radio-inline">
-                                                    <input type="radio" id="other_yearly" value="option3" name="other_freq">
-                                                    <label for="inlineCheckbox2"> Yearly </label>
-                                                </div>
-                                            </div>
+                                    <div id="hourly" hidden="hidden">
+                                        <div class="col-sm-12">
+                                            <p class="col-sm-8 col-sm-offset-2">How Much Do You Make Per Hour? <small class="text-accent"></small></p>
                                         </div>
-                                        <div class="col-sm-12"> <text class="text-accent pull-right" id="other_monthly"> $0.00 / month</text></div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <hr />
-                                        <text class="c-white pull-right" id="total_monthly">Total Monthly Income: $0.00 </text>
+                                        <div class="col-sm-4 col-sm-offset-3">
+                                            <input class="form-control" id="hourly_pay" placeholder="$" />
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <p class="col-sm-12 col-sm-offset-2">How Many Hours Do You Usually Work Each Week? <small class="text-accent"> (On average)</small></p>
+                                        </div>
+                                        <div class="col-sm-4 col-sm-offset-3">
+                                            <input class="form-control" id="hourly_time" placeholder="" />
+                                        </div>
+                                        <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_hourly"> $0.00 / month</text></div>
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">Do You Have Any Other Income Sources?</div>
+                                    <input type="checkbox" class="col-sm-offset-2 js-switch2" />
+                                </div>
+                                <div id="other_inc" hidden="hidden">
+                                    <div>
+                                        <div>
+                                            <label class="col-sm-2 col-sm-offset-1 control-label">Amount</label>
+                                            <div class="col-sm-5"><input class="form-control" id="other_amount"></div>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <label class="col-sm-3 col-sm-offset-1 control-label">Frequency</label>
+                                            <div class="radio radio-success radio-inline">
+                                                <input type="radio" id="other_weekly" value="option1" name="other_freq">
+                                                <label for="inlineCheckbox1"> Weekly </label>
+                                            </div>
+                                            <div class="radio radio-success radio-inline">
+                                                <input type="radio" id="other_m" value="option2" name="other_freq">
+                                                <label for="inlineCheckbox2"> Monthly </label>
+                                            </div>
+                                            <div class="radio radio-success radio-inline">
+                                                <input type="radio" id="other_yearly" value="option3" name="other_freq">
+                                                <label for="inlineCheckbox2"> Yearly </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12"> <text class="text-accent pull-right" id="other_monthly"> $0.00 / month</text></div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <hr />
+                                    <text class="c-white pull-right" id="total_monthly">Total Monthly Income: $0.00 </text>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
                     </row>
                     <row>
                         <div class="col-sm-12">
@@ -160,18 +153,18 @@
                                                 {
                                                     if (account.Account_Type.Equals(accounttype.Accounttype))
                                                     {
-                                                <ul class="media-list">
-                                                    <li class="media">
-                                                        <div class="media-heading">
-                                                            <row>
-                                                                @if (@account.AccountName.Length > 20)
+                                        <ul class="media-list">
+                                            <li class="media">
+                                                <div class="media-heading">
+                                                    <row>
+                                                        @if (@account.AccountName.Length > 20)
                                                                         {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
                                                                         else
                                                                         {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                            </row>
-                                                        </div>
-                                                    </li>
-                                                </ul>
+                                                    </row>
+                                                </div>
+                                            </li>
+                                        </ul>
                                                     }
                                                 }
                                     </div>
@@ -216,18 +209,18 @@
                                                 {
                                                     if (account.Account_Type.Equals(accounttype.Accounttype.ToString()))
                                                     {
-                                                <ul class="media-list">
-                                                    <li class="media">
-                                                        <div class="media-heading">
-                                                            <row>
-                                                                @if (@account.AccountName.Length > 20)
+                                        <ul class="media-list">
+                                            <li class="media">
+                                                <div class="media-heading">
+                                                    <row>
+                                                        @if (@account.AccountName.Length > 20)
                                                                         {<p class="c-white"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
                                                                         else
                                                                         {<p class="c-white"> @account.AccountName.ToString()<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                            </row>
-                                                        </div>
-                                                    </li>
-                                                </ul>
+                                                    </row>
+                                                </div>
+                                            </li>
+                                        </ul>
                                                     }
                                                 }
                                     </div>
@@ -258,23 +251,52 @@
                         PROTECT YA NECK
                     </p>
                     <row>
-                        <div class="bs-example">
-                            <br />
-                            <text class="text-accent">Home, auto, life or whatver - protect yourself before you wreck yourself</text>
-                            <br />
-                            <hr />
-                            <div class="col-sm-12">
-                                <text class="c-white pull-right" id="total_monthly">Monthly Insurance Expense: $0.00 </text>
-                            </div>
-                            <br />
-                        </div>
-                        <row>
-                            <div class="col-sm-12">
+                        <div class="bs-example col-sm-12">
                                 <br />
-                                <a class="btn btn-accent btnPrevious pull-left"><i class="fa fa-chevron-left"></i></a>
-                                <a class="btn btn-accent btnNext pull-right"><i class="fa fa-chevron-right"></i></a>
+                                <text class="text-accent">Home, auto, life or whatever - protect yourself before you wreck yourself</text>
+                                <br />
+                                <hr />
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">Do you health insurance?</div>
+                                    <input type="checkbox" class="col-sm-offset-3 js-switch3" />
+                                </div>
+                                <form class="form-horizontal" id="health_view" hidden="hidden">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Health </label>
+                                        <div class="col-sm-4"><input class="form-control" id="health_ins" placeholder="$"></div>
+                                    </div>
+                                </form>
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Home </label>
+                                        <div class="col-sm-4"><input class="form-control" id="home_ins" placeholder="$"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Auto </label>
+                                        <div class="col-sm-4"><input class="form-control" id="auto_ins" placeholder="$"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Life </label>
+                                        <div class="col-sm-4"><input class="form-control" id="life_ins" placeholder="$"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Other </label>
+                                        <div class="col-sm-4"><input class="form-control" id="other_ins" placeholder="$"></div>
+                                    </div>
+                                </form>
+                                <div class="col-sm-12">
+                                    <hr />
+                                    <text class="c-white pull-right" id="total_insurance">Monthly Insurance Expense: $0.00 </text>
+                                </div>
+                            <br />
                             </div>
-                        </row>
+                    </row>
+                    <row>
+                        <div class="col-sm-12">
+                            <br />
+                            <a class="btn btn-accent btnPrevious pull-left"><i class="fa fa-chevron-left"></i></a>
+                            <a class="btn btn-accent btnNext pull-right"><i class="fa fa-chevron-right"></i></a>
+                        </div>
                     </row>
                 </div>
             </div>
@@ -285,40 +307,47 @@
                         Everyone's got skin in the game
                     </p>
                     <row>
-                        <br />
-                        @foreach (var accounttype in Model.AccountTypeList)
-                        {
-                            if (accounttype.Accounttype.Equals("credit") || accounttype.Accounttype.Equals("loan"))
+                        <div class="bs-example">
+                            <br />
+                            <text class="text-accent">We snagged these balances from your accounts. Take a look and make sure it's all cool</text>
+                            <br />
+                            <hr />
+                            @foreach (var accounttype in Model.AccountTypeList)
                             {
-                                <ul class="media-list bs-example">
-                                    <li class="media">
-                                        <div class="media-body">
-                                            @foreach (var account in Model.Account_list)
-                                            {
-                                                if (account.Account_Type.Equals(accounttype.Accounttype))
+                                if (accounttype.Accounttype.Equals("credit") || accounttype.Accounttype.Equals("loan"))
+                                {
+                            <ul class="media-list">
+                                <li class="media">
+                                    <div class="media-body">
+                                        @foreach (var account in Model.Account_list)
                                                 {
-                                                    <ul class="media-list">
-                                                        <li class="media">
-                                                            <div class="media-heading">
-                                                                <row>
-                                                                    @if (@account.AccountName.Length > 20)
-                                                                    {<p class="text-warning"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                                    else
-                                                                    {<p class="text-warning"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                                </row>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
+                                                    if (account.Account_Type.Equals(accounttype.Accounttype))
+                                                    {
+                                                <ul class="media-list">
+                                                    <li class="media">
+                                                        <div class="media-heading">
+                                                            <row>
+                                                                @if (@account.AccountName.Length > 20)
+                                                                        {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                                        else
+                                                                        {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                            </row>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                    }
                                                 }
-                                            }
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="col-sm-12">
-                                    <text class="c-white pull-right" id="total_monthly">Total Debt: @accounttype.Accounttype_sum</text>
-                                </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <hr />
+                            <div class="col-sm-12">
+                                <text class="c-white pull-right" id="total_monthly">Total Debt: @accounttype.Accounttype_sum</text>
+                            </div>
+                            <br />
+                                }
                             }
-                        }
+                        </div>
                     </row>
                     <row>
                         <div class="col-sm-12">
@@ -336,40 +365,84 @@
                         Whole Crew Loungin'
                     </p>
                     <row>
-                        <br />
-                        @foreach (var accounttype in Model.AccountTypeList)
-                        {
-
-                            if (accounttype.ToString().Equals("mortgage"))
+                        <div class="bs-example">
+                            <br />
+                            <text class="text-accent">Something witty about paying for housing</text>
+                            <br />
+                            <hr />
+                            @foreach (var accounttype in Model.AccountTypeList)
                             {
-                                <ul class="media-list">
-                                    <li class="media">
-                                        <div class="media-body">
-                                            @foreach (var account in Model.Account_list)
-                                            {
-                                                if (account.Account_Type.Equals(accounttype.ToString()))
+                                if (accounttype.ToString().Equals("mortgage"))
+                                {
+                                    <ul class="media-list">
+                                        <li class="media">
+                                            <div class="media-body">
+                                                @foreach (var account in Model.Account_list)
                                                 {
-                                                    <ul class="media-list">
-                                                        <li class="media">
-                                                            <div class="media-heading">
-                                                                <row>
-                                                                    @if (@account.AccountName.Length > 20)
-                                                                    {<p class="text-warning"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">$@account.Balance</text></p> }
-                                                                    else
-                                                                    {<p class="text-warning"> @account.AccountName.ToString()<text class="pull-right text-success">$@account.Balance</text></p> }
-                                                                </row>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
+                                                    if (account.Account_Type.Equals(accounttype.Accounttype))
+                                                    {
+                                                        <ul class="media-list">
+                                                            <li class="media">
+                                                                <div class="media-heading">
+                                                                    <row>
+                                                                        @if (@account.AccountName.Length > 20)
+                                                                        {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                                        else
+                                                                        {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                                    </row>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    }
                                                 }
-                                            }
-                                        </div>
-                                    </li>
-                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                }
                             }
-                        }
-                        <div class="col-sm-12">
-                            <div class="col-sm-12"> <text class="c-white pull-right" id="total_monthly">Monthly Housing Expense: $0.00 </text></div>
+                            <div class="col-sm-12">
+                                <p class="col-sm-6">Do you Own or Rent?</p>
+                            </div>
+                            <div class="col-sm-offset-2">
+                                <div class="radio radio-success radio-inline">
+                                    <input type="radio" id="own_radio" value="option1" name="selected">
+                                    <label for="inlineRadio1"> Own </label>
+                                </div>
+                                <div class="radio radio-success radio-inline">
+                                    <input type="radio" id="rent_radio" value="option2" name="selected">
+                                    <label for="inlineRadio2"> Rent </label>
+                                </div>
+                            </div>
+                            <div id="own" hidden="hidden">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Mortgage Payment </label>
+                                        <div class="col-sm-4"><input class="form-control" id="mortgage" placeholder="$"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Taxes </label>
+                                        <div class="col-sm-4"><input class="form-control" id="taxes" placeholder="$"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Total </label>
+                                        <div class="col-sm-4"><input class="form-control" id="housing_subtotal" placeholder="$"></div>
+                                        <div class="col-sm-12 col-sm-offset-3"><small class="text-accent">If you don't know your breakdown, just enter your total monthly payment here</small></div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="rent" hidden="hidden">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Rent Payment</label>
+                                        <div class="col-sm-4"><input class="form-control" id="rent_payment" placeholder="$"></div>
+                                    </div>
+                                </form>
+                            </div>
+                            <hr />
+                            <div class="col-sm-12">
+                                <text class="c-white pull-right" id="housing_total">Total Housing: $0.00 / month</text>
+                            </div>
+                            <br />
                         </div>
                     </row>
                     <row>
@@ -391,7 +464,7 @@
                         <div class="col-sm-12">
                             <br />
                             <a class="btn btn-accent btnPrevious pull-left"><i class="fa fa-chevron-left"></i></a>
-                            <a class="btn btn-info btnNext pull-right">Looks Good</a>
+                            <a class="btn btn-success btnNext pull-right">Save Profile</a>
                         </div>
                     </row>
                 </div>
@@ -400,13 +473,15 @@
     </div>
 </div>
 
-<!--Income Tab Scripts-->
+<!--Tab Scripts-->
 <script>
     //Income form function
     $(document).ready(function () {
-        var wages;
-        var other;
-        var total_month;
+        var wages, other, total_month;
+
+        var health, home, auto, life, other_ins, total_ins;
+
+        var mortgage, taxes, rent, total_housing;
 
         $('.btnNext').click(function () {
             $('.nav-tabs > .active').next('li').find('a').trigger('click');
@@ -422,6 +497,10 @@
         var elem2 = document.querySelector('.js-switch2');
         var elem2 = new Switchery(elem2, { color: '#1bbf89', size: 'small' });
 
+        var elem3 = document.querySelector('.js-switch3');
+        var elem3 = new Switchery(elem3, { color: '#1bbf89', size: 'small' });
+
+        //employed y/n switch
         $('.js-switch').change(function () {
             if ($(this).prop("checked")) {
                 $('#employed').show();
@@ -438,6 +517,7 @@
             }
         });
 
+        //other income y/n switch
         $('.js-switch2').change(function () {
             if ($(this).prop("checked")) {
                 $('#other_inc').show();
@@ -451,6 +531,24 @@
             }
         });
 
+        //health insurance y/n switch
+        $('.js-switch3').change(function () {
+            if ($(this).prop("checked")) {
+                $('#health_view').show();
+            } else {
+                health = 0.0;
+                $('#health_ins').val('');
+                home = isNaN(home) ? 0.0 : home;
+                auto = isNaN(auto) ? 0.0 : auto;
+                life = isNaN(life) ? 0.0 : life;
+                other_ins = isNaN(other_ins) ? 0.0 : other_ins;
+                total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
+                $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
+                $('#health_view').hide();
+            }
+        })
+
+        //salary radio
         $('#salary_radio').change(function (event) {
             if ($('#salary_radio').is(':checked')) {
                 $('#salary').show();
@@ -465,6 +563,7 @@
             }
         });
 
+        //hourly radio
         $('#hourly_radio').change(function (event) {
             if ($('#hourly_radio').is(':checked')) {
                 $('#hourly').show();
@@ -479,6 +578,34 @@
             }
         });
 
+        //own radio
+        $('#own_radio').change(function (event) {
+            if ($('#own_radio').is(':checked')) {
+                rent = 0;
+                total_housing = 0;
+                $('#rent_payment').val('');
+                $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
+                $('#own').show();
+                $('#rent').hide();
+            }
+        });
+
+        //rent radio
+        $('#rent_radio').change(function (event) {
+            if ($('#rent_radio').is(':checked')) {
+                mortgage = 0.0;
+                taxes = 0.0;
+                total_housing = 0.00;
+                $('#mortgage').val('');
+                $('#taxes').val('');
+                $('#housing_subtotal').val('');
+                $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
+                $('#rent').show();
+                $('#own').hide();
+            }
+        });
+
+        //salary input
         $('#salary_pay').keyup(function () {
             var total = isNaN(parseInt($(this).val() / 12)) ? 0.00 : ($(this).val() / 12).toFixed(2)
             $('#monthly_salary').text('$' + total + ' / month');
@@ -489,6 +616,7 @@
             $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
         });
 
+        //hourly pay input
         $('#hourly_pay').keyup(function () {
             var total = isNaN(parseInt((($(this).val() * $('#hourly_time').val()) * 52) / 12)) ? 0.00 : ((($(this).val() * $('#hourly_time').val()) * 52) / 12).toFixed(2);
             wages = total;
@@ -500,6 +628,7 @@
             $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
         });
 
+        //hourly hours input
         $('#hourly_time').keyup(function () {
             var total = isNaN(parseInt((($(this).val() * $('#hourly_pay').val()) * 52) / 12)) ? 0.00 : ((($(this).val() * $('#hourly_pay').val()) * 52) / 12).toFixed(2);
 
@@ -512,6 +641,7 @@
             $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
         });
 
+        //other weekly radios
         $('#other_weekly').change(function (event) {
             if ($('#other_weekly').is(':checked')) {
                 var total = isNaN(parseInt($('#other_amount').val())) ? 0.00 : (($('#other_amount').val() * 52) / 12).toFixed(2);
@@ -523,6 +653,7 @@
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
             }
         });
+
         $('#other_m').change(function (event) {
             if ($('#other_m').is(':checked')) {
                 var total = isNaN(parseInt($('#other_amount').val())) ? 0.00 : $('#other_amount').val();
@@ -534,6 +665,7 @@
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
             }
         });
+
         $('#other_yearly').change(function (event) {
             if ($('#other_yearly').is(':checked')) {
                 var total = isNaN(parseInt($('#other_amount').val())) ? 0.00 : ($('#other_amount').val() / 12).toFixed(2);
@@ -588,6 +720,106 @@
             }
         });
 
+        //insurance value inputs
+        $('#health_ins').keyup(function () {
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
 
+            health = amount;
+            home = isNaN(home) ? 0.0 : home;
+            auto = isNaN(auto) ? 0.0 : auto;
+            life = isNaN(life) ? 0.0 : life;
+            other_ins = isNaN(other_ins) ? 0.0 : other_ins;
+            total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
+            $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
+        });
+
+        $('#home_ins').keyup(function () {
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
+
+            home = amount;
+            health = isNaN(home) ? 0.0 : health;
+            auto = isNaN(auto) ? 0.0 : auto;
+            life = isNaN(life) ? 0.0 : life;
+            other_ins = isNaN(other_ins) ? 0.0 : other_ins;
+            total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
+            $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
+        });
+
+        $('#auto_ins').keyup(function () {
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
+
+            auto = amount;
+            health = isNaN(home) ? 0.0 : health;
+            home = isNaN(auto) ? 0.0 : home;
+            life = isNaN(life) ? 0.0 : life;
+            other_ins = isNaN(other_ins) ? 0.0 : other_ins;
+            total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
+            $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
+        });
+
+        $('#life_ins').keyup(function () {
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
+
+            life = amount;
+            health = isNaN(home) ? 0.0 : health;
+            auto = isNaN(auto) ? 0.0 : auto;
+            home = isNaN(life) ? 0.0 : home;
+            other_ins = isNaN(other_ins) ? 0.0 : other_ins;
+            total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
+            $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
+        });
+
+        $('#other_ins').keyup(function () {
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
+
+            other_ins = other_ins;
+            health = isNaN(home) ? 0.0 : health;
+            auto = isNaN(auto) ? 0.0 : auto;
+            life = isNaN(life) ? 0.0 : life;
+            home = isNaN(other_ins) ? 0.0 : home;
+            total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
+            $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
+        });
+
+        //Own value inputs
+        $('#mortgage').keyup(function () {
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
+
+            mortgage = amount;
+            taxes = isNaN(taxes) ? 0.0 : taxes;
+            total_housing = parseInt(mortgage) + parseInt(taxes);
+            $('#housing_subtotal').val(total_housing);
+            $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
+        });
+
+        $('#taxes').keyup(function () {
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
+
+            taxes = amount;
+            mortgage = isNaN(mortgage) ? 0.0 : mortgage;
+            total_housing = parseInt(mortgage) + parseInt(taxes);
+            $('#housing_subtotal').val(total_housing);
+            $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
+        });
+
+        $('#housing_subtotal').keyup(function () {
+            mortgage = 0;
+            taxes = 0;
+            total_housing = 0;
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
+
+            total_housing = amount;
+            $('#mortgage').val('');
+            $('#taxes').val('');
+            $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
+        });
+
+        //Rent value input
+        $('#rent_payment').keyup(function () {
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
+
+            total_housing = amount;
+            $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
+        });
     });
 </script>

@@ -348,8 +348,8 @@ else
 
             var doughnut = @Html.Raw(Json.Encode(Session["DonutChart"]));
 
-            var categories = $.map(doughnut, function (el) { return el.label });
-            var values = $.map(doughnut, function (el) { return el.value });
+            var categories = $.map(doughnut, function (category) { return category.label });
+            var values = $.map(doughnut, function (val) { return val.value });
 
             var doughnutData = {
                 labels: categories,

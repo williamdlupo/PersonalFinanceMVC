@@ -39,91 +39,90 @@
                         Income before the outcome am I right?
                     </p>
                     <row>
-                        <ul class="media-list bs-example col-sm-12">
-                            <li class="media">
-                                <div class="media-body">
-                                    <br />
-                                    <text class="text-accent">First thing's first - how much are you bringing in each month?</text>
-                                    <br />
-                                    <hr />
+                        <div class="bs-example col-sm-12">
+                            <div>
+                                <br />
+                                <text class="text-accent">First thing's first - how much are you bringing in each month?</text>
+                                <br />
+                                <hr />
+                                <div class="col-sm-12">
+                                    <div class="col-sm-3">Are You Employed?</div>
+                                    <input type="checkbox" class="col-sm-offset-3 js-switch" />
+                                </div>
+                                <div id="employed" hidden="hidden">
                                     <div class="col-sm-12">
-                                        <div class="col-sm-3">Are You Employed?</div>
-                                        <input type="checkbox" class="col-sm-offset-3 js-switch" />
+                                        <p class="col-sm-8 col-sm-offset-1">Is Your Position Paid Hourly or Salary?</p>
                                     </div>
-                                    <div id="employed" hidden="hidden">
+                                    <div class="col-sm-offset-3">
+                                        <div class="radio radio-success radio-inline">
+                                            <input type="radio" id="hourly_radio" value="option1" name="selected">
+                                            <label for="inlineRadio1"> Hourly </label>
+                                        </div>
+                                        <div class="radio radio-success radio-inline">
+                                            <input type="radio" id="salary_radio" value="option2" name="selected">
+                                            <label for="inlineRadio2"> Salary </label>
+                                        </div>
+                                    </div>
+                                    <div id="salary" hidden="hidden">
                                         <div class="col-sm-12">
-                                            <p class="col-sm-8 col-sm-offset-1">Is Your Position Paid Hourly or Salary?</p>
+                                            <p class="col-sm-8 col-sm-offset-2">What's Your Yearly Salary? <small class="text-accent"> (Don't worry about taxes)</small></p>
                                         </div>
-                                        <div class="col-sm-offset-3">
-                                            <div class="radio radio-success radio-inline">
-                                                <input type="radio" id="hourly_radio" value="option1" name="selected">
-                                                <label for="inlineRadio1"> Hourly </label>
-                                            </div>
-                                            <div class="radio radio-success radio-inline">
-                                                <input type="radio" id="salary_radio" value="option2" name="selected">
-                                                <label for="inlineRadio2"> Salary </label>
-                                            </div>
+                                        <div class="col-sm-4 col-sm-offset-3">
+                                            <input class="form-control" id="salary_pay" placeholder="$" />
                                         </div>
-                                        <div id="salary" hidden="hidden">
-                                            <div class="col-sm-12">
-                                                <p class="col-sm-8 col-sm-offset-2">What's Your Yearly Salary? <small class="text-accent"> (Don't worry about taxes)</small></p>
-                                            </div>
-                                            <div class="col-sm-4 col-sm-offset-3">
-                                                <input class="form-control" id="salary_pay" placeholder="$" />
-                                            </div>
-                                            <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_salary">$0.00 / month</text></div>
-                                        </div>
-                                        <div id="hourly" hidden="hidden">
-                                            <div class="col-sm-12">
-                                                <p class="col-sm-8 col-sm-offset-2">How Much Do You Make Per Hour? <small class="text-accent"></small></p>
-                                            </div>
-                                            <div class="col-sm-4 col-sm-offset-3">
-                                                <input class="form-control" id="hourly_pay" placeholder="$" />
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <p class="col-sm-12 col-sm-offset-2">How Many Hours Do You Usually Work Each Week? <small class="text-accent"> (On average)</small></p>
-                                            </div>
-                                            <div class="col-sm-4 col-sm-offset-3">
-                                                <input class="form-control" id="hourly_time" placeholder="" />
-                                            </div>
-                                            <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_hourly"> $0.00 / month</text></div>
-                                        </div>
+                                        <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_salary">$0.00 / month</text></div>
                                     </div>
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-6">Do You Have Any Other Income Sources?</div>
-                                        <input type="checkbox" class="col-sm-offset-2 js-switch2" />
-                                    </div>
-                                    <div id="other_inc" hidden="hidden">
-                                        <div>
-                                            <div>
-                                                <label class="col-sm-2 col-sm-offset-1 control-label">Amount</label>
-                                                <div class="col-sm-5"><input class="form-control" id="other_amount"></div>
-                                            </div>
-                                            <div class="col-sm-10">
-                                                <label class="col-sm-3 col-sm-offset-1 control-label">Frequency</label>
-                                                <div class="radio radio-success radio-inline">
-                                                    <input type="radio" id="other_weekly" value="option1" name="other_freq">
-                                                    <label for="inlineCheckbox1"> Weekly </label>
-                                                </div>
-                                                <div class="radio radio-success radio-inline">
-                                                    <input type="radio" id="other_m" value="option2" name="other_freq">
-                                                    <label for="inlineCheckbox2"> Monthly </label>
-                                                </div>
-                                                <div class="radio radio-success radio-inline">
-                                                    <input type="radio" id="other_yearly" value="option3" name="other_freq">
-                                                    <label for="inlineCheckbox2"> Yearly </label>
-                                                </div>
-                                            </div>
+                                    <div id="hourly" hidden="hidden">
+                                        <div class="col-sm-12">
+                                            <p class="col-sm-8 col-sm-offset-2">How Much Do You Make Per Hour? <small class="text-accent"></small></p>
                                         </div>
-                                        <div class="col-sm-12"> <text class="text-accent pull-right" id="other_monthly"> $0.00 / month</text></div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <hr />
-                                        <text class="c-white pull-right" id="total_monthly">Total Monthly Income: $0.00 </text>
+                                        <div class="col-sm-4 col-sm-offset-3">
+                                            <input class="form-control" id="hourly_pay" placeholder="$" />
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <p class="col-sm-12 col-sm-offset-2">How Many Hours Do You Usually Work Each Week? <small class="text-accent"> (On average)</small></p>
+                                        </div>
+                                        <div class="col-sm-4 col-sm-offset-3">
+                                            <input class="form-control" id="hourly_time" placeholder="" />
+                                        </div>
+                                        <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_hourly"> $0.00 / month</text></div>
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">Do You Have Any Other Income Sources?</div>
+                                    <input type="checkbox" class="col-sm-offset-2 js-switch2" />
+                                </div>
+                                <div id="other_inc" hidden="hidden">
+                                    <div>
+                                        <div>
+                                            <label class="col-sm-2 col-sm-offset-1 control-label">Amount</label>
+                                            <div class="col-sm-5"><input class="form-control" id="other_amount"></div>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <label class="col-sm-3 col-sm-offset-1 control-label">Frequency</label>
+                                            <div class="radio radio-success radio-inline">
+                                                <input type="radio" id="other_weekly" value="option1" name="other_freq">
+                                                <label for="inlineCheckbox1"> Weekly </label>
+                                            </div>
+                                            <div class="radio radio-success radio-inline">
+                                                <input type="radio" id="other_m" value="option2" name="other_freq">
+                                                <label for="inlineCheckbox2"> Monthly </label>
+                                            </div>
+                                            <div class="radio radio-success radio-inline">
+                                                <input type="radio" id="other_yearly" value="option3" name="other_freq">
+                                                <label for="inlineCheckbox2"> Yearly </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12"> <text class="text-accent pull-right" id="other_monthly"> $0.00 / month</text></div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <hr />
+                                    <text class="c-white pull-right" id="total_monthly">Total Monthly Income: $0.00 </text>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
                     </row>
                     <row>
                         <div class="col-sm-12">
@@ -252,48 +251,45 @@
                         PROTECT YA NECK
                     </p>
                     <row>
-                        <ul class="media-list bs-example col-sm-12">
-                            <li class="media">
-                                <div class="media-body">
-                                    <br />
-                                    <text class="text-accent">Home, auto, life or whatever - protect yourself before you wreck yourself</text>
-                                    <br />
-                                    <hr />
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-4">Do you health insurance?</div>
-                                        <input type="checkbox" class="col-sm-offset-3 js-switch3" />
-                                    </div>
-                                    <form class="form-horizontal" id="health_view" hidden="hidden">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Health </label>
-                                            <div class="col-sm-4"><input class="form-control" id="health_ins" placeholder="$"></div>
-                                        </div>
-                                    </form>
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Home </label>
-                                            <div class="col-sm-4"><input class="form-control" id="home_ins" placeholder="$"></div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Auto </label>
-                                            <div class="col-sm-4"><input class="form-control" id="auto_ins" placeholder="$"></div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Life </label>
-                                            <div class="col-sm-4"><input class="form-control" id="life_ins" placeholder="$"></div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Other </label>
-                                            <div class="col-sm-4"><input class="form-control" id="other_ins" placeholder="$"></div>
-                                        </div>
-                                    </form>
-                                    <div class="col-sm-12">
-                                        <hr />
-                                        <text class="c-white pull-right" id="total_insurance">Monthly Insurance Expense: $0.00 </text>
-                                    </div>
+                        <div class="bs-example col-sm-12">
+                                <br />
+                                <text class="text-accent">Home, auto, life or whatever - protect yourself before you wreck yourself</text>
+                                <br />
+                                <hr />
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">Do you health insurance?</div>
+                                    <input type="checkbox" class="col-sm-offset-3 js-switch3" />
                                 </div>
-                            </li>
-                        </ul>
+                                <form class="form-horizontal" id="health_view" hidden="hidden">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Health </label>
+                                        <div class="col-sm-4"><input class="form-control" id="health_ins" placeholder="$"></div>
+                                    </div>
+                                </form>
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Home </label>
+                                        <div class="col-sm-4"><input class="form-control" id="home_ins" placeholder="$"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Auto </label>
+                                        <div class="col-sm-4"><input class="form-control" id="auto_ins" placeholder="$"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Life </label>
+                                        <div class="col-sm-4"><input class="form-control" id="life_ins" placeholder="$"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Other </label>
+                                        <div class="col-sm-4"><input class="form-control" id="other_ins" placeholder="$"></div>
+                                    </div>
+                                </form>
+                                <div class="col-sm-12">
+                                    <hr />
+                                    <text class="c-white pull-right" id="total_insurance">Monthly Insurance Expense: $0.00 </text>
+                                </div>
+                            <br />
+                            </div>
                     </row>
                     <row>
                         <div class="col-sm-12">
@@ -320,35 +316,35 @@
                             {
                                 if (accounttype.Accounttype.Equals("credit") || accounttype.Accounttype.Equals("loan"))
                                 {
-                                    <ul class="media-list">
-                                        <li class="media">
-                                            <div class="media-body">
-                                                @foreach (var account in Model.Account_list)
+                            <ul class="media-list">
+                                <li class="media">
+                                    <div class="media-body">
+                                        @foreach (var account in Model.Account_list)
                                                 {
                                                     if (account.Account_Type.Equals(accounttype.Accounttype))
                                                     {
-                                                        <ul class="media-list">
-                                                            <li class="media">
-                                                                <div class="media-heading">
-                                                                    <row>
-                                                                        @if (@account.AccountName.Length > 20)
+                                                <ul class="media-list">
+                                                    <li class="media">
+                                                        <div class="media-heading">
+                                                            <row>
+                                                                @if (@account.AccountName.Length > 20)
                                                                         {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
                                                                         else
                                                                         {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                                    </row>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
+                                                            </row>
+                                                        </div>
+                                                    </li>
+                                                </ul>
                                                     }
                                                 }
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <hr />
-                                    <div class="col-sm-12">
-                                        <text class="c-white pull-right" id="total_monthly">Total Debt: @accounttype.Accounttype_sum</text>
                                     </div>
-                                    <br />
+                                </li>
+                            </ul>
+                            <hr />
+                            <div class="col-sm-12">
+                                <text class="c-white pull-right" id="total_monthly">Total Debt: @accounttype.Accounttype_sum</text>
+                            </div>
+                            <br />
                                 }
                             }
                         </div>
@@ -441,7 +437,7 @@
                                         <div class="col-sm-4"><input class="form-control" id="rent_payment" placeholder="$"></div>
                                     </div>
                                 </form>
-</div>
+                            </div>
                             <hr />
                             <div class="col-sm-12">
                                 <text class="c-white pull-right" id="housing_total">Total Housing: $0.00 / month</text>
@@ -585,6 +581,10 @@
         //own radio
         $('#own_radio').change(function (event) {
             if ($('#own_radio').is(':checked')) {
+                rent = 0;
+                total_housing = 0;
+                $('#rent_payment').val('');
+                $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
                 $('#own').show();
                 $('#rent').hide();
             }
@@ -593,6 +593,13 @@
         //rent radio
         $('#rent_radio').change(function (event) {
             if ($('#rent_radio').is(':checked')) {
+                mortgage = 0.0;
+                taxes = 0.0;
+                total_housing = 0.00;
+                $('#mortgage').val('');
+                $('#taxes').val('');
+                $('#housing_subtotal').val('');
+                $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
                 $('#rent').show();
                 $('#own').hide();
             }
@@ -634,7 +641,7 @@
             $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
         });
 
-        //other weekly radio
+        //other weekly radios
         $('#other_weekly').change(function (event) {
             if ($('#other_weekly').is(':checked')) {
                 var total = isNaN(parseInt($('#other_amount').val())) ? 0.00 : (($('#other_amount').val() * 52) / 12).toFixed(2);
@@ -646,7 +653,7 @@
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
             }
         });
-        //other monthly radio
+
         $('#other_m').change(function (event) {
             if ($('#other_m').is(':checked')) {
                 var total = isNaN(parseInt($('#other_amount').val())) ? 0.00 : $('#other_amount').val();
@@ -658,7 +665,7 @@
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
             }
         });
-        //other yearly radio
+
         $('#other_yearly').change(function (event) {
             if ($('#other_yearly').is(':checked')) {
                 var total = isNaN(parseInt($('#other_amount').val())) ? 0.00 : ($('#other_amount').val() / 12).toFixed(2);
@@ -671,7 +678,7 @@
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
             }
         });
-        //other amount input with output based on radios
+
         $('#other_amount').keyup(function () {
             if ($('#other_weekly').is(':checked')) {
                 var total = isNaN(parseInt($('#other_amount').val())) ? 0.00 : (($('#other_amount').val() * 52) / 12).toFixed(2);
@@ -713,7 +720,7 @@
             }
         });
 
-        //health insurance value input
+        //insurance value inputs
         $('#health_ins').keyup(function () {
             var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
 
@@ -774,7 +781,7 @@
             $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
         });
 
-        //Own value input
+        //Own value inputs
         $('#mortgage').keyup(function () {
             var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
 
@@ -804,6 +811,14 @@
             total_housing = amount;
             $('#mortgage').val('');
             $('#taxes').val('');
+            $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
+        });
+
+        //Rent value input
+        $('#rent_payment').keyup(function () {
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
+
+            total_housing = amount;
             $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
         });
     });

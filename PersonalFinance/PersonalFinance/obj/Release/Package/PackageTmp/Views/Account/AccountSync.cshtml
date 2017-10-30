@@ -152,7 +152,7 @@ else
         var handler = Plaid.create({
             clientName: 'Plaid Walkthrough Demo',
             env: 'development',
-            key: 'f326b59ea06cf5309ebd2861388d13', // Replace with your public_key to test with live credentials
+            key: 'f326b59ea06cf5309ebd2861388d13',
             product: ['transactions'],
             webhook: 'https://dhwebhookentry.azurewebsites.net/api/PlaidWebHook?code=t6wJsM/S4m1Sg1H4SutHgArWcPSNSSTEqu6rbSWiaY6rCPSLDynamw==',
             onSuccess: function (public_token, metadata) {
