@@ -108,13 +108,13 @@
                     <li data-placement="left" title="All Accounts"><a href='@Url.Action("AccountViewHandler", "Dashboard", new { trim = "" } )'>All Accounts</a></li>
                     <li role="separator" class="divider"></li>
                 }
-                @foreach (var accounttype in Model.AccountTypeList)
+                @foreach (var inst in Model.InstitutionList)
                 {
-                    <li class="dropdown-header text-capitalize">@accounttype.Accounttype.ToString()</li>
+                    <li class="dropdown-header text-capitalize">@inst.Inst_name</li>
 
                     foreach (var account in Model.Account_list)
                     {
-                        if (account.Account_Type.Equals(accounttype.Accounttype.ToString()))
+                        if (account.Institution_name.Equals(inst.Inst_name))
                         {
                             if (account.AccountName.Length > 20)
                             {<li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("AccountViewHandler", "Dashboard", new { trim = account.AccountID })'>@account.AccountName.ToString().Substring(0, 20)... <em> @String.Format("{0:C}", account.Balance)</em></a></li>}

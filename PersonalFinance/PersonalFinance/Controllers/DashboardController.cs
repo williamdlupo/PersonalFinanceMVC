@@ -56,7 +56,7 @@ namespace PersonalFinance.Controllers
                 Session["DonutChart"] = plaid.DonutChart;
                 Session["AccountList"] = plaid.Account_list;
                 Session["NetWorth"] = plaid.NetWorth;
-                Session["AccountTypeList"] = plaid.AccountTypeList;
+                Session["InstitutionList"] = plaid.InstitutionList;
             }
             else
             {
@@ -66,7 +66,7 @@ namespace PersonalFinance.Controllers
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
                 plaid.NetWorth = Session["NetWorth"] as List<decimal>;
                 plaid.SelectedAccount = Session["SelectedAccount"] as string;
-                plaid.AccountTypeList = Session["AccountTypeList"] as List<AccountType>;
+                plaid.InstitutionList = Session["InstitutionList"] as List<Institution>;
 
                 plaid.DonutDataSum(plaid.DonutChart);
             }
@@ -98,7 +98,7 @@ namespace PersonalFinance.Controllers
 
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
                 plaid.NetWorth = Session["NetWorth"] as List<decimal>;
-                plaid.AccountTypeList = Session["AccountTypeList"] as List<AccountType>;
+                plaid.InstitutionList = Session["InstitutionList"] as List<Institution>;
 
                 return Json(new { success = true });
             }
