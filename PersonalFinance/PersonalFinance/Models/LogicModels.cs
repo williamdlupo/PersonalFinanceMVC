@@ -102,7 +102,7 @@ namespace PersonalFinance.Models
         public bool Has_accounts { get; set; }
         public string Institution_name { get; set; }
         public decimal SumTransactions { get; set; }
-        public List<decimal> NetWorth = new List<decimal>();
+        public string NetWorth { get; set; }
         public List<AccountType> AccountTypeList = new List<AccountType>();
         public List<Institution> InstitutionList = new List<Institution>();
         public string SelectedAccount { get; set; }
@@ -283,7 +283,7 @@ namespace PersonalFinance.Models
                 }
             }
 
-            NetWorth.Add(_NetWorth);
+            NetWorth = String.Format("{0:C}", _NetWorth);
 
             var accountquery = from db in Account_list
                                group db by db.Account_Type into g
