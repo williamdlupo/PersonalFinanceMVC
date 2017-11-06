@@ -10,9 +10,9 @@
                 <i class="pe page-header-icon pe-7s-id"></i>
             </div>
             <div class="header-title">
-                <h3>My Financial Profile</h3>
+                <h3>Financial Profile</h3>
                 <small class="c-white">
-                    Get Your Money Right
+                    Know Yourself, Know Your Worth
                 </small>
             </div>
         </div>
@@ -365,84 +365,114 @@
                         Whole Crew Loungin'
                     </p>
                     <row>
-                        <div class="bs-example">
-                            <br />
-                            <text class="text-accent">Something witty about paying for housing</text>
-                            <br />
-                            <hr />
-                            @foreach (var accounttype in Model.AccountTypeList)
-                            {
-                                if (accounttype.ToString().Equals("mortgage"))
+                        <div class="col-sm-12 bs-example">
+                            <div>
+                                <br />
+                                <text class="text-accent">Something witty about paying for housing</text>
+                                <br />
+                                <hr />
+                                <div class="col-sm-12">
+                                    <p class="col-sm-6">Do you Own or Rent?</p>
+                                </div>
+                                <div class="col-sm-offset-2">
+                                    <div class="radio radio-success radio-inline">
+                                        <input type="radio" id="own_radio" value="option1" name="selected">
+                                        <label for="inlineRadio1"> Own </label>
+                                    </div>
+                                    <div class="radio radio-success radio-inline">
+                                        <input type="radio" id="rent_radio" value="option2" name="selected">
+                                        <label for="inlineRadio2"> Rent </label>
+                                    </div>
+                                </div>
+                                <div id="own" hidden="hidden">
+                                    @foreach (var accounttype in Model.AccountTypeList)
                                 {
-                                    <ul class="media-list">
-                                        <li class="media">
-                                            <div class="media-body">
-                                                @foreach (var account in Model.Account_list)
-                                                {
-                                                    if (account.Account_Type.Equals(accounttype.Accounttype))
+                                    if (accounttype.ToString().Equals("mortgage"))
+                                    {
+                                            <ul class="media-list">
+                                                <li class="media">
+                                                    <div class="media-body">
+                                                        @foreach (var account in Model.Account_list)
                                                     {
-                                                        <ul class="media-list">
-                                                            <li class="media">
-                                                                <div class="media-heading">
-                                                                    <row>
-                                                                        @if (@account.AccountName.Length > 20)
-                                                                        {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                                        else
-                                                                        {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                                    </row>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
+                                                        if (account.Account_Type.Equals(accounttype.Accounttype))
+                                                        {
+                                                                <ul class="media-list">
+                                                                    <li class="media">
+                                                                        <div class="media-heading">
+                                                                            <row>
+                                                                                @if (@account.AccountName.Length > 20)
+                                                                            {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                                            else
+                                                                            {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                                            </row>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                        }
                                                     }
-                                                }
-                                            </div>
-                                        </li>
-                                    </ul>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                    }
                                 }
-                            }
-                            <div class="col-sm-12">
-                                <p class="col-sm-6">Do you Own or Rent?</p>
-                            </div>
-                            <div class="col-sm-offset-2">
-                                <div class="radio radio-success radio-inline">
-                                    <input type="radio" id="own_radio" value="option1" name="selected">
-                                    <label for="inlineRadio1"> Own </label>
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Mortgage Payment </label>
+                                            <div class="col-sm-4"><input class="form-control" id="mortgage" placeholder="$"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Taxes </label>
+                                            <div class="col-sm-4"><input class="form-control" id="taxes" placeholder="$"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Total </label>
+                                            <div class="col-sm-4"><input class="form-control" id="housing_subtotal" placeholder="$"></div>
+                                            <div class="col-sm-12 col-sm-offset-3"><small class="text-accent">If you don't know your breakdown, just enter your total monthly payment here</small></div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="radio radio-success radio-inline">
-                                    <input type="radio" id="rent_radio" value="option2" name="selected">
-                                    <label for="inlineRadio2"> Rent </label>
+                                <div id="rent" hidden="hidden">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Rent Payment</label>
+                                            <div class="col-sm-4"><input class="form-control" id="rent_payment" placeholder="$"></div>
+                                        </div>
+                                    </form>
                                 </div>
-                            </div>
-                            <div id="own" hidden="hidden">
-                                <form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Mortgage Payment </label>
-                                        <div class="col-sm-4"><input class="form-control" id="mortgage" placeholder="$"></div>
+                                @*<div class="col-sm-12">
+                                    <div class="col-sm-6">Do you have any other housing expenses?</div>
+                                    <input type="checkbox" class="col-sm-offset-3 js-switch4" />
+                                </div>
+                                <div id="other_housing" hidden="hidden">
+                                    <div>
+                                        <div>
+                                            <label class="col-sm-2 col-sm-offset-1 control-label">Amount</label>
+                                            <div class="col-sm-5"><input class="form-control" id="other_housing_amount"></div>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <label class="col-sm-3 col-sm-offset-1 control-label">Frequency</label>
+                                            <div class="radio radio-success radio-inline">
+                                                <input type="radio" id="housing_monthly" value="option1" name="other_freq">
+                                                <label for="inlineCheckbox1"> Monthly </label>
+                                            </div>
+                                            <div class="radio radio-success radio-inline">
+                                                <input type="radio" id="housing_quarterly" value="option2" name="other_freq">
+                                                <label for="inlineCheckbox2"> Quarterly </label>
+                                            </div>
+                                            <div class="radio radio-success radio-inline">
+                                                <input type="radio" id="housing_yearly" value="option3" name="other_freq">
+                                                <label for="inlineCheckbox2"> Yearly </label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Taxes </label>
-                                        <div class="col-sm-4"><input class="form-control" id="taxes" placeholder="$"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Total </label>
-                                        <div class="col-sm-4"><input class="form-control" id="housing_subtotal" placeholder="$"></div>
-                                        <div class="col-sm-12 col-sm-offset-3"><small class="text-accent">If you don't know your breakdown, just enter your total monthly payment here</small></div>
-                                    </div>
-                                </form>
+                                    <div class="col-sm-12"> <text class="text-accent pull-right" id="other_monthly"> $0.00 / month</text></div>
+                                </div>*@
+                                <div class="col-sm-12">
+                                    <hr />
+                                    <text class="c-white pull-right" id="housing_total">Total Housing: $0.00 / month</text>
+                                </div>
+                                <br />
                             </div>
-                            <div id="rent" hidden="hidden">
-                                <form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Rent Payment</label>
-                                        <div class="col-sm-4"><input class="form-control" id="rent_payment" placeholder="$"></div>
-                                    </div>
-                                </form>
-                            </div>
-                            <hr />
-                            <div class="col-sm-12">
-                                <text class="c-white pull-right" id="housing_total">Total Housing: $0.00 / month</text>
-                            </div>
-                            <br />
                         </div>
                     </row>
                     <row>
@@ -563,6 +593,9 @@
         var elem3 = document.querySelector('.js-switch3');
         var elem3 = new Switchery(elem3, { color: '#1bbf89', size: 'small' });
 
+        //var elem4 = document.querySelector('.js-switch4');
+        //var elem4 = new Switchery(elem4, { color: '#1bbf89', size: 'small' });
+
         //employed y/n switch
         $('.js-switch').change(function () {
             if ($(this).prop("checked")) {
@@ -614,7 +647,17 @@
                 $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
                 $('#health_view').hide();
             }
-        })
+        });
+
+        //other housing y/n switch
+        //$('.js-switch4').change(function () {
+        //    if ($(this).prop("checked")) {
+        //        $('#other_housing').show();
+        //    } else {
+
+        //        $('#other_housing').hide();
+        //    }
+        //});
 
         //salary radio
         $('#salary_radio').change(function (event) {

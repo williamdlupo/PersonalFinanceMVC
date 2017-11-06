@@ -35,7 +35,7 @@
             <div id="tab-1" class="tab-pane active">
                 <div class="panel-body">
                     <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-usd text-warning"></i></span> Income</b>
-                    <p class="col-sm-offset-1">
+                    <p class="col-sm-offset-1 c-white">
                         Income before the outcome am I right?
                     </p>
                     <row>
@@ -135,7 +135,7 @@
             <div id="tab-2" class="tab-pane">
                 <div class="panel-body">
                     <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-money text-warning"></i></span> Cash</b>
-                    <p class="col-sm-offset-1">Rules Everything Around Me</p>
+                    <p class="col-sm-offset-1 c-white">Rules Everything Around Me</p>
                     <row>
                         <div class="bs-example">
                             <br />
@@ -146,35 +146,35 @@
                             {
                                 if (accounttype.Accounttype.Equals("depository"))
                                 {
-                            <ul class="media-list">
-                                <li class="media">
-                                    <div class="media-body">
-                                        @foreach (var account in Model.Account_list)
+                                    <ul class="media-list">
+                                        <li class="media">
+                                            <div class="media-body">
+                                                @foreach (var account in Model.Account_list)
                                                 {
                                                     if (account.Account_Type.Equals(accounttype.Accounttype))
                                                     {
-                                        <ul class="media-list">
-                                            <li class="media">
-                                                <div class="media-heading">
-                                                    <row>
-                                                        @if (@account.AccountName.Length > 20)
+                                                        <ul class="media-list">
+                                                            <li class="media">
+                                                                <div class="media-heading">
+                                                                    <row>
+                                                                        @if (@account.AccountName.Length > 20)
                                                                         {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
                                                                         else
                                                                         {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                    </row>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                                                    </row>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
                                                     }
                                                 }
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <hr />
+                                    <div class="col-sm-12">
+                                        <text class="c-white pull-right" id="total_cash">Total Cash: @accounttype.Accounttype_sum</text>
                                     </div>
-                                </li>
-                            </ul>
-                            <hr />
-                            <div class="col-sm-12">
-                                <text class="c-white pull-right" id="total_monthly">Total Cash: @accounttype.Accounttype_sum</text>
-                            </div>
-                            <br />
+                                    <br />
                                 }
                             }
                         </div>
@@ -191,46 +191,46 @@
             <div id="tab-3" class="tab-pane">
                 <div class="panel-body">
                     <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-line-chart text-warning"></i></span> Investments</b>
-                    <p class="col-sm-offset-1">Making it rain BOI</p>
+                    <p class="col-sm-offset-1 c-white">Making it rain BOI</p>
                     <row>
                         <div class="bs-example">
                             <br />
-                            <text class="text-accent">Your investment and retirement account balances</text>
+                            <text class="text-accent">Your investment, retirement & 'other' account balances</text>
                             <br />
                             <hr />
                             @foreach (var accounttype in Model.AccountTypeList)
                             {
                                 if (accounttype.Accounttype.Equals("brokerage") || accounttype.Accounttype.Equals("other"))
                                 {
-                            <ul class="media-list">
-                                <li class="media">
-                                    <div class="media-body">
-                                        @foreach (var account in Model.Account_list)
+                                    <ul class="media-list">
+                                        <li class="media">
+                                            <div class="media-body">
+                                                @foreach (var account in Model.Account_list)
                                                 {
                                                     if (account.Account_Type.Equals(accounttype.Accounttype.ToString()))
                                                     {
-                                        <ul class="media-list">
-                                            <li class="media">
-                                                <div class="media-heading">
-                                                    <row>
-                                                        @if (@account.AccountName.Length > 20)
+                                                        <ul class="media-list">
+                                                            <li class="media">
+                                                                <div class="media-heading">
+                                                                    <row>
+                                                                        @if (@account.AccountName.Length > 20)
                                                                         {<p class="c-white"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
                                                                         else
                                                                         {<p class="c-white"> @account.AccountName.ToString()<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                    </row>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                                                    </row>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
                                                     }
                                                 }
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <hr />
+                                    <div class="col-sm-12">
+                                        <text class="c-white pull-right" id="total_investment">Total Investments: @accounttype.Accounttype_sum</text>
                                     </div>
-                                </li>
-                            </ul>
-                            <hr />
-                            <div class="col-sm-12">
-                                <text class="c-white pull-right" id="total_monthly">Total Investments: @accounttype.Accounttype_sum</text>
-                            </div>
-                            <br />
+                                    <br />
                                 }
                             }
                         </div>
@@ -247,49 +247,49 @@
             <div id="tab-4" class="tab-pane">
                 <div class="panel-body">
                     <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-shield text-warning"></i></span> Insurance</b>
-                    <p class="col-sm-offset-1">
-                        PROTECT YA NECK
+                    <p class="col-sm-offset-1 c-white">
+                        Protect Ya Neck
                     </p>
                     <row>
                         <div class="bs-example col-sm-12">
-                                <br />
-                                <text class="text-accent">Home, auto, life or whatever - protect yourself before you wreck yourself</text>
-                                <br />
-                                <hr />
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">Do you health insurance?</div>
-                                    <input type="checkbox" class="col-sm-offset-3 js-switch3" />
-                                </div>
-                                <form class="form-horizontal" id="health_view" hidden="hidden">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Health </label>
-                                        <div class="col-sm-4"><input class="form-control" id="health_ins" placeholder="$"></div>
-                                    </div>
-                                </form>
-                                <form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Home </label>
-                                        <div class="col-sm-4"><input class="form-control" id="home_ins" placeholder="$"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Auto </label>
-                                        <div class="col-sm-4"><input class="form-control" id="auto_ins" placeholder="$"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Life </label>
-                                        <div class="col-sm-4"><input class="form-control" id="life_ins" placeholder="$"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Other </label>
-                                        <div class="col-sm-4"><input class="form-control" id="other_ins" placeholder="$"></div>
-                                    </div>
-                                </form>
-                                <div class="col-sm-12">
-                                    <hr />
-                                    <text class="c-white pull-right" id="total_insurance">Monthly Insurance Expense: $0.00 </text>
-                                </div>
                             <br />
+                            <text class="text-accent">Home, auto, life or whatever - protect yourself before you wreck yourself</text>
+                            <br />
+                            <hr />
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">Do you health insurance?</div>
+                                <input type="checkbox" class="col-sm-offset-3 js-switch3" />
                             </div>
+                            <form class="form-horizontal" id="health_view" hidden="hidden">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Health </label>
+                                    <div class="col-sm-4"><input class="form-control" id="health_ins" placeholder="$"></div>
+                                </div>
+                            </form>
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Home </label>
+                                    <div class="col-sm-4"><input class="form-control" id="home_ins" placeholder="$"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Auto </label>
+                                    <div class="col-sm-4"><input class="form-control" id="auto_ins" placeholder="$"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Life </label>
+                                    <div class="col-sm-4"><input class="form-control" id="life_ins" placeholder="$"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Other </label>
+                                    <div class="col-sm-4"><input class="form-control" id="other_ins" placeholder="$"></div>
+                                </div>
+                            </form>
+                            <div class="col-sm-12">
+                                <hr />
+                                <text class="c-white pull-right" id="total_insurance">Monthly Insurance Expense: $0.00 </text>
+                            </div>
+                            <br />
+                        </div>
                     </row>
                     <row>
                         <div class="col-sm-12">
@@ -303,48 +303,48 @@
             <div id="tab-5" class="tab-pane">
                 <div class="panel-body">
                     <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-credit-card-alt text-warning"></i></span> Debt</b>
-                    <p class="col-sm-offset-1">
+                    <p class="col-sm-offset-1 c-white">
                         Everyone's got skin in the game
                     </p>
                     <row>
                         <div class="bs-example">
                             <br />
-                            <text class="text-accent">We snagged these balances from your accounts. Take a look and make sure it's all cool</text>
+                            <text class="text-accent">We snagged these debt balances from your accounts. Take a look and make sure it's all cool</text>
                             <br />
                             <hr />
                             @foreach (var accounttype in Model.AccountTypeList)
                             {
                                 if (accounttype.Accounttype.Equals("credit") || accounttype.Accounttype.Equals("loan"))
                                 {
-                            <ul class="media-list">
-                                <li class="media">
-                                    <div class="media-body">
-                                        @foreach (var account in Model.Account_list)
+                                    <ul class="media-list">
+                                        <li class="media">
+                                            <div class="media-body">
+                                                @foreach (var account in Model.Account_list)
                                                 {
                                                     if (account.Account_Type.Equals(accounttype.Accounttype))
                                                     {
-                                                <ul class="media-list">
-                                                    <li class="media">
-                                                        <div class="media-heading">
-                                                            <row>
-                                                                @if (@account.AccountName.Length > 20)
+                                                        <ul class="media-list">
+                                                            <li class="media">
+                                                                <div class="media-heading">
+                                                                    <row>
+                                                                        @if (@account.AccountName.Length > 20)
                                                                         {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
                                                                         else
                                                                         {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                            </row>
-                                                        </div>
-                                                    </li>
-                                                </ul>
+                                                                    </row>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
                                                     }
                                                 }
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <hr />
+                                    <div class="col-sm-12">
+                                        <text class="c-white pull-right" id="total_debt">Total Debt: @accounttype.Accounttype_sum</text>
                                     </div>
-                                </li>
-                            </ul>
-                            <hr />
-                            <div class="col-sm-12">
-                                <text class="c-white pull-right" id="total_monthly">Total Debt: @accounttype.Accounttype_sum</text>
-                            </div>
-                            <br />
+                                    <br />
                                 }
                             }
                         </div>
@@ -361,7 +361,7 @@
             <div id="tab-6" class="tab-pane">
                 <div class="panel-body">
                     <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-home text-warning"></i></span> Housing</b>
-                    <p class="col-sm-offset-1">
+                    <p class="col-sm-offset-1 c-white">
                         Whole Crew Loungin'
                     </p>
                     <row>
@@ -457,14 +457,75 @@
             <div id="tab-7" class="tab-pane">
                 <div class="panel-body">
                     <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-bolt text-warning"></i></span> Summary</b>
-                    <p class="col-sm-offset-1">
-                        Take a look and make sure everything looks cool (don't worry you can change this later if something changes)
+                    <p class="col-sm-offset-1 c-white">
+                        Take a look and make sure everything looks good
                     </p>
+                    <row>
+                        <div class="bs-example col-sm-12">
+                            <div class="col-sm-6">
+                                <h4 class="text-accent text-center">Monthly Cash Flow</h4>
+                                <hr />
+                                <div class="col-sm-12">
+                                    <p class="col-sm-6 c-white">Total Income </p>
+                                    <text class="pull-right text-success" id="income_sum">$0</text>
+                                </div>
+                                <div class="col-sm-12">
+                                    <p class="col-sm-6 c-white">Total Insurance </p>
+                                    <div><text class=" pull-right text-danger" id="insurance_sum">$0</text></div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <p class="col-sm-6 c-white">Total Housing </p>
+                                    <div><text class="pull-right text-danger" id="housing_sum">$0</text></div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <hr />
+                                    <text class="c-white pull-right" id="total_disc">Discretionary Income: $0.00 </text>
+                                    <br />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4 class="text-accent text-center">Net Worth</h4>
+                                <hr />
+                                <div class="col-sm-12">
+                                    <text class="col-sm-6 c-white">Total Cash </text>
+                                    @foreach (var accounttype in Model.AccountTypeList)
+                                    {
+                                        if (accounttype.Accounttype.Equals("depository"))
+                                        {<p class="pull-right text-success" id="cash_sum">@accounttype.Accounttype_sum</p>}
+                                    }
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <text class="col-sm-6 c-white">Total Investment </text>
+                                    @foreach (var accounttype in Model.AccountTypeList)
+                                    {
+                                        if (accounttype.Accounttype.Equals("brokerage") || accounttype.Accounttype.Equals("other"))
+                                        {<p class="pull-right text-success" id="investment_sum">@accounttype.Accounttype_sum</p>}
+                                    }
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <text class="col-sm-6 c-white">Total Debt</text>
+                                    @foreach (var accounttype in Model.AccountTypeList)
+                                    {
+                                        if (accounttype.Accounttype.Equals("credit") || accounttype.Accounttype.Equals("loan"))
+                                        {<p class="pull-right text-danger" id="debt_sum">@accounttype.Accounttype_sum</p> }
+                                    }
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <hr />
+                                    <text class="c-white pull-right" id="net_worth">Net Worth: @Model.NetWorth </text>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </row>
                     <row>
                         <div class="col-sm-12">
                             <br />
                             <a class="btn btn-accent btnPrevious pull-left"><i class="fa fa-chevron-left"></i></a>
-                            <a class="btn btn-success btnNext pull-right">Save Profile</a>
+                            <a class="btn btn-success btnNext pull-right">Submit</a>
                         </div>
                     </row>
                 </div>
@@ -482,6 +543,8 @@
         var health, home, auto, life, other_ins, total_ins;
 
         var mortgage, taxes, rent, total_housing;
+
+        var total_disc;
 
         $('.btnNext').click(function () {
             $('.nav-tabs > .active').next('li').find('a').trigger('click');
@@ -511,8 +574,11 @@
                 $('#monthly_hourly').text('$ 0.00 / month');
                 $('#monthly_salary').text('$ 0.00 / month');
                 wages = 0.0;
-                total_month = parseInt(wages) + parseInt(other);
-                $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+                total_month = isNaN(parseInt(wages) + parseInt(other)) ? 0.0 : parseInt(wages) + parseInt(other);
+                $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month');
+
+                $('#income_sum').text('$' + total_month)
+
                 $('#employed').hide();
             }
         });
@@ -527,6 +593,8 @@
                 other = 0.0;
                 total_month = parseInt(wages) + parseInt(other);
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+
+                $('#income_sum').text('$' + total_month)
                 $('#other_inc').hide();
             }
         });
@@ -559,6 +627,7 @@
                 wages = 0.0;
                 total_month = parseInt(wages) + parseInt(other);
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+                $('#income_sum').text('$' + total_month)
                 $('#hourly').hide();
             }
         });
@@ -574,6 +643,7 @@
                 wages = 0.0;
                 total_month = parseInt(wages) + parseInt(other);
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+                $('#income_sum').text('$' + total_month)
                 $('#salary').hide();
             }
         });
@@ -614,6 +684,16 @@
             other = isNaN(other) ? 0.0 : other;
             total_month = parseInt(wages) + parseInt(other);
             $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+            $('#income_sum').text('$' + total_month)
+
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
 
         //hourly pay input
@@ -626,6 +706,16 @@
             $('#monthly_hourly').text('$' + total + ' / month');
 
             $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+            $('#income_sum').text('$' + total_month)
+
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
 
         //hourly hours input
@@ -639,6 +729,16 @@
             $('#monthly_hourly').text('$' + total + ' / month');
 
             $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+            $('#income_sum').text('$' + total_month)
+
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
 
         //other weekly radios
@@ -651,6 +751,16 @@
 
                 $('#other_monthly').text('$' + total + ' / month');
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+                $('#income_sum').text('$' + total_month)
+
+                total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+                $('#insurance_sum').text('$' + total_ins);
+                total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+                $('#housing_sum').text('$' + total_housing);
+
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+                $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
         });
 
@@ -663,6 +773,16 @@
 
                 $('#other_monthly').text('$' + total + ' / month');
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+                $('#income_sum').text('$' + total_month)
+
+                total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+                $('#insurance_sum').text('$' + total_ins);
+                total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+                $('#housing_sum').text('$' + total_housing);
+
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+                $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
         });
 
@@ -676,6 +796,16 @@
 
                 $('#other_monthly').text('$' + total + ' / month');
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+                $('#income_sum').text('$' + total_month)
+
+                total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+                $('#insurance_sum').text('$' + total_ins);
+                total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+                $('#housing_sum').text('$' + total_housing);
+
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+                $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
         });
 
@@ -690,6 +820,16 @@
                 $('#other_monthly').text('$' + total + ' / month');
 
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+                $('#income_sum').text('$' + total_month)
+
+                total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+                $('#insurance_sum').text('$' + total_ins);
+                total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+                $('#housing_sum').text('$' + total_housing);
+
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+                $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
 
             else if ($('#other_m').is(':checked')) {
@@ -701,6 +841,16 @@
 
                 $('#other_monthly').text('$' + total + ' / month');
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+                $('#income_sum').text('$' + total_month)
+
+                total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+                $('#insurance_sum').text('$' + total_ins);
+                total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+                $('#housing_sum').text('$' + total_housing);
+
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+                $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
 
             else if ($('#other_yearly').is(':checked')) {
@@ -712,6 +862,16 @@
 
                 $('#other_monthly').text('$' + total + ' / month');
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
+                $('#income_sum').text('$' + total_month)
+
+                total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+                $('#insurance_sum').text('$' + total_ins);
+                total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+                $('#housing_sum').text('$' + total_housing);
+
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+                $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
 
             else {
@@ -731,6 +891,15 @@
             other_ins = isNaN(other_ins) ? 0.0 : other_ins;
             total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
             $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
+
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
 
         $('#home_ins').keyup(function () {
@@ -743,6 +912,15 @@
             other_ins = isNaN(other_ins) ? 0.0 : other_ins;
             total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
             $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
+
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
 
         $('#auto_ins').keyup(function () {
@@ -755,6 +933,15 @@
             other_ins = isNaN(other_ins) ? 0.0 : other_ins;
             total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
             $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
+
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
 
         $('#life_ins').keyup(function () {
@@ -767,6 +954,15 @@
             other_ins = isNaN(other_ins) ? 0.0 : other_ins;
             total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
             $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
+
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
 
         $('#other_ins').keyup(function () {
@@ -779,6 +975,15 @@
             home = isNaN(other_ins) ? 0.0 : home;
             total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
             $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
+
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
 
         //Own value inputs
@@ -790,6 +995,15 @@
             total_housing = parseInt(mortgage) + parseInt(taxes);
             $('#housing_subtotal').val(total_housing);
             $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
+
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
 
         $('#taxes').keyup(function () {
@@ -800,6 +1014,15 @@
             total_housing = parseInt(mortgage) + parseInt(taxes);
             $('#housing_subtotal').val(total_housing);
             $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
+
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
 
         $('#housing_subtotal').keyup(function () {
@@ -812,6 +1035,15 @@
             $('#mortgage').val('');
             $('#taxes').val('');
             $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
+
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
 
         //Rent value input
@@ -820,6 +1052,15 @@
 
             total_housing = amount;
             $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
+
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
     });
 </script>

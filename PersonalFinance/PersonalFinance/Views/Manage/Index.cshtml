@@ -19,7 +19,7 @@
     </div>
     <div class="panel panel-filled">
         <div class="panel-body">
-            <label>Email/Username</label>
+            <label>Email</label>
             <div>
                 @(Model.Email)
             </div>
@@ -38,6 +38,11 @@
                         @Html.ActionLink("Change Number", "AddPhoneNumber")
                     }
                 </div>
+            </div>
+            <br />
+            <label>Financial Profile</label>
+            <div>
+                @Html.ActionLink("Update Profile", "Profiler", "Account")
             </div>
             <br />
             <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-info btn-block">All Set</a>
