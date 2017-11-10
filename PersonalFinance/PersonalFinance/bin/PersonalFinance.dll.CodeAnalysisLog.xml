@@ -6,14 +6,39 @@
    <Modules>
     <Module Name="personalfinance.dll">
      <Namespaces>
-      <Namespace Name="PersonalFinance.Models">
+      <Namespace Name="PersonalFinance">
        <Types>
-        <Type Name="Plaid" Kind="Class" Accessibility="Public" ExternallyVisible="True">
-         <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2017-11-05 20:31:10Z" FixCategory="DependsOnFix">
-           <Issue Name="DependsOnFix" Certainty="95" Level="CriticalError">Implement IDisposable on 'Plaid' because it creates members of the following IDisposable types: 'HttpClient'. If 'Plaid' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.</Issue>
-          </Message>
-         </Messages>
+        <Type Name="User_Accounts" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="ExcludedInSource" Created="2017-11-10 19:20:01Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance" File="User_Accounts.cs" Line="18">'User_Accounts.User_Accounts()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;User_Accounts..ctor()&#xD;&#xA;User_Accounts.set_User_Transactions(ICollection&lt;User_Transactions&gt;):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#User_Transactions" Kind="Property" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="CollectionPropertiesShouldBeReadOnly" Category="Microsoft.Usage" CheckId="CA2227" Status="ExcludedInSource" Created="2017-11-10 19:20:01Z" FixCategory="Breaking" LastSeen="0001-01-01 00:00:00Z" />
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="User_Items" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="ExcludedInSource" Created="2017-11-10 19:20:01Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance" File="User_Items.cs" Line="18">'User_Items.User_Items()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;User_Items..ctor()&#xD;&#xA;User_Items.set_User_Accounts(ICollection&lt;User_Accounts&gt;):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#User_Accounts" Kind="Property" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="CollectionPropertiesShouldBeReadOnly" Category="Microsoft.Usage" CheckId="CA2227" Status="ExcludedInSource" Created="2017-11-10 19:20:01Z" FixCategory="Breaking" LastSeen="0001-01-01 00:00:00Z" />
+           </Messages>
+          </Member>
+         </Members>
         </Type>
        </Types>
       </Namespace>
@@ -23,15 +48,24 @@
   </Target>
  </Targets>
  <Rules>
-  <Rule TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001">
-   <Name>Types that own disposable fields should be disposable</Name>
-   <Description>Types that declare disposable members should also implement IDisposable. If the type does not own any unmanaged resources, do not implement a finalizer on it.</Description>
-   <Resolution Name="DependsOnFix">Implement IDisposable on {0} because it creates members of the following IDisposable types: {1}. If {0} has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.</Resolution>
+  <Rule TypeName="CollectionPropertiesShouldBeReadOnly" Category="Microsoft.Usage" CheckId="CA2227">
+   <Name>Collection properties should be read only</Name>
+   <Description>Properties that return collections should be read-only so that users cannot entirely replace the backing store. Users can still modify the contents of the collection by calling relevant methods on the collection. Note that the XmlSerializer class has special support for deserializing read-only collections. See the XmlSerializer overview for more information.</Description>
    <Owner />
-   <Url>http://msdn.microsoft.com/library/ms182172.aspx</Url>
+   <Url>http://msdn.microsoft.com/library/ms182327.aspx</Url>
    <Email>[none]</Email>
-   <MessageLevel Certainty="95">CriticalError</MessageLevel>
-   <File Name="designrules.dll" Version="15.0.0.0" />
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="usagerules.dll" Version="15.0.0.0" />
+  </Rule>
+  <Rule TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214">
+   <Name>Do not call overridable methods in constructors</Name>
+   <Description>Virtual methods defined on the class should not be called from constructors. If a derived class has overridden the method, the derived class version will be called (before the derived class constructor is called).</Description>
+   <Resolution Name="Default">{0} contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: {1}</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182331.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="95">CriticalWarning</MessageLevel>
+   <File Name="usagerules.dll" Version="15.0.0.0" />
   </Rule>
  </Rules>
  <Localized>

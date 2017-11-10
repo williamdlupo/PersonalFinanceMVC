@@ -80,7 +80,7 @@ namespace PersonalFinance.Models
     }
 
     //Plaid class where the 'magic' happens
-    public class Plaid
+    public class Plaid : IDisposable
     {
         private static string _clientid = WebConfigurationManager.AppSettings["client_id"];
         private static string _secret = WebConfigurationManager.AppSettings["secret"];
@@ -91,6 +91,7 @@ namespace PersonalFinance.Models
         private string _public_token;
         private List<string> _accountidlist = new List<string>();
         private List<AccountData> _accesstokenlist = new List<AccountData>();
+        private bool disposed = false;
 
         public ApplicationUser User { get; set; }
         public List<User_Accounts> Account_list = new List<User_Accounts>();
@@ -99,17 +100,13 @@ namespace PersonalFinance.Models
         public List<DonutChartData> DonutChart = new List<DonutChartData>();
         public string Start_date { get; set; }
         public string End_date { get; set; }
-        public bool Has_accounts { get; set; }
+        public bool Has_accounts { get; set; } = false;
         public string Institution_name { get; set; }
-        public decimal SumTransactions { get; set; }
+        public decimal SumTransactions { get; set; } = 0;
         public string NetWorth { get; set; }
         public List<AccountType> AccountTypeList = new List<AccountType>();
         public List<Institution> InstitutionList = new List<Institution>();
-        public string SelectedAccount { get; set; }
-
-        //
-        //Sets the Has_accounts to false on object creation for account list view cycle 
-        public Plaid() { Has_accounts = false; }
+        public string SelectedAccount { get; set; } = "All Accounts";
 
         //
         //Public accessor to create a new account in DB
@@ -324,18 +321,8 @@ namespace PersonalFinance.Models
             }
         }
 
-        //
-        //Method that will return a list of transactions for each account in the account list for a given timeframe
-        //and populates the data for the charts for the main dashboard
-        //Rather than overload, if dates not known, default range of 1 month set
-        public void GetTransactions(DateTime? start_date = null, DateTime? end_date = null, string account_id = null)
+        private void GetAccountIDList(string account_id)
         {
-            DateTime S_date = start_date ?? DateTime.Today.AddMonths(-1);
-            DateTime E_date = end_date ?? DateTime.Today;
-
-            Start_date = S_date.ToShortDateString();
-            End_date = E_date.ToShortDateString();
-
             using (var context = new PersonalFinanceAppEntities())
             {
                 if (account_id is null)
@@ -349,8 +336,6 @@ namespace PersonalFinance.Models
                     {
                         _accountidlist.Add(accountid);
                     }
-
-                    SelectedAccount = "All Accounts";
                 }
                 else
                 {
@@ -364,132 +349,162 @@ namespace PersonalFinance.Models
                     {
                         SelectedAccount = name.ToString();
                     }
-                    
-                }
 
-                //parse list of account id's and get list of transactions for each account where the transactions are
-                //between the specified dates
-                foreach (var accountid in _accountidlist)
+                }
+            }
+        }
+
+        private void GetTransactionList(DateTime S_date, DateTime E_date, string accountid)
+        {
+            using (var context = new PersonalFinanceAppEntities())
+            {
+                var transaction_query = from db in context.User_Transactions
+                                        where accountid == db.AccountID
+                                        && db.Date >= S_date
+                                        && db.Date <= E_date
+                                        orderby (db.Date)
+                                        select new
+                                        {
+                                            db.Date,
+                                            category = (
+                                                        from test in context.Transaction_Categories
+                                                        where test.CategoryID == db.CategoryID
+                                                        select new { test.Hierarchy }
+                                                        ),
+                                            db.Location_Name,
+                                            db.Location_City,
+                                            db.Location_State,
+                                            db.Amount
+                                        };
+
+                //create list of transaction objects and sort by date
+                foreach (var t in transaction_query)
                 {
-                    var transaction_query = from db in context.User_Transactions
-                                            where accountid == db.AccountID
-                                            && db.Date >= S_date
-                                            && db.Date <= E_date
-                                            orderby (db.Date)
-                                            select new
-                                            {
-                                                db.Date,
-                                                category = (
-                                                            from test in context.Transaction_Categories
-                                                            where test.CategoryID == db.CategoryID
-                                                            select new { test.Hierarchy }
-                                                            ),
-                                                db.Location_Name,
-                                                db.Location_City,
-                                                db.Location_State,
-                                                db.Amount
-                                            };
-
-                    //create list of transaction objects and sort by date
-                    foreach (var t in transaction_query)
+                    User_Transactions aTransaction = new User_Transactions
                     {
-                        User_Transactions aTransaction = new User_Transactions
-                        {
-                            Date = t.Date,
-                            Location_Name = t.Location_Name,
-                            Location_City = t.Location_City,
-                            Location_State = t.Location_State,
-                            Amount = t.Amount
-                        };
+                        Date = t.Date,
+                        Location_Name = t.Location_Name,
+                        Location_City = t.Location_City,
+                        Location_State = t.Location_State,
+                        Amount = t.Amount
+                    };
 
-                        foreach (var item in t.category)
-                        {
-                            aTransaction.CategoryID = item.Hierarchy;
-                        }
-
-                        if (aTransaction.CategoryID is null)
-                        {
-                            aTransaction.CategoryID = "Unknown";
-                        }
-
-                        Transaction_list.Add(aTransaction);
+                    foreach (var item in t.category)
+                    {
+                        aTransaction.CategoryID = item.Hierarchy;
                     }
-                }
 
+                    if (aTransaction.CategoryID is null)
+                    {
+                        aTransaction.CategoryID = "Unknown";
+                    }
+
+                    Transaction_list.Add(aTransaction);
+                }
+            }
+        }
+
+        private void PopulateCharts(DateTime S_date, DateTime E_date)
+        {
+            //if the time frame selected is greater than 31 days, condense chart to transaction totals by month
+            if ((E_date - S_date).TotalDays > 31)
+            {
+                var BarChartquery = from transaction in Transaction_list
+                                    where transaction.Amount > 0
+                                    group transaction by transaction.Date.Month into g
+                                    select new
+                                    {
+                                        Date = g.Distinct(),
+                                        Amount = g.Sum(s => s.Amount)
+                                    };
+
+                foreach (var datapoint in BarChartquery)
+                {
+                    BarChartData aDataPoint = new BarChartData
+                    {
+                        amount = datapoint.Amount,
+                        date = datapoint.Date.Select(t => t.Date.ToString("MMMM")).FirstOrDefault()
+                    };
+
+                    BarChart.Add(aDataPoint);
+                }
+            }
+
+            else
+            {
+                var BarChartquery = from transaction in Transaction_list
+                                    where transaction.Amount > 0
+                                    group transaction by new { transaction.Date } into g
+                                    select new
+                                    {
+                                        Date = g.Distinct(),
+                                        Amount = g.Sum(s => s.Amount)
+                                    };
+
+                foreach (var datapoint in BarChartquery)
+                {
+                    BarChartData aDataPoint = new BarChartData
+                    {
+                        amount = datapoint.Amount,
+                        date = datapoint.Date.Select(t => t.Date.ToString("MM-dd")).FirstOrDefault()
+                    };
+
+                    BarChart.Add(aDataPoint);
+                }
+            }
+
+            //code to pull out list of unique dates and sum of transactions per date for donut chart
+            var DonutChartquery = from transaction in Transaction_list
+                                  where transaction.Amount > 0
+                                  group transaction by new { transaction.CategoryID } into g
+                                  select new
+                                  {
+                                      Category = g.Distinct(),
+                                      Amount = g.Sum(s => s.Amount)
+                                  };
+
+            //get the sum of all non-negative transaction for our pie chart
+            foreach (var item in DonutChartquery)
+            {
+                DonutChartData aDatapoint = new DonutChartData
+                {
+                    value = item.Amount,
+                    label = item.Category.Select(t => t.CategoryID.ToString()).FirstOrDefault()
+                };
+
+                SumTransactions += aDatapoint.value;
+
+                DonutChart.Add(aDatapoint);
+                DonutChart.Sort((x, y) => x.value.CompareTo(y.value));
+            }
+        }
+
+        //
+        //Method that will return a list of transactions for each account in the account list for a given timeframe
+        //and populates the data for the charts for the main dashboard
+        //Rather than overload, if dates not known, default range of 1 month set
+        public void GetTransactions(DateTime? start_date = null, DateTime? end_date = null, string account_id = null)
+        {
+            DateTime S_date = start_date ?? DateTime.Today.AddMonths(-1);
+            DateTime E_date = end_date ?? DateTime.Today;
+
+            Start_date = S_date.ToShortDateString();
+            End_date = E_date.ToShortDateString();
+
+            GetAccountIDList(account_id);
+
+            //parse list of account id's and get list of transactions for each account where the transactions are
+            //between the specified dates
+            foreach (var accountid in _accountidlist)
+            {
+                GetTransactionList(S_date, E_date, accountid);
+            }
+
+            using (var context = new PersonalFinanceAppEntities())
+            {
                 if (Transaction_list != null)
                 {
-                    //if the time frame selected is greater than 31 days, condense chart to transaction totals by month
-                    if ((E_date - S_date).TotalDays > 31)
-                    {
-                        var BarChartquery = from transaction in Transaction_list
-                                            where transaction.Amount > 0
-                                            group transaction by transaction.Date.Month into g
-                                            select new
-                                            {
-                                                Date = g.Distinct(),
-                                                Amount = g.Sum(s => s.Amount)
-                                            };
-
-                        foreach (var datapoint in BarChartquery)
-                        {
-                            BarChartData aDataPoint = new BarChartData
-                            {
-                                amount = datapoint.Amount,
-                                date = datapoint.Date.Select(t => t.Date.ToString("MMMM")).FirstOrDefault()
-                            };
-
-                            BarChart.Add(aDataPoint);
-                        }
-                    }
-
-                    else
-                    {
-                        var BarChartquery = from transaction in Transaction_list
-                                            where transaction.Amount > 0
-                                            group transaction by new { transaction.Date } into g
-                                            select new
-                                            {
-                                                Date = g.Distinct(),
-                                                Amount = g.Sum(s => s.Amount)
-                                            };
-
-                        foreach (var datapoint in BarChartquery)
-                        {
-                            BarChartData aDataPoint = new BarChartData
-                            {
-                                amount = datapoint.Amount,
-                                date = datapoint.Date.Select(t => t.Date.ToString("MM-dd")).FirstOrDefault()
-                            };
-
-                            BarChart.Add(aDataPoint);
-                        }
-                    }
-
-                    //code to pull out list of unique dates and sum of transactions per date for donut chart
-                    var DonutChartquery = from transaction in Transaction_list
-                                          where transaction.Amount > 0
-                                          group transaction by new { transaction.CategoryID } into g
-                                          select new
-                                          {
-                                              Category = g.Distinct(),
-                                              Amount = g.Sum(s => s.Amount)
-                                          };
-
-                    //get the sum of all non-negative transaction for our pie chart
-                    SumTransactions = 0;
-                    foreach (var item in DonutChartquery)
-                    {
-                        DonutChartData aDatapoint = new DonutChartData
-                        {
-                            value = item.Amount,
-                            label = item.Category.Select(t => t.CategoryID.ToString()).FirstOrDefault()
-                        };
-
-                        SumTransactions += aDatapoint.value;
-
-                        DonutChart.Add(aDatapoint);
-                        DonutChart.Sort((x, y) => x.value.CompareTo(y.value));
-                    }
+                    PopulateCharts(S_date, E_date);
                 }
 
             }
@@ -550,7 +565,6 @@ namespace PersonalFinance.Models
                 }
             }
         }
-
 
         //
         //Method to pull all current transaction categroy information from Plaid and save to database
@@ -615,6 +629,32 @@ namespace PersonalFinance.Models
         public void GoalProgress()
         {
 
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            // Check to see if Dispose has already been called.
+            if (!this.disposed)
+            {
+                // If disposing equals true, dispose all managed
+                // and unmanaged resources.
+                if (disposing)
+                {
+                    // Dispose managed resources.
+                    client.Dispose();
+                }
+
+                // Note disposing has been done.
+                disposed = true;
+
+            }
         }
     }
 }

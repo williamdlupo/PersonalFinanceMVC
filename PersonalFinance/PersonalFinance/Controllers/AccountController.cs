@@ -550,7 +550,7 @@ namespace PersonalFinance.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Goals()
+        public ActionResult Goals()
         {
             return View();
         }

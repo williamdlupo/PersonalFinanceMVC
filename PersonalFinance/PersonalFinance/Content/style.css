@@ -1069,7 +1069,7 @@ img.image-xl {
   height: 60px;
   padding: 20px 25px;
   font-weight: 400;
-  letter-spacing: 10px;
+  letter-spacing: 5px;
   color: #FFFFFF;
 }
 .navbar-default .navbar-brand {
@@ -2526,10 +2526,12 @@ fieldset[disabled] .form-control {
   text-decoration: none;
 }
 .support-question:hover {
-  background-color: rgba(68, 70, 79, 0.7);
+    background-color: rgba(68, 70, 79, 0.7);
+    border-left: 3px solid #1bbf89;
 }
 .support-question.active {
-  border-left: 3px solid #f6a821;
+    border-left: 3px solid #1bbf89;
+    background-color: rgba(68, 70, 79, 0.5);
 }
 .support-question.active .panel-body {
   padding-left: 13px;

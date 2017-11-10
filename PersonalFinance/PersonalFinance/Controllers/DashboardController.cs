@@ -30,7 +30,6 @@ namespace PersonalFinance.Controllers
 
         //
         // GET: Dashboard/Main
-        //TO DO: figure out how to get default dates to be MTD
         public async Task<ActionResult> Main()
         {
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
@@ -192,7 +191,7 @@ namespace PersonalFinance.Controllers
             JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<ActionResult> AccountViewHandler(string trim)
+        public async Task<ActionResult> Account(string xyz)
         {
             Plaid plaid = new Plaid
             {
@@ -207,7 +206,7 @@ namespace PersonalFinance.Controllers
                 DateTime start_date = DateTime.Parse(plaid.Start_date);
                 DateTime end_date = DateTime.Parse(plaid.End_date);
 
-                plaid.GetTransactions(start_date, end_date, trim);
+                plaid.GetTransactions(start_date, end_date, xyz);
             }
 
             catch
@@ -215,7 +214,7 @@ namespace PersonalFinance.Controllers
                 DateTime? start_date = null;
                 DateTime? end_date = null;
 
-                plaid.GetTransactions(start_date, end_date, trim);
+                plaid.GetTransactions(start_date, end_date, xyz);
             }
 
             await plaid.GetAccountList();
@@ -233,7 +232,6 @@ namespace PersonalFinance.Controllers
 
             return View("Main", plaid);
         }
-
 
         protected override void Dispose(bool disposing)
         {

@@ -19,7 +19,8 @@
     </div>
     <div class="panel panel-filled">
         <div class="panel-body">
-            <label>Email/Username</label>
+            <p class="text-center c-white">User Settings</p>
+            <label>Email</label>
             <div>
                 @(Model.Email)
             </div>
@@ -38,7 +39,15 @@
                         @Html.ActionLink("Change Number", "AddPhoneNumber")
                     }
                 </div>
+                <br />
             </div>
+            <p class="text-center c-white">Financial Settings</p>
+            <p>
+                @Html.ActionLink("Update Profile", "Profiler", "Account")
+            </p>
+            <p>
+                @Html.ActionLink("Manage Goals", "Goals", "Account")
+            </p>
             <br />
             <a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-info btn-block">All Set</a>
         </div>
