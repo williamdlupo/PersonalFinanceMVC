@@ -105,7 +105,7 @@
             <ul class="dropdown-menu" style="width:auto">
                 @if (!Model.SelectedAccount.Equals("All Accounts"))
                 {
-                    <li data-placement="left" title="All Accounts"><a href='@Url.Action("AccountViewHandler", "Dashboard", new { trim = "" } )'>All Accounts</a></li>
+                    <li data-placement="left" title="All Accounts"><a href='@Url.Action("Account", "Dashboard", new { xyz = "" } )'>All Accounts</a></li>
                     <li role="separator" class="divider"></li>
                 }
                 @foreach (var inst in Model.InstitutionList)
@@ -117,9 +117,9 @@
                         if (account.Institution_name.Equals(inst.Inst_name))
                         {
                             if (account.AccountName.Length > 20)
-                            {<li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("AccountViewHandler", "Dashboard", new { trim = account.AccountID })'>@account.AccountName.ToString().Substring(0, 20)... <em> @String.Format("{0:C}", account.Balance)</em></a></li>}
+                            {<li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("Account", "Dashboard", new { xyz = account.AccountID })'>@account.AccountName.ToString().Substring(0, 20)... <em> @String.Format("{0:C}", account.Balance)</em></a></li>}
                             else
-                            {<li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("AccountViewHandler", "Dashboard", new { trim = account.AccountID })'>@account.AccountName: <em class="pull-right"> @String.Format("{0:C}", account.Balance)</em></a></li>}
+                            {<li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("Account", "Dashboard", new { xyz = account.AccountID })'>@account.AccountName: <em class="pull-right"> @String.Format("{0:C}", account.Balance)</em></a></li>}
                         }
                     }
                     <li role="separator" class="divider"></li>

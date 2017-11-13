@@ -29,7 +29,7 @@
             <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="true"> <i class="fa fa-shield"></i></a></li>
             <li class=""><a data-toggle="tab" href="#tab-5" aria-expanded="false"><i class="fa fa-credit-card-alt"></i></a></li>
             <li class=""><a data-toggle="tab" href="#tab-6" aria-expanded="false"><i class="fa fa-home"></i></a></li>
-            <li class=""><a data-toggle="tab" href="#tab-7" aria-expanded="false"><i class="fa fa-bolt"></i></a></li>
+            <li class=""><a data-toggle="tab" href="#tab-7" aria-expanded="false"><i class="fa fa-trophy"></i></a></li>
         </ul>
         <div class="tab-content">
             <div id="tab-1" class="tab-pane active">
@@ -70,7 +70,7 @@
                                         <div class="col-sm-4 col-sm-offset-3">
                                             <input class="form-control" id="salary_pay" placeholder="$" />
                                         </div>
-                                        <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_salary">$0.00 / month</text></div>
+                                        <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_salary">$0 / month</text></div>
                                     </div>
                                     <div id="hourly" hidden="hidden">
                                         <div class="col-sm-12">
@@ -85,7 +85,7 @@
                                         <div class="col-sm-4 col-sm-offset-3">
                                             <input class="form-control" id="hourly_time" placeholder="" />
                                         </div>
-                                        <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_hourly"> $0.00 / month</text></div>
+                                        <div class="col-sm-12"> <text class="text-accent pull-right" id="monthly_hourly"> $0 / month</text></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
@@ -114,11 +114,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12"> <text class="text-accent pull-right" id="other_monthly"> $0.00 / month</text></div>
+                                    <div class="col-sm-12"> <text class="text-accent pull-right" id="other_monthly"> $0 / month</text></div>
                                 </div>
                                 <div class="col-sm-12">
                                     <hr />
-                                    <text class="c-white pull-right" id="total_monthly">Total Monthly Income: $0.00 </text>
+                                    <text class="c-white pull-right" id="total_monthly">Total Income: $0 / month</text>
                                 </div>
                                 <br />
                             </div>
@@ -146,35 +146,35 @@
                             {
                                 if (accounttype.Accounttype.Equals("depository"))
                                 {
-                                    <ul class="media-list">
-                                        <li class="media">
-                                            <div class="media-body">
-                                                @foreach (var account in Model.Account_list)
+                            <ul class="media-list">
+                                <li class="media">
+                                    <div class="media-body">
+                                        @foreach (var account in Model.Account_list)
                                                 {
                                                     if (account.Account_Type.Equals(accounttype.Accounttype))
                                                     {
-                                                        <ul class="media-list">
-                                                            <li class="media">
-                                                                <div class="media-heading">
-                                                                    <row>
-                                                                        @if (@account.AccountName.Length > 20)
+                                        <ul class="media-list">
+                                            <li class="media">
+                                                <div class="media-heading">
+                                                    <row>
+                                                        @if (@account.AccountName.Length > 20)
                                                                         {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
                                                                         else
                                                                         {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                                    </row>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
+                                                    </row>
+                                                </div>
+                                            </li>
+                                        </ul>
                                                     }
                                                 }
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <hr />
-                                    <div class="col-sm-12">
-                                        <text class="c-white pull-right" id="total_cash">Total Cash: @accounttype.Accounttype_sum</text>
                                     </div>
-                                    <br />
+                                </li>
+                            </ul>
+                            <hr />
+                            <div class="col-sm-12">
+                                <text class="c-white pull-right" id="total_cash">Total Cash: @accounttype.Accounttype_sum</text>
+                            </div>
+                            <br />
                                 }
                             }
                         </div>
@@ -202,35 +202,35 @@
                             {
                                 if (accounttype.Accounttype.Equals("brokerage") || accounttype.Accounttype.Equals("other"))
                                 {
-                                    <ul class="media-list">
-                                        <li class="media">
-                                            <div class="media-body">
-                                                @foreach (var account in Model.Account_list)
+                            <ul class="media-list">
+                                <li class="media">
+                                    <div class="media-body">
+                                        @foreach (var account in Model.Account_list)
                                                 {
                                                     if (account.Account_Type.Equals(accounttype.Accounttype.ToString()))
                                                     {
-                                                        <ul class="media-list">
-                                                            <li class="media">
-                                                                <div class="media-heading">
-                                                                    <row>
-                                                                        @if (@account.AccountName.Length > 20)
+                                        <ul class="media-list">
+                                            <li class="media">
+                                                <div class="media-heading">
+                                                    <row>
+                                                        @if (@account.AccountName.Length > 20)
                                                                         {<p class="c-white"> @account.AccountName.ToString().Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
                                                                         else
                                                                         {<p class="c-white"> @account.AccountName.ToString()<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                                    </row>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
+                                                    </row>
+                                                </div>
+                                            </li>
+                                        </ul>
                                                     }
                                                 }
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <hr />
-                                    <div class="col-sm-12">
-                                        <text class="c-white pull-right" id="total_investment">Total Investments: @accounttype.Accounttype_sum</text>
                                     </div>
-                                    <br />
+                                </li>
+                            </ul>
+                            <hr />
+                            <div class="col-sm-12">
+                                <text class="c-white pull-right" id="total_investment">Total Investments: @accounttype.Accounttype_sum</text>
+                            </div>
+                            <br />
                                 }
                             }
                         </div>
@@ -286,7 +286,7 @@
                             </form>
                             <div class="col-sm-12">
                                 <hr />
-                                <text class="c-white pull-right" id="total_insurance">Monthly Insurance Expense: $0.00 </text>
+                                <text class="c-white pull-right" id="total_insurance">Monthly Insurance Expense: $0 </text>
                             </div>
                             <br />
                         </div>
@@ -316,35 +316,35 @@
                             {
                                 if (accounttype.Accounttype.Equals("credit") || accounttype.Accounttype.Equals("loan"))
                                 {
-                                    <ul class="media-list">
-                                        <li class="media">
-                                            <div class="media-body">
-                                                @foreach (var account in Model.Account_list)
+                            <ul class="media-list">
+                                <li class="media">
+                                    <div class="media-body">
+                                        @foreach (var account in Model.Account_list)
                                                 {
                                                     if (account.Account_Type.Equals(accounttype.Accounttype))
                                                     {
-                                                        <ul class="media-list">
-                                                            <li class="media">
-                                                                <div class="media-heading">
-                                                                    <row>
-                                                                        @if (@account.AccountName.Length > 20)
+                                        <ul class="media-list">
+                                            <li class="media">
+                                                <div class="media-heading">
+                                                    <row>
+                                                        @if (@account.AccountName.Length > 20)
                                                                         {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
                                                                         else
                                                                         {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                                    </row>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
+                                                    </row>
+                                                </div>
+                                            </li>
+                                        </ul>
                                                     }
                                                 }
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <hr />
-                                    <div class="col-sm-12">
-                                        <text class="c-white pull-right" id="total_debt">Total Debt: @accounttype.Accounttype_sum</text>
                                     </div>
-                                    <br />
+                                </li>
+                            </ul>
+                            <hr />
+                            <div class="col-sm-12">
+                                <text class="c-white pull-right" id="total_debt">Total Debt: @accounttype.Accounttype_sum</text>
+                            </div>
+                            <br />
                                 }
                             }
                         </div>
@@ -389,30 +389,30 @@
                                 {
                                     if (accounttype.ToString().Equals("mortgage"))
                                     {
-                                            <ul class="media-list">
-                                                <li class="media">
-                                                    <div class="media-body">
-                                                        @foreach (var account in Model.Account_list)
+                                    <ul class="media-list">
+                                        <li class="media">
+                                            <div class="media-body">
+                                                @foreach (var account in Model.Account_list)
                                                     {
                                                         if (account.Account_Type.Equals(accounttype.Accounttype))
                                                         {
-                                                                <ul class="media-list">
-                                                                    <li class="media">
-                                                                        <div class="media-heading">
-                                                                            <row>
-                                                                                @if (@account.AccountName.Length > 20)
+                                                <ul class="media-list">
+                                                    <li class="media">
+                                                        <div class="media-heading">
+                                                            <row>
+                                                                @if (@account.AccountName.Length > 20)
                                                                             {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
                                                                             else
                                                                             {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                                            </row>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
+                                                            </row>
+                                                        </div>
+                                                    </li>
+                                                </ul>
                                                         }
                                                     }
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
                                     }
                                 }
                                     <form class="form-horizontal">
@@ -439,40 +439,50 @@
                                         </div>
                                     </form>
                                 </div>
-                                @*<div class="col-sm-12">
-                                    <div class="col-sm-6">Do you have any other housing expenses?</div>
-                                    <input type="checkbox" class="col-sm-offset-3 js-switch4" />
-                                </div>
-                                <div id="other_housing" hidden="hidden">
-                                    <div>
-                                        <div>
-                                            <label class="col-sm-2 col-sm-offset-1 control-label">Amount</label>
-                                            <div class="col-sm-5"><input class="form-control" id="other_housing_amount"></div>
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <label class="col-sm-3 col-sm-offset-1 control-label">Frequency</label>
-                                            <div class="radio radio-success radio-inline">
-                                                <input type="radio" id="housing_monthly" value="option1" name="other_freq">
-                                                <label for="inlineCheckbox1"> Monthly </label>
-                                            </div>
-                                            <div class="radio radio-success radio-inline">
-                                                <input type="radio" id="housing_quarterly" value="option2" name="other_freq">
-                                                <label for="inlineCheckbox2"> Quarterly </label>
-                                            </div>
-                                            <div class="radio radio-success radio-inline">
-                                                <input type="radio" id="housing_yearly" value="option3" name="other_freq">
-                                                <label for="inlineCheckbox2"> Yearly </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12"> <text class="text-accent pull-right" id="other_monthly"> $0.00 / month</text></div>
-                                </div>*@
                                 <div class="col-sm-12">
                                     <hr />
-                                    <text class="c-white pull-right" id="housing_total">Total Housing: $0.00 / month</text>
+                                    <text class="c-white pull-right" id="housing_total">Total Housing: $0 / month</text>
                                 </div>
                                 <br />
                             </div>
+                            <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-bolt text-warning"></i></span> Utilities</b>
+                            <row>
+                                <div class="col-sm-12 bs-example">
+                                    <div>
+                                        <text class="text-accent">
+                                            Can you pay my bills? Can you pay my telephone bills?
+                                        </text>
+                                        <br />
+                                        <hr />
+                                        <div class="col-sm-12">
+                                            <p class="col-sm-12">What are your monthly utilities?</p>
+                                        </div>
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Electric </label>
+                                                <div class="col-sm-4"><input class="form-control" id="electric" placeholder="$"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Gas </label>
+                                                <div class="col-sm-4"><input class="form-control" id="gas" placeholder="$"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Internet </label>
+                                                <div class="col-sm-4"><input class="form-control" id="internet" placeholder="$"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Other </label>
+                                                <div class="col-sm-4"><input class="form-control" id="other_util" placeholder="$"></div>
+                                            </div>
+                                        </form>
+                                        <div class="col-sm-12">
+                                            <hr />
+                                            <text class="c-white pull-right" id="total_util">Total Utilities: $0 / month</text>
+                                        </div>
+                                        <br />
+                                    </div>
+                                </div>
+                            </row>
                         </div>
                     </row>
                     <row>
@@ -486,7 +496,7 @@
             </div>
             <div id="tab-7" class="tab-pane">
                 <div class="panel-body">
-                    <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-bolt text-warning"></i></span> Summary</b>
+                    <b class="media-heading h3 c-white text-capitalize"><span class="h3"><i class="fa fa-trophy text-warning"></i></span> Summary</b>
                     <p class="col-sm-offset-1 c-white">
                         Take a look and make sure everything looks good
                     </p>
@@ -496,16 +506,20 @@
                                 <h4 class="text-accent text-center">Monthly Cash Flow</h4>
                                 <hr />
                                 <div class="col-sm-12">
-                                    <p class="col-sm-6 c-white">Total Income </p>
-                                    <text class="pull-right text-success" id="income_sum">$0</text>
+                                    <text class="col-sm-6 c-white">Income </text>
+                                    <div class="pull-right text-success" id="income_sum">$0</div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p class="col-sm-6 c-white">Total Insurance </p>
-                                    <div><text class=" pull-right text-danger" id="insurance_sum">$0</text></div>
+                                    <text class="col-sm-6 c-white">Insurance </text>
+                                    <div class="pull-right text-danger" id="insurance_sum">$0</div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p class="col-sm-6 c-white">Total Housing </p>
-                                    <div><text class="pull-right text-danger" id="housing_sum">$0</text></div>
+                                    <text class="col-sm-6 c-white">Housing </text>
+                                    <div class="pull-right text-danger" id="housing_sum">$0</div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <text class="col-sm-8 c-white">Utilities </text>
+                                    <div class="pull-right text-danger" id="util_sum">$0</div>
                                 </div>
                                 <div class="col-sm-12">
                                     <hr />
@@ -517,11 +531,12 @@
                                 <h4 class="text-accent text-center">Net Worth</h4>
                                 <hr />
                                 <div class="col-sm-12">
+                                    <br />
                                     <text class="col-sm-6 c-white">Total Cash </text>
                                     @foreach (var accounttype in Model.AccountTypeList)
                                     {
                                         if (accounttype.Accounttype.Equals("depository"))
-                                        {<p class="pull-right text-success" id="cash_sum">@accounttype.Accounttype_sum</p>}
+                                        {<div class="pull-right text-success" id="cash_sum">@accounttype.Accounttype_sum</div>}
                                     }
 
                                 </div>
@@ -530,7 +545,7 @@
                                     @foreach (var accounttype in Model.AccountTypeList)
                                     {
                                         if (accounttype.Accounttype.Equals("brokerage") || accounttype.Accounttype.Equals("other"))
-                                        {<p class="pull-right text-success" id="investment_sum">@accounttype.Accounttype_sum</p>}
+                                        {<div class="pull-right text-success" id="investment_sum">@accounttype.Accounttype_sum</div>}
                                     }
 
                                 </div>
@@ -539,9 +554,10 @@
                                     @foreach (var accounttype in Model.AccountTypeList)
                                     {
                                         if (accounttype.Accounttype.Equals("credit") || accounttype.Accounttype.Equals("loan"))
-                                        {<p class="pull-right text-danger" id="debt_sum">@accounttype.Accounttype_sum</p> }
+                                        {<div class="pull-right text-danger" id="debt_sum">@accounttype.Accounttype_sum</div> }
                                     }
 
+                                    <br />
                                 </div>
                                 <div class="col-sm-12">
                                     <hr />
@@ -574,7 +590,9 @@
 
         var mortgage, taxes, rent, total_housing;
 
-        var total_disc;
+        var electric, gas, internet, other_util, total_util;
+
+        var total_disc, fixed_margin;
 
         $('.btnNext').click(function () {
             $('.nav-tabs > .active').next('li').find('a').trigger('click');
@@ -609,10 +627,22 @@
                 wages = 0.0;
                 total_month = isNaN(parseInt(wages) + parseInt(other)) ? 0.0 : parseInt(wages) + parseInt(other);
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month');
-
                 $('#income_sum').text('$' + total_month)
-
                 $('#employed').hide();
+
+                total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+                $('#income_sum').text('$' + total_month);
+                total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+                $('#insurance_sum').text('$' + total_ins);
+                total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+                $('#housing_sum').text('$' + total_housing);
+                total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+                $('#util_sum').text('$' + total_util);
+
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+                total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
+
+                $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
         });
 
@@ -629,6 +659,20 @@
 
                 $('#income_sum').text('$' + total_month)
                 $('#other_inc').hide();
+
+                total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+                $('#income_sum').text('$' + total_month);
+                total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+                $('#insurance_sum').text('$' + total_ins);
+                total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+                $('#housing_sum').text('$' + total_housing);
+                total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+                $('#util_sum').text('$' + total_util);
+
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+                total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
+
+                $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
         });
 
@@ -646,18 +690,22 @@
                 total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
                 $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
                 $('#health_view').hide();
+
+                total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+                $('#income_sum').text('$' + total_month);
+                total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+                $('#insurance_sum').text('$' + total_ins);
+                total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+                $('#housing_sum').text('$' + total_housing);
+                total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+                $('#util_sum').text('$' + total_util);
+
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+                total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
+
+                $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
         });
-
-        //other housing y/n switch
-        //$('.js-switch4').change(function () {
-        //    if ($(this).prop("checked")) {
-        //        $('#other_housing').show();
-        //    } else {
-
-        //        $('#other_housing').hide();
-        //    }
-        //});
 
         //salary radio
         $('#salary_radio').change(function (event) {
@@ -671,6 +719,20 @@
                 total_month = parseInt(wages) + parseInt(other);
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
                 $('#income_sum').text('$' + total_month)
+                total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+                $('#income_sum').text('$' + total_month);
+                total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+                $('#insurance_sum').text('$' + total_ins);
+                total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+                $('#housing_sum').text('$' + total_housing);
+                total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+                $('#util_sum').text('$' + total_util);
+
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+                total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
+
+                $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
+
                 $('#hourly').hide();
             }
         });
@@ -687,6 +749,20 @@
                 total_month = parseInt(wages) + parseInt(other);
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
                 $('#income_sum').text('$' + total_month)
+                total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+                $('#income_sum').text('$' + total_month);
+                total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+                $('#insurance_sum').text('$' + total_ins);
+                total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+                $('#housing_sum').text('$' + total_housing);
+                total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+                $('#util_sum').text('$' + total_util);
+
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+                total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
+
+                $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
+
                 $('#salary').hide();
             }
         });
@@ -698,6 +774,19 @@
                 total_housing = 0;
                 $('#rent_payment').val('');
                 $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
+                total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+                $('#income_sum').text('$' + total_month);
+                total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+                $('#insurance_sum').text('$' + total_ins);
+                total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+                $('#housing_sum').text('$' + total_housing);
+                total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+                $('#util_sum').text('$' + total_util);
+
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+                total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
+
+                $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
                 $('#own').show();
                 $('#rent').hide();
             }
@@ -713,6 +802,19 @@
                 $('#taxes').val('');
                 $('#housing_subtotal').val('');
                 $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
+                total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+                $('#income_sum').text('$' + total_month);
+                total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+                $('#insurance_sum').text('$' + total_ins);
+                total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+                $('#housing_sum').text('$' + total_housing);
+                total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+                $('#util_sum').text('$' + total_util);
+
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+                total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
+
+                $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
                 $('#rent').show();
                 $('#own').hide();
             }
@@ -729,12 +831,17 @@
             $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
             $('#income_sum').text('$' + total_month)
 
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
             total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
             $('#insurance_sum').text('$' + total_ins);
             total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
             $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
 
-            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
             $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
@@ -751,12 +858,17 @@
             $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
             $('#income_sum').text('$' + total_month)
 
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
             total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
             $('#insurance_sum').text('$' + total_ins);
             total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
             $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
 
-            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : gas;
 
             $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
@@ -774,12 +886,17 @@
             $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
             $('#income_sum').text('$' + total_month)
 
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
             total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
             $('#insurance_sum').text('$' + total_ins);
             total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
             $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
 
-            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
             $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
@@ -796,12 +913,17 @@
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
                 $('#income_sum').text('$' + total_month)
 
+                total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+                $('#income_sum').text('$' + total_month);
                 total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
                 $('#insurance_sum').text('$' + total_ins);
                 total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
                 $('#housing_sum').text('$' + total_housing);
+                total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+                $('#util_sum').text('$' + total_util);
 
-                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+                total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
                 $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
@@ -818,12 +940,17 @@
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
                 $('#income_sum').text('$' + total_month)
 
+                total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+                $('#income_sum').text('$' + total_month);
                 total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
                 $('#insurance_sum').text('$' + total_ins);
                 total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
                 $('#housing_sum').text('$' + total_housing);
+                total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+                $('#util_sum').text('$' + total_util);
 
-                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+                total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
                 $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
@@ -841,12 +968,17 @@
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
                 $('#income_sum').text('$' + total_month)
 
+                total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+                $('#income_sum').text('$' + total_month);
                 total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
                 $('#insurance_sum').text('$' + total_ins);
                 total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
                 $('#housing_sum').text('$' + total_housing);
+                total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+                $('#util_sum').text('$' + total_util);
 
-                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+                total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
                 $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
@@ -865,12 +997,17 @@
                 $('#total_monthly').text('Total Monthly Income: $' + total_month + ' / month')
                 $('#income_sum').text('$' + total_month)
 
+                total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+                $('#income_sum').text('$' + total_month);
                 total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
                 $('#insurance_sum').text('$' + total_ins);
                 total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
                 $('#housing_sum').text('$' + total_housing);
+                total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+                $('#util_sum').text('$' + total_util);
 
-                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+                total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+                total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
                 $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
@@ -892,6 +1029,9 @@
                 $('#housing_sum').text('$' + total_housing);
 
                 total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+                fixed_margin = (((parseInt(total_ins) + parseInt(total_housing)) / (parseInt(total_month))) * 100).toFixed(0);
+
+                $('#fixed_expense_margin').text(fixed_margin + '%');
 
                 $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
@@ -913,6 +1053,9 @@
                 $('#housing_sum').text('$' + total_housing);
 
                 total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+                fixed_margin = (((parseInt(total_ins) + parseInt(total_housing)) / (parseInt(total_month))) * 100).toFixed(0);
+
+                $('#fixed_expense_margin').text(fixed_margin + '%');
 
                 $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
             }
@@ -935,12 +1078,17 @@
             total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
             $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
 
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
             total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
             $('#insurance_sum').text('$' + total_ins);
             total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
             $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
 
-            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
             $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
@@ -956,12 +1104,17 @@
             total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
             $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
 
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
             total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
             $('#insurance_sum').text('$' + total_ins);
             total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
             $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
 
-            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
             $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
@@ -977,12 +1130,17 @@
             total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
             $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
 
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
             total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
             $('#insurance_sum').text('$' + total_ins);
             total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
             $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
 
-            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
             $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
@@ -998,12 +1156,17 @@
             total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
             $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
 
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
             total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
             $('#insurance_sum').text('$' + total_ins);
             total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
             $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
 
-            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
             $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
@@ -1019,12 +1182,17 @@
             total_ins = parseInt(health) + parseInt(home) + parseInt(auto) + parseInt(life) + parseInt(other_ins);
             $('#total_insurance').text('Total Monthly Insurance: $' + total_ins + ' / month')
 
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
             total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
             $('#insurance_sum').text('$' + total_ins);
             total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
             $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
 
-            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
             $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
@@ -1039,12 +1207,17 @@
             $('#housing_subtotal').val(total_housing);
             $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
 
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
             total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
             $('#insurance_sum').text('$' + total_ins);
             total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
             $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
 
-            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
             $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
@@ -1058,12 +1231,17 @@
             $('#housing_subtotal').val(total_housing);
             $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
 
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
             total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
             $('#insurance_sum').text('$' + total_ins);
             total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
             $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
 
-            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
             $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
@@ -1079,12 +1257,17 @@
             $('#taxes').val('');
             $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
 
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
             total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
             $('#insurance_sum').text('$' + total_ins);
             total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
             $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
 
-            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
             $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });
@@ -1096,12 +1279,117 @@
             total_housing = amount;
             $('#housing_total').text('Total Housing: $' + total_housing + ' / month')
 
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
             total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
             $('#insurance_sum').text('$' + total_ins);
             total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
             $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
 
-            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing);
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
+        });
+
+        $('#electric').keyup(function () {
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
+
+            electric = amount;
+            gas = isNaN(gas) ? 0.0 : gas;
+            internet = isNaN(internet) ? 0.0 : internet;
+            other_util = isNaN(other_util) ? 0.0 : other_util;
+            total_util = parseInt(electric) + parseInt(gas) + parseInt(internet) + parseInt(other_util);
+            $('#total_util').text('Total Utilities: $' + total_util + ' / month')
+
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
+        });
+
+        $('#gas').keyup(function () {
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
+
+            gas = amount;
+            electric = isNaN(electric) ? 0.0 : electric;
+            internet = isNaN(internet) ? 0.0 : internet;
+            other_util = isNaN(other_util) ? 0.0 : other_util;
+            total_util = parseInt(electric) + parseInt(gas) + parseInt(internet) + parseInt(other_util);
+            $('#total_util').text('Total Utilities: $' + total_util + ' / month')
+
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
+        });
+
+        $('#internet').keyup(function () {
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
+
+            internet = amount;
+            gas = isNaN(gas) ? 0.0 : gas;
+            electric = isNaN(electric) ? 0.0 : electric;
+            other_util = isNaN(other_util) ? 0.0 : other_util;
+            total_util = parseInt(electric) + parseInt(gas) + parseInt(internet) + parseInt(other_util);
+            $('#total_util').text('Total Utilities: $' + total_util + ' / month')
+
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
+
+            $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
+        });
+
+        $('#other_util').keyup(function () {
+            var amount = isNaN(parseInt($(this).val())) ? 0.00 : $(this).val();
+
+            other_util = amount;
+            gas = isNaN(gas) ? 0.0 : gas;
+            electric = isNaN(electric) ? 0.0 : electric;
+            internet = isNaN(internet) ? 0.0 : internet;
+            total_util = parseInt(electric) + parseInt(gas) + parseInt(internet) + parseInt(other_util);
+            $('#total_util').text('Total Utilities: $' + total_util + ' / month')
+
+            total_month = isNaN(parseInt(total_month)) ? 0.0 : parseInt(total_month);
+            $('#income_sum').text('$' + total_month);
+            total_ins = isNaN(parseInt(total_ins)) ? 0.0 : parseInt(total_ins);
+            $('#insurance_sum').text('$' + total_ins);
+            total_housing = isNaN(parseInt(total_housing)) ? 0.0 : parseInt(total_housing);
+            $('#housing_sum').text('$' + total_housing);
+            total_util = isNaN(parseInt(total_util)) ? 0.0 : parseInt(total_util);
+            $('#util_sum').text('$' + total_util);
+
+            total_disc = parseInt(total_month) - parseInt(total_ins) - parseInt(total_housing) - parseInt(total_util);
+            total_disc = isNaN(parseInt(total_disc)) ? 0.0 : total_disc;
 
             $('#total_disc').text('Discretionary Income: $' + total_disc + ' / month')
         });

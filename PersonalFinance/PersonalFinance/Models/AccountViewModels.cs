@@ -49,7 +49,7 @@ namespace PersonalFinance.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Enter a valid email address")]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
@@ -66,7 +66,7 @@ namespace PersonalFinance.Models
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage ="Please enter a valid email address")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

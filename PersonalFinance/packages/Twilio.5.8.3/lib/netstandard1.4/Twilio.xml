@@ -1214,6 +1214,344 @@
             Generate JWT payload
             </summary>
         </member>
+        <member name="T:Twilio.Rest.Accounts.V1.Credential.ReadAwsOptions">
+            <summary>
+            ReadAwsOptions
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.ReadAwsOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Accounts.V1.Credential.CreateAwsOptions">
+            <summary>
+            CreateAwsOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Accounts.V1.Credential.CreateAwsOptions.Credentials">
+            <summary>
+            The credentials
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Accounts.V1.Credential.CreateAwsOptions.FriendlyName">
+            <summary>
+            The friendly_name
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Accounts.V1.Credential.CreateAwsOptions.AccountSid">
+            <summary>
+            The account_sid
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.CreateAwsOptions.#ctor(System.String)">
+            <summary>
+            Construct a new CreateAwsOptions
+            </summary>
+            <param name="credentials"> The credentials </param>
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.CreateAwsOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Accounts.V1.Credential.FetchAwsOptions">
+            <summary>
+            FetchAwsOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Accounts.V1.Credential.FetchAwsOptions.PathSid">
+            <summary>
+            The sid
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.FetchAwsOptions.#ctor(System.String)">
+            <summary>
+            Construct a new FetchAwsOptions
+            </summary>
+            <param name="pathSid"> The sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.FetchAwsOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Accounts.V1.Credential.UpdateAwsOptions">
+            <summary>
+            UpdateAwsOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Accounts.V1.Credential.UpdateAwsOptions.PathSid">
+            <summary>
+            The sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Accounts.V1.Credential.UpdateAwsOptions.FriendlyName">
+            <summary>
+            The friendly_name
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.UpdateAwsOptions.#ctor(System.String)">
+            <summary>
+            Construct a new UpdateAwsOptions
+            </summary>
+            <param name="pathSid"> The sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.UpdateAwsOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Accounts.V1.Credential.DeleteAwsOptions">
+            <summary>
+            DeleteAwsOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Accounts.V1.Credential.DeleteAwsOptions.PathSid">
+            <summary>
+            The sid
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.DeleteAwsOptions.#ctor(System.String)">
+            <summary>
+            Construct a new DeleteAwsOptions
+            </summary>
+            <param name="pathSid"> The sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.DeleteAwsOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.Read(Twilio.Rest.Accounts.V1.Credential.ReadAwsOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            read
+            </summary>
+            <param name="options"> Read Aws parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.ReadAsync(Twilio.Rest.Accounts.V1.Credential.ReadAwsOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            read
+            </summary>
+            <param name="options"> Read Aws parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.Read(System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            read
+            </summary>
+            <param name="pageSize"> Page size </param>
+            <param name="limit"> Record limit </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.ReadAsync(System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            read
+            </summary>
+            <param name="pageSize"> Page size </param>
+            <param name="limit"> Record limit </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.GetPage(System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Fetch the target page of records
+            </summary>
+            <param name="targetUrl"> API-generated URL for the requested results page </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> The target page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.NextPage(Twilio.Base.Page{Twilio.Rest.Accounts.V1.Credential.AwsResource},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Fetch the next page of records
+            </summary>
+            <param name="page"> current page of records </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> The next page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.PreviousPage(Twilio.Base.Page{Twilio.Rest.Accounts.V1.Credential.AwsResource},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Fetch the previous page of records
+            </summary>
+            <param name="page"> current page of records </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> The previous page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.Create(Twilio.Rest.Accounts.V1.Credential.CreateAwsOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            create
+            </summary>
+            <param name="options"> Create Aws parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.CreateAsync(Twilio.Rest.Accounts.V1.Credential.CreateAwsOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            create
+            </summary>
+            <param name="options"> Create Aws parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.Create(System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            create
+            </summary>
+            <param name="credentials"> The credentials </param>
+            <param name="friendlyName"> The friendly_name </param>
+            <param name="accountSid"> The account_sid </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.CreateAsync(System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            create
+            </summary>
+            <param name="credentials"> The credentials </param>
+            <param name="friendlyName"> The friendly_name </param>
+            <param name="accountSid"> The account_sid </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.Fetch(Twilio.Rest.Accounts.V1.Credential.FetchAwsOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="options"> Fetch Aws parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.FetchAsync(Twilio.Rest.Accounts.V1.Credential.FetchAwsOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="options"> Fetch Aws parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.Fetch(System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="pathSid"> The sid </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.FetchAsync(System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="pathSid"> The sid </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.Update(Twilio.Rest.Accounts.V1.Credential.UpdateAwsOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            update
+            </summary>
+            <param name="options"> Update Aws parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.UpdateAsync(Twilio.Rest.Accounts.V1.Credential.UpdateAwsOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            update
+            </summary>
+            <param name="options"> Update Aws parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.Update(System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            update
+            </summary>
+            <param name="pathSid"> The sid </param>
+            <param name="friendlyName"> The friendly_name </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.UpdateAsync(System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            update
+            </summary>
+            <param name="pathSid"> The sid </param>
+            <param name="friendlyName"> The friendly_name </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.Delete(Twilio.Rest.Accounts.V1.Credential.DeleteAwsOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            delete
+            </summary>
+            <param name="options"> Delete Aws parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.DeleteAsync(Twilio.Rest.Accounts.V1.Credential.DeleteAwsOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            delete
+            </summary>
+            <param name="options"> Delete Aws parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.Delete(System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            delete
+            </summary>
+            <param name="pathSid"> The sid </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.DeleteAsync(System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            delete
+            </summary>
+            <param name="pathSid"> The sid </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Aws </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Accounts.V1.Credential.AwsResource.FromJson(System.String)">
+            <summary>
+            Converts a JSON string into a AwsResource object
+            </summary>
+            <param name="json"> Raw JSON string </param>
+            <returns> AwsResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Accounts.V1.Credential.AwsResource.Sid">
+            <summary>
+            The sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Accounts.V1.Credential.AwsResource.AccountSid">
+            <summary>
+            The account_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Accounts.V1.Credential.AwsResource.FriendlyName">
+            <summary>
+            The friendly_name
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Accounts.V1.Credential.AwsResource.DateCreated">
+            <summary>
+            The date_created
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Accounts.V1.Credential.AwsResource.DateUpdated">
+            <summary>
+            The date_updated
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Accounts.V1.Credential.AwsResource.Url">
+            <summary>
+            The url
+            </summary>
+        </member>
         <member name="T:Twilio.Rest.Accounts.V1.Credential.ReadPublicKeyOptions">
             <summary>
             Retrieves a collection of Public Key Credentials belonging to the account used to make the request
@@ -46350,11 +46688,6 @@
             An E164 formatted phone number.
             </summary>
         </member>
-        <member name="P:Twilio.Rest.Preview.HostedNumbers.CreateHostedNumberOrderOptions.IsoCountry">
-            <summary>
-            ISO country code.
-            </summary>
-        </member>
         <member name="P:Twilio.Rest.Preview.HostedNumbers.CreateHostedNumberOrderOptions.SmsCapability">
             <summary>
             Specify SMS capability to host.
@@ -46425,12 +46758,11 @@
             Email.
             </summary>
         </member>
-        <member name="M:Twilio.Rest.Preview.HostedNumbers.CreateHostedNumberOrderOptions.#ctor(Twilio.Types.PhoneNumber,System.String,System.Nullable{System.Boolean})">
+        <member name="M:Twilio.Rest.Preview.HostedNumbers.CreateHostedNumberOrderOptions.#ctor(Twilio.Types.PhoneNumber,System.Nullable{System.Boolean})">
             <summary>
             Construct a new CreateHostedNumberOrderOptions
             </summary>
             <param name="phoneNumber"> An E164 formatted phone number. </param>
-            <param name="isoCountry"> ISO country code. </param>
             <param name="smsCapability"> Specify SMS capability to host. </param>
         </member>
         <member name="M:Twilio.Rest.Preview.HostedNumbers.CreateHostedNumberOrderOptions.GetParams">
@@ -46630,12 +46962,11 @@
             <param name="client"> Client to make requests to Twilio </param>
             <returns> Task that resolves to A single instance of HostedNumberOrder </returns> 
         </member>
-        <member name="M:Twilio.Rest.Preview.HostedNumbers.HostedNumberOrderResource.Create(Twilio.Types.PhoneNumber,System.String,System.Nullable{System.Boolean},System.String,System.String,System.String,System.Collections.Generic.List{System.String},System.Uri,Twilio.Http.HttpMethod,System.Uri,Twilio.Http.HttpMethod,System.Uri,Twilio.Http.HttpMethod,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Preview.HostedNumbers.HostedNumberOrderResource.Create(Twilio.Types.PhoneNumber,System.Nullable{System.Boolean},System.String,System.String,System.String,System.Collections.Generic.List{System.String},System.Uri,Twilio.Http.HttpMethod,System.Uri,Twilio.Http.HttpMethod,System.Uri,Twilio.Http.HttpMethod,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
             <summary>
             Host a phone number's capability on Twilio's platform.
             </summary>
             <param name="phoneNumber"> An E164 formatted phone number. </param>
-            <param name="isoCountry"> ISO country code. </param>
             <param name="smsCapability"> Specify SMS capability to host. </param>
             <param name="accountSid"> Account Sid. </param>
             <param name="friendlyName"> A human readable description of this resource. </param>
@@ -46653,12 +46984,11 @@
             <param name="client"> Client to make requests to Twilio </param>
             <returns> A single instance of HostedNumberOrder </returns> 
         </member>
-        <member name="M:Twilio.Rest.Preview.HostedNumbers.HostedNumberOrderResource.CreateAsync(Twilio.Types.PhoneNumber,System.String,System.Nullable{System.Boolean},System.String,System.String,System.String,System.Collections.Generic.List{System.String},System.Uri,Twilio.Http.HttpMethod,System.Uri,Twilio.Http.HttpMethod,System.Uri,Twilio.Http.HttpMethod,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Preview.HostedNumbers.HostedNumberOrderResource.CreateAsync(Twilio.Types.PhoneNumber,System.Nullable{System.Boolean},System.String,System.String,System.String,System.Collections.Generic.List{System.String},System.Uri,Twilio.Http.HttpMethod,System.Uri,Twilio.Http.HttpMethod,System.Uri,Twilio.Http.HttpMethod,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
             <summary>
             Host a phone number's capability on Twilio's platform.
             </summary>
             <param name="phoneNumber"> An E164 formatted phone number. </param>
-            <param name="isoCountry"> ISO country code. </param>
             <param name="smsCapability"> Specify SMS capability to host. </param>
             <param name="accountSid"> Account Sid. </param>
             <param name="friendlyName"> A human readable description of this resource. </param>
@@ -50413,6 +50743,825 @@
             </summary>
         </member>
         <member name="P:Twilio.Rest.Preview.Proxy.Service.ShortCodeResource.Url">
+            <summary>
+            The URL of this resource.
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.Studio.ReadFlowOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            Retrieve a list of all Flows.
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.ReadFlowOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.Studio.FetchFlowOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            FetchFlowOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.FetchFlowOptions.PathSid">
+            <summary>
+            The sid
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FetchFlowOptions.#ctor(System.String)">
+            <summary>
+            Construct a new FetchFlowOptions
+            </summary>
+            <param name="pathSid"> The sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FetchFlowOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.Studio.DeleteFlowOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            Delete a specific Flow.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.DeleteFlowOptions.PathSid">
+            <summary>
+            A string that uniquely identifies this Flow.
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.DeleteFlowOptions.#ctor(System.String)">
+            <summary>
+            Construct a new DeleteFlowOptions
+            </summary>
+            <param name="pathSid"> A string that uniquely identifies this Flow. </param>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.DeleteFlowOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.Read(Twilio.Rest.Preview.Studio.ReadFlowOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Retrieve a list of all Flows.
+            </summary>
+            <param name="options"> Read Flow parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Flow </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.ReadAsync(Twilio.Rest.Preview.Studio.ReadFlowOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Retrieve a list of all Flows.
+            </summary>
+            <param name="options"> Read Flow parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Flow </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.Read(System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Retrieve a list of all Flows.
+            </summary>
+            <param name="pageSize"> Page size </param>
+            <param name="limit"> Record limit </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Flow </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.ReadAsync(System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Retrieve a list of all Flows.
+            </summary>
+            <param name="pageSize"> Page size </param>
+            <param name="limit"> Record limit </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Flow </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.GetPage(System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Fetch the target page of records
+            </summary>
+            <param name="targetUrl"> API-generated URL for the requested results page </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> The target page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.NextPage(Twilio.Base.Page{Twilio.Rest.Preview.Studio.FlowResource},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Fetch the next page of records
+            </summary>
+            <param name="page"> current page of records </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> The next page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.PreviousPage(Twilio.Base.Page{Twilio.Rest.Preview.Studio.FlowResource},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Fetch the previous page of records
+            </summary>
+            <param name="page"> current page of records </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> The previous page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.Fetch(Twilio.Rest.Preview.Studio.FetchFlowOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="options"> Fetch Flow parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Flow </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.FetchAsync(Twilio.Rest.Preview.Studio.FetchFlowOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="options"> Fetch Flow parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Flow </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.Fetch(System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="pathSid"> The sid </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Flow </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.FetchAsync(System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="pathSid"> The sid </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Flow </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.Delete(Twilio.Rest.Preview.Studio.DeleteFlowOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Delete a specific Flow.
+            </summary>
+            <param name="options"> Delete Flow parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Flow </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.DeleteAsync(Twilio.Rest.Preview.Studio.DeleteFlowOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Delete a specific Flow.
+            </summary>
+            <param name="options"> Delete Flow parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Flow </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.Delete(System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Delete a specific Flow.
+            </summary>
+            <param name="pathSid"> A string that uniquely identifies this Flow. </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Flow </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.DeleteAsync(System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Delete a specific Flow.
+            </summary>
+            <param name="pathSid"> A string that uniquely identifies this Flow. </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Flow </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.FlowResource.FromJson(System.String)">
+            <summary>
+            Converts a JSON string into a FlowResource object
+            </summary>
+            <param name="json"> Raw JSON string </param>
+            <returns> FlowResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.FlowResource.Sid">
+            <summary>
+            A string that uniquely identifies this Flow.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.FlowResource.AccountSid">
+            <summary>
+            Account Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.FlowResource.FriendlyName">
+            <summary>
+            A human readable description of this resource.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.FlowResource.Status">
+            <summary>
+            The Status of this Flow
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.FlowResource.Debug">
+            <summary>
+            Toggle extra logging.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.FlowResource.Version">
+            <summary>
+            The latest version number of this Flow's definition.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.FlowResource.DateCreated">
+            <summary>
+            The date this Flow was created
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.FlowResource.DateUpdated">
+            <summary>
+            The date this Flow was updated
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.FlowResource.Url">
+            <summary>
+            The URL of this resource.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.FlowResource.Links">
+            <summary>
+            Nested resource URLs.
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.Studio.Flow.ReadEngagementOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            Retrieve a list of all Engagements for the Flow.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.ReadEngagementOptions.PathFlowSid">
+            <summary>
+            Flow Sid.
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.ReadEngagementOptions.#ctor(System.String)">
+            <summary>
+            Construct a new ReadEngagementOptions
+            </summary>
+            <param name="pathFlowSid"> Flow Sid. </param>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.ReadEngagementOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.Studio.Flow.FetchEngagementOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            FetchEngagementOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.FetchEngagementOptions.PathFlowSid">
+            <summary>
+            The flow_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.FetchEngagementOptions.PathSid">
+            <summary>
+            The sid
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.FetchEngagementOptions.#ctor(System.String,System.String)">
+            <summary>
+            Construct a new FetchEngagementOptions
+            </summary>
+            <param name="pathFlowSid"> The flow_sid </param>
+            <param name="pathSid"> The sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.FetchEngagementOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.Studio.Flow.CreateEngagementOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            Triggers a new Engagement for the Flow
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.CreateEngagementOptions.PathFlowSid">
+            <summary>
+            Flow Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.CreateEngagementOptions.To">
+            <summary>
+            The to
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.CreateEngagementOptions.From">
+            <summary>
+            The from
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.CreateEngagementOptions.Parameters">
+            <summary>
+            The parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.CreateEngagementOptions.#ctor(System.String,Twilio.Types.PhoneNumber,Twilio.Types.PhoneNumber)">
+            <summary>
+            Construct a new CreateEngagementOptions
+            </summary>
+            <param name="pathFlowSid"> Flow Sid. </param>
+            <param name="to"> The to </param>
+            <param name="from"> The from </param>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.CreateEngagementOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.Studio.Flow.DeleteEngagementOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            Delete a specific Engagement.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.DeleteEngagementOptions.PathFlowSid">
+            <summary>
+            Flow Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.DeleteEngagementOptions.PathSid">
+            <summary>
+            A string that uniquely identifies this Engagement.
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.DeleteEngagementOptions.#ctor(System.String,System.String)">
+            <summary>
+            Construct a new DeleteEngagementOptions
+            </summary>
+            <param name="pathFlowSid"> Flow Sid. </param>
+            <param name="pathSid"> A string that uniquely identifies this Engagement. </param>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.DeleteEngagementOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.Read(Twilio.Rest.Preview.Studio.Flow.ReadEngagementOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Retrieve a list of all Engagements for the Flow.
+            </summary>
+            <param name="options"> Read Engagement parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.ReadAsync(Twilio.Rest.Preview.Studio.Flow.ReadEngagementOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Retrieve a list of all Engagements for the Flow.
+            </summary>
+            <param name="options"> Read Engagement parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.Read(System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Retrieve a list of all Engagements for the Flow.
+            </summary>
+            <param name="pathFlowSid"> Flow Sid. </param>
+            <param name="pageSize"> Page size </param>
+            <param name="limit"> Record limit </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.ReadAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Retrieve a list of all Engagements for the Flow.
+            </summary>
+            <param name="pathFlowSid"> Flow Sid. </param>
+            <param name="pageSize"> Page size </param>
+            <param name="limit"> Record limit </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.GetPage(System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Fetch the target page of records
+            </summary>
+            <param name="targetUrl"> API-generated URL for the requested results page </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> The target page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.NextPage(Twilio.Base.Page{Twilio.Rest.Preview.Studio.Flow.EngagementResource},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Fetch the next page of records
+            </summary>
+            <param name="page"> current page of records </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> The next page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.PreviousPage(Twilio.Base.Page{Twilio.Rest.Preview.Studio.Flow.EngagementResource},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Fetch the previous page of records
+            </summary>
+            <param name="page"> current page of records </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> The previous page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.Fetch(Twilio.Rest.Preview.Studio.Flow.FetchEngagementOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="options"> Fetch Engagement parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.FetchAsync(Twilio.Rest.Preview.Studio.Flow.FetchEngagementOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="options"> Fetch Engagement parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.Fetch(System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="pathFlowSid"> The flow_sid </param>
+            <param name="pathSid"> The sid </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.FetchAsync(System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="pathFlowSid"> The flow_sid </param>
+            <param name="pathSid"> The sid </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.Create(Twilio.Rest.Preview.Studio.Flow.CreateEngagementOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Triggers a new Engagement for the Flow
+            </summary>
+            <param name="options"> Create Engagement parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.CreateAsync(Twilio.Rest.Preview.Studio.Flow.CreateEngagementOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Triggers a new Engagement for the Flow
+            </summary>
+            <param name="options"> Create Engagement parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.Create(System.String,Twilio.Types.PhoneNumber,Twilio.Types.PhoneNumber,System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Triggers a new Engagement for the Flow
+            </summary>
+            <param name="pathFlowSid"> Flow Sid. </param>
+            <param name="to"> The to </param>
+            <param name="from"> The from </param>
+            <param name="parameters"> The parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.CreateAsync(System.String,Twilio.Types.PhoneNumber,Twilio.Types.PhoneNumber,System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Triggers a new Engagement for the Flow
+            </summary>
+            <param name="pathFlowSid"> Flow Sid. </param>
+            <param name="to"> The to </param>
+            <param name="from"> The from </param>
+            <param name="parameters"> The parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.Delete(Twilio.Rest.Preview.Studio.Flow.DeleteEngagementOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Delete a specific Engagement.
+            </summary>
+            <param name="options"> Delete Engagement parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.DeleteAsync(Twilio.Rest.Preview.Studio.Flow.DeleteEngagementOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Delete a specific Engagement.
+            </summary>
+            <param name="options"> Delete Engagement parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.Delete(System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Delete a specific Engagement.
+            </summary>
+            <param name="pathFlowSid"> Flow Sid. </param>
+            <param name="pathSid"> A string that uniquely identifies this Engagement. </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.DeleteAsync(System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Delete a specific Engagement.
+            </summary>
+            <param name="pathFlowSid"> Flow Sid. </param>
+            <param name="pathSid"> A string that uniquely identifies this Engagement. </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Engagement </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.EngagementResource.FromJson(System.String)">
+            <summary>
+            Converts a JSON string into a EngagementResource object
+            </summary>
+            <param name="json"> Raw JSON string </param>
+            <returns> EngagementResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.EngagementResource.Sid">
+            <summary>
+            A string that uniquely identifies this Engagement.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.EngagementResource.AccountSid">
+            <summary>
+            Account Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.EngagementResource.FlowSid">
+            <summary>
+            Flow Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.EngagementResource.ContactSid">
+            <summary>
+            Contact Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.EngagementResource.ContactChannelAddress">
+            <summary>
+            The phone number, SIP address or Client identifier that triggered this Engagement.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.EngagementResource.Status">
+            <summary>
+            The Status of this Engagement
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.EngagementResource.Context">
+            <summary>
+            Nested resource URLs.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.EngagementResource.DateCreated">
+            <summary>
+            The date this Engagement was created
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.EngagementResource.DateUpdated">
+            <summary>
+            The date this Engagement was updated
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.EngagementResource.Url">
+            <summary>
+            The URL of this resource.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.EngagementResource.Links">
+            <summary>
+            Nested resource URLs.
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.Studio.Flow.Engagement.ReadStepOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            Retrieve a list of all Steps for an Engagement.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.ReadStepOptions.PathFlowSid">
+            <summary>
+            Flow Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.ReadStepOptions.PathEngagementSid">
+            <summary>
+            Engagement Sid.
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.ReadStepOptions.#ctor(System.String,System.String)">
+            <summary>
+            Construct a new ReadStepOptions
+            </summary>
+            <param name="pathFlowSid"> Flow Sid. </param>
+            <param name="pathEngagementSid"> Engagement Sid. </param>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.ReadStepOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="T:Twilio.Rest.Preview.Studio.Flow.Engagement.FetchStepOptions">
+            <summary>
+            PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you
+            currently do not have developer preview access, please contact help@twilio.com.
+            
+            FetchStepOptions
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.FetchStepOptions.PathFlowSid">
+            <summary>
+            The flow_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.FetchStepOptions.PathEngagementSid">
+            <summary>
+            The engagement_sid
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.FetchStepOptions.PathSid">
+            <summary>
+            The sid
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.FetchStepOptions.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Construct a new FetchStepOptions
+            </summary>
+            <param name="pathFlowSid"> The flow_sid </param>
+            <param name="pathEngagementSid"> The engagement_sid </param>
+            <param name="pathSid"> The sid </param>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.FetchStepOptions.GetParams">
+            <summary>
+            Generate the necessary parameters
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.Read(Twilio.Rest.Preview.Studio.Flow.Engagement.ReadStepOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Retrieve a list of all Steps for an Engagement.
+            </summary>
+            <param name="options"> Read Step parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Step </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.ReadAsync(Twilio.Rest.Preview.Studio.Flow.Engagement.ReadStepOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Retrieve a list of all Steps for an Engagement.
+            </summary>
+            <param name="options"> Read Step parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Step </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.Read(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Retrieve a list of all Steps for an Engagement.
+            </summary>
+            <param name="pathFlowSid"> Flow Sid. </param>
+            <param name="pathEngagementSid"> Engagement Sid. </param>
+            <param name="pageSize"> Page size </param>
+            <param name="limit"> Record limit </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Step </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.ReadAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Retrieve a list of all Steps for an Engagement.
+            </summary>
+            <param name="pathFlowSid"> Flow Sid. </param>
+            <param name="pathEngagementSid"> Engagement Sid. </param>
+            <param name="pageSize"> Page size </param>
+            <param name="limit"> Record limit </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Step </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.GetPage(System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Fetch the target page of records
+            </summary>
+            <param name="targetUrl"> API-generated URL for the requested results page </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> The target page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.NextPage(Twilio.Base.Page{Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Fetch the next page of records
+            </summary>
+            <param name="page"> current page of records </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> The next page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.PreviousPage(Twilio.Base.Page{Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource},Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            Fetch the previous page of records
+            </summary>
+            <param name="page"> current page of records </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> The previous page of records </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.Fetch(Twilio.Rest.Preview.Studio.Flow.Engagement.FetchStepOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="options"> Fetch Step parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Step </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.FetchAsync(Twilio.Rest.Preview.Studio.Flow.Engagement.FetchStepOptions,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="options"> Fetch Step parameters </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Step </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.Fetch(System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="pathFlowSid"> The flow_sid </param>
+            <param name="pathEngagementSid"> The engagement_sid </param>
+            <param name="pathSid"> The sid </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> A single instance of Step </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.FetchAsync(System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+            <summary>
+            fetch
+            </summary>
+            <param name="pathFlowSid"> The flow_sid </param>
+            <param name="pathEngagementSid"> The engagement_sid </param>
+            <param name="pathSid"> The sid </param>
+            <param name="client"> Client to make requests to Twilio </param>
+            <returns> Task that resolves to A single instance of Step </returns> 
+        </member>
+        <member name="M:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.FromJson(System.String)">
+            <summary>
+            Converts a JSON string into a StepResource object
+            </summary>
+            <param name="json"> Raw JSON string </param>
+            <returns> StepResource object represented by the provided JSON </returns> 
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.Sid">
+            <summary>
+            A string that uniquely identifies this Step.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.AccountSid">
+            <summary>
+            Account Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.FlowSid">
+            <summary>
+            Flow Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.EngagementSid">
+            <summary>
+            Engagement Sid.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.Name">
+            <summary>
+            The Widget that implemented this Step.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.Context">
+            <summary>
+            Nested resource URLs.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.TransitionedFrom">
+            <summary>
+            The Widget that preceded the Widget for this Step.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.TransitionedTo">
+            <summary>
+            The Widget that will follow the Widget for this Step.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.DateCreated">
+            <summary>
+            The date this Step was created
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.DateUpdated">
+            <summary>
+            The date this Step was updated
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Preview.Studio.Flow.Engagement.StepResource.Url">
             <summary>
             The URL of this resource.
             </summary>
@@ -59230,6 +60379,26 @@
             URL Twilio will send callbacks to
             </summary>
         </member>
+        <member name="P:Twilio.Rest.Proxy.V1.CreateServiceOptions.GeoMatchLevel">
+            <summary>
+            Whether to find proxy numbers in the same areacode.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Proxy.V1.CreateServiceOptions.NumberSelectionBehavior">
+            <summary>
+            What behavior to use when choosing a proxy number.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Proxy.V1.CreateServiceOptions.InterceptCallbackUrl">
+            <summary>
+            A URL for Twilio call before each Interaction.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Proxy.V1.CreateServiceOptions.OutOfSessionCallbackUrl">
+            <summary>
+            A URL for Twilio call when a new Interaction has no Session.
+            </summary>
+        </member>
         <member name="M:Twilio.Rest.Proxy.V1.CreateServiceOptions.GetParams">
             <summary>
             Generate the necessary parameters
@@ -59283,6 +60452,26 @@
         <member name="P:Twilio.Rest.Proxy.V1.UpdateServiceOptions.CallbackUrl">
             <summary>
             URL Twilio will send callbacks to
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Proxy.V1.UpdateServiceOptions.GeoMatchLevel">
+            <summary>
+            Whether to find proxy numbers in the same areacode.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Proxy.V1.UpdateServiceOptions.NumberSelectionBehavior">
+            <summary>
+            What behavior to use when choosing a proxy number.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Proxy.V1.UpdateServiceOptions.InterceptCallbackUrl">
+            <summary>
+            A URL for Twilio call before each Interaction.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Proxy.V1.UpdateServiceOptions.OutOfSessionCallbackUrl">
+            <summary>
+            A URL for Twilio call when a new Interaction has no Session.
             </summary>
         </member>
         <member name="M:Twilio.Rest.Proxy.V1.UpdateServiceOptions.#ctor(System.String)">
@@ -59402,23 +60591,31 @@
             <param name="client"> Client to make requests to Twilio </param>
             <returns> Task that resolves to A single instance of Service </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.ServiceResource.Create(System.String,System.Nullable{System.Int32},System.Uri,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.ServiceResource.Create(System.String,System.Nullable{System.Int32},System.Uri,Twilio.Rest.Proxy.V1.ServiceResource.GeoMatchLevelEnum,Twilio.Rest.Proxy.V1.ServiceResource.NumberSelectionBehaviorEnum,System.Uri,System.Uri,Twilio.Clients.ITwilioRestClient)">
             <summary>
             Create a new Service for Twilio Proxy
             </summary>
             <param name="friendlyName"> A human readable description of this resource. </param>
             <param name="defaultTtl"> Default TTL for a Session, in seconds. </param>
             <param name="callbackUrl"> URL Twilio will send callbacks to </param>
+            <param name="geoMatchLevel"> Whether to find proxy numbers in the same areacode. </param>
+            <param name="numberSelectionBehavior"> What behavior to use when choosing a proxy number. </param>
+            <param name="interceptCallbackUrl"> A URL for Twilio call before each Interaction. </param>
+            <param name="outOfSessionCallbackUrl"> A URL for Twilio call when a new Interaction has no Session. </param>
             <param name="client"> Client to make requests to Twilio </param>
             <returns> A single instance of Service </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.ServiceResource.CreateAsync(System.String,System.Nullable{System.Int32},System.Uri,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.ServiceResource.CreateAsync(System.String,System.Nullable{System.Int32},System.Uri,Twilio.Rest.Proxy.V1.ServiceResource.GeoMatchLevelEnum,Twilio.Rest.Proxy.V1.ServiceResource.NumberSelectionBehaviorEnum,System.Uri,System.Uri,Twilio.Clients.ITwilioRestClient)">
             <summary>
             Create a new Service for Twilio Proxy
             </summary>
             <param name="friendlyName"> A human readable description of this resource. </param>
             <param name="defaultTtl"> Default TTL for a Session, in seconds. </param>
             <param name="callbackUrl"> URL Twilio will send callbacks to </param>
+            <param name="geoMatchLevel"> Whether to find proxy numbers in the same areacode. </param>
+            <param name="numberSelectionBehavior"> What behavior to use when choosing a proxy number. </param>
+            <param name="interceptCallbackUrl"> A URL for Twilio call before each Interaction. </param>
+            <param name="outOfSessionCallbackUrl"> A URL for Twilio call when a new Interaction has no Session. </param>
             <param name="client"> Client to make requests to Twilio </param>
             <returns> Task that resolves to A single instance of Service </returns> 
         </member>
@@ -59470,7 +60667,7 @@
             <param name="client"> Client to make requests to Twilio </param>
             <returns> Task that resolves to A single instance of Service </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.ServiceResource.Update(System.String,System.String,System.Nullable{System.Int32},System.Uri,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.ServiceResource.Update(System.String,System.String,System.Nullable{System.Int32},System.Uri,Twilio.Rest.Proxy.V1.ServiceResource.GeoMatchLevelEnum,Twilio.Rest.Proxy.V1.ServiceResource.NumberSelectionBehaviorEnum,System.Uri,System.Uri,Twilio.Clients.ITwilioRestClient)">
             <summary>
             Update a specific Service.
             </summary>
@@ -59478,10 +60675,14 @@
             <param name="friendlyName"> A human readable description of this resource. </param>
             <param name="defaultTtl"> Default TTL for a Session, in seconds. </param>
             <param name="callbackUrl"> URL Twilio will send callbacks to </param>
+            <param name="geoMatchLevel"> Whether to find proxy numbers in the same areacode. </param>
+            <param name="numberSelectionBehavior"> What behavior to use when choosing a proxy number. </param>
+            <param name="interceptCallbackUrl"> A URL for Twilio call before each Interaction. </param>
+            <param name="outOfSessionCallbackUrl"> A URL for Twilio call when a new Interaction has no Session. </param>
             <param name="client"> Client to make requests to Twilio </param>
             <returns> A single instance of Service </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.ServiceResource.UpdateAsync(System.String,System.String,System.Nullable{System.Int32},System.Uri,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.ServiceResource.UpdateAsync(System.String,System.String,System.Nullable{System.Int32},System.Uri,Twilio.Rest.Proxy.V1.ServiceResource.GeoMatchLevelEnum,Twilio.Rest.Proxy.V1.ServiceResource.NumberSelectionBehaviorEnum,System.Uri,System.Uri,Twilio.Clients.ITwilioRestClient)">
             <summary>
             Update a specific Service.
             </summary>
@@ -59489,6 +60690,10 @@
             <param name="friendlyName"> A human readable description of this resource. </param>
             <param name="defaultTtl"> Default TTL for a Session, in seconds. </param>
             <param name="callbackUrl"> URL Twilio will send callbacks to </param>
+            <param name="geoMatchLevel"> Whether to find proxy numbers in the same areacode. </param>
+            <param name="numberSelectionBehavior"> What behavior to use when choosing a proxy number. </param>
+            <param name="interceptCallbackUrl"> A URL for Twilio call before each Interaction. </param>
+            <param name="outOfSessionCallbackUrl"> A URL for Twilio call when a new Interaction has no Session. </param>
             <param name="client"> Client to make requests to Twilio </param>
             <returns> Task that resolves to A single instance of Service </returns> 
         </member>
@@ -59522,6 +60727,26 @@
         <member name="P:Twilio.Rest.Proxy.V1.ServiceResource.DefaultTtl">
             <summary>
             Default TTL for a Session, in seconds.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Proxy.V1.ServiceResource.NumberSelectionBehavior">
+            <summary>
+            What behavior to use when choosing a proxy number.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Proxy.V1.ServiceResource.GeoMatchLevel">
+            <summary>
+            Whether to find proxy numbers in the same areacode.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Proxy.V1.ServiceResource.InterceptCallbackUrl">
+            <summary>
+            A URL for Twilio call before each Interaction.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Proxy.V1.ServiceResource.OutOfSessionCallbackUrl">
+            <summary>
+            A URL for Twilio call when a new Interaction has no Session.
             </summary>
         </member>
         <member name="P:Twilio.Rest.Proxy.V1.ServiceResource.DateCreated">
@@ -59561,12 +60786,16 @@
             A string that uniquely identifies this Phone Number.
             </summary>
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.Service.CreatePhoneNumberOptions.#ctor(System.String,System.String)">
+        <member name="P:Twilio.Rest.Proxy.V1.Service.CreatePhoneNumberOptions.PhoneNumber">
+            <summary>
+            The phone_number
+            </summary>
+        </member>
+        <member name="M:Twilio.Rest.Proxy.V1.Service.CreatePhoneNumberOptions.#ctor(System.String)">
             <summary>
             Construct a new CreatePhoneNumberOptions
             </summary>
             <param name="pathServiceSid"> Service Sid. </param>
-            <param name="sid"> A string that uniquely identifies this Phone Number. </param>
         </member>
         <member name="M:Twilio.Rest.Proxy.V1.Service.CreatePhoneNumberOptions.GetParams">
             <summary>
@@ -59670,21 +60899,23 @@
             <param name="client"> Client to make requests to Twilio </param>
             <returns> Task that resolves to A single instance of PhoneNumber </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.Service.PhoneNumberResource.Create(System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.Service.PhoneNumberResource.Create(System.String,System.String,Twilio.Types.PhoneNumber,Twilio.Clients.ITwilioRestClient)">
             <summary>
             Add a Phone Number to the Service's Proxy Number Pool.
             </summary>
             <param name="pathServiceSid"> Service Sid. </param>
             <param name="sid"> A string that uniquely identifies this Phone Number. </param>
+            <param name="phoneNumber"> The phone_number </param>
             <param name="client"> Client to make requests to Twilio </param>
             <returns> A single instance of PhoneNumber </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.Service.PhoneNumberResource.CreateAsync(System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.Service.PhoneNumberResource.CreateAsync(System.String,System.String,Twilio.Types.PhoneNumber,Twilio.Clients.ITwilioRestClient)">
             <summary>
             Add a Phone Number to the Service's Proxy Number Pool.
             </summary>
             <param name="pathServiceSid"> Service Sid. </param>
             <param name="sid"> A string that uniquely identifies this Phone Number. </param>
+            <param name="phoneNumber"> The phone_number </param>
             <param name="client"> Client to make requests to Twilio </param>
             <returns> Task that resolves to A single instance of PhoneNumber </returns> 
         </member>
@@ -59962,6 +61193,11 @@
             TTL for a Session, in seconds.
             </summary>
         </member>
+        <member name="P:Twilio.Rest.Proxy.V1.Service.CreateSessionOptions.Mode">
+            <summary>
+            The Mode of this Session
+            </summary>
+        </member>
         <member name="P:Twilio.Rest.Proxy.V1.Service.CreateSessionOptions.Status">
             <summary>
             The Status of this Session
@@ -60042,6 +61278,11 @@
         <member name="P:Twilio.Rest.Proxy.V1.Service.UpdateSessionOptions.Ttl">
             <summary>
             TTL for a Session, in seconds.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Proxy.V1.Service.UpdateSessionOptions.Mode">
+            <summary>
+            The Mode of this Session
             </summary>
         </member>
         <member name="P:Twilio.Rest.Proxy.V1.Service.UpdateSessionOptions.Status">
@@ -60180,7 +61421,7 @@
             <param name="client"> Client to make requests to Twilio </param>
             <returns> Task that resolves to A single instance of Session </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.Service.SessionResource.Create(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},Twilio.Rest.Proxy.V1.Service.SessionResource.StatusEnum,System.Collections.Generic.List{System.String},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.Service.SessionResource.Create(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},Twilio.Rest.Proxy.V1.Service.SessionResource.ModeEnum,Twilio.Rest.Proxy.V1.Service.SessionResource.StatusEnum,System.Collections.Generic.List{System.Object},Twilio.Clients.ITwilioRestClient)">
             <summary>
             Create a new Session
             </summary>
@@ -60188,12 +61429,13 @@
             <param name="uniqueName"> A unique, developer assigned name of this Session. </param>
             <param name="dateExpiry"> The date this Session was expiry </param>
             <param name="ttl"> TTL for a Session, in seconds. </param>
+            <param name="mode"> The Mode of this Session </param>
             <param name="status"> The Status of this Session </param>
             <param name="participants"> A list of phone numbers to add to this Session. </param>
             <param name="client"> Client to make requests to Twilio </param>
             <returns> A single instance of Session </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.Service.SessionResource.CreateAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},Twilio.Rest.Proxy.V1.Service.SessionResource.StatusEnum,System.Collections.Generic.List{System.String},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.Service.SessionResource.CreateAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},Twilio.Rest.Proxy.V1.Service.SessionResource.ModeEnum,Twilio.Rest.Proxy.V1.Service.SessionResource.StatusEnum,System.Collections.Generic.List{System.Object},Twilio.Clients.ITwilioRestClient)">
             <summary>
             Create a new Session
             </summary>
@@ -60201,6 +61443,7 @@
             <param name="uniqueName"> A unique, developer assigned name of this Session. </param>
             <param name="dateExpiry"> The date this Session was expiry </param>
             <param name="ttl"> TTL for a Session, in seconds. </param>
+            <param name="mode"> The Mode of this Session </param>
             <param name="status"> The Status of this Session </param>
             <param name="participants"> A list of phone numbers to add to this Session. </param>
             <param name="client"> Client to make requests to Twilio </param>
@@ -60256,7 +61499,7 @@
             <param name="client"> Client to make requests to Twilio </param>
             <returns> Task that resolves to A single instance of Session </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.Service.SessionResource.Update(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},Twilio.Rest.Proxy.V1.Service.SessionResource.StatusEnum,System.Collections.Generic.List{System.String},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.Service.SessionResource.Update(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},Twilio.Rest.Proxy.V1.Service.SessionResource.ModeEnum,Twilio.Rest.Proxy.V1.Service.SessionResource.StatusEnum,System.Collections.Generic.List{System.Object},Twilio.Clients.ITwilioRestClient)">
             <summary>
             Update a specific Session.
             </summary>
@@ -60265,12 +61508,13 @@
             <param name="uniqueName"> A unique, developer assigned name of this Session. </param>
             <param name="dateExpiry"> The date this Session was expiry </param>
             <param name="ttl"> TTL for a Session, in seconds. </param>
+            <param name="mode"> The Mode of this Session </param>
             <param name="status"> The Status of this Session </param>
             <param name="participants"> A list of phone numbers to add to this Session. </param>
             <param name="client"> Client to make requests to Twilio </param>
             <returns> A single instance of Session </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.Service.SessionResource.UpdateAsync(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},Twilio.Rest.Proxy.V1.Service.SessionResource.StatusEnum,System.Collections.Generic.List{System.String},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.Service.SessionResource.UpdateAsync(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},Twilio.Rest.Proxy.V1.Service.SessionResource.ModeEnum,Twilio.Rest.Proxy.V1.Service.SessionResource.StatusEnum,System.Collections.Generic.List{System.Object},Twilio.Clients.ITwilioRestClient)">
             <summary>
             Update a specific Session.
             </summary>
@@ -60279,6 +61523,7 @@
             <param name="uniqueName"> A unique, developer assigned name of this Session. </param>
             <param name="dateExpiry"> The date this Session was expiry </param>
             <param name="ttl"> TTL for a Session, in seconds. </param>
+            <param name="mode"> The Mode of this Session </param>
             <param name="status"> The Status of this Session </param>
             <param name="participants"> A list of phone numbers to add to this Session. </param>
             <param name="client"> Client to make requests to Twilio </param>
@@ -60344,6 +61589,11 @@
         <member name="P:Twilio.Rest.Proxy.V1.Service.SessionResource.Ttl">
             <summary>
             TTL for a Session, in seconds.
+            </summary>
+        </member>
+        <member name="P:Twilio.Rest.Proxy.V1.Service.SessionResource.Mode">
+            <summary>
+            The Mode of this Session
             </summary>
         </member>
         <member name="P:Twilio.Rest.Proxy.V1.Service.SessionResource.DateCreated">
@@ -60696,11 +61946,6 @@
             Session Sid.
             </summary>
         </member>
-        <member name="P:Twilio.Rest.Proxy.V1.Service.Session.ReadParticipantOptions.ParticipantType">
-            <summary>
-            The participant_type
-            </summary>
-        </member>
         <member name="P:Twilio.Rest.Proxy.V1.Service.Session.ReadParticipantOptions.Identifier">
             <summary>
             The identifier
@@ -60743,11 +61988,6 @@
         <member name="P:Twilio.Rest.Proxy.V1.Service.Session.CreateParticipantOptions.FriendlyName">
             <summary>
             A human readable description of this resource.
-            </summary>
-        </member>
-        <member name="P:Twilio.Rest.Proxy.V1.Service.Session.CreateParticipantOptions.ParticipantType">
-            <summary>
-            The Participant Type of this Participant
             </summary>
         </member>
         <member name="P:Twilio.Rest.Proxy.V1.Service.Session.CreateParticipantOptions.ProxyIdentifier">
@@ -60828,11 +62068,6 @@
         <member name="P:Twilio.Rest.Proxy.V1.Service.Session.UpdateParticipantOptions.PathSid">
             <summary>
             A string that uniquely identifies this Participant.
-            </summary>
-        </member>
-        <member name="P:Twilio.Rest.Proxy.V1.Service.Session.UpdateParticipantOptions.ParticipantType">
-            <summary>
-            The Participant Type of this Participant
             </summary>
         </member>
         <member name="P:Twilio.Rest.Proxy.V1.Service.Session.UpdateParticipantOptions.Identifier">
@@ -60920,26 +62155,24 @@
             <param name="client"> Client to make requests to Twilio </param>
             <returns> Task that resolves to A single instance of Participant </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.Read(System.String,System.String,Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.ParticipantTypeEnum,System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.Read(System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
             <summary>
             Retrieve a list of all Participants in a Session.
             </summary>
             <param name="pathServiceSid"> Service Sid. </param>
             <param name="pathSessionSid"> Session Sid. </param>
-            <param name="participantType"> The participant_type </param>
             <param name="identifier"> The identifier </param>
             <param name="pageSize"> Page size </param>
             <param name="limit"> Record limit </param>
             <param name="client"> Client to make requests to Twilio </param>
             <returns> A single instance of Participant </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.ReadAsync(System.String,System.String,Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.ParticipantTypeEnum,System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.ReadAsync(System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int64},Twilio.Clients.ITwilioRestClient)">
             <summary>
             Retrieve a list of all Participants in a Session.
             </summary>
             <param name="pathServiceSid"> Service Sid. </param>
             <param name="pathSessionSid"> Session Sid. </param>
-            <param name="participantType"> The participant_type </param>
             <param name="identifier"> The identifier </param>
             <param name="pageSize"> Page size </param>
             <param name="limit"> Record limit </param>
@@ -60986,7 +62219,7 @@
             <param name="client"> Client to make requests to Twilio </param>
             <returns> Task that resolves to A single instance of Participant </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.Create(System.String,System.String,System.String,System.String,Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.ParticipantTypeEnum,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.Create(System.String,System.String,System.String,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
             <summary>
             Add a new Participant to the Session
             </summary>
@@ -60994,13 +62227,12 @@
             <param name="pathSessionSid"> Session Sid. </param>
             <param name="identifier"> The phone number of this Participant. </param>
             <param name="friendlyName"> A human readable description of this resource. </param>
-            <param name="participantType"> The Participant Type of this Participant </param>
             <param name="proxyIdentifier"> The proxy phone number for this Participant. </param>
             <param name="proxyIdentifierSid"> Proxy Identifier Sid. </param>
             <param name="client"> Client to make requests to Twilio </param>
             <returns> A single instance of Participant </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.CreateAsync(System.String,System.String,System.String,System.String,Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.ParticipantTypeEnum,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.CreateAsync(System.String,System.String,System.String,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
             <summary>
             Add a new Participant to the Session
             </summary>
@@ -61008,7 +62240,6 @@
             <param name="pathSessionSid"> Session Sid. </param>
             <param name="identifier"> The phone number of this Participant. </param>
             <param name="friendlyName"> A human readable description of this resource. </param>
-            <param name="participantType"> The Participant Type of this Participant </param>
             <param name="proxyIdentifier"> The proxy phone number for this Participant. </param>
             <param name="proxyIdentifierSid"> Proxy Identifier Sid. </param>
             <param name="client"> Client to make requests to Twilio </param>
@@ -61066,14 +62297,13 @@
             <param name="client"> Client to make requests to Twilio </param>
             <returns> Task that resolves to A single instance of Participant </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.Update(System.String,System.String,System.String,Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.ParticipantTypeEnum,System.String,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.Update(System.String,System.String,System.String,System.String,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
             <summary>
             Update a specific Participant.
             </summary>
             <param name="pathServiceSid"> Service Sid. </param>
             <param name="pathSessionSid"> Session Sid. </param>
             <param name="pathSid"> A string that uniquely identifies this Participant. </param>
-            <param name="participantType"> The Participant Type of this Participant </param>
             <param name="identifier"> The phone number of this Participant. </param>
             <param name="friendlyName"> A human readable description of this resource. </param>
             <param name="proxyIdentifier"> The proxy phone number for this Participant. </param>
@@ -61081,14 +62311,13 @@
             <param name="client"> Client to make requests to Twilio </param>
             <returns> A single instance of Participant </returns> 
         </member>
-        <member name="M:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.UpdateAsync(System.String,System.String,System.String,Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.ParticipantTypeEnum,System.String,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
+        <member name="M:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.UpdateAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,Twilio.Clients.ITwilioRestClient)">
             <summary>
             Update a specific Participant.
             </summary>
             <param name="pathServiceSid"> Service Sid. </param>
             <param name="pathSessionSid"> Session Sid. </param>
             <param name="pathSid"> A string that uniquely identifies this Participant. </param>
-            <param name="participantType"> The Participant Type of this Participant </param>
             <param name="identifier"> The phone number of this Participant. </param>
             <param name="friendlyName"> A human readable description of this resource. </param>
             <param name="proxyIdentifier"> The proxy phone number for this Participant. </param>
@@ -61128,11 +62357,6 @@
             A human readable description of this resource.
             </summary>
         </member>
-        <member name="P:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.ParticipantType">
-            <summary>
-            The Participant Type of this Participant
-            </summary>
-        </member>
         <member name="P:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.Identifier">
             <summary>
             The phone number of this Participant.
@@ -61140,7 +62364,7 @@
         </member>
         <member name="P:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.ProxyIdentifier">
             <summary>
-            The proxy phone number for this Participant.
+            The proxy_identifier
             </summary>
         </member>
         <member name="P:Twilio.Rest.Proxy.V1.Service.Session.ParticipantResource.ProxyIdentifierSid">

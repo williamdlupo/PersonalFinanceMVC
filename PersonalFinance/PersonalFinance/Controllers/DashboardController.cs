@@ -176,7 +176,7 @@ namespace PersonalFinance.Controllers
                                         transaction.CategoryID,
                                         transaction.Location_Name,
                                         (transaction.Location_City+ " "+ transaction.Location_State),
-                                        "$"+ transaction.Amount.ToString() };
+                                        String.Format("{0:C}", transaction.Amount) };
 
 
             return Json(new

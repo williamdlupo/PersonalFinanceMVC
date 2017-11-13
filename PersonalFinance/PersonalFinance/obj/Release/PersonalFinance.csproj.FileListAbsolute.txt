@@ -153,3 +153,7 @@ C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\Persona
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\roslyn\vbc.rsp
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\roslyn\VBCSCompiler.exe
 C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\Microsoft.Web.RedisSessionStateProvider.dll
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\StackExchange.Redis.StrongName.dll
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\Microsoft.Web.RedisSessionStateProvider.pdb
+C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\bin\StackExchange.Redis.StrongName.xml

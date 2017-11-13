@@ -106,7 +106,7 @@ namespace PersonalFinance.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Yikes! The username or password entered was not found");
+                    ModelState.AddModelError("", "Yikes! The username or password entered was not valid");
                     return View(model);
             }
         }
