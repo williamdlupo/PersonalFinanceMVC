@@ -18,9 +18,9 @@ namespace PersonalFinance.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        
+
         public AccountController()
-        {            
+        {
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -75,7 +75,7 @@ namespace PersonalFinance.Controllers
             }
 
             // Require the user to have a confirmed email before they can log on.
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user != null)
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
@@ -95,7 +95,7 @@ namespace PersonalFinance.Controllers
             if (!status) { return View(model); }
 
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
+            var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -160,7 +160,7 @@ namespace PersonalFinance.Controllers
         public async Task<ActionResult> AccountSync()
         {
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-        
+
             if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
 
             Plaid plaid = new Plaid
@@ -187,10 +187,11 @@ namespace PersonalFinance.Controllers
 
             return RedirectToAction("AccountSync", "Account");
         }
-         //
+
+        //
         // POST: /Account/AccountSyncAsync
         [HttpPost]
-        public async Task<JsonResult> AccountSync(Response data)
+        public async Task<ActionResult> AccountSync(Response data)
         {
             Plaid plaid = new Plaid();
 
@@ -199,23 +200,18 @@ namespace PersonalFinance.Controllers
                 ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
                 string _token = data.public_token;
                 string name = data.name;
-                
+
                 plaid.User = user;
                 plaid.Institution_name = name;
                 await plaid.AuthenticateAccount(_token);
-                                
-                user.FirstLoginFlag = false;
-                var result = await UserManager.UpdateAsync(user);
 
-                if (result.Succeeded)
-                {
-                    ViewBag.Message = "Account added!";
-                    return Json(new { success = true });
-                }                
+                ViewBag.Message = "Account added!";
+                return View(ViewBag.Message);
+
             }
 
             // If we got this far, something failed, redisplay form
-            ViewBag.StatusMessage = "Somethings went wrong.";
+            ViewBag.StatusMessage = "Something went wrong.";
             return Json(plaid);
         }
 
@@ -244,7 +240,7 @@ namespace PersonalFinance.Controllers
                 var status = (bool)obj.SelectToken("success");
                 if (!status) { return View(model); }
 
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstLoginFlag = model.FirstLogin };
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email, FirstLoginFlag = model.FirstLogin };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -255,12 +251,12 @@ namespace PersonalFinance.Controllers
                        protocol: Request.Url.Scheme);
 
                     await UserManager.SendEmailAsync(user.Id,
-                       "Confirm your account",
-                       "<h1>Thank you for registering!</h1>" +
-                       " Please confirm your account by clicking this link: <a href=\""
+                       "Email Confirmation",
+                       "<h1>Hey There!Thanks for registering.</h1>" +
+                       "Confirm your email address by clicking this link: <a href=\""
                                                        + callbackUrl + "\">Confirm my Email Address</a>");
 
-                    ViewBag.Message = "Thank you for registering your account. Please validate your email address by clicking the link we just sent. (This could take several minutes!)";
+                    ViewBag.Message = "Thanks for signing up! Confirm your email address by clicking the link we just sent";
                     return View("Login");
                 }
                 AddErrors(result);
@@ -280,7 +276,7 @@ namespace PersonalFinance.Controllers
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
-            ViewBag.Message = "Thank you for confirming your email address. Please sign in below to continue.";
+            ViewBag.Message = "Thanks for confirming your email address. Sign in below to continue.";
             return View(result.Succeeded ? "Login" : "Error");
         }
 
@@ -314,7 +310,7 @@ namespace PersonalFinance.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
@@ -354,7 +350,7 @@ namespace PersonalFinance.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
@@ -543,6 +539,10 @@ namespace PersonalFinance.Controllers
                 };
                 try { await plaid.GetAccountList(); }
                 catch { }
+
+                ////hold on to this for the post Profiler - this will indicate that the user has synced accounts and completed the profiler.
+                //user.FirstLoginFlag = false;
+                //var result = await UserManager.UpdateAsync(user);
 
                 return View(plaid);
             }

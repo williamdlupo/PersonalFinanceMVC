@@ -594,7 +594,7 @@ namespace PersonalFinance.Models
                     Transaction_Categories transaction_category = new Transaction_Categories
                     {
                         CategoryID = (string)category["category_id"],
-                        GroupName = (string)category["group"],
+                        GroupName = (string)category["hierarchy"].First(),
                         Hierarchy = (string)category["hierarchy"].Last()
                     };
 

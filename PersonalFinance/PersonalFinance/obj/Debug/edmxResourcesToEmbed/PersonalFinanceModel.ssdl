@@ -42,6 +42,18 @@
     <Property Name="Location_State" Type="varchar" MaxLength="2" />
     <Property Name="Amount" Type="decimal" Precision="8" Scale="2" Nullable="false" />
   </EntityType>
+  <Association Name="FK_User_Accounts">
+    <End Role="User_Accounts" Type="Self.User_Accounts" Multiplicity="1" />
+    <End Role="User_Transactions" Type="Self.User_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Accounts">
+        <PropertyRef Name="AccountID" />
+      </Principal>
+      <Dependent Role="User_Transactions">
+        <PropertyRef Name="AccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_User_Accounts_User_Items">
     <End Role="User_Items" Type="Self.User_Items" Multiplicity="1" />
     <End Role="User_Accounts" Type="Self.User_Accounts" Multiplicity="*" />
@@ -54,15 +66,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_User_Transactions_User_Accounts">
-    <End Role="User_Accounts" Type="Self.User_Accounts" Multiplicity="1" />
+  <Association Name="Transactions_to_Categories">
+    <End Role="Transaction_Categories" Type="Self.Transaction_Categories" Multiplicity="0..1" />
     <End Role="User_Transactions" Type="Self.User_Transactions" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="User_Accounts">
-        <PropertyRef Name="AccountID" />
+      <Principal Role="Transaction_Categories">
+        <PropertyRef Name="CategoryID" />
       </Principal>
       <Dependent Role="User_Transactions">
-        <PropertyRef Name="AccountID" />
+        <PropertyRef Name="CategoryID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -111,12 +123,16 @@
     <EntitySet Name="User_Accounts" EntityType="Self.User_Accounts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User_Items" EntityType="Self.User_Items" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User_Transactions" EntityType="Self.User_Transactions" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_User_Accounts" Association="Self.FK_User_Accounts">
+      <End Role="User_Accounts" EntitySet="User_Accounts" />
+      <End Role="User_Transactions" EntitySet="User_Transactions" />
+    </AssociationSet>
     <AssociationSet Name="FK_User_Accounts_User_Items" Association="Self.FK_User_Accounts_User_Items">
       <End Role="User_Items" EntitySet="User_Items" />
       <End Role="User_Accounts" EntitySet="User_Accounts" />
     </AssociationSet>
-    <AssociationSet Name="FK_User_Transactions_User_Accounts" Association="Self.FK_User_Transactions_User_Accounts">
-      <End Role="User_Accounts" EntitySet="User_Accounts" />
+    <AssociationSet Name="Transactions_to_Categories" Association="Self.Transactions_to_Categories">
+      <End Role="Transaction_Categories" EntitySet="Transaction_Categories" />
       <End Role="User_Transactions" EntitySet="User_Transactions" />
     </AssociationSet>
   </EntityContainer>

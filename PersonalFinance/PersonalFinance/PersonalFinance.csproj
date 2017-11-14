@@ -27,7 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <ApplicationInsightsResourceId>/subscriptions/dd6e4ea2-8741-4080-bb13-8815f8155f62/resourcegroups/DataHive/providers/microsoft.insights/components/datahive</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/dd6e4ea2-8741-4080-bb13-8815f8155f62/resourceGroups/DataHive/providers/microsoft.insights/components/datahive</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
@@ -39,7 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>BasicDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

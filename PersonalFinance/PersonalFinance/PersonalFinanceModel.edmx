@@ -47,6 +47,18 @@
           <Property Name="Location_State" Type="varchar" MaxLength="2" />
           <Property Name="Amount" Type="decimal" Precision="8" Scale="2" Nullable="false" />
         </EntityType>
+        <Association Name="FK_User_Accounts">
+          <End Role="User_Accounts" Type="Self.User_Accounts" Multiplicity="1" />
+          <End Role="User_Transactions" Type="Self.User_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Accounts">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="User_Transactions">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Accounts_User_Items">
           <End Role="User_Items" Type="Self.User_Items" Multiplicity="1" />
           <End Role="User_Accounts" Type="Self.User_Accounts" Multiplicity="*" />
@@ -59,15 +71,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Transactions_User_Accounts">
-          <End Role="User_Accounts" Type="Self.User_Accounts" Multiplicity="1" />
+        <Association Name="Transactions_to_Categories">
+          <End Role="Transaction_Categories" Type="Self.Transaction_Categories" Multiplicity="0..1" />
           <End Role="User_Transactions" Type="Self.User_Transactions" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User_Accounts">
-              <PropertyRef Name="AccountID" />
+            <Principal Role="Transaction_Categories">
+              <PropertyRef Name="CategoryID" />
             </Principal>
             <Dependent Role="User_Transactions">
-              <PropertyRef Name="AccountID" />
+              <PropertyRef Name="CategoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -116,12 +128,16 @@
           <EntitySet Name="User_Accounts" EntityType="Self.User_Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Items" EntityType="Self.User_Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Transactions" EntityType="Self.User_Transactions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_User_Accounts" Association="Self.FK_User_Accounts">
+            <End Role="User_Accounts" EntitySet="User_Accounts" />
+            <End Role="User_Transactions" EntitySet="User_Transactions" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Accounts_User_Items" Association="Self.FK_User_Accounts_User_Items">
             <End Role="User_Items" EntitySet="User_Items" />
             <End Role="User_Accounts" EntitySet="User_Accounts" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Transactions_User_Accounts" Association="Self.FK_User_Transactions_User_Accounts">
-            <End Role="User_Accounts" EntitySet="User_Accounts" />
+          <AssociationSet Name="Transactions_to_Categories" Association="Self.Transactions_to_Categories">
+            <End Role="Transaction_Categories" EntitySet="Transaction_Categories" />
             <End Role="User_Transactions" EntitySet="User_Transactions" />
           </AssociationSet>
         </EntityContainer>
@@ -182,6 +198,10 @@
           <FunctionImport Name="DeleteTransactions">
           <Parameter Name="AccountID" Mode="In" Type="String" />
           </FunctionImport>
+          <AssociationSet Name="Transactions_to_Categories" Association="PersonalFinanceAppModel.Transactions_to_Categories">
+            <End Role="Transaction_Categories" EntitySet="Transaction_Categories" />
+            <End Role="User_Transactions" EntitySet="User_Transactions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User_Accounts">
           <Key>
@@ -220,6 +240,7 @@
           <Property Name="Location_State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="Amount" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
           <NavigationProperty Name="User_Accounts" Relationship="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts" FromRole="User_Transactions" ToRole="User_Accounts" />
+          <NavigationProperty Name="Transaction_Categories" Relationship="PersonalFinanceAppModel.Transactions_to_Categories" FromRole="User_Transactions" ToRole="Transaction_Categories" />
         </EntityType>
         <Association Name="FK_User_Accounts_User_Items">
           <End Type="PersonalFinanceAppModel.User_Items" Role="User_Items" Multiplicity="1" />
@@ -252,7 +273,20 @@
           <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Hierarchy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User_Transactions" Relationship="PersonalFinanceAppModel.Transactions_to_Categories" FromRole="Transaction_Categories" ToRole="User_Transactions" />
         </EntityType>
+        <Association Name="Transactions_to_Categories">
+          <End Type="PersonalFinanceAppModel.Transaction_Categories" Role="Transaction_Categories" Multiplicity="0..1" />
+          <End Type="PersonalFinanceAppModel.User_Transactions" Role="User_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction_Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="User_Transactions">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

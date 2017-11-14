@@ -14,8 +14,17 @@ namespace PersonalFinance
     
     public partial class Transaction_Categories
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Transaction_Categories()
+        {
+            this.User_Transactions = new HashSet<User_Transactions>();
+        }
+    
         public string CategoryID { get; set; }
         public string GroupName { get; set; }
         public string Hierarchy { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User_Transactions> User_Transactions { get; set; }
     }
 }

@@ -11,6 +11,7 @@
         <AssociationConnector Association="PersonalFinanceAppModel.FK_User_Accounts_User_Items" />
         <AssociationConnector Association="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts" />
         <EntityTypeShape EntityType="PersonalFinanceAppModel.Transaction_Categories" Width="1.5" PointX="3.125" PointY="4" />
+        <AssociationConnector Association="PersonalFinanceAppModel.Transactions_to_Categories" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

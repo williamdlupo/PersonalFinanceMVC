@@ -33,7 +33,15 @@
                                 <div>
                                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "example@gmail.com" })
                                 </div>
-                                <span class="small text-accent">Heads up, this will also be your user name.</span>
+                                <span class="small text-accent">Heads up, this will be your user name</span>
+                            </div>
+                        </row>
+                        <row class="col-xs-10 col-xs-offset-1">
+                            <div class="form-group">
+                                <label class="control-label">Nickname</label>
+                                <div>
+                                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                                </div>
                             </div>
                         </row>
                         <row class="col-xs-10 col-xs-offset-1">

@@ -24,5 +24,6 @@ namespace PersonalFinance
         public decimal Amount { get; set; }
     
         public virtual User_Accounts User_Accounts { get; set; }
+        public virtual Transaction_Categories Transaction_Categories { get; set; }
     }
 }

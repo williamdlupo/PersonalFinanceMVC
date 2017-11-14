@@ -53,6 +53,10 @@
     <FunctionImport Name="DeleteTransactions">
       <Parameter Name="AccountID" Mode="In" Type="String" />
     </FunctionImport>
+    <AssociationSet Name="Transactions_to_Categories" Association="PersonalFinanceAppModel.Transactions_to_Categories">
+      <End Role="Transaction_Categories" EntitySet="Transaction_Categories" />
+      <End Role="User_Transactions" EntitySet="User_Transactions" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="User_Accounts">
     <Key>
@@ -91,6 +95,7 @@
     <Property Name="Location_State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
     <Property Name="Amount" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
     <NavigationProperty Name="User_Accounts" Relationship="PersonalFinanceAppModel.FK_User_Transactions_User_Accounts" FromRole="User_Transactions" ToRole="User_Accounts" />
+    <NavigationProperty Name="Transaction_Categories" Relationship="PersonalFinanceAppModel.Transactions_to_Categories" FromRole="User_Transactions" ToRole="Transaction_Categories" />
   </EntityType>
   <Association Name="FK_User_Accounts_User_Items">
     <End Type="PersonalFinanceAppModel.User_Items" Role="User_Items" Multiplicity="1" />
@@ -123,5 +128,18 @@
     <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Hierarchy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User_Transactions" Relationship="PersonalFinanceAppModel.Transactions_to_Categories" FromRole="Transaction_Categories" ToRole="User_Transactions" />
   </EntityType>
+  <Association Name="Transactions_to_Categories">
+    <End Type="PersonalFinanceAppModel.Transaction_Categories" Role="Transaction_Categories" Multiplicity="0..1" />
+    <End Type="PersonalFinanceAppModel.User_Transactions" Role="User_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction_Categories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="User_Transactions">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

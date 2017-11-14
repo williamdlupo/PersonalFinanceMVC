@@ -42,7 +42,7 @@ namespace PersonalFinance.Controllers
                 Start_date = Session["startdate"] as string,
                 End_date = Session["enddate"] as string
             };
-
+            
             var transaction_list = Session["transactions"] as List<User_Transactions>;
 
             if (transaction_list is null)
