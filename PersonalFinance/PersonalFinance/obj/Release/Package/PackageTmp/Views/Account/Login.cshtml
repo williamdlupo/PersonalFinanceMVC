@@ -9,7 +9,9 @@
 @if (ViewBag.Message != null)
 {
     <div class="alert alert-success container-fluid col-md-4 col-md-offset-4" role="alert">
-        <b>Great! </b><span>@ViewBag.Message</span>
+        <div class="text-center">
+            <b>Great! </b><span>@ViewBag.Message</span>
+        </div>
     </div>
 }
 <div class="container-center animated slideInDown">
@@ -34,10 +36,10 @@
                     <form>
                         <row class="col-xs-10 col-xs-offset-1">
                             <div class="form-group">
-                                <label class="control-label">Email</label>
+                                <label class="control-label">Username</label>
                                 <div>
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "example@gmail.com" })
-                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control"})
+                                    @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </row>

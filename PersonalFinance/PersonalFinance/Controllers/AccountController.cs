@@ -74,8 +74,15 @@ namespace PersonalFinance.Controllers
                 return View(model);
             }
 
-            // Require the user to have a confirmed email before they can log on.
-            var user = await UserManager.FindByEmailAsync(model.Email);
+            // Confirm if the input was a valid username
+            var user = await UserManager.FindByNameAsync(model.Username);
+
+            if (user is null)
+            {
+                ModelState.AddModelError("", "Yikes! The username or password entered was not valid");
+                return View(model);
+            }
+
             if (user != null)
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
@@ -94,7 +101,6 @@ namespace PersonalFinance.Controllers
             var status = (bool)obj.SelectToken("success");
             if (!status) { return View(model); }
 
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
@@ -252,7 +258,7 @@ namespace PersonalFinance.Controllers
 
                     await UserManager.SendEmailAsync(user.Id,
                        "Email Confirmation",
-                       "<h1>Hey There!Thanks for registering.</h1>" +
+                       "<h1>Hey There! Thanks for registering.</h1>" +
                        "Confirm your email address by clicking this link: <a href=\""
                                                        + callbackUrl + "\">Confirm my Email Address</a>");
 

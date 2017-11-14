@@ -49,10 +49,9 @@ namespace PersonalFinance.Models
 
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Enter a valid email address")]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Enter a valid username")]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -71,7 +70,7 @@ namespace PersonalFinance.Models
         public string Email { get; set; }
 
         [Required]
-        [Display(Name ="Nickname")]
+        [Display(Name ="Username")]
         public string Username { get; set; }
 
         [Required]
