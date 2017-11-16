@@ -38,7 +38,6 @@ namespace PersonalFinance.Controllers
             Plaid plaid = new Plaid
             {
                 User = user,
-
                 Start_date = Session["startdate"] as string,
                 End_date = Session["enddate"] as string
             };
@@ -47,10 +46,9 @@ namespace PersonalFinance.Controllers
 
             if (transaction_list is null)
             {
-                plaid.GetTransactions();
-
                 await plaid.GetAccountList();
-
+                plaid.GetTransactions();
+                Session["transactions"] = plaid.Transaction_list;
                 Session["BarChart"] = plaid.BarChart;
                 Session["DonutChart"] = plaid.DonutChart;
                 Session["AccountList"] = plaid.Account_list;
@@ -62,9 +60,10 @@ namespace PersonalFinance.Controllers
                 plaid.Transaction_list = transaction_list;
                 plaid.BarChart = Session["BarChart"] as List<BarChartData>;
                 plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
+                plaid.SelectedAccount = Session["SelectedAccount"] as string;
+
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
                 plaid.NetWorth = Session["NetWorth"] as string;
-                plaid.SelectedAccount = Session["SelectedAccount"] as string;
                 plaid.InstitutionList = Session["InstitutionList"] as List<Institution>;
 
                 plaid.DonutDataSum(plaid.DonutChart);
@@ -76,7 +75,7 @@ namespace PersonalFinance.Controllers
         //
         //POST: Dashboard/Main
         [HttpPost]
-        public JsonResult DatePickerHandler(Dates dates)
+        public RedirectToRouteResult DatePickerHandler(Dates dates)
         {
             Plaid plaid = new Plaid();
 
@@ -84,13 +83,17 @@ namespace PersonalFinance.Controllers
             {
                 DateTime start_date = DateTime.Parse(dates.start_date);
                 DateTime end_date = DateTime.Parse(dates.end_date);
-                plaid.User = user;
+                Session["startdate"] = dates.start_date;
+                Session["enddate"] = dates.end_date;
 
+                string selected_account = Session["AccountID"] as string;
+
+                if (!String.IsNullOrEmpty(selected_account)) { return RedirectToAction("Account", new { xyz = selected_account}); }
+
+                plaid.User = user;
                 plaid.GetTransactions(start_date, end_date);
 
                 Session["transactions"] = plaid.Transaction_list;
-                Session["startdate"] = dates.start_date;
-                Session["enddate"] = dates.end_date;
                 Session["BarChart"] = plaid.BarChart;
                 Session["DonutChart"] = plaid.DonutChart;
                 Session["SelectedAccount"] = plaid.SelectedAccount;
@@ -99,10 +102,10 @@ namespace PersonalFinance.Controllers
                 plaid.NetWorth = Session["NetWorth"] as string;
                 plaid.InstitutionList = Session["InstitutionList"] as List<Institution>;
 
-                return Json(new { success = true });
+                return RedirectToAction("Main", plaid);
             }
             //if we got this far something went wrong - redisplay the page
-            return Json(plaid);
+            return RedirectToAction("Main");
         }
 
         //
@@ -112,7 +115,6 @@ namespace PersonalFinance.Controllers
             Plaid plaid = new Plaid
             {
                 User = user,
-
                 Start_date = Session["startdate"] as string,
                 End_date = Session["enddate"] as string
             };
@@ -191,12 +193,11 @@ namespace PersonalFinance.Controllers
             JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<ActionResult> Account(string xyz)
+        public async Task<RedirectToRouteResult> Account(string xyz)
         {
             Plaid plaid = new Plaid
             {
                 User = user,
-
                 Start_date = Session["startdate"] as string,
                 End_date = Session["enddate"] as string
             };
@@ -229,8 +230,10 @@ namespace PersonalFinance.Controllers
             Session["AccountList"] = accountlist;
             Session["NetWorth"] = networth;
             Session["transactions"] = plaid.Transaction_list;
+            Session["SelectedAccount"] = plaid.SelectedAccount;
+            Session["AccountID"] = xyz;
 
-            return View("Main", plaid);
+            return RedirectToAction("Main");
         }
 
         protected override void Dispose(bool disposing)
