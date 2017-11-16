@@ -58,8 +58,8 @@ namespace PersonalFinance.Controllers
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
+                : message == null ? TempData["result"] as string
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -133,8 +133,14 @@ namespace PersonalFinance.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                ViewBag.Message = "Thank you for verifying your phone number!";
-                return RedirectToAction("AccountSync","Account", new { Message = ManageMessageId.AddPhoneSuccess });
+                
+                if (user.FirstLoginFlag == false)
+                {
+                    TempData["result"] = "Your phone number has been updated";
+                    return RedirectToAction("Index");
+                }
+                TempData["result"] = "Your phone number has been verified and saved";
+                return RedirectToAction("AccountSync","Account");
             }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "Failed to verify phone");

@@ -80,7 +80,7 @@ namespace PersonalFinance.Controllers
 
             if (user is null)
             {
-                ModelState.AddModelError("", "Yikes! The username or password entered was not valid");
+                ViewBag.errorMessage = "The username or password entered was not valid";
                 return View(model);
             }
 
@@ -94,13 +94,13 @@ namespace PersonalFinance.Controllers
                 }
             }
 
-            //var response = Request["g-recaptcha-response"];
-            //string secretKey = WebConfigurationManager.AppSettings["reCaptcha"];
-            //var client = new WebClient();
-            //var send = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
-            //var obj = JObject.Parse(send);
-            //var status = (bool)obj.SelectToken("success");
-            //if (!status) { return View(model); }
+            var response = Request["g-recaptcha-response"];
+            string secretKey = WebConfigurationManager.AppSettings["reCaptcha"];
+            var client = new WebClient();
+            var send = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            var obj = JObject.Parse(send);
+            var status = (bool)obj.SelectToken("success");
+            if (!status) { return View(model); }
 
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
@@ -143,10 +143,6 @@ namespace PersonalFinance.Controllers
                 return View(model);
             }
 
-            // The following code protects for brute force attacks against the two factor codes. 
-            // If a user enters incorrect codes for a specified amount of time then the user account 
-            // will be locked out for a specified amount of time. 
-            // You can configure the account lockout settings in IdentityConfig
             var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
