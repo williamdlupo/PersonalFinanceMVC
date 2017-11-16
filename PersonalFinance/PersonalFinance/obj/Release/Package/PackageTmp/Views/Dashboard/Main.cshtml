@@ -11,7 +11,7 @@
                 What's Up, @Model.User.UserName!
             </h2>
             <div class="small">
-                <span class="c-accent">You look like you're in the mood to stack some some cheese!</span>
+                <span class="c-accent">You look like you're in the mood to stack some cheese</span>
             </div>
         </div>
         <hr>
@@ -145,7 +145,7 @@
 else
 {
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-sm-8">
             <div class="panel">
                 <div class="panel-body table-responsive">
                     <table id="myDataTable" class="table table-condensed table-striped container-fluid">
@@ -163,16 +163,15 @@ else
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
             <div class="panel">
-                <div>
-                    <b class="media-heading h3 c-white text-capitalize"><span class="h1"><i class="fa fa-usd text-warning"></i></span> Total Transactions</b>
+                <div class="col-sm-12">
+                    <b class="media-heading h4 c-white text-capitalize"><span class="h1"><i class="fa fa-usd text-warning"></i></span> Total Transactions</b><div class="h2 c-white pull-right">@String.Format("{0:C}", Model.SumTransactions)</div>
                     <hr />
                 </div>
-                <div class="text-center">
-                    <div class="h2 c-white">@String.Format("{0:C}", Model.SumTransactions)</div>
+                <div class="panel-body text-center">                    
                     <small class="text-accent">The sum of your transactions by category</small>
-                    <canvas id="doughnutChart"></canvas>
+                    <canvas id="doughnutChart" height="250"></canvas>
                 </div>
             </div>
         </div>

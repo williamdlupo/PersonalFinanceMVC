@@ -59,6 +59,7 @@ namespace PersonalFinance.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            ViewBag.Message = TempData["result"] as string;
             return View();
         }
 
@@ -175,6 +176,7 @@ namespace PersonalFinance.Controllers
             };
             try { await plaid.GetAccountList(); }
             catch { }
+            ViewBag.Message = TempData["result"] as string;
 
             return View(plaid);
         }
@@ -211,14 +213,14 @@ namespace PersonalFinance.Controllers
                 plaid.Institution_name = name;
                 await plaid.AuthenticateAccount(_token);
 
-                ViewBag.Message = "Account added!";
-                return View(ViewBag.Message);
+                TempData["result"] = "Account added!";
+                return RedirectToAction("AccountSync");
 
             }
 
             // If we got this far, something failed, redisplay form
-            ViewBag.StatusMessage = "Something went wrong.";
-            return Json(plaid);
+            ViewBag.StatusMessage = "Yikes! Something went wrong";
+            return View(plaid);
         }
 
         //
@@ -262,8 +264,8 @@ namespace PersonalFinance.Controllers
                        "Confirm your email address by clicking this link: <a href=\""
                                                        + callbackUrl + "\">Confirm my Email Address</a>");
 
-                    ViewBag.Message = "Thanks for signing up! Confirm your email address by clicking the link we just sent";
-                    return View("Login");
+                    TempData["result"] = "Thanks for signing up! Confirm your email address by clicking the link we just sent";
+                    return RedirectToAction("Login");
                 }
                 AddErrors(result);
             }
@@ -324,13 +326,12 @@ namespace PersonalFinance.Controllers
                     return View("Login");
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                ViewBag.Message = "Please check your email to reset your password.";
-                return View("Login");
+
+                TempData["result"] = "Please check your email to reset your password";
+                return RedirectToAction("Login");
             }
 
             // If we got this far, something failed, redisplay form
@@ -365,8 +366,8 @@ namespace PersonalFinance.Controllers
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
-                ViewBag.Message = "Your password has been updated successfully!";
-                return View("Login");
+                TempData["result"] = "Your password has been updated";
+                return RedirectToAction("Login");
             }
             AddErrors(result);
             return View();
@@ -494,7 +495,7 @@ namespace PersonalFinance.Controllers
         {
             Session.RemoveAll();
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
         }
 
         //
@@ -520,10 +521,10 @@ namespace PersonalFinance.Controllers
                     _signInManager.Dispose();
                     _signInManager = null;
                 }
-                if (Session != null)
-                {
-                    Session.RemoveAll();
-                }
+                //if (Session != null)
+                //{
+                //    Session.RemoveAll();
+                //}
             }
 
             base.Dispose(disposing);

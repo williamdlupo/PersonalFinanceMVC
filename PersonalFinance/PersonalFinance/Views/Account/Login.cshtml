@@ -14,6 +14,14 @@
         </div>
     </div>
 }
+@if (ViewBag.errorMessage != null)
+{
+    <div class="alert alert-danger container-fluid col-md-4 col-md-offset-4" role="alert">
+        <div class="text-center">
+            <b>Yikes! </b><span>@ViewBag.errorMessage</span>
+        </div>
+    </div>
+}
 <div class="container-center animated slideInDown">
     <div class="view-header">
         <div class="header-icon">
