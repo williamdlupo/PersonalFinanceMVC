@@ -60,7 +60,9 @@ namespace PersonalFinance.Controllers
                 plaid.Transaction_list = transaction_list;
                 plaid.BarChart = Session["BarChart"] as List<BarChartData>;
                 plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
-                plaid.SelectedAccount = (Session["SelectedAccount"] as string) ?? plaid.SelectedAccount;
+                plaid.SelectedAccount = (Session["SelectedAccount"] as string) ?? "All Accounts";
+                plaid.Start_date = (Session["startdate"] as string) ?? DateTime.Today.AddMonths(-1).ToShortDateString();
+                plaid.End_date = (Session["enddate"] as string) ?? DateTime.Today.ToShortDateString();
 
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
                 plaid.NetWorth = Session["NetWorth"] as string;
