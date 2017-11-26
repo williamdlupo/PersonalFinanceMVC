@@ -9,158 +9,186 @@
         <b>Great! </b><span>@ViewBag.Message</span>
     </div>
 }
-<div class="row">
-    <div class="col-lg-12">
-        <div class="view-header">
-
-            <div class="header-icon">
-                <i class="pe page-header-icon pe-7s-piggy"></i>
-            </div>
-            <div class="header-title">
-                @if (!Model.Has_accounts)
-                {
-                    <h3>Sync Up Your Accounts!</h3>
-                }
-                else
-                {
-                    <h3>Synced Accounts</h3>
-                }
-                <small>
-                    Let's get N'SYNC...Ramen hair not necessary
-                </small>
-            </div>
-        </div>
-        <hr />
-    </div>
-</div>
-
-@if (Model.Has_accounts)
+@if (Model.Reauthaccounts.Count != 0)
 {
-    <row>
-        @foreach (var accounttype in Model.AccountTypeList)
-        {
-            <div class="panel col-sm-4">
-                <div class="animated slideInUp">
-                    <ul class="media-list">
-                        <li class="media">
-                            <div class="media-body">
-
-                                @if (accounttype.Accounttype.Equals("credit"))
-                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-credit-card-alt text-warning"></i></span> @accounttype.Accounttype </b>
-                                <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                else if (accounttype.Accounttype.Equals("depository"))
-                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-money text-warning"></i></span> Cash</b>
-                                <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                else if (accounttype.Accounttype.Equals("brokerage"))
-                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-line-chart text-warning"></i></span> @accounttype.Accounttype</b>
-                                <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                else if (accounttype.Accounttype.Equals("loan"))
-                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-bank text-warning"></i></span> @accounttype.Accounttype</b>
-                                <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                else if (accounttype.Accounttype.Equals("mortgage"))
-                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-home text-warning"></i></span> @accounttype.Accounttype</b>
-                                <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-                                else
-                                {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-balance-scale text-warning"></i></span> @accounttype.Accounttype</b>
-                                <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
-
-                                <div class="panel-body">
-                                    @foreach (var account in Model.Account_list)
-                                    {
-                                        if (account.Account_Type.Equals(accounttype.Accounttype.ToString()))
-                                        {
-                                            <div class="panel panel-filled panel-c-success">
-                                                <ul class="media-list">
-                                                    <li class="media panel-body">
-                                                        <div class="media-heading">
-                                                            <text class="text-warning">@account.Institution_name</text>
-
-                                                        </div>
-                                                        <div class="media-heading">
-                                                            <row>
-                                                                @if (@account.AccountName.Length > 20)
-                                                                {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                                else
-                                                                {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
-                                                            </row>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        }
-                                    }
+    <content class="modal fade" id="reauthmodal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h3 class="m-t-none">Yikes!</h3>
+                    <text>It looks like you're login info for one or more of your accounts has changed</text>
+                </div>
+                <div class="modal-body">
+                    @foreach (var inst in Model.Reauthaccounts)
+                    {
+                        <ul class="media-list">
+                            <li class="media">
+                                <div class="media-body">
+                                    <b class="media-heading h3 text-warning text-capitalize text-center">@inst.institution_name</b>
+                                    <button class="pull-right btn btn-sm btn-primary" id="ReauthButton" type="button">Update</button>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
-
+                            </li>
+                        </ul>
+                    }
                 </div>
             </div>
-        }
-    </row>
-    <row>
-        <div class="col-sm-12">
-            <div class="col-sm-4">
-                <button class="btn btn-w-sm btn-primary" id="link-button" type="button">Add</button>
-                <button class="btn btn-w-sm btn-danger" type="button" data-toggle="modal" data-target="#delete">Delete</button>
-                @if (Model.User.FirstLoginFlag == true)
-                {<a href="@Url.Action("Profiler", "Account")" role="button" class="btn btn-w-sm btn-success">Next</a> }
-                else
-                {<a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-w-sm btn-success">Home</a>}
-            </div>
         </div>
-    </row>
+    </content>
 }
-
 else
 {
-    <div class="col-sm-12">
-        <div class="animated slideInUp">
-            <div class="panel panel-c-accent col-sm-6 col-sm-offset-3 text-center">
-                <h4 class="panel-heading">You have no accounts synced!</h4>
-                <small class="c-accent"> Click the button below to get started. </small>
-                <br />
-                <br />
-                <div class="col-sm-4 col-sm-offset-4">
-                    <button class="btn btn-primary btn-block" id="link-button" type="button">Add An Account</button>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="view-header">
+
+                <div class="header-icon">
+                    <i class="pe page-header-icon pe-7s-piggy"></i>
+                </div>
+                <div class="header-title">
+                    @if (!Model.Has_accounts)
+                {
+                        <h3>Sync Up Your Accounts!</h3>
+                    }
+                    else
+                    {
+                        <h3>Synced Accounts</h3>
+                    }
+                    <small>
+                        Let's get N'SYNC...Ramen Hair not necessary
+                    </small>
+                </div>
+            </div>
+            <hr />
+        </div>
+    </div>
+
+    if (Model.Has_accounts)
+    {
+        <row>
+            @foreach (var accounttype in Model.AccountTypeList)
+            {
+                <div class="panel col-sm-4">
+                    <div class="animated slideInUp">
+                        <ul class="media-list">
+                            <li class="media">
+                                <div class="media-body">
+                                    @if (accounttype.Accounttype.Equals("credit"))
+                                    {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-credit-card-alt text-warning"></i></span> @accounttype.Accounttype </b>
+                                    <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
+                                    else if (accounttype.Accounttype.Equals("depository"))
+                                    {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-money text-warning"></i></span> Cash</b>
+                                <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
+                                    else if (accounttype.Accounttype.Equals("brokerage"))
+                                    {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-line-chart text-warning"></i></span> @accounttype.Accounttype</b>
+                                    <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
+                                    else if (accounttype.Accounttype.Equals("loan"))
+                                    {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-bank text-warning"></i></span> @accounttype.Accounttype</b>
+                                    <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
+                                    else if (accounttype.Accounttype.Equals("mortgage"))
+                                    {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-home text-warning"></i></span> @accounttype.Accounttype</b>
+                                    <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
+                                    else
+                                    {<b class="media-heading h3 text-warning text-capitalize container-center"><span class="h3"><i class="fa fa-balance-scale text-warning"></i></span> @accounttype.Accounttype</b>
+                                    <div class="panel-tools"><em class="c-accent">@accounttype.Accounttype_sum </em><a class="panel-toggle"><i class="fa fa-chevron-up"></i></a></div> }
+
+                                    <div class="panel-body">
+                                        @foreach (var account in Model.Account_list)
+                                        {
+                                            if (account.Account_Type.Equals(accounttype.Accounttype.ToString()))
+                                            {
+                                    <div class="panel panel-filled panel-c-success">
+                                        <ul class="media-list">
+                                            <li class="media panel-body">
+                                                <div class="media-heading">
+                                                    <text class="text-warning">@account.Institution_name</text>
+
+                                                </div>
+                                                <div class="media-heading">
+                                                    <row>
+                                                        @if (@account.AccountName.Length > 20)
+                                                                    {<p class="c-white"> @account.AccountName.Substring(0, 20)...<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                                    else
+                                                                    {<p class="c-white"> @account.AccountName<text class="pull-right text-success">@String.Format("{0:C}", account.Balance)</text></p> }
+                                                    </row>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            }
+        </row>
+        <row>
+            <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <button class="btn btn-w-sm btn-primary" id="link-button" type="button">Add</button>
+                    <button class="btn btn-w-sm btn-danger" type="button" data-toggle="modal" data-target="#delete">Delete</button>
+                    @if (Model.User.FirstLoginFlag == true)
+                    {<a href="@Url.Action("Profiler", "Account")" role="button" class="btn btn-w-sm btn-success">Next</a> }
+                    else
+                    {<a href="@Url.Action("Main", "Dashboard")" role="button" class="btn btn-w-sm btn-success">Home</a>}
+                </div>
+            </div>
+        </row>
+    }
+
+    else
+    {
+        <div class="col-sm-12">
+            <div class="animated slideInUp">
+                <div class="panel panel-c-accent col-sm-6 col-sm-offset-3 text-center">
+                    <h4 class="panel-heading">You have no accounts synced!</h4>
+                    <small class="c-accent"> Click the button below to get started. </small>
+                    <br />
+                    <br />
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <button class="btn btn-primary btn-block" id="link-button" type="button">Add An Account</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
 
-<content class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <h3 class="m-t-none">Hold Up!</h3>
-                <text>Deleting an institution will <b><u>permanently delete all of the accounts with this instituion</u></b> including all your transactions!</text>
-            </div>
-            <div class="modal-body">
-                @foreach (var inst in Model.InstitutionList)
+    <content class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h3 class="m-t-none">Hold Up!</h3>
+                    <text>Deleting an institution will <b><u>permanently delete all of the accounts with this instituion</u></b> including all your transactions!</text>
+                </div>
+                <div class="modal-body">
+                    @foreach (var inst in Model.InstitutionList)
                 {
-                    <ul class="media-list">
-                        <li class="media">
-                            <div class="media-body">
-                                <b class="media-heading h3 text-warning text-capitalize text-center">@inst.Inst_name</b>
-                                <button class="pull-right btn btn-sm btn-danger" type="button" onclick="location.href='@Url.Action("DeleteAccount", "Account", new { slct = inst.Inst_access } )'"><i class="fa fa-trash-o"></i></button>
-                            </div>
-                        </li>
-                    </ul>
-                }
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="pull-right btn btn-primary" data-dismiss="modal">All Set</button>
+                        <ul class="media-list">
+                            <li class="media">
+                                <div class="media-body">
+                                    <b class="media-heading h3 text-warning text-capitalize text-center">@inst.Inst_name</b>
+                                    <button class="pull-right btn btn-sm btn-danger" type="button" onclick="location.href='@Url.Action("DeleteAccount", "Account", new { slct = inst.Inst_access })'"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                            </li>
+                        </ul>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="pull-right btn btn-primary" data-dismiss="modal">All Set</button>
+                </div>
             </div>
         </div>
-    </div>
-</content>
+    </content>
+}
 
 <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 <script type="text/javascript">
         var handler = Plaid.create({
             clientName: 'Plaid Walkthrough Demo',
-            env: 'Development',
+            env: 'development',
             key: 'f326b59ea06cf5309ebd2861388d13',
             product: ['transactions'],
             webhook: 'https://dhwebhookentry.azurewebsites.net/api/PlaidWebHook?code=t6wJsM/S4m1Sg1H4SutHgArWcPSNSSTEqu6rbSWiaY6rCPSLDynamw==',
@@ -193,5 +221,38 @@ else
             // handler.open('ins_100000');
             //
             // This will open Link with Union Bank as the institution.
+        });
+</script>
+<script>
+
+        // Initialize Link with the `token` parameter
+        // set to the generated public_token for the Item
+        var linkHandler = Plaid.create({
+            env: 'development',
+            clientName: 'Client Name',
+            key: 'f326b59ea06cf5309ebd2861388d13',
+            product: ['transactions'],
+            token: '@Model.p_token',
+            onSuccess: function (public_token, metadata) {
+                $.get('@Url.Action("AccountSync","Account")', function () {
+                    window.location.reload(true);
+                });
+            },
+            onExit: function (err, metadata) {
+                // The user exited the Link flow.
+                if (err != null) {
+                    // The user encountered a Plaid API error prior
+                    // to exiting.
+                }
+            },
+        });
+        // Trigger the authentication view
+        document.getElementById('ReauthButton').onclick = function () {
+            linkHandler.open();
+        };
+</script>
+<script type="text/javascript">
+        $(window).on('load', function () {
+            $('#reauthmodal').modal('show');
         });
 </script>

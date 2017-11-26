@@ -49,7 +49,7 @@ namespace PersonalFinance.Models
 
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Enter a valid username")]
+        [Required(ErrorMessage = "Enter your username")]
         [Display(Name = "Username")]
         public string Username { get; set; }
 
@@ -64,17 +64,16 @@ namespace PersonalFinance.Models
 
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress(ErrorMessage ="Please enter a valid email address")]
+        [Required(ErrorMessage = "Enter a valid email address")]
+        [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Enter a valid username")]
         [Display(Name ="Username")]
         public string Username { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 8)]
+        [Required(ErrorMessage = "8-16 digits required with 1 lowercase and 1 upper case letter")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -115,12 +114,6 @@ namespace PersonalFinance.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
-    }
-
-    public class UpdateGoalIDModel
-    {
-        [Required]
-        public int GoalID { get; set; }
     }
 
     public class Response

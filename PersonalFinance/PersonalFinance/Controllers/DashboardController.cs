@@ -47,6 +47,7 @@ namespace PersonalFinance.Controllers
             if (transaction_list is null)
             {
                 await plaid.GetAccountList();
+                if (plaid.Reauthaccounts.Count != 0) { return RedirectToAction("AccountSync","Account"); }
                 plaid.GetTransactions();
                 Session["transactions"] = plaid.Transaction_list;
                 Session["BarChart"] = plaid.BarChart;

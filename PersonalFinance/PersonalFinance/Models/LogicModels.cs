@@ -92,6 +92,7 @@ namespace PersonalFinance.Models
         private List<string> _accountidlist = new List<string>();
         private List<AccountData> _accesstokenlist = new List<AccountData>();
         private bool disposed = false;
+        private List<AccountData> _reauthtoken = new List<AccountData>();
 
         public ApplicationUser User { get; set; }
         public List<User_Accounts> Account_list = new List<User_Accounts>();
@@ -107,6 +108,8 @@ namespace PersonalFinance.Models
         public List<AccountType> AccountTypeList = new List<AccountType>();
         public List<Institution> InstitutionList = new List<Institution>();
         public string SelectedAccount { get; set; } = "All Accounts";
+        public List<AccountData> Reauthaccounts = new List<AccountData>();
+        public string p_token { get; set; } = "";
 
         //
         //Public accessor to create a new account in DB
@@ -212,6 +215,34 @@ namespace PersonalFinance.Models
             }
         }
 
+        //exchange list of access tokens for public tokens
+        private void PublicTokenExchange(List<AccountData> _tokenlist)
+        {
+            if (client.BaseAddress is null)
+            {
+                client.BaseAddress = new Uri(_baseurl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+            
+            foreach (var token in _tokenlist)
+            {
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/item/public_token/create");
+
+                string data = String.Format("{{ \"client_id\":\"{0}\" , \"secret\":\"{1}\" , \"access_token\":\"{2}\" }}", _clientid, _secret, token.access_token);
+                request.Content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                var result = client.SendAsync(request).Result;
+                var contents = result.Content.ReadAsStringAsync().Result;
+                var obj = JObject.Parse(contents);
+
+                Reauthaccounts.Add(new AccountData
+                {
+                    access_token = (string)obj["public_token"],
+                    institution_name = token.institution_name
+                });
+            }
+        }
+
         //
         //Method that will kick back list that contains the account name and balance 
         //for each account for current User
@@ -236,88 +267,107 @@ namespace PersonalFinance.Models
 
                 var result = client.SendAsync(request).Result;
                 var contents = result.Content.ReadAsStringAsync().Result;
-
                 var obj = JObject.Parse(contents);
 
-                //parse the JSON object extract account data to memory and persist to database
-                using (var context = new PersonalFinanceAppEntities())
+                try
                 {
-                    foreach (var account in obj["accounts"])
+                    //check for auth error and add to list of auth tokens to be reauthenticated with Plaid
+                    if (((string)obj["error_code"]).Equals("ITEM_LOGIN_REQUIRED"))
                     {
-                        User_Accounts accounts_db = new User_Accounts
+                        _reauthtoken.Add(token);
+                        continue;
+                    }
+                }
+                catch
+                {
+                    //parse the JSON object extract account data to memory and persist to database
+                    using (var context = new PersonalFinanceAppEntities())
+                    {
+                        foreach (var account in obj["accounts"])
                         {
-                            AccountID = (string)account["account_id"],
-                            AccountName = (string)account["official_name"],
-                            Balance = (decimal)account["balances"]["current"],
-                            Institution_name = token.institution_name,
-                            Account_Type = (string)account["type"],
-                            Access_Token = token.access_token
-                        };
+                            User_Accounts accounts_db = new User_Accounts
+                            {
+                                AccountID = (string)account["account_id"],
+                                AccountName = (string)account["official_name"],
+                                Balance = (decimal)account["balances"]["current"],
+                                Institution_name = token.institution_name,
+                                Account_Type = (string)account["type"],
+                                Access_Token = token.access_token
+                            };
 
-                        //Stored procedure to update account balance in DB with matching account ID.
-                        context.Update_AccountBalance(accounts_db.AccountID, accounts_db.Balance);
-                        await context.SaveChangesAsync();
+                            //Stored procedure to update account balance in DB with matching account ID.
+                            context.Update_AccountBalance(accounts_db.AccountID, accounts_db.Balance);
+                            await context.SaveChangesAsync();
 
-                        Account_list.Add(accounts_db);
+                            Account_list.Add(accounts_db);
 
-                        Has_accounts = true;
+                            Has_accounts = true;
 
-                        if (accounts_db.Account_Type.Equals("mortgage"))
-                        {
-                            continue;
-                        }
-                        else if (accounts_db.Account_Type.Equals("credit") || accounts_db.Account_Type.Equals("loan"))
-                        {
-                            _NetWorth -= (decimal)accounts_db.Balance;
-                        }
-                        else
-                        {
-                            _NetWorth += (decimal)accounts_db.Balance;
+                            if (accounts_db.Account_Type.Equals("mortgage"))
+                            {
+                                continue;
+                            }
+                            else if (accounts_db.Account_Type.Equals("credit") || accounts_db.Account_Type.Equals("loan"))
+                            {
+                                _NetWorth -= (decimal)accounts_db.Balance;
+                            }
+                            else
+                            {
+                                _NetWorth += (decimal)accounts_db.Balance;
+                            }
+
                         }
 
                     }
-
                 }
             }
 
-            NetWorth = String.Format("{0:C}", _NetWorth);
-
-            var accountquery = from db in Account_list
-                               group db by db.Account_Type into g
-                               select new
-                               {
-                                   Type = g.Distinct(),
-                                   Sum = g.Sum(s => s.Balance)
-                               };
-
-            foreach (var type in accountquery)
+            if (_reauthtoken.Count != 0)
             {
-                AccountType aAccountType = new AccountType
-                {
-                    Accounttype = type.Type.FirstOrDefault().Account_Type.ToString(),
-                    Accounttype_sum = String.Format("{0:C}", type.Sum)
-                };
-
-                AccountTypeList.Add(aAccountType);
+                PublicTokenExchange(_reauthtoken);
             }
 
-            var institutionquery = from db in Account_list
-                                   group db by db.Institution_name into g
+            else
+            {
+                NetWorth = String.Format("{0:C}", _NetWorth);
+
+                var accountquery = from db in Account_list
+                                   group db by db.Account_Type into g
                                    select new
                                    {
-                                       Name = g.Distinct(),
+                                       Type = g.Distinct(),
                                        Sum = g.Sum(s => s.Balance)
                                    };
-            foreach (var inst in institutionquery)
-            {
-                Institution aInstitution = new Institution
-                {
-                    Inst_name = inst.Name.FirstOrDefault().Institution_name.ToString(),
-                    Inst_balance = String.Format("{0:C}", inst.Sum),
-                    Inst_access = inst.Name.FirstOrDefault().Access_Token.ToString()
-                };
 
-                InstitutionList.Add(aInstitution);
+                foreach (var type in accountquery)
+                {
+                    AccountType aAccountType = new AccountType
+                    {
+                        Accounttype = type.Type.FirstOrDefault().Account_Type.ToString(),
+                        Accounttype_sum = String.Format("{0:C}", type.Sum)
+                    };
+
+                    AccountTypeList.Add(aAccountType);
+                }
+
+                var institutionquery = from db in Account_list
+                                       group db by db.Institution_name into g
+                                       select new
+                                       {
+                                           Name = g.Distinct(),
+                                           Sum = g.Sum(s => s.Balance)
+                                       };
+                foreach (var inst in institutionquery)
+                {
+                    Institution aInstitution = new Institution
+                    {
+                        Inst_name = inst.Name.FirstOrDefault().Institution_name.ToString(),
+                        Inst_balance = String.Format("{0:C}", inst.Sum),
+                        Inst_access = inst.Name.FirstOrDefault().Access_Token.ToString()
+                    };
+
+                    InstitutionList.Add(aInstitution);
+                }
             }
         }
 

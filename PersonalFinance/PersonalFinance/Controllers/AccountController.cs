@@ -170,7 +170,11 @@ namespace PersonalFinance.Controllers
             {
                 User = user
             };
-            try { await plaid.GetAccountList(); }
+            try
+            {
+                await plaid.GetAccountList();
+                plaid.p_token = plaid.Reauthaccounts.FirstOrDefault().access_token ?? "";
+            }
             catch { }
             ViewBag.Message = TempData["result"] as string;
 
