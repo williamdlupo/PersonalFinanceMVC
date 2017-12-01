@@ -13,14 +13,14 @@ namespace PersonalFinance.Models
 
     public class ExternalLoginListViewModel
     {
-        public string ReturnUrl { get; set; }
+        public System.Uri ReturnUrl { get; set; }
     }
 
     public class SendCodeViewModel
     {
-        public string SelectedProvider { get; set; }
+        public string SelectedProvider { get; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
-        public string ReturnUrl { get; set; }
+        public System.Uri ReturnUrl { get; set; }
         public bool RememberMe { get; set; }
     }
 
@@ -32,7 +32,7 @@ namespace PersonalFinance.Models
         [Required]
         [Display(Name = "Code")]
         public string Code { get; set; }
-        public string ReturnUrl { get; set; }
+        public System.Uri ReturnUrl { get; set; }
 
         [Display(Name = "Remember this browser?")]
         public bool RememberBrowser { get; set; }
@@ -64,8 +64,8 @@ namespace PersonalFinance.Models
 
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "Enter a valid email address")]
-        [EmailAddress]
+        [Required]
+        [EmailAddress(ErrorMessage = "Enter a valid email address")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -73,7 +73,7 @@ namespace PersonalFinance.Models
         [Display(Name ="Username")]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "8-16 digits required with 1 lowercase and 1 upper case letter")]
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -83,7 +83,7 @@ namespace PersonalFinance.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        public bool FirstLogin = true;
+        public bool FirstLogin { get; set; } = true;
 
     }
 
@@ -118,7 +118,7 @@ namespace PersonalFinance.Models
 
     public class Response
     {
-        public string public_token { get; set; }
-        public string name { get; set; }
+        public string Public_token { get; set; }
+        public string Name { get; set; }
     }
 }

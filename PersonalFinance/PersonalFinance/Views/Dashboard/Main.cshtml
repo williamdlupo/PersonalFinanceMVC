@@ -3,99 +3,155 @@
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-    <div class="col-lg-12">
-        <div class="view-header">
+<div class="container-fluid text-center">
+    <div class="row">
+        <div class="panel">
             <h2 class="m-t-md m-b-xs">
-                
                 What's Up, @Model.User.UserName!
             </h2>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="panel">
+        <div class="col-sm-3  text-center">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="stats-title">
+                        <h3 class="c-white"><text class="pull-left">Monthly Budgets </text> <a href="#"><i class="pull-right fa fa-pencil text-accent"></i></a></h3>
+                    </div>
+                    <div class="m-t-xl">
+                        <small>
+                            <span class="c-white">Budget 1</span>
+                        </small>
+                    </div>
+                    <div class="progress m-t-xs full progress-small">
+                        <div style="width: 35%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class=" progress-bar progress-bar-success">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="stat-label">35% To Target</small>
+                    </div>
+                    <div class="m-t-xl">
+                        <small>
+                            <span class="c-white">Budget 2</span>
+                        </small>
+                    </div>
+                    <div class="progress m-t-xs full progress-small">
+                        <div style="width: 85%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class=" progress-bar progress-bar-danger">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="stat-label">85% To Target</small>
+                    </div>
+                    <div class="m-t-xl">
+                        <small>
+                            <span class="c-white">Budget 3</span>
+                        </small>
+                    </div>
+                    <div class="progress m-t-xs full progress-small">
+                        <div style="width: 0%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class=" progress-bar progress-bar-success">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="stat-label">0% To Target</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 text-center">
+            <h3><i class="fa fa-3x fa-diamond text-warning"> </i></h3>
+            <h3 class="m-t-md m-b-xs" style="margin-top: 30px">
+                <text class="c-white"><text class="text-success">Assets</text> - <text class="text-danger">Liabilities</text> = <text class="c-accent">Your Net Worth</text></text>
+            </h3>
+            <h3 class="m-t-md m-b-xs" style="margin-top: 30px">
+                <text class="c-white"><text class="text-success">Assets</text> - <text class="text-danger">Liabilities</text> = <text class="c-accent">@Model.NetWorth</text></text>
+            </h3>
+
             <div class="small">
-                <span class="c-accent">You look like you're in the mood to stack some cheese</span>
+                <span class="c-white">Your Net Worth</span> is calculated from your synced accounts as of <b class="text-warning">@DateTime.Today.ToShortDateString()</b>
             </div>
         </div>
-        <hr>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <div class="panel">
+        <div class="col-sm-3 text-center">
             <div class="panel-body">
-                <h1 class="m-t-md m-b-xs" style="margin-top: 30px">
-                    <i class="fa fa-diamond text-warning"> </i>
-                    @Model.NetWorth <span class="slight"><i class="fa fa-play fa-rotate-90 text-warning"> </i> -0.5%</span>
-                </h1>
-                <div class="small">
-                    <span class="c-white">Your Net Worth</span> Calculated as the net sum for all synced accounts as of <b class="text-warning">@DateTime.Today.ToShortDateString()</b>
+                <div class="stats-title">
+                    <h3 class="c-white"><text class="pull-left">Goals </text><a href='@Url.Action("Goals", "Account")'><i class="pull-right fa fa-pencil text-accent"></i></a></h3>
                 </div>
-                <div class="m-t-sm">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <small class="c-white">
-                            </small>
-                            <div class="sparkline3" style="width:auto"></div>
-                            <small class="slight">
-                            </small>
-                        </div>
+                <div class="m-t-xl">
+                    <small>
+                        <span class="c-white">Goal 1</span>
+                    </small>
+                </div>
+                <div class="progress m-t-xs full progress-small">
+                    <div style="width: 35%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class=" progress-bar progress-bar-warning">
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-8">
-        <div class="panel panel-filled">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="panel-body h-200 list">
-                        <div class="stats-title pull-left">
-                            <h4>Goal Success</h4>
-                        </div>
-                        <div class="m-t-xl">
-                            <small>
-                                <span class="c-white">Great Job!</span> You're right on track with your yearly goal.
-                            </small>
-                        </div>
-
-                        <div class="progress m-t-xs full progress-small">
-                            <div style="width: 35%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class=" progress-bar progress-bar-warning">
-                                <span class="sr-only">35% Complete (success)</span>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <small class="stat-label">Amount Saved</small>
-                                <h4 class="m-t-xs">$ 250.30 </h4>
-                            </div>
-                            <div class="col-md-6">
-                                <small class="stat-label">% To Target</small>
-                                <h4 class="m-t-xs">35 % <i class="fa fa-level-up c-white"></i></h4>
-                            </div>
-                        </div>
+                <div class="col-md-6">
+                    <small class="stat-label">35% To Target</small>
+                </div>
+                <div class="m-t-xl">
+                    <small>
+                        <span class="c-white">Goal 2</span>
+                    </small>
+                </div>
+                <div class="progress m-t-xs full progress-small">
+                    <div style="width: 85%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class=" progress-bar progress-bar-warning">
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <div class="panel-body">
-                        @if (Model.Transaction_list is null || Model.Transaction_list.Count == 0)
-                        {
-                        }
-                        else
-                        {
-                            <canvas id="singleBar" height="125"></canvas>
-                        }
+                <div class="col-md-6">
+                    <small class="stat-label">85% To Target</small>
+                </div>
+                <div class="m-t-xl">
+                    <small>
+                        <span class="c-white">Goal 3</span>
+                    </small>
+                </div>
+                <div class="progress m-t-xs full progress-small">
+                    <div style="width: 0%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class=" progress-bar progress-bar-warning">
                     </div>
+                </div>
+                <div class="col-md-6">
+                    <small class="stat-label">0% To Target</small>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        <div id="reportrange" class="btn btn-accent col-sm-3">
+</div>
+<div class="container-fluid">
+    <div class="panel">
+        <div class="row">
+            <div class="panel-heading col-sm-12">
+                <b class="col-sm-10 media-heading h3 c-white text-capitalize"><span class="h1"><i class="fa fa-usd text-warning"></i></span> @Model.Start_date - @Model.End_date</b><div class="h2 c-white">@String.Format("{0:C}", Model.SumTransactions)</div>
+                <hr />
+            </div>
+            <div>
+                <div class="text-center">
+                    @if (Model.Transaction_list is null || Model.Transaction_list.Count == 0)
+                    {
+                    }
+                    else
+                    {
+                        <small class="text-accent">The sum of your transactions by date</small>
+                        <div class="chart-container" style="height:40vh">
+                            <canvas id="singleBar"></canvas>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div id="reportrange" class="btn btn-accent pull-left" style="width:auto">
             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
             <span> @Model.Start_date - @Model.End_date <b class="caret"></b></span>
         </div>
-        <div class="dropdown col-sm-2">
+        <div class="dropdown pull-right">
             <button class="btn btn-accent dropdown-toggle" type="button" id="AccountDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 @Model.SelectedAccount
                 <span class="caret"></span>
@@ -116,10 +172,10 @@
                         {
                             if (account.AccountName.Length > 20)
                             {
-                <li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("Account", "Dashboard", new { xyz = account.AccountID })'>@account.AccountName.ToString().Substring(0, 20)... <em> @String.Format("{0:C}", account.Balance)</em></a></li>}
+                                <li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("Account", "Dashboard", new { xyz = account.AccountID })'>@account.AccountName.ToString().Substring(0, 20)... <em> @String.Format("{0:C}", account.Balance)</em></a></li>}
                             else
                             {
-                <li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("Account", "Dashboard", new { xyz = account.AccountID })'>@account.AccountName: <em class="pull-right"> @String.Format("{0:C}", account.Balance)</em></a></li>}
+                                <li data-toggle="tooltip" data-placement="left" title="@account.Institution_name"><a href='@Url.Action("Account", "Dashboard", new { xyz = account.AccountID })'>@account.AccountName: <em class="pull-right"> @String.Format("{0:C}", account.Balance)</em></a></li>}
                         }
                     }
                     <li role="separator" class="divider"></li>
@@ -144,34 +200,38 @@
 }
 else
 {
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="panel">
-                <div class="panel-body table-responsive">
-                    <table id="myDataTable" class="table table-condensed table-striped container-fluid">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Location</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel">
+                    <div class="table-responsive">
+                        <table id="myDataTable" class="table table-condensed table-striped container-center">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Location</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="panel">
-                <div class="col-sm-12">
-                    <b class="media-heading h4 c-white text-capitalize"><span class="h1"><i class="fa fa-usd text-warning"></i></span> Total</b><div class="h2 c-white pull-right">@String.Format("{0:C}", Model.SumTransactions)</div>
+        <div class="panel">
+            <div class="row">
+                <div class="panel-heading col-sm-6 col-sm-offset-3">
+                    <b class="media-heading h3 c-white text-capitalize"><span class="h1"><i class="fa fa-pie-chart text-warning"></i></span> Categories</b>
                     <hr />
+                    <small class="text-accent text-center">The sum of your transactions by category</small>
                 </div>
-                <div class="panel-body text-center">                    
-                    <small class="text-accent">The sum of your transactions by category</small>
-                    <canvas id="doughnutChart" height="250"></canvas>
+                <div class="panel-body">
+                    <div class="chart-container" style="height:50vh">
+                        <canvas id="doughnutChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -271,6 +331,7 @@ else
             var amounts = $.map(data, function (el) { return el.amount });
 
             var globalOptions = {
+                maintainAspectRatio: false,
                 responsive: true,
                 legend: {
                     labels: {
@@ -282,7 +343,7 @@ else
                     xAxes: [{
                         display: true,
                         ticks: {
-                            fontColor: "#90969D"
+                            fontColor: "#ffff"
                         },
                         gridLines: {
                             color: "#37393F"
@@ -290,7 +351,7 @@ else
                     }],
                     yAxes: [{
                         ticks: {
-                            fontColor: "#90969D"
+                            fontColor: "#ffff"
                         },
                         gridLines: {
                             color: "#37393F"
@@ -300,6 +361,7 @@ else
             };
 
             var donutOptions = {
+                maintainAspectRatio: false,
                 responsive: true,
                 legend: {
                     labels: {
@@ -334,7 +396,7 @@ else
                 labels: dates,
                 datasets: [
                     {
-                        label: 'Net Transactions',
+                        label: 'Total Spent',
                         backgroundColor: 'transparent',
                         borderColor: "#f6a821",
                         borderWidth: 1,

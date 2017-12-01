@@ -93,11 +93,26 @@ namespace PersonalFinance.Models
         private List<AccountData> _accesstokenlist = new List<AccountData>();
         private bool disposed = false;
         private List<AccountData> _reauthtoken = new List<AccountData>();
+        private List<User_Accounts> _account_list = new List<User_Accounts>();
+        private List<User_Transactions> _transaction_list = new List<User_Transactions>();
+        private List<BarChartData> _barChart = new List<BarChartData>();
 
         public ApplicationUser User { get; set; }
-        public List<User_Accounts> Account_list = new List<User_Accounts>();
-        public List<User_Transactions> Transaction_list = new List<User_Transactions>();
-        public List<BarChartData> BarChart = new List<BarChartData>();
+        public List<User_Accounts> Account_list
+        {
+            get { return _account_list; }
+            set { _account_list = value; }
+        }
+        public List<User_Transactions> Transaction_list
+        {
+            get { return _transaction_list; }
+            set { _transaction_list = value; }
+        }
+        public List<BarChartData> BarChart
+        {
+            get { return _barChart; }
+            set { _barChart = value; }
+        }
         public List<DonutChartData> DonutChart = new List<DonutChartData>();
         public string Start_date { get; set; }
         public string End_date { get; set; }
@@ -157,7 +172,7 @@ namespace PersonalFinance.Models
         }
 
         //
-        //Initial account and transaction pull from Plaid. Gets 3 months worth of transactions per each account 
+        //Initial account pull from Plaid. Pulls and persists all accounts selected with the authenticated institution
         private async Task AddAccounts()
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/accounts/get");
@@ -299,7 +314,7 @@ namespace PersonalFinance.Models
                             context.Update_AccountBalance(accounts_db.AccountID, accounts_db.Balance);
                             await context.SaveChangesAsync();
 
-                            Account_list.Add(accounts_db);
+                            _account_list.Add(accounts_db);
 
                             Has_accounts = true;
 
@@ -331,7 +346,7 @@ namespace PersonalFinance.Models
             {
                 NetWorth = String.Format("{0:C}", _NetWorth);
 
-                var accountquery = from db in Account_list
+                var accountquery = from db in _account_list
                                    group db by db.Account_Type into g
                                    select new
                                    {
@@ -350,7 +365,7 @@ namespace PersonalFinance.Models
                     AccountTypeList.Add(aAccountType);
                 }
 
-                var institutionquery = from db in Account_list
+                var institutionquery = from db in _account_list
                                        group db by db.Institution_name into g
                                        select new
                                        {
@@ -449,7 +464,7 @@ namespace PersonalFinance.Models
                         aTransaction.CategoryID = "Unknown";
                     }
 
-                    Transaction_list.Add(aTransaction);
+                    _transaction_list.Add(aTransaction);
                 }
             }
         }
@@ -459,7 +474,7 @@ namespace PersonalFinance.Models
             //if the time frame selected is greater than 31 days, condense chart to transaction totals by month
             if ((E_date - S_date).TotalDays > 31)
             {
-                var BarChartquery = from transaction in Transaction_list
+                var BarChartquery = from transaction in _transaction_list
                                     where transaction.Amount > 0
                                     group transaction by transaction.Date.Month into g
                                     select new
@@ -476,13 +491,13 @@ namespace PersonalFinance.Models
                         date = datapoint.Date.Select(t => t.Date.ToString("MMMM")).FirstOrDefault()
                     };
 
-                    BarChart.Add(aDataPoint);
+                    _barChart.Add(aDataPoint);
                 }
             }
 
             else
             {
-                var BarChartquery = from transaction in Transaction_list
+                var BarChartquery = from transaction in _transaction_list
                                     where transaction.Amount > 0
                                     group transaction by new { transaction.Date } into g
                                     select new
@@ -499,12 +514,12 @@ namespace PersonalFinance.Models
                         date = datapoint.Date.Select(t => t.Date.ToString("MM-dd")).FirstOrDefault()
                     };
 
-                    BarChart.Add(aDataPoint);
+                    _barChart.Add(aDataPoint);
                 }
             }
 
             //code to pull out list of unique dates and sum of transactions per date for donut chart
-            var DonutChartquery = from transaction in Transaction_list
+            var DonutChartquery = from transaction in _transaction_list
                                   where transaction.Amount > 0
                                   group transaction by new { transaction.CategoryID } into g
                                   select new
@@ -552,7 +567,7 @@ namespace PersonalFinance.Models
 
             using (var context = new PersonalFinanceAppEntities())
             {
-                if (Transaction_list != null)
+                if (_transaction_list != null)
                 {
                     PopulateCharts(S_date, E_date);
                 }
@@ -657,7 +672,7 @@ namespace PersonalFinance.Models
         //
         //TODO: FUnction that will delete all transactions, accounts, items and user data in DB
         //and disconnect all accounts from Plaid webhooks
-        public async Task DeleteAccount()
+        public void DeleteAccount()
         {
             //Get list of all access tokens associated with this user
 

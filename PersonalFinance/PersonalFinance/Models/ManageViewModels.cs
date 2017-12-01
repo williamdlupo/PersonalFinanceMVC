@@ -8,7 +8,7 @@ namespace PersonalFinance.Models
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }
-        public IList<UserLoginInfo> Logins { get; set; }
+        public IList<UserLoginInfo> Logins { get; }
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
@@ -18,8 +18,8 @@ namespace PersonalFinance.Models
 
     public class ManageLoginsViewModel
     {
-        public IList<UserLoginInfo> CurrentLogins { get; set; }
-        public IList<AuthenticationDescription> OtherLogins { get; set; }
+        public IList<UserLoginInfo> CurrentLogins { get; }
+        public IList<AuthenticationDescription> OtherLogins { get; }
     }
 
     public class FactorViewModel
@@ -83,6 +83,6 @@ namespace PersonalFinance.Models
     public class ConfigureTwoFactorViewModel
     {
         public string SelectedProvider { get; set; }
-        public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
+        public ICollection<System.Web.Mvc.SelectListItem> Providers { get; }
     }
 }
