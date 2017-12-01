@@ -94,13 +94,13 @@ namespace PersonalFinance.Controllers
                 }
             }
 
-            //var response = Request["g-recaptcha-response"];
-            //string secretKey = WebConfigurationManager.AppSettings["reCaptcha"];
-            //var client = new WebClient();
-            //var send = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
-            //var obj = JObject.Parse(send);
-            //var status = (bool)obj.SelectToken("success");
-            //if (!status) { return View(model); }
+            var response = Request["g-recaptcha-response"];
+            string secretKey = WebConfigurationManager.AppSettings["reCaptcha"];
+            var client = new WebClient();
+            var send = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            var obj = JObject.Parse(send);
+            var status = (bool)obj.SelectToken("success");
+            if (!status) { return View(model); }
 
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)

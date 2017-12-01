@@ -120,6 +120,8 @@ namespace PersonalFinance.Models
         public string Institution_name { get; set; }
         public decimal SumTransactions { get; set; } = 0;
         public string NetWorth { get; set; }
+        public string Assets { get; set; }
+        public string Liabilities { get; set; }
         public List<AccountType> AccountTypeList = new List<AccountType>();
         public List<Institution> InstitutionList = new List<Institution>();
         public string SelectedAccount { get; set; } = "All Accounts";
@@ -272,6 +274,8 @@ namespace PersonalFinance.Models
             }
 
             decimal _NetWorth = 0;
+            decimal _Assets = 0;
+            decimal _Liabilities = 0;
 
             foreach (var token in _accesstokenlist)
             {
@@ -324,10 +328,12 @@ namespace PersonalFinance.Models
                             }
                             else if (accounts_db.Account_Type.Equals("credit") || accounts_db.Account_Type.Equals("loan"))
                             {
+                                _Liabilities += (decimal)accounts_db.Balance;
                                 _NetWorth -= (decimal)accounts_db.Balance;
                             }
                             else
                             {
+                                _Assets += (decimal)accounts_db.Balance;
                                 _NetWorth += (decimal)accounts_db.Balance;
                             }
 
@@ -344,6 +350,8 @@ namespace PersonalFinance.Models
 
             else
             {
+                Assets = String.Format("{0:C}", _Assets);
+                Liabilities = String.Format("{0:C}", _Liabilities);
                 NetWorth = String.Format("{0:C}", _NetWorth);
 
                 var accountquery = from db in _account_list

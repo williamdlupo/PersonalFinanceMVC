@@ -53,6 +53,8 @@ namespace PersonalFinance.Controllers
                 Session["BarChart"] = plaid.BarChart;
                 Session["DonutChart"] = plaid.DonutChart;
                 Session["AccountList"] = plaid.Account_list;
+                Session["Assets"] = plaid.Assets;
+                Session["Liabilities"] = plaid.Liabilities;
                 Session["NetWorth"] = plaid.NetWorth;
                 Session["InstitutionList"] = plaid.InstitutionList;
             }
@@ -66,6 +68,8 @@ namespace PersonalFinance.Controllers
                 plaid.End_date = (Session["enddate"] as string) ?? DateTime.Today.ToShortDateString();
 
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
+                plaid.Assets = Session["Assets"] as string;
+                plaid.Liabilities = Session["Liabilities"] as string;
                 plaid.NetWorth = Session["NetWorth"] as string;
                 plaid.InstitutionList = Session["InstitutionList"] as List<Institution>;
 
@@ -102,6 +106,8 @@ namespace PersonalFinance.Controllers
                 Session["SelectedAccount"] = plaid.SelectedAccount;
 
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
+                plaid.Assets = Session["Assets"] as string;
+                plaid.Liabilities = Session["Liabilities"] as string;
                 plaid.NetWorth = Session["NetWorth"] as string;
                 plaid.InstitutionList = Session["InstitutionList"] as List<Institution>;
 
@@ -134,6 +140,8 @@ namespace PersonalFinance.Controllers
                 plaid.BarChart = Session["BarChart"] as List<BarChartData>;
                 plaid.DonutChart = Session["DonutChart"] as List<DonutChartData>;
                 plaid.Account_list = Session["AccountList"] as List<User_Accounts>;
+                plaid.Assets = Session["Assets"] as string;
+                plaid.Liabilities = Session["Liabilities"] as string;
                 plaid.NetWorth = Session["NetWorth"] as string;
                 plaid.DonutDataSum(plaid.DonutChart);
             }
@@ -231,6 +239,8 @@ namespace PersonalFinance.Controllers
             Session["BarChart"] = chartdata;
             Session["DonutChart"] = donutdata;
             Session["AccountList"] = accountlist;
+            Session["Assets"] = plaid.Assets;
+            Session["Liabilities"] = plaid.Liabilities;
             Session["NetWorth"] = networth;
             Session["transactions"] = plaid.Transaction_list;
             Session["SelectedAccount"] = plaid.SelectedAccount;

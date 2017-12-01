@@ -15,7 +15,7 @@
 <div class="row">
     <div class="panel">
         <div class="col-sm-3  text-center">
-            <div class="panel">
+            <div class="panel panel-filled">
                 <div class="panel-body">
                     <div class="stats-title">
                         <h3 class="c-white"><text class="pull-left">Monthly Budgets </text> <a href="#"><i class="pull-right fa fa-pencil text-accent"></i></a></h3>
@@ -60,58 +60,67 @@
             </div>
         </div>
         <div class="col-sm-6 text-center">
-            <h3><i class="fa fa-3x fa-diamond text-warning"> </i></h3>
-            <h3 class="m-t-md m-b-xs" style="margin-top: 30px">
-                <text class="c-white"><text class="text-success">Assets</text> - <text class="text-danger">Liabilities</text> = <text class="c-accent">Your Net Worth</text></text>
-            </h3>
-            <h3 class="m-t-md m-b-xs" style="margin-top: 30px">
-                <text class="c-white"><text class="text-success">Assets</text> - <text class="text-danger">Liabilities</text> = <text class="c-accent">@Model.NetWorth</text></text>
-            </h3>
+            <div class="panel">
+                <h2><i class="fa fa-2x fa-diamond text-warning"> </i></h2>
+                <div class="panel panel-success">
+                    <h3>
+                        <text class="c-white"><text class="text-success">Assets</text> - <text class="text-danger">Liabilities</text> = <text class="c-accent">Your Net Worth</text></text>
+                    </h3>
+                </div>
+                <h2><i class="fa fa-2x fa-arrow-down text-warning"> </i></h2>
+                <div class="panel panel-success">
+                    <h3>
+                        <text class="c-white"><text class="text-success">@Model.Assets</text> - <text class="text-danger">@Model.Liabilities</text> = <text class="c-accent">@Model.NetWorth</text></text>
+                    </h3>
 
-            <div class="small">
-                <span class="c-white">Your Net Worth</span> is calculated from your synced accounts as of <b class="text-warning">@DateTime.Today.ToShortDateString()</b>
-            </div>
+                    <div class="small">
+                        <span class="c-white">Your Net Worth</span> is calculated from your synced accounts as of <b class="text-warning">@DateTime.Today.ToShortDateString()</b>
+                    </div>
+                    </div>
+                </div>
         </div>
         <div class="col-sm-3 text-center">
-            <div class="panel-body">
-                <div class="stats-title">
-                    <h3 class="c-white"><text class="pull-left">Goals </text><a href='@Url.Action("Goals", "Account")'><i class="pull-right fa fa-pencil text-accent"></i></a></h3>
-                </div>
-                <div class="m-t-xl">
-                    <small>
-                        <span class="c-white">Goal 1</span>
-                    </small>
-                </div>
-                <div class="progress m-t-xs full progress-small">
-                    <div style="width: 35%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class=" progress-bar progress-bar-warning">
+            <div class="panel panel-filled">
+                <div class="panel-body">
+                    <div class="stats-title">
+                        <h3 class="c-white"><text class="pull-left">Goals </text><a href='@Url.Action("Goals", "Account")'><i class="pull-right fa fa-pencil text-accent"></i></a></h3>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <small class="stat-label">35% To Target</small>
-                </div>
-                <div class="m-t-xl">
-                    <small>
-                        <span class="c-white">Goal 2</span>
-                    </small>
-                </div>
-                <div class="progress m-t-xs full progress-small">
-                    <div style="width: 85%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class=" progress-bar progress-bar-warning">
+                    <div class="m-t-xl">
+                        <small>
+                            <span class="c-white">Goal 1</span>
+                        </small>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <small class="stat-label">85% To Target</small>
-                </div>
-                <div class="m-t-xl">
-                    <small>
-                        <span class="c-white">Goal 3</span>
-                    </small>
-                </div>
-                <div class="progress m-t-xs full progress-small">
-                    <div style="width: 0%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class=" progress-bar progress-bar-warning">
+                    <div class="progress m-t-xs full progress-small">
+                        <div style="width: 35%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class=" progress-bar progress-bar-warning">
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <small class="stat-label">0% To Target</small>
+                    <div class="col-md-6">
+                        <small class="stat-label">35% To Target</small>
+                    </div>
+                    <div class="m-t-xl">
+                        <small>
+                            <span class="c-white">Goal 2</span>
+                        </small>
+                    </div>
+                    <div class="progress m-t-xs full progress-small">
+                        <div style="width: 85%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class=" progress-bar progress-bar-warning">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="stat-label">85% To Target</small>
+                    </div>
+                    <div class="m-t-xl">
+                        <small>
+                            <span class="c-white">Goal 3</span>
+                        </small>
+                    </div>
+                    <div class="progress m-t-xs full progress-small">
+                        <div style="width: 0%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class=" progress-bar progress-bar-warning">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="stat-label">0% To Target</small>
+                    </div>
                 </div>
             </div>
         </div>
