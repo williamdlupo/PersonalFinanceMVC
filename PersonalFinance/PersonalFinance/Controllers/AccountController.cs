@@ -213,6 +213,10 @@ namespace PersonalFinance.Controllers
                 plaid.Institution_name = name;
                 await plaid.AuthenticateAccount(_token);
 
+                //hold on to this for the post Profiler - this will indicate that the user has synced accounts and completed the profiler.
+                user.FirstLoginFlag = false;
+                var result = await UserManager.UpdateAsync(user);
+
                 TempData["result"] = "Account added!";
                 return RedirectToAction("AccountSync");
 
@@ -546,10 +550,6 @@ namespace PersonalFinance.Controllers
                 };
                 try { await plaid.GetAccountList(); }
                 catch { }
-
-                ////hold on to this for the post Profiler - this will indicate that the user has synced accounts and completed the profiler.
-                //user.FirstLoginFlag = false;
-                //var result = await UserManager.UpdateAsync(user);
 
                 return View(plaid);
             }
