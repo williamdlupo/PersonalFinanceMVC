@@ -56,7 +56,7 @@ namespace PersonalFinance.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(System.Uri returnUrl)
+        public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.Message = TempData["result"] as string;
@@ -68,7 +68,7 @@ namespace PersonalFinance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, System.Uri returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -106,11 +106,11 @@ namespace PersonalFinance.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return Redirect(returnUrl.ToString());
+                    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl.ToString(), RememberMe = model.RememberMe });
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Yikes! The username or password entered was not valid");
@@ -121,7 +121,7 @@ namespace PersonalFinance.Controllers
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
-        public async Task<ActionResult> VerifyCode(string provider, System.Uri returnUrl, bool rememberMe)
+        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
@@ -147,7 +147,7 @@ namespace PersonalFinance.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return Redirect(model.ReturnUrl.ToString());
+                    return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.Failure:
@@ -378,16 +378,16 @@ namespace PersonalFinance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, System.Uri returnUrl)
+        public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl.ToString() }));
+            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
         //
         // GET: /Account/SendCode
         [AllowAnonymous]
-        public async Task<ActionResult> SendCode(System.Uri returnUrl, bool rememberMe)
+        public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
             if (userId == null)
@@ -422,7 +422,7 @@ namespace PersonalFinance.Controllers
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback(System.Uri returnUrl)
+        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
@@ -435,7 +435,7 @@ namespace PersonalFinance.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl.ToString());
+                    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -454,7 +454,7 @@ namespace PersonalFinance.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, System.Uri returnUrl)
+        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -477,7 +477,7 @@ namespace PersonalFinance.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl.ToString());
+                        return RedirectToLocal(returnUrl);
                     }
                 }
                 AddErrors(result);
@@ -587,7 +587,7 @@ namespace PersonalFinance.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Main", "Dashboard");
+            return RedirectToAction("Index", "Home");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
