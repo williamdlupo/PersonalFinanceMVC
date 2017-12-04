@@ -188,7 +188,7 @@ else
 <script type="text/javascript">
         var handler = Plaid.create({
             clientName: 'Plaid Walkthrough Demo',
-            env: 'development',
+            env: 'sandbox',
             key: 'f326b59ea06cf5309ebd2861388d13',
             product: ['transactions'],
             webhook: 'https://dhwebhookentry.azurewebsites.net/api/PlaidWebHook?code=t6wJsM/S4m1Sg1H4SutHgArWcPSNSSTEqu6rbSWiaY6rCPSLDynamw==',
@@ -228,7 +228,7 @@ else
         // Initialize Link with the `token` parameter
         // set to the generated public_token for the Item
         var linkHandler = Plaid.create({
-            env: 'development',
+            env: 'sandbox',
             clientName: 'Client Name',
             key: 'f326b59ea06cf5309ebd2861388d13',
             product: ['transactions'],

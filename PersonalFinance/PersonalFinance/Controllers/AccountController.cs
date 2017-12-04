@@ -94,13 +94,13 @@ namespace PersonalFinance.Controllers
                 }
             }
 
-            var response = Request["g-recaptcha-response"];
-            string secretKey = WebConfigurationManager.AppSettings["reCaptcha"];
-            var client = new WebClient();
-            var send = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
-            var obj = JObject.Parse(send);
-            var status = (bool)obj.SelectToken("success");
-            if (!status) { return View(model); }
+            //var response = Request["g-recaptcha-response"];
+            //string secretKey = WebConfigurationManager.AppSettings["reCaptcha"];
+            //var client = new WebClient();
+            //var send = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            //var obj = JObject.Parse(send);
+            //var status = (bool)obj.SelectToken("success");
+            //if (!status) { return View(model); }
 
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
@@ -212,10 +212,6 @@ namespace PersonalFinance.Controllers
                 plaid.User = user;
                 plaid.Institution_name = name;
                 await plaid.AuthenticateAccount(_token);
-
-                //hold on to this for the post Profiler - this will indicate that the user has synced accounts and completed the profiler.
-                user.FirstLoginFlag = false;
-                var result = await UserManager.UpdateAsync(user);
 
                 TempData["result"] = "Account added!";
                 return RedirectToAction("AccountSync");
@@ -542,8 +538,7 @@ namespace PersonalFinance.Controllers
                 ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
                 if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
-                if (user.FirstLoginFlag == true) { return RedirectToAction("AccountSync", "Account"); }
-
+                
                 Plaid plaid = new Plaid
                 {
                     User = user
