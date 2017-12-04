@@ -551,10 +551,50 @@ namespace PersonalFinance.Controllers
                 try { await plaid.GetAccountList(); }
                 catch { }
 
+                ViewBag.Message = TempData["result"] as string;
+
                 return View(plaid);
             }
 
             return View();
+        }
+
+        //
+        // POST: /Account/Profiler
+        [HttpPost]
+        public async Task<ActionResult> Profiler(User_Finance data)
+        {
+            Plaid plaid = new Plaid();
+
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+                using (var context = new PersonalFinanceAppEntities())
+                {
+                    User_Finance update = new User_Finance
+                    {
+                        UserID = user.Id,
+                        Income = data.Income,
+                        Fixed_Expenses = data.Fixed_Expenses
+                    };
+
+                    context.User_Finance.Add(update);
+                    await context.SaveChangesAsync();
+                }
+
+                //hold on to this for the post Profiler - this will indicate that the user has synced accounts and completed the profiler.
+                user.FirstLoginFlag = false;
+                var result = await UserManager.UpdateAsync(user);
+
+                TempData["result"] = "Profile saved!";
+                return RedirectToAction("Main", "Dashboard");
+
+            }
+
+            // If we got this far, something failed, redisplay form
+            ViewBag.StatusMessage = "Yikes! Something went wrong";
+            return View(plaid);
         }
 
         public ActionResult Goals()
@@ -587,7 +627,7 @@ namespace PersonalFinance.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Main", "Dashboard");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

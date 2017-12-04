@@ -57,6 +57,12 @@
       <End Role="Transaction_Categories" EntitySet="Transaction_Categories" />
       <End Role="User_Transactions" EntitySet="User_Transactions" />
     </AssociationSet>
+    <EntitySet Name="User_Finance" EntityType="PersonalFinanceAppModel.User_Finance" />
+    <FunctionImport Name="Insert_UserFinance">
+      <Parameter Name="UserID" Mode="In" Type="String" />
+      <Parameter Name="Income" Mode="In" Type="Decimal" />
+      <Parameter Name="Fixed_Expenses" Mode="In" Type="Decimal" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="User_Accounts">
     <Key>
@@ -142,4 +148,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="User_Finance">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Income" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+    <Property Name="Fixed_Expenses" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+  </EntityType>
 </Schema>

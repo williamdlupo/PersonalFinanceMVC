@@ -20,6 +20,14 @@
     <Property Name="Access_Token" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Account_Type" Type="nchar" MaxLength="20" />
   </EntityType>
+  <EntityType Name="User_Finance">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Income" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="Fixed_Expenses" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="User_Items">
     <Key>
       <PropertyRef Name="Access_Token" />
@@ -98,6 +106,11 @@
     <Parameter Name="Access_Token" Type="nvarchar" Mode="In" />
     <Parameter Name="Account_Type" Type="nchar" Mode="In" />
   </Function>
+  <Function Name="Insert_UserFinance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="nvarchar" Mode="In" />
+    <Parameter Name="Income" Type="decimal" Mode="In" />
+    <Parameter Name="Fixed_Expenses" Type="decimal" Mode="In" />
+  </Function>
   <Function Name="Insert_UserItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ID" Type="nvarchar" Mode="In" />
     <Parameter Name="Access_Token" Type="nvarchar(max)" Mode="In" />
@@ -121,6 +134,7 @@
   <EntityContainer Name="PersonalFinanceAppModelStoreContainer">
     <EntitySet Name="Transaction_Categories" EntityType="Self.Transaction_Categories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User_Accounts" EntityType="Self.User_Accounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User_Finance" EntityType="Self.User_Finance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User_Items" EntityType="Self.User_Items" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User_Transactions" EntityType="Self.User_Transactions" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_User_Accounts" Association="Self.FK_User_Accounts">

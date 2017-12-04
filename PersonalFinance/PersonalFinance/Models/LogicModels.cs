@@ -427,6 +427,37 @@ namespace PersonalFinance.Models
             }
         }
 
+        //
+        //Method that will return a list of transactions for each account in the account list for a given timeframe
+        //and populates the data for the charts for the main dashboard
+        //Rather than overload, if dates not known, default range of 1 month set
+        public void GetTransactions(DateTime? start_date = null, DateTime? end_date = null, string account_id = null)
+        {
+            DateTime S_date = start_date ?? DateTime.Today.AddMonths(-1);
+            DateTime E_date = end_date ?? DateTime.Today;
+
+            Start_date = S_date.ToShortDateString();
+            End_date = E_date.ToShortDateString();
+
+            GetAccountIDList(account_id);
+
+            //parse list of account id's and get list of transactions for each account where the transactions are
+            //between the specified dates
+            foreach (var accountid in _accountidlist)
+            {
+                GetTransactionList(S_date, E_date, accountid);
+            }
+
+            using (var context = new PersonalFinanceAppEntities())
+            {
+                if (_transaction_list != null)
+                {
+                    PopulateCharts(S_date, E_date);
+                }
+
+            }
+        }
+
         private void GetTransactionList(DateTime S_date, DateTime E_date, string accountid)
         {
             using (var context = new PersonalFinanceAppEntities())
@@ -549,37 +580,6 @@ namespace PersonalFinance.Models
 
                 DonutChart.Add(aDatapoint);
                 DonutChart.Sort((x, y) => x.value.CompareTo(y.value));
-            }
-        }
-
-        //
-        //Method that will return a list of transactions for each account in the account list for a given timeframe
-        //and populates the data for the charts for the main dashboard
-        //Rather than overload, if dates not known, default range of 1 month set
-        public void GetTransactions(DateTime? start_date = null, DateTime? end_date = null, string account_id = null)
-        {
-            DateTime S_date = start_date ?? DateTime.Today.AddMonths(-1);
-            DateTime E_date = end_date ?? DateTime.Today;
-
-            Start_date = S_date.ToShortDateString();
-            End_date = E_date.ToShortDateString();
-
-            GetAccountIDList(account_id);
-
-            //parse list of account id's and get list of transactions for each account where the transactions are
-            //between the specified dates
-            foreach (var accountid in _accountidlist)
-            {
-                GetTransactionList(S_date, E_date, accountid);
-            }
-
-            using (var context = new PersonalFinanceAppEntities())
-            {
-                if (_transaction_list != null)
-                {
-                    PopulateCharts(S_date, E_date);
-                }
-
             }
         }
 

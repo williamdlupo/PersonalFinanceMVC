@@ -110,5 +110,24 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="DeleteTransactions" FunctionName="PersonalFinanceAppModel.Store.DeleteTransactions" />
+    <EntitySetMapping Name="User_Finance">
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Finance">
+        <MappingFragment StoreEntitySet="User_Finance">
+          <ScalarProperty Name="Fixed_Expenses" ColumnName="Fixed_Expenses" />
+          <ScalarProperty Name="Income" ColumnName="Income" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="PersonalFinanceAppModel.User_Finance">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="PersonalFinanceAppModel.Store.Insert_UserFinance">
+            <ScalarProperty Name="UserID" ParameterName="UserID" />
+            <ScalarProperty Name="Fixed_Expenses" ParameterName="Fixed_Expenses" />
+            <ScalarProperty Name="Income" ParameterName="Income" />
+          </InsertFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Insert_UserFinance" FunctionName="PersonalFinanceAppModel.Store.Insert_UserFinance" />
   </EntityContainerMapping>
 </Mapping>

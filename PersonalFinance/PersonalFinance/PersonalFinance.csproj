@@ -34,7 +34,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -319,6 +319,9 @@
       <DependentUpon>PersonalFinanceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User_Accounts.cs">
+      <DependentUpon>PersonalFinanceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User_Finance.cs">
       <DependentUpon>PersonalFinanceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User_Items.cs">

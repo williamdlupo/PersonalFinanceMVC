@@ -31,6 +31,7 @@ namespace PersonalFinance
         public virtual DbSet<User_Items> User_Items { get; set; }
         public virtual DbSet<User_Transactions> User_Transactions { get; set; }
         public virtual DbSet<Transaction_Categories> Transaction_Categories { get; set; }
+        public virtual DbSet<User_Finance> User_Finance { get; set; }
     
         public virtual int Insert_UserAccount(string accountID, string userID, string accountName, Nullable<decimal> balance, string institution_name, string access_Token, string account_Type)
         {
@@ -169,6 +170,23 @@ namespace PersonalFinance
                 new ObjectParameter("AccountID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteTransactions", accountIDParameter);
+        }
+    
+        public virtual int Insert_UserFinance(string userID, Nullable<decimal> income, Nullable<decimal> fixed_Expenses)
+        {
+            var userIDParameter = userID != null ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(string));
+    
+            var incomeParameter = income.HasValue ?
+                new ObjectParameter("Income", income) :
+                new ObjectParameter("Income", typeof(decimal));
+    
+            var fixed_ExpensesParameter = fixed_Expenses.HasValue ?
+                new ObjectParameter("Fixed_Expenses", fixed_Expenses) :
+                new ObjectParameter("Fixed_Expenses", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert_UserFinance", userIDParameter, incomeParameter, fixed_ExpensesParameter);
         }
     }
 }
