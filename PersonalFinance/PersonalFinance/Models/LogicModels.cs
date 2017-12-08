@@ -84,7 +84,7 @@ namespace PersonalFinance.Models
     {
         private static string _clientid = WebConfigurationManager.AppSettings["client_id"];
         private static string _secret = WebConfigurationManager.AppSettings["secret"];
-        private static string _baseurl = "https://sandbox.plaid.com";
+        private static string _baseurl = "https://development.plaid.com";
         private HttpClient client = new HttpClient();
         private string _accesstoken;
         private string _item_id;
@@ -481,7 +481,7 @@ namespace PersonalFinance.Models
                                             db.Amount
                                         };
 
-                //create list of transaction objects and sort by date
+                //create list of transaction objects
                 foreach (var t in transaction_query)
                 {
                     User_Transactions aTransaction = new User_Transactions
@@ -521,6 +521,7 @@ namespace PersonalFinance.Models
                                         Date = g.Distinct(),
                                         Amount = g.Sum(s => s.Amount)
                                     };
+                BarChartquery.OrderBy(x => x.Date);
 
                 foreach (var datapoint in BarChartquery)
                 {
@@ -538,13 +539,13 @@ namespace PersonalFinance.Models
             {
                 var BarChartquery = from transaction in _transaction_list
                                     where transaction.Amount > 0
-                                    group transaction by new { transaction.Date } into g
+                                    group transaction by new { transaction.Date.Day } into g
                                     select new
                                     {
                                         Date = g.Distinct(),
                                         Amount = g.Sum(s => s.Amount)
                                     };
-
+                BarChartquery.OrderBy(x => x.Date);
                 foreach (var datapoint in BarChartquery)
                 {
                     BarChartData aDataPoint = new BarChartData

@@ -1486,6 +1486,8 @@
             $.post('@Url.Action("Profiler", "Account")',
                 {
                     data: { Income: total_month , Fixed_Expenses: total_disc }
+                }, function () {
+                    window.location.href = '@Url.Action("Main", "Dashboard")';
                 });
         });
     });
