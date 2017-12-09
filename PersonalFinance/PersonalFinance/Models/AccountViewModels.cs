@@ -121,4 +121,10 @@ namespace PersonalFinance.Models
         public string Public_token { get; set; }
         public string Name { get; set; }
     }
+
+    public class Budget
+    {
+        public string Category { get; set; }
+        public decimal Category_Amount { get; set; }
+    }
 }

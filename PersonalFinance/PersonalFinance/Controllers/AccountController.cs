@@ -94,13 +94,13 @@ namespace PersonalFinance.Controllers
                 }
             }
 
-            var response = Request["g-recaptcha-response"];
-            string secretKey = WebConfigurationManager.AppSettings["reCaptcha"];
-            var client = new WebClient();
-            var send = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
-            var obj = JObject.Parse(send);
-            var status = (bool)obj.SelectToken("success");
-            if (!status) { return View(model); }
+            //var response = Request["g-recaptcha-response"];
+            //string secretKey = WebConfigurationManager.AppSettings["reCaptcha"];
+            //var client = new WebClient();
+            //var send = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            //var obj = JObject.Parse(send);
+            //var status = (bool)obj.SelectToken("success");
+            //if (!status) { return View(model); }
 
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
@@ -538,7 +538,7 @@ namespace PersonalFinance.Controllers
                 ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
                 if (user.FirstLoginFlag == true && user.PhoneNumberConfirmed == false) { return RedirectToAction("AddPhoneNumber", "Manage"); }
-                
+
                 Plaid plaid = new Plaid
                 {
                     User = user
@@ -578,7 +578,7 @@ namespace PersonalFinance.Controllers
                     await context.SaveChangesAsync();
                 }
 
-                //hold on to this for the post Profiler - this will indicate that the user has synced accounts and completed the profiler.
+                //this will indicate that the user has synced accounts and completed the profiler.
                 user.FirstLoginFlag = false;
                 var result = await UserManager.UpdateAsync(user);
 
@@ -592,10 +592,45 @@ namespace PersonalFinance.Controllers
             return View(plaid);
         }
 
+        public ActionResult Budget()
+        {
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            Plaid plaid = new Plaid
+            {
+                User = user
+            };
+            plaid.GetTransactions();
+
+            var budgetquery = (from mem in plaid.Transaction_list
+                              where mem.Amount > 0
+                              group mem by mem.CategoryID into g
+                              select new
+                              {
+                                  Category = g.Distinct(),
+                                  Amount = g.Sum(x => x.Amount)
+                              }).OrderByDescending(x => x.Amount).Take(10);
+
+                foreach (var category in budgetquery)
+                {
+                    Budget budget = new Budget
+                    {
+                        Category = category.Category.FirstOrDefault().CategoryID.ToString(),
+                        Category_Amount = category.Amount
+                    };
+
+                    plaid.BudgetList.Add(budget);
+                }
+
+            return View();
+        }
+
         public ActionResult Goals()
         {
             return View();
         }
+
+
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

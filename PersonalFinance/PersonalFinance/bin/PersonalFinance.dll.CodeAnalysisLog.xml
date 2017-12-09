@@ -6,7 +6,7 @@
    <Modules>
     <Module Name="personalfinance.dll">
      <Messages>
-      <Message TypeName="MarkAssembliesWithClsCompliant" Category="Microsoft.Design" CheckId="CA1014" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="NonBreaking">
+      <Message TypeName="MarkAssembliesWithClsCompliant" Category="Microsoft.Design" CheckId="CA1014" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="NonBreaking">
        <Issue Certainty="95" Level="Error">Mark 'PersonalFinance.dll' with CLSCompliant(true) because it exposes externally visible types.</Issue>
       </Message>
      </Messages>
@@ -15,14 +15,14 @@
        <Types>
         <Type Name="BundleConfig" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+          <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
            <Issue Certainty="90" Level="Error">Because type 'BundleConfig' contains only 'static' ('Shared' in Visual Basic) members, add a default private constructor to prevent the compiler from adding a default public constructor.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="FilterConfig" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+          <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
            <Issue Certainty="90" Level="Error">Because type 'FilterConfig' contains only 'static' ('Shared' in Visual Basic) members, add a default private constructor to prevent the compiler from adding a default public constructor.</Issue>
           </Message>
          </Messages>
@@ -31,7 +31,7 @@
          <Members>
           <Member Name="#Application_Start()" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="DependsOnFix">
+            <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="DependsOnFix">
              <Issue Certainty="95" Level="Warning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance" File="Global.asax.cs" Line="15">The 'this' parameter (or 'Me' in Visual Basic) of 'MvcApplication.Application_Start()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Issue>
             </Message>
            </Messages>
@@ -42,7 +42,7 @@
          <Members>
           <Member Name="#Insert_UserTransaction(System.String,System.String,System.String,System.Nullable`1&lt;System.DateTime&gt;,System.String,System.String,System.String,System.Nullable`1&lt;System.Decimal&gt;)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="Date" TypeName="IdentifiersShouldNotMatchKeywords" Category="Microsoft.Naming" CheckId="CA1716" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message Id="Date" TypeName="IdentifiersShouldNotMatchKeywords" Category="Microsoft.Naming" CheckId="CA1716" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Name="MemberParameter" Certainty="95" Level="Error" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance" File="PersonalFinanceModel.Context.cs" Line="91">In virtual/interface member 'PersonalFinanceAppEntities.Insert_UserTransaction(string, string, string, DateTime?, string, string, string, decimal?)', rename parameter 'date' so that it no longer conflicts with the reserved language keyword 'Date'. Using a reserved keyword as the name of a parameter on a virtual/interface member makes it harder for consumers in other languages to override/implement the member.</Issue>
             </Message>
            </Messages>
@@ -51,7 +51,7 @@
         </Type>
         <Type Name="RouteConfig" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+          <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
            <Issue Certainty="90" Level="Error">Because type 'RouteConfig' contains only 'static' ('Shared' in Visual Basic) members, add a default private constructor to prevent the compiler from adding a default public constructor.</Issue>
           </Message>
          </Messages>
@@ -60,7 +60,7 @@
          <Members>
           <Member Name="#ConfigureAuth(Owin.IAppBuilder)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="DependsOnFix">
+            <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="DependsOnFix">
              <Issue Certainty="95" Level="Warning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\App_Start" File="Startup.Auth.cs" Line="17">The 'this' parameter (or 'Me' in Visual Basic) of 'Startup.ConfigureAuth(IAppBuilder)' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Issue>
             </Message>
            </Messages>
@@ -75,49 +75,49 @@
          <Members>
           <Member Name="#ExternalLogin(System.String,System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="1#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message Id="1#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="60" Level="Error" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Controllers" File="AccountController.cs" Line="382">Change the type of parameter 'returnUrl' of method 'AccountController.ExternalLogin(string, string)' from string to System.Uri, or provide an overload of 'AccountController.ExternalLogin(string, string)', that allows 'returnUrl' to be passed as a System.Uri object.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#ExternalLoginCallback(System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="60" Level="Error">Change the type of parameter 'returnUrl' of method 'AccountController.ExternalLoginCallback(string)' from string to System.Uri, or provide an overload of 'AccountController.ExternalLoginCallback(string)', that allows 'returnUrl' to be passed as a System.Uri object.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#ExternalLoginConfirmation(PersonalFinance.Models.ExternalLoginConfirmationViewModel,System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="1#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message Id="1#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="60" Level="Error">Change the type of parameter 'returnUrl' of method 'AccountController.ExternalLoginConfirmation(ExternalLoginConfirmationViewModel, string)' from string to System.Uri, or provide an overload of 'AccountController.ExternalLoginConfirmation(ExternalLoginConfirmationViewModel, string)', that allows 'returnUrl' to be passed as a System.Uri object.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Login(PersonalFinance.Models.LoginViewModel,System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="1#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message Id="1#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="60" Level="Error">Change the type of parameter 'returnUrl' of method 'AccountController.Login(LoginViewModel, string)' from string to System.Uri, or provide an overload of 'AccountController.Login(LoginViewModel, string)', that allows 'returnUrl' to be passed as a System.Uri object.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Login(System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="60" Level="Error" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Controllers" File="AccountController.cs" Line="60">Change the type of parameter 'returnUrl' of method 'AccountController.Login(string)' from string to System.Uri, or provide an overload of 'AccountController.Login(string)', that allows 'returnUrl' to be passed as a System.Uri object.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#SendCode(System.String,System.Boolean)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="60" Level="Error">Change the type of parameter 'returnUrl' of method 'AccountController.SendCode(string, bool)' from string to System.Uri, or provide an overload of 'AccountController.SendCode(string, bool)', that allows 'returnUrl' to be passed as a System.Uri object.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#VerifyCode(System.String,System.String,System.Boolean)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="1#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message Id="1#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="60" Level="Error">Change the type of parameter 'returnUrl' of method 'AccountController.VerifyCode(string, string, bool)' from string to System.Uri, or provide an overload of 'AccountController.VerifyCode(string, string, bool)', that allows 'returnUrl' to be passed as a System.Uri object.</Issue>
             </Message>
            </Messages>
@@ -130,7 +130,7 @@
        <Types>
         <Type Name="AiHandleErrorAttribute" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="AvoidUnsealedAttributes" Category="Microsoft.Performance" CheckId="CA1813" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+          <Message TypeName="AvoidUnsealedAttributes" Category="Microsoft.Performance" CheckId="CA1813" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
            <Issue Certainty="75" Level="Warning">Seal 'AiHandleErrorAttribute', if possible.</Issue>
           </Message>
          </Messages>
@@ -141,7 +141,7 @@
        <Types>
         <Type Name="Configuration" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="AvoidUninstantiatedInternalClasses" Category="Microsoft.Performance" CheckId="CA1812" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="NonBreaking">
+          <Message TypeName="AvoidUninstantiatedInternalClasses" Category="Microsoft.Performance" CheckId="CA1812" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="NonBreaking">
            <Issue Certainty="75" Level="Warning">'Configuration' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.</Issue>
           </Message>
          </Messages>
@@ -154,119 +154,129 @@
          <Members>
           <Member Name="#Account_list" Kind="Property" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="CollectionPropertiesShouldBeReadOnly" Category="Microsoft.Usage" CheckId="CA2227" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="CollectionPropertiesShouldBeReadOnly" Category="Microsoft.Usage" CheckId="CA2227" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="75" Level="Warning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="103">Change 'Plaid.Account_list' to be read-only by removing the property setter.</Issue>
             </Message>
-            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="Error" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="103">Change 'List&lt;User_Accounts&gt;' in 'Plaid.Account_list' to use Collection&lt;T&gt;, ReadOnlyCollection&lt;T&gt; or KeyedCollection&lt;K,V&gt;</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#AccountTypeList" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="90" Level="Error">Because field 'Plaid.AccountTypeList' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Issue>
             </Message>
-            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="Error">Change 'List&lt;AccountType&gt;' in 'Plaid.AccountTypeList' to use Collection&lt;T&gt;, ReadOnlyCollection&lt;T&gt; or KeyedCollection&lt;K,V&gt;</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#BarChart" Kind="Property" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="CollectionPropertiesShouldBeReadOnly" Category="Microsoft.Usage" CheckId="CA2227" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="CollectionPropertiesShouldBeReadOnly" Category="Microsoft.Usage" CheckId="CA2227" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="75" Level="Warning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="113">Change 'Plaid.BarChart' to be read-only by removing the property setter.</Issue>
             </Message>
-            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="Error" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="113">Change 'List&lt;BarChartData&gt;' in 'Plaid.BarChart' to use Collection&lt;T&gt;, ReadOnlyCollection&lt;T&gt; or KeyedCollection&lt;K,V&gt;</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#BudgetList" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
+             <Issue Certainty="90" Level="Error">Because field 'Plaid.BudgetList' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Issue>
+            </Message>
+            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
+             <Issue Certainty="95" Level="Error">Change 'List&lt;Budget&gt;' in 'Plaid.BudgetList' to use Collection&lt;T&gt;, ReadOnlyCollection&lt;T&gt; or KeyedCollection&lt;K,V&gt;</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#DeleteAccount()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="DependsOnFix">
-             <Issue Certainty="95" Level="Warning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="684">The 'this' parameter (or 'Me' in Visual Basic) of 'Plaid.DeleteAccount()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Issue>
+            <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="DependsOnFix">
+             <Issue Certainty="95" Level="Warning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="685">The 'this' parameter (or 'Me' in Visual Basic) of 'Plaid.DeleteAccount()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#DonutChart" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="90" Level="Error">Because field 'Plaid.DonutChart' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Issue>
             </Message>
-            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="Error">Change 'List&lt;DonutChartData&gt;' in 'Plaid.DonutChart' to use Collection&lt;T&gt;, ReadOnlyCollection&lt;T&gt; or KeyedCollection&lt;K,V&gt;</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#DonutDataSum(System.Collections.Generic.List`1&lt;PersonalFinance.Models.DonutChartData&gt;)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="Error" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="589">Change 'List&lt;DonutChartData&gt;' in 'Plaid.DonutDataSum(List&lt;DonutChartData&gt;)' to use Collection&lt;T&gt;, ReadOnlyCollection&lt;T&gt; or KeyedCollection&lt;K,V&gt;</Issue>
+            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
+             <Issue Certainty="95" Level="Error" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="590">Change 'List&lt;DonutChartData&gt;' in 'Plaid.DonutDataSum(List&lt;DonutChartData&gt;)' to use Collection&lt;T&gt;, ReadOnlyCollection&lt;T&gt; or KeyedCollection&lt;K,V&gt;</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#GetAccountList()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="Warning">Change 'Plaid.GetAccountList()' to a property if appropriate.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#GetCategories()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="Warning">Change 'Plaid.GetCategories()' to a property if appropriate.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#GetTransactions(System.Nullable`1&lt;System.DateTime&gt;,System.Nullable`1&lt;System.DateTime&gt;,System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
-             <Issue Certainty="75" Level="Error" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="435">Replace method 'Plaid.GetTransactions(DateTime?, DateTime?, string)' with an overload that supplies all default arguments.</Issue>
+            <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
+             <Issue Certainty="75" Level="Error" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="436">Replace method 'Plaid.GetTransactions(DateTime?, DateTime?, string)' with an overload that supplies all default arguments.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#GoalProgress()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="DependsOnFix">
-             <Issue Certainty="95" Level="Warning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="703">The 'this' parameter (or 'Me' in Visual Basic) of 'Plaid.GoalProgress()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Issue>
+            <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="DependsOnFix">
+             <Issue Certainty="95" Level="Warning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="704">The 'this' parameter (or 'Me' in Visual Basic) of 'Plaid.GoalProgress()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#InstitutionList" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="90" Level="Error">Because field 'Plaid.InstitutionList' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Issue>
             </Message>
-            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="Error">Change 'List&lt;Institution&gt;' in 'Plaid.InstitutionList' to use Collection&lt;T&gt;, ReadOnlyCollection&lt;T&gt; or KeyedCollection&lt;K,V&gt;</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#PopulateCharts(System.DateTime,System.DateTime)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="AvoidExcessiveComplexity" Category="Microsoft.Maintainability" CheckId="CA1502" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="NonBreaking">
-             <Issue Certainty="90" Level="Warning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="512">'Plaid.PopulateCharts(DateTime, DateTime)' has a cyclomatic complexity of 40. Rewrite or refactor the method to reduce complexity to 25.</Issue>
+            <Message TypeName="AvoidExcessiveComplexity" Category="Microsoft.Maintainability" CheckId="CA1502" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="NonBreaking">
+             <Issue Certainty="90" Level="Warning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="513">'Plaid.PopulateCharts(DateTime, DateTime)' has a cyclomatic complexity of 44. Rewrite or refactor the method to reduce complexity to 25.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Reauthaccounts" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="90" Level="Error">Because field 'Plaid.Reauthaccounts' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Issue>
             </Message>
-            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="Error">Change 'List&lt;AccountData&gt;' in 'Plaid.Reauthaccounts' to use Collection&lt;T&gt;, ReadOnlyCollection&lt;T&gt; or KeyedCollection&lt;K,V&gt;</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Transaction_list" Kind="Property" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="CollectionPropertiesShouldBeReadOnly" Category="Microsoft.Usage" CheckId="CA2227" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="CollectionPropertiesShouldBeReadOnly" Category="Microsoft.Usage" CheckId="CA2227" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="75" Level="Warning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="108">Change 'Plaid.Transaction_list' to be read-only by removing the property setter.</Issue>
             </Message>
-            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="Error" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="LogicModels.cs" Line="108">Change 'List&lt;User_Transactions&gt;' in 'Plaid.Transaction_list' to use Collection&lt;T&gt;, ReadOnlyCollection&lt;T&gt; or KeyedCollection&lt;K,V&gt;</Issue>
             </Message>
            </Messages>
@@ -277,14 +287,14 @@
          <Members>
           <Member Name="#Providers" Kind="Property" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="CollectionPropertiesShouldBeReadOnly" Category="Microsoft.Usage" CheckId="CA2227" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="CollectionPropertiesShouldBeReadOnly" Category="Microsoft.Usage" CheckId="CA2227" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="75" Level="Warning" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="AccountViewModels.cs" Line="22">Change 'SendCodeViewModel.Providers' to be read-only by removing the property setter.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#ReturnUrl" Kind="Property" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="UriPropertiesShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1056" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="UriPropertiesShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1056" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="75" Level="Error" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="AccountViewModels.cs" Line="23">Change the type of property 'SendCodeViewModel.ReturnUrl' from string to System.Uri.</Issue>
             </Message>
            </Messages>
@@ -295,7 +305,7 @@
          <Members>
           <Member Name="#ReturnUrl" Kind="Property" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="UriPropertiesShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1056" Status="Active" Created="2017-12-04 18:58:41Z" FixCategory="Breaking">
+            <Message TypeName="UriPropertiesShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1056" Status="Active" Created="2017-12-09 21:02:12Z" FixCategory="Breaking">
              <Issue Certainty="75" Level="Error" Path="C:\Users\Bill Lupo\Source\Repos\DataHive.PersonalFinance\PersonalFinance\PersonalFinance\Models" File="AccountViewModels.cs" Line="35">Change the type of property 'VerifyCodeViewModel.ReturnUrl' from string to System.Uri.</Issue>
             </Message>
            </Messages>

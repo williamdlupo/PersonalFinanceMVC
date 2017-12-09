@@ -127,6 +127,7 @@ namespace PersonalFinance.Models
         public string SelectedAccount { get; set; } = "All Accounts";
         public List<AccountData> Reauthaccounts = new List<AccountData>();
         public string p_token { get; set; } = "";
+        public List<Budget> BudgetList = new List<Budget>();
 
         //
         //Public accessor to create a new account in DB
