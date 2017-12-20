@@ -70,7 +70,7 @@ namespace PersonalFinance.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "A username is required")]
-        [Display(Name ="Username")]
+        [Display(Name = "Username")]
         public string Username { get; set; }
 
         [Required]

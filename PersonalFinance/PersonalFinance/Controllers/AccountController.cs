@@ -110,7 +110,7 @@ namespace PersonalFinance.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl,  model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Yikes! The username or password entered was not valid");
@@ -199,6 +199,7 @@ namespace PersonalFinance.Controllers
         //
         // POST: /Account/AccountSyncAsync
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> AccountSync(Response data)
         {
             Plaid plaid = new Plaid();
@@ -255,7 +256,7 @@ namespace PersonalFinance.Controllers
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action(
                        "ConfirmEmail", "Account",
-                       new { userId = user.Id, code = code },
+                       new { userId = user.Id,  code },
                        protocol: Request.Url.Scheme);
 
                     await UserManager.SendEmailAsync(user.Id,
@@ -294,7 +295,7 @@ namespace PersonalFinance.Controllers
         {
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
             var callbackUrl = Url.Action("ConfirmEmail", "Account",
-               new { userId = userID, code = code }, protocol: Request.Url.Scheme);
+               new { userId = userID,  code }, protocol: Request.Url.Scheme);
             await UserManager.SendEmailAsync(userID, subject,
                "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
@@ -327,7 +328,7 @@ namespace PersonalFinance.Controllers
                 }
 
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code }, protocol: Request.Url.Scheme);
                 await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                 TempData["result"] = "Please check your email to reset your password";
@@ -416,7 +417,7 @@ namespace PersonalFinance.Controllers
             {
                 return View("Error");
             }
-            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider,  model.ReturnUrl,  model.RememberMe });
         }
 
         //
@@ -557,6 +558,7 @@ namespace PersonalFinance.Controllers
         //
         // POST: /Account/Profiler
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Profiler(User_Finance data)
         {
             Plaid plaid = new Plaid();
@@ -602,6 +604,8 @@ namespace PersonalFinance.Controllers
             };
             plaid.GetTransactions();
 
+            //groups by category, sums up amounts and orders categories by greatest to least
+            //may want to broaden the date range and get the average amount spent per category
             var budgetquery = (from mem in plaid.Transaction_list
                               where mem.Amount > 0
                               group mem by mem.CategoryID into g

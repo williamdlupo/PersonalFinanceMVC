@@ -41,13 +41,13 @@ namespace PersonalFinance.Controllers
                 Start_date = Session["startdate"] as string,
                 End_date = Session["enddate"] as string
             };
-            
+
             var transaction_list = Session["transactions"] as List<User_Transactions>;
 
             if (transaction_list is null)
             {
                 await plaid.GetAccountList();
-                if (plaid.Reauthaccounts.Count != 0) { return RedirectToAction("AccountSync","Account"); }
+                if (plaid.Reauthaccounts.Count != 0) { return RedirectToAction("AccountSync", "Account"); }
                 plaid.GetTransactions();
                 Session["transactions"] = plaid.Transaction_list;
                 Session["BarChart"] = plaid.BarChart;
@@ -95,7 +95,7 @@ namespace PersonalFinance.Controllers
 
                 string selected_account = Session["AccountID"] as string;
 
-                if (!String.IsNullOrEmpty(selected_account)) { return RedirectToAction("Account", new { xyz = selected_account}); }
+                if (!String.IsNullOrEmpty(selected_account)) { return RedirectToAction("Account", new { xyz = selected_account }); }
 
                 plaid.User = user;
                 plaid.GetTransactions(start_date, end_date);
@@ -159,7 +159,7 @@ namespace PersonalFinance.Controllers
                 else
                     displayedTransactions = displayedTransactions.OrderByDescending(orderingFunction);
             }
-            else if(sortColumnIndex == 4)
+            else if (sortColumnIndex == 4)
             {
                 Func<User_Transactions, decimal> orderingFunction = (c => c.Amount);
                 var sortDirection = Request["sSortDir_0"]; // asc or desc
@@ -195,7 +195,7 @@ namespace PersonalFinance.Controllers
             return Json(new
             {
                 dom = "",
-                sEcho = param.sEcho,
+                param.sEcho,
                 iTotalRecords = plaid.Transaction_list.Count(),
                 iTotalDisplayRecords = plaid.Transaction_list.Count(),
                 iSortingCols = 5,
